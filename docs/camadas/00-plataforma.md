@@ -5,7 +5,7 @@
 ## 1. Objetivo e escopo
 
 - **Escopo:** cadastro de empresas, planos (Básico, Padrão, Completo), ajustes individuais, add-ons, cotas, assinatura, bloqueio, cobrança do SaaS, tabelas legais versionadas, painel Super Admin.
-- **Regras:** contrato por cliente, de três tipos (ADR 0018): mensal e anual, com valor fixo em iene e vencimento; Parceiro (vitalício), sem receita, para a Sugita e as parceiras indicadas por ela. Módulos opcionais marcados por cliente; planos Básico, Padrão e Completo são só modelos que pré-marcam módulos. Pagamento por 銀行振込 ou 現金, registrado manualmente; gateway na fase 3. Período de teste opcional. Status: Teste → Ativo → Em atraso (até 7 dias) → Somente leitura → Bloqueado (+15 dias); o contrato Parceiro nunca muda de status sozinho. O Super Admin pode suspender, reativar e cancelar qualquer empresa, com motivo e log. Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
+- **Regras:** contrato por cliente, de três tipos (ADR 0018): mensal e anual, com valor fixo em iene e vencimento; Parceiro (vitalício), sem receita, para a Sugita e as parceiras indicadas por ela. Módulos opcionais marcados por cliente; planos Básico, Padrão e Completo são só modelos que pré-marcam módulos. Pagamento por 銀行振込 ou 現金, registrado manualmente; gateway na fase 3. Período de teste opcional. Status: Teste → Ativo → Em atraso (até 7 dias) → Somente leitura → Bloqueado (+15 dias); o contrato Parceiro nunca muda de status sozinho. O Super Admin pode suspender, reativar e cancelar qualquer empresa, com motivo e log, exceto cancelar a Sugita (investidora, protegida pelo 覚書), que só pode ser suspensa por motivo técnico. Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
 - **Pronto quando:** uma empresa nova é criada, recebe plano e ajuste, e cada limite e funcionalidade é recusado pelo servidor quando fora do plano (teste automatizado por regra).
 
 ## 2. Decisões
@@ -14,7 +14,7 @@
 | --- | --- | --- |
 | 2026-10-28 | Escopo inicial herdado do documento-âncora | — |
 | 2026-10-28 | Provisionamento de empresas em banco único com RLS; banco dedicado como plano pago; convite pela fila | 0012 |
-| 2026-10-28 | Modelo comercial: contrato mensal, anual ou Parceiro (vitalício, sem receita); valor fixo; módulos por cliente; 銀行振込 e 現金; teste opcional; tolerância 7 + 15 dias; suspender, reativar e cancelar com motivo | 0018 |
+| 2026-10-28 | Modelo comercial: contrato mensal, anual ou Parceiro (vitalício, sem receita); valor fixo; módulos por cliente; 銀行振込 e 現金; teste opcional; tolerância 7 + 15 dias; suspender, reativar e cancelar com motivo; Sugita como investidora, sem cancelamento | 0018 |
 
 ## 3. Modelo de dados
 

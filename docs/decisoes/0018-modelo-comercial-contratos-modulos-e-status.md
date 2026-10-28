@@ -61,9 +61,16 @@ No Super Admin, o Mike cadastra cada cliente em quatro passos: dados da empresa 
   - **Cancelar:** encerra o contrato, com efeito imediato ou numa data marcada.
 - **Nenhum status apaga dados.**
 
+### Empresa investidora (Sugita)
+
+- **Só a Sugita Kogyo é marcada como investidora** (`is_investor`), coerente com a licença permanente e irrevogável prevista no 覚書.
+- **A investidora não pode ser cancelada.** A função de cancelamento no banco recusa a operação, e o botão não aparece no painel.
+- **Suspender continua possível**, só por motivo técnico (ex.: incidente de segurança), com motivo obrigatório e log. Ao resolver, ela é reativada.
+- **A marca de investidora não é editável no painel.** Ela só muda por migração no repositório, o que deixa a mudança registrada e revisada.
+
 ## Consequências
 
 - **O Super Admin fica simples:** um valor por contrato, sem contagem de funcionários.
 - **O sistema distingue receita de parceria:** o painel separa a receita dos contratos pagos e conta os parceiros à parte.
-- **A Sugita entra como Parceiro (vitalício)** e pode ser suspensa ou cancelada como qualquer outra empresa, o que precisa estar coerente com o 覚書 (licença permanente da Sugita, prevista no documento-âncora).
+- **A Sugita entra como Parceiro (vitalício) e investidora:** não pode ser cancelada, e só pode ser suspensa por motivo técnico. As parceiras indicadas por ela podem ser suspensas e canceladas como qualquer outra empresa.
 - **Pendentes para a especificação do Super Admin:** limite de admins por contrato, modelo e numeração do recibo ou 請求書 do SaaS (depende da camada 08) e o que cada status mostra em cada tela.
