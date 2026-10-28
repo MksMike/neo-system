@@ -1099,7 +1099,7 @@ export type Database = {
           display_name: string;
           employee_login_id: string | null;
           id: string;
-          locale: string;
+          locale: string | null;
           login_kind: string;
           updated_at: string;
           updated_by: string | null;
@@ -1114,7 +1114,7 @@ export type Database = {
           display_name: string;
           employee_login_id?: string | null;
           id?: string;
-          locale?: string;
+          locale?: string | null;
           login_kind: string;
           updated_at?: string;
           updated_by?: string | null;
@@ -1128,7 +1128,7 @@ export type Database = {
           display_name?: string;
           employee_login_id?: string | null;
           id?: string;
-          locale?: string;
+          locale?: string | null;
           login_kind?: string;
           updated_at?: string;
           updated_by?: string | null;
@@ -1208,6 +1208,7 @@ export type Database = {
         };
         Returns: Json;
       };
+      set_my_locale: { Args: { p_locale: string }; Returns: undefined };
       suspend_company: { Args: { p_company_id: string; p_reason: string }; Returns: undefined };
     };
     Enums: {

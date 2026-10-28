@@ -258,7 +258,9 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
       owner: form.owner,
     });
     if (result.ok) {
-      router.push(`/super/empresas?criada=${encodeURIComponent(result.data.code)}`);
+      // The list opens filtered by the new code, so the new company is in view however long the list is.
+      const code = encodeURIComponent(result.data.code);
+      router.push(`/super/empresas?q=${code}&criada=${code}`);
       return;
     }
     const field = result.detail ? DETAIL_FIELDS[result.detail] : undefined;

@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import {
   Dialog as DialogPrimitive,
   DropdownMenu as MenuPrimitive,
+  Popover as PopoverPrimitive,
   Tooltip as TooltipPrimitive,
 } from 'radix-ui';
 import type { ComponentProps, ReactNode } from 'react';
@@ -115,6 +116,34 @@ export function DropdownMenuSeparator({
   );
 }
 
+/* ---------- Popover (panel with form controls, e.g. the account menu) ---------- */
+
+export const Popover = PopoverPrimitive.Root;
+export const PopoverTrigger = PopoverPrimitive.Trigger;
+export const PopoverClose = PopoverPrimitive.Close;
+
+/** Same surface as the dropdown menu; unlike it, holds switches, selects and buttons. */
+export function PopoverContent({
+  className,
+  sideOffset = 8,
+  align = 'end',
+  ...props
+}: ComponentProps<typeof PopoverPrimitive.Content>) {
+  return (
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        sideOffset={sideOffset}
+        align={align}
+        className={cn(
+          'z-(--z-dropdown) w-[min(300px,calc(100vw-32px))] animate-nx-enter rounded-lg border border-line bg-surface-1 p-2 shadow-md outline-none',
+          className,
+        )}
+        {...props}
+      />
+    </PopoverPrimitive.Portal>
+  );
+}
+
 /* ---------- Dialog and drawer ---------- */
 
 export const Dialog = DialogPrimitive.Root;
@@ -122,7 +151,8 @@ export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 
 export type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
-  /** `dialog` is centered; `drawer` slides in from the right; `drawer-start` from the left (menus). */
+  /** `dialog` is centered; `drawer` slides in from the right; `drawer-start` enters from the left
+   * and leaves fading out to the right (menus). */
   layout?: 'dialog' | 'drawer' | 'drawer-start';
   /** Accessible label of the close button (already translated). */
   closeLabel: string;
@@ -137,7 +167,14 @@ export function DialogContent({
 }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className="fixed inset-0 z-(--z-overlay) animate-nx-enter bg-overlay" />
+      <DialogPrimitive.Overlay
+        className={cn(
+          'fixed inset-0 z-(--z-overlay) bg-overlay',
+          layout === 'drawer-start'
+            ? 'data-[state=closed]:animate-nx-fade-out data-[state=open]:animate-nx-fade-in'
+            : 'animate-nx-enter',
+        )}
+      />
       <DialogPrimitive.Content
         className={cn(
           'fixed z-(--z-modal) flex flex-col gap-4 border border-line bg-surface-1 p-6 shadow-lg outline-none',
@@ -146,7 +183,7 @@ export function DialogContent({
           layout === 'drawer' &&
             'top-0 right-0 h-full w-[min(420px,100vw)] animate-nx-enter rounded-l-xl border-r-0',
           layout === 'drawer-start' &&
-            'top-0 left-0 h-full w-[min(300px,85vw)] animate-nx-enter rounded-r-xl border-l-0 p-0',
+            'top-0 left-0 h-full w-[min(300px,85vw)] rounded-r-xl border-l-0 p-0 data-[state=closed]:animate-nx-drawer-out data-[state=open]:animate-nx-drawer-in',
           className,
         )}
         {...props}

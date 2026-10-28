@@ -398,14 +398,14 @@ A fase 1 tem sete marcos (M0–M6), cada um com critério de passagem objetivo. 
 | M0 · Fundação (contrato assinado antes) | Repositório, CI, Supabase, RLS, login, papéis, auditoria, design system, idiomas, docs | Testes de RLS e permissões provam o isolamento entre empresas |
 | M1 · Cadastros e configurações | Configurações com vigência, organizações e subs, locais, ficha completa, importação do Bubble | Cadastros do Bubble importados sem duplicatas; ficha com os campos do 作業員名簿 |
 | M2 · Escalação e apontamento | Escalações, grade 勤怠表, app Hoje, 班長, travas, trabalho interno, registro offline, alertas, mensagem do LINE | Uma semana real da Sugita registrada pelo app bate com o lançamento manual |
-| M3 · Fechamento e faturamento | Fechamento, PDFs, 請求書 e 勤怠表 com envio por e-mail, biblioteca, 在職証明書, recebimentos, painel | O 請求書 de setembro do 熊澤工業 (¥1,047,200) é reproduzido exatamente |
+| M3 · Fechamento e faturamento | Fechamento, PDFs, 請求書 e 勤怠表 com envio por e-mail, Painel do Cliente (portal para receber 請求書 e 勤怠表, ADR 0025), biblioteca, 在職証明書, recebimentos, painel | O 請求書 de setembro do 熊澤工業 (¥1,047,200) é reproduzido exatamente |
 | M4 · Folha e pagamentos | Folha por ciclo, 給与明細, 請求書 do 下請, adiantamentos, 全銀, dinheiro, caixa, despesas, arquivo mensal | Folha de setembro igual à do Bubble; diferença só se for erro documentado do Bubble |
 | M5 · Operação paralela e go-live da Sugita | Um mês nos dois sistemas; 勤怠表, 請求書 e folha comparados linha a linha | Zero diferença não explicada; Bubble somente leitura por 3 meses |
 | M6 · SaaS comercial | Planos, licenças, assinatura com cobrança manual, bloqueio, Super Admin, termos de uso | A segunda empresa opera sozinha no sistema |
-| Fase 2 · Diferenciais | LINE oficial e Login, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
+| Fase 2 · Diferenciais | LINE oficial e Login, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, criar e abrir Excel e Word no sistema (ADR 0025), PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
 | Fase 3 · Expansão | CCUS, gateway de cobrança recorrente, conexão bancária automática, carteira digital, prova de japonês, app nativo se necessário | — |
 
-Um marco só começa quando o anterior passou no critério. Datas são definidas quando as pendências de dados da Sugita estiverem respondidas; cada marco termina com versão publicada, demo para a Sugita e CHANGELOG. As obrigações anuais da folha (年末調整 e afins) são entrega obrigatória antes do primeiro dezembro após o go-live.
+Um marco só começa quando o anterior passou no critério. Exceção registrada: a demonstração do ciclo do dia antes do M1 completo (ADR 0025); o menu do painel segue o [mapa de funcionalidades](mapa-de-funcionalidades.md). Datas são definidas quando as pendências de dados da Sugita estiverem respondidas; cada marco termina com versão publicada, demo para a Sugita e CHANGELOG. As obrigações anuais da folha (年末調整 e afins) são entrega obrigatória antes do primeiro dezembro após o go-live.
 
 ## Plano de desenvolvimento
 

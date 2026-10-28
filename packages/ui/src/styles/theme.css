@@ -24,6 +24,11 @@
   --animate-nx-pulse: nx-pulse 1.4s ease-in-out infinite;
   --animate-nx-enter: nx-enter var(--dur-base) cubic-bezier(0.2, 0, 0, 1) both;
   --animate-nx-shake: nx-shake 0.4s cubic-bezier(0.2, 0, 0, 1);
+  /* Side drawer: enters fading in from the left, leaves fading out to the right. */
+  --animate-nx-drawer-in: nx-drawer-in var(--dur-slow) cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-nx-drawer-out: nx-drawer-out var(--dur-base) cubic-bezier(0.3, 0, 1, 1) both;
+  --animate-nx-fade-in: nx-fade-in var(--dur-slow) cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-nx-fade-out: nx-fade-out var(--dur-base) cubic-bezier(0.3, 0, 1, 1) both;
 
   @keyframes nx-spin {
     to {
@@ -39,6 +44,28 @@
     from {
       opacity: 0;
       transform: translateY(6px);
+    }
+  }
+  @keyframes nx-drawer-in {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes nx-drawer-out {
+    to {
+      opacity: 0;
+      transform: translateX(48px);
+    }
+  }
+  @keyframes nx-fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes nx-fade-out {
+    to {
+      opacity: 0;
     }
   }
   @keyframes nx-shake {

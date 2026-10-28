@@ -2,7 +2,7 @@ import 'server-only';
 import { createUserClient, type Db } from '@neo/db/server';
 import { cookies } from 'next/headers';
 import { cache } from 'react';
-import type { SessionMembership, SessionSummary } from '@/lib/destination';
+import { officeMemberships, type SessionMembership, type SessionSummary } from '@/lib/destination';
 
 /** Company chosen in /selecionar-empresa. Always validated against the memberships, never trusted. */
 export const COMPANY_COOKIE = 'neo-company';
@@ -10,6 +10,10 @@ export const COMPANY_COOKIE = 'neo-company';
 export interface Session extends SessionSummary {
   userId: string;
   email: string;
+  /** Name in the profile, when there is one. */
+  displayName: string | null;
+  /** Language saved by the person (layer 01); the app opens in it after login. */
+  locale: string | null;
 }
 
 export async function userClient(): Promise<Db> {
@@ -28,12 +32,16 @@ export const getSession = cache(async (): Promise<Session | null> => {
   if (error) throw error;
   const summary = data as unknown as {
     is_platform_admin: boolean;
+    display_name: string | null;
+    locale: string | null;
     memberships: SessionMembership[];
   };
   return {
     userId: user.id,
     email: user.email ?? '',
     isPlatformAdmin: summary.is_platform_admin,
+    displayName: summary.display_name,
+    locale: summary.locale,
     memberships: summary.memberships,
   };
 });
@@ -51,3 +59,18 @@ export async function setActiveCompany(companyId: string): Promise<void> {
 export async function activeCompanyId(): Promise<string | undefined> {
   return (await cookies()).get(COMPANY_COOKIE)?.value;
 }
+
+/**
+ * Company of the office panel: the one chosen in /selecionar-empresa, or the only one.
+ * Null when there is none to show (the layout sends the person to the login or the choice).
+ */
+export const activeOfficeMembership = cache(async (): Promise<SessionMembership | null> => {
+  const session = await getSession();
+  if (!session) return null;
+  const office = officeMemberships(session);
+  const chosen = await activeCompanyId();
+  return (
+    office.find((m) => m.company_id === chosen) ??
+    (office.length === 1 ? (office[0] ?? null) : null)
+  );
+});

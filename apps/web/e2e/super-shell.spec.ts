@@ -50,7 +50,7 @@ test('on a phone the menu opens as a drawer and closes after navigating', async 
   await signInAsSuperAdmin(page);
 
   await expect(page.getByRole('navigation', { name: 'Menu do Super Admin' })).toBeHidden();
-  await page.getByRole('button', { name: 'Abrir menu' }).click();
+  await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
   const drawer = page.getByRole('dialog');
   await drawer.getByRole('link', { name: 'Pagamentos' }).click();
 
