@@ -16,6 +16,9 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0016: identidade e acesso. Funcionário entra com ID numérico de 8 dígitos + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, sessão expira após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership` com 2FA exigido também no banco. Substitui a ADR 0004. (2026-10-28)
 - ADR 0017: DevOps. CI em todo PR (lint, typecheck, test, testes de RLS com Supabase local, build); deploy pelo CI com migrações primeiro e build publicado na branch `deploy` da Hostinger; backup diário criptografado no Cloudflare R2 com teste de restauração mensal; Sentry, monitor de disponibilidade e Dependabot. Sem proteção da `main` (plano gratuito); o deploy roda o CI de novo e não publica se falhar. (2026-10-28)
 - ADR 0018: modelo comercial. Contrato por cliente mensal, anual ou Parceiro (vitalício, sem receita, nunca muda de status sozinho); valor fixo em iene; módulos marcados por cliente, com planos só como modelos; pagamento por 銀行振込 ou 現金 registrado à mão; teste opcional; tolerância de 7 dias até somente leitura e mais 15 até bloqueio; suspender, reativar e cancelar com motivo; a Sugita, como investidora, não pode ser cancelada e só pode ser suspensa por motivo técnico. (2026-10-28)
+- ADR 0019: validação e higienização de entradas em todo o projeto. Esquemas por tipo de campo em `packages/validation`, normalização NFKC, máscaras de CEP (123-4567) e telefone (090-1234-5678; fixo pelo código de área), texto sempre exibido como texto, DOMPurify para HTML, CSP, fórmulas neutralizadas em CSV/Excel. (2026-10-28)
+- ADR 0020: concorrência e erros. Criação idempotente por ID gerado na tela, edição com `version`, numeração travada no banco, pooler do Supabase, resposta padrão `{ ok, code, message }` com alerta no idioma do usuário e repetição automática só em operação idempotente. (2026-10-28)
+- ADR 0021: registro offline no app do funcionário no M2. PWA com fila no celular, envio automático quando o sinal volta, prazo pela hora do toque, relógio suspeito e conflitos para o admin. (2026-10-28)
 
 ### Alterado
 
@@ -23,3 +26,4 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Documento-âncora, `docs/02` e guia de início: Vercel trocada pela Hostinger; jobs pela fila `job` em vez de Edge Functions; tabela de fases por gatilho de dados reais. (2026-10-28)
 - Documento-âncora, camada 01 e inventário de telas: login do funcionário por ID de 8 dígitos + PIN; ponto #8 das decisões marcado como resolvido. (2026-10-28)
 - Documento-âncora e camada 00: regra de cobrança por funcionário ativo trocada pelo modelo da ADR 0018; pendência comercial atualizada. (2026-10-28)
+- Documento-âncora, camada 07, `docs/02` e CLAUDE.md: offline saiu da fase 2 para o M2; novo pacote `packages/validation`; coluna `version` obrigatória; regras 11 (entradas) e 12 (falhas nunca silenciosas) no CLAUDE.md. (2026-10-28)

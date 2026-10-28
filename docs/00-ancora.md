@@ -115,7 +115,7 @@ A revisão da especificação encontrou 18 pontos contraditórios ou vagos. A co
 | 6 | 外注会社 como vínculo | Listado como tipo de funcionário | **Removido.** Empresa terceira é organização; seus trabalhadores entram como 下請 vinculados a ela ✱ |
 | 7 | Limite de admins | Sugita com 1 admin; recomendação de 2–3 no Básico | Admin = Proprietário + Gestor. Limites: Básico 2, Padrão 3, Completo ilimitado. Sugita: Padrão com ajuste para 1 ✱ |
 | 8 | Login na fase 1 | LINE Login só na fase 2; fase 1 sem método definido | Fase 1: **ID de 8 dígitos + PIN de 4 dígitos**; admins com e-mail + senha e 2FA. LINE Login na fase 2 (ADR 0016) |
-| 9 | Modo offline | Fase 2, mas a confirmação diária (fase 1) acontece em planta sem sinal | Fase 1: exceção de registro tardio com prazo e motivo (camada 07). Offline completo na fase 2 |
+| 9 | Modo offline | Fase 2, mas a confirmação diária (fase 1) acontece em planta sem sinal | Fase 1 (M2): **registro offline** no app, com fila no celular e envio automático (ADR 0021); o registro tardio pelo 班長 continua para quem não usou o app |
 | 10 | Escopo da fase 1 | Incluía conciliação bancária, despesas, design system completo e planos: grande demais para substituir o Bubble | Fase 1 dividida em marcos (Roadmap). Conciliação e leitura por IA vão para a fase 2 ✱ |
 | 11 | Dois 締め | "締め" usado para fatura e para folha | São independentes: 締め do **cliente** (fatura) e 締め do **ciclo de pagamento** (folha) |
 | 12 | Imposto no registro do dia | Tela do Bubble tinha imposto no dia | Imposto só na escalação/cliente e na fatura; calculado uma vez sobre o total |
@@ -264,7 +264,7 @@ O sistema tem 16 camadas. Cada uma tem um documento de referência em `docs/cama
 | 04 | Organizações e locais | Cadastro único de organizações, clientes, cadeia de subs (cor e sigla), locais, regras de cobrança | 03 | M1 |
 | 05 | Funcionários | Ficha completa, vínculo, estrangeiro, qualificações, vencimentos, japonês, pagamento | 03 | M1; CCUS na fase 3 |
 | 06 | Escalação e calendário | Escalações, alocação, equipes, grade 勤怠表, conflitos, mensagem do LINE | 04, 05 | M2 |
-| 07 | Apontamento | Confirmação diária (funcionário e 班長), geolocalização, travas, trechos, trabalho interno, ocorrências e multas | 06 | M2; offline na fase 2 |
+| 07 | Apontamento | Confirmação diária (funcionário e 班長), geolocalização, travas, trechos, trabalho interno, ocorrências e multas | 06 | M2, com offline (ADR 0021) |
 | 08 | Documentos e biblioteca | Motor de PDF, modelos, numeração, armazenamento e guarda, biblioteca, arquivo mensal, modelos e editor | 03 | M3 |
 | 09 | Fechamento e faturamento | Fechamento da escalação, 請求書 consolidado, 勤怠表, ciclo de recebimento | 07, 08 | M3 |
 | 10 | Folha e pagamentos | Folha por ciclo, 給与明細, 請求書 do 下請, 支払明細書, adiantamentos, lotes 全銀 e dinheiro | 07, 08 | M4; carteira digital na fase 3 |
@@ -323,7 +323,7 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 
 ### 07 · Apontamento
 
-- **Escopo:** card "Hoje" no app com confirmação em um toque (定時) e exceções (残業, 半日, fora do horário, escritório, adicionais, observação, foto); modo 1 toque ou 出勤 + 退勤; geolocalização com raio por local; confirmação pelo 班長 para os membros liberados; registro de trabalho interno pelo funcionário (aguarda aprovação); ocorrências e multas pelo admin; solicitação de correção. Fase 2: modo offline (grava no celular com horário e localização do toque e sincroniza depois).
+- **Escopo:** card "Hoje" no app com confirmação em um toque (定時) e exceções (残業, 半日, fora do horário, escritório, adicionais, observação, foto); modo 1 toque ou 出勤 + 退勤; geolocalização com raio por local; confirmação pelo 班長 para os membros liberados; registro de trabalho interno pelo funcionário (aguarda aprovação); ocorrências e multas pelo admin; solicitação de correção. Modo offline no M2 (ADR 0021): grava no celular com horário e localização do toque e envia sozinho quando o sinal volta.
 - **Travas:** passado não muda, exceto por (a) solicitação de correção aprovada pelo admin ou (b) registro tardio pelo 班長 ou admin até o fechamento da escalação, com motivo obrigatório, marcado no registro e listado no fechamento; hoje editável até o corte configurável (ex.: 5h do dia seguinte); futuro aceita marcar e desmarcar 休 (有給 vira pedido). 休 futuro avisa admin e coordenador na hora.
 - **Regras:** status Pendente → Confirmado → Aprovado; cada registro guarda quem confirmou (próprio, 班長, admin). Em "ambos registram", divergência vai para o admin. Fora do raio ou sem GPS registra e marca, não bloqueia. 班長 não vê valores, não multa e só mexe no passado pelo registro tardio. Trabalho interno em minutos, pago pela diária interna ÷ jornada. Multa (減給の制裁) separada do desconto de tempo não trabalhado; motivo obrigatório; funcionário vê e contesta. Lembrete automático (ex.: 18h).
 - **Pronto quando:** uma semana real da Sugita foi registrada pelo app (funcionários e um 班長) e bate com o lançamento manual.
@@ -394,12 +394,12 @@ A fase 1 tem sete marcos (M0–M6), cada um com critério de passagem objetivo. 
 | --- | --- | --- |
 | M0 · Fundação (contrato assinado antes) | Repositório, CI, Supabase, RLS, login, papéis, auditoria, design system, idiomas, docs | Testes de RLS e permissões provam o isolamento entre empresas |
 | M1 · Cadastros e configurações | Configurações com vigência, organizações e subs, locais, ficha completa, importação do Bubble | Cadastros do Bubble importados sem duplicatas; ficha com os campos do 作業員名簿 |
-| M2 · Escalação e apontamento | Escalações, grade 勤怠表, app Hoje, 班長, travas, trabalho interno, alertas, mensagem do LINE | Uma semana real da Sugita registrada pelo app bate com o lançamento manual |
+| M2 · Escalação e apontamento | Escalações, grade 勤怠表, app Hoje, 班長, travas, trabalho interno, registro offline, alertas, mensagem do LINE | Uma semana real da Sugita registrada pelo app bate com o lançamento manual |
 | M3 · Fechamento e faturamento | Fechamento, PDFs, 請求書 e 勤怠表 com envio por e-mail, biblioteca, 在職証明書, recebimentos, painel | O 請求書 de setembro do 熊澤工業 (¥1,047,200) é reproduzido exatamente |
 | M4 · Folha e pagamentos | Folha por ciclo, 給与明細, 請求書 do 下請, adiantamentos, 全銀, dinheiro, caixa, despesas, arquivo mensal | Folha de setembro igual à do Bubble; diferença só se for erro documentado do Bubble |
 | M5 · Operação paralela e go-live da Sugita | Um mês nos dois sistemas; 勤怠表, 請求書 e folha comparados linha a linha | Zero diferença não explicada; Bubble somente leitura por 3 meses |
 | M6 · SaaS comercial | Planos, licenças, assinatura com cobrança manual, bloqueio, Super Admin, termos de uso | A segunda empresa opera sozinha no sistema |
-| Fase 2 · Diferenciais | LINE oficial e Login, offline, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
+| Fase 2 · Diferenciais | LINE oficial e Login, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
 | Fase 3 · Expansão | CCUS, gateway de cobrança recorrente, conexão bancária automática, carteira digital, prova de japonês, app nativo se necessário | — |
 
 Um marco só começa quando o anterior passou no critério. Datas são definidas quando as pendências de dados da Sugita estiverem respondidas; cada marco termina com versão publicada, demo para a Sugita e CHANGELOG. As obrigações anuais da folha (年末調整 e afins) são entrega obrigatória antes do primeiro dezembro após o go-live.
@@ -463,6 +463,7 @@ saas-genba/
 ├─ packages/calc/         cálculos puros (folha, impostos, fatura) + golden tests
 ├─ packages/pdf/          modelos e motor de PDF
 ├─ packages/ui/           design system
+├─ packages/validation/   esquemas de entrada, normalização e máscaras
 ├─ supabase/
 │  ├─ migrations/         esquema do banco versionado
 │  ├─ functions/          funções de servidor e jobs

@@ -14,7 +14,9 @@ Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura)
 | Componentes | shadcn/ui (Radix por baixo) | Copiados para `packages/ui`, adaptados aos tokens |
 | Ícones | Lucide | Um único conjunto, traço 1.75 |
 | Animações | Motion (antigo Framer Motion) + transições CSS | Durações e curvas vêm dos tokens |
-| Formulários | react-hook-form + Zod | O mesmo esquema Zod valida no cliente e no servidor |
+| Formulários | react-hook-form + Zod | O mesmo esquema Zod valida no cliente e no servidor; esquemas por tipo de campo em `packages/validation` (ADR 0019) |
+| Entradas | libphonenumber-js (telefone fixo e fax), DOMPurify (HTML formatado), normalização NFKC | Máscaras como componentes de `packages/ui` (ADR 0019) |
+| Offline (app do funcionário) | Serwist (service worker) + Dexie (IndexedDB) | Fila de registros no celular com envio automático (ADR 0021) |
 | Tabelas e grade | TanStack Table (+ virtualização para a grade 勤怠表) | |
 | Datas | date-fns + @date-fns/tz | Fuso Asia/Tokyo; 和暦 por utilitário próprio |
 | Calendário e date picker | react-day-picker (via shadcn) | Localizado em ja/pt/es/en |
@@ -57,6 +59,7 @@ NEO-SYSTEM/
 │  ├─ pdf/                    modelos de PDF
 │  ├─ db/                     cliente Supabase, tipos gerados, camada de portabilidade
 │  ├─ ai/                     serviço único de IA
+│  ├─ validation/             esquemas Zod por tipo de campo, normalização e máscaras (ADR 0019)
 │  └─ config/                 tsconfig, eslint, prettier compartilhados
 ├─ supabase/
 │  ├─ migrations/             SQL versionado
@@ -70,11 +73,12 @@ NEO-SYSTEM/
 ## Convenções de código
 
 - **Nomes:** tabelas e colunas em `snake_case` no singular do glossário (`work_entry`, `payroll_run`); TypeScript em `camelCase`; componentes em `PascalCase`; arquivos em `kebab-case`.
-- **Colunas obrigatórias** em toda tabela de negócio: `id uuid`, `company_id uuid`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`.
+- **Colunas obrigatórias** em toda tabela de negócio: `id uuid`, `company_id uuid`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted_at`, `version integer` (concorrência otimista, ADR 0020). O `id` é gerado na tela quando o registro nasce lá (idempotência).
 - **Configurações com vigência:** `valid_from date`, nunca sobrescrever a linha antiga.
 - **Dinheiro:** colunas `*_yen bigint`; minutos: `*_minutes integer`.
 - **Regras numeradas:** `R<camada>-<nº>` no documento da camada, citadas no nome do teste: `it('R10-07 multa limitada a 50% do 平均賃金 por ocorrência')`.
-- **Server Actions** validam com Zod, checam permissão e registram auditoria; nunca confiam no cliente.
+- **Server Actions** validam com os esquemas de `packages/validation`, checam permissão, registram auditoria e devolvem `{ ok, data }` ou `{ ok: false, code, message }` (ADR 0020); nunca confiam no cliente.
+- **Entradas:** normalização NFKC, máscaras de CEP (`123-4567`) e telefone, texto sempre exibido como texto, `dangerouslySetInnerHTML` proibido, exportação CSV/Excel com fórmulas neutralizadas (ADR 0019).
 - **Componentes de tela** usam só `packages/ui`; estilo novo vira token ou variante, nunca CSS solto.
 - **Textos** sempre por chave de i18n.
 - **Acessibilidade:** botões reais, rótulos em todos os campos, foco visível, contraste AA, alvo de toque ≥ 44 px no app do funcionário.
