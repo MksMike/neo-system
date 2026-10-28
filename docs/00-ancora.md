@@ -202,6 +202,9 @@ Estas regras valem para todas as camadas; um módulo só é considerado pronto s
 - Arquivos em storage privado, entregues por link assinado de curta duração.
 - Geolocalização capturada só no toque de confirmação, com aviso de finalidade (個人情報保護法).
 - O sistema nunca guarda senha de banco nem movimenta dinheiro.
+- Ninguém escreve direto nas tabelas: toda escrita passa por funções SQL que validam de novo; o usuário anônimo não acessa tabela nenhuma (ADR 0023).
+- Toda entrada é validada e normalizada pelo mesmo esquema na tela e no servidor; texto é sempre exibido como texto (ADR 0019).
+- Todo evento do sistema tem código do catálogo e aparece no painel de saúde do Super Admin; logs nunca contêm dados pessoais (ADR 0022).
 
 ### Papéis
 

@@ -47,6 +47,12 @@ NEO-SYSTEM é um SaaS multi-empresa para empresas de genba (manutenção e const
     - edição com `version` (concorrência otimista);
     - toda ação devolve `{ ok, code, message }`, e a tela mostra um alerta no idioma do usuário;
     - repetição automática só em operação idempotente.
+13. **Escrita só por funções SQL** (ADR 0023):
+    - `anon` sem acesso a tabelas, e `authenticated` sem `INSERT`, `UPDATE` ou `DELETE` direto em tabela de negócio;
+    - funções `SECURITY DEFINER` com `search_path` fixo;
+    - SQL dinâmico só com `format(%I, %L)`;
+    - módulos com `service_role` importam `server-only`.
+14. **Todo evento tem código do catálogo** (`ÁREA.CATEGORIA.EVENTO`, ADR 0022), e nenhum log contém PIN, senha, token ou dado pessoal.
 
 ## Idiomas
 

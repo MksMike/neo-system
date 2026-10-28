@@ -19,6 +19,8 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0019: validação e higienização de entradas em todo o projeto. Esquemas por tipo de campo em `packages/validation`, normalização NFKC, máscaras de CEP (123-4567) e telefone (090-1234-5678; fixo pelo código de área), texto sempre exibido como texto, DOMPurify para HTML, CSP, fórmulas neutralizadas em CSV/Excel. (2026-10-28)
 - ADR 0020: concorrência e erros. Criação idempotente por ID gerado na tela, edição com `version`, numeração travada no banco, pooler do Supabase, resposta padrão `{ ok, code, message }` com alerta no idioma do usuário e repetição automática só em operação idempotente. (2026-10-28)
 - ADR 0021: registro offline no app do funcionário no M2. PWA com fila no celular, envio automático quando o sinal volta, prazo pela hora do toque, relógio suspeito e conflitos para o admin. (2026-10-28)
+- ADR 0022: observabilidade. Eventos com código `ÁREA.CATEGORIA.EVENTO` e severidade, catálogo em `packages/observability`, eventos por 30 dias e métricas por 1 ano no Postgres, painel `/super/sistema` (saúde, logs, gargalos, segurança, fila, banco), alertas só no painel e logs sem dados pessoais. (2026-10-28)
+- ADR 0023: segurança da aplicação. `anon` sem acesso, escrita só por funções SQL, `search_path` fixo, SQL dinâmico só com `format`, `server-only`, cabeçalhos de segurança; no CI, `supabase db lint`, teste de RLS e de permissões, Semgrep, gitleaks e `pnpm audit`; OWASP ZAP semanal; teste de invasão antes dos dados reais. (2026-10-28)
 
 ### Alterado
 
@@ -27,3 +29,4 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Documento-âncora, camada 01 e inventário de telas: login do funcionário por ID de 8 dígitos + PIN; ponto #8 das decisões marcado como resolvido. (2026-10-28)
 - Documento-âncora e camada 00: regra de cobrança por funcionário ativo trocada pelo modelo da ADR 0018; pendência comercial atualizada. (2026-10-28)
 - Documento-âncora, camada 07, `docs/02` e CLAUDE.md: offline saiu da fase 2 para o M2; novo pacote `packages/validation`; coluna `version` obrigatória; regras 11 (entradas) e 12 (falhas nunca silenciosas) no CLAUDE.md. (2026-10-28)
+- Documento-âncora, `docs/02`, inventário (`/super/sistema` antecipada para o M0) e CLAUDE.md (regras 13 e 14): escrita só por funções SQL e logs com códigos. (2026-10-28)

@@ -119,18 +119,24 @@ Plataforma do SaaS, só para o Mike. Rota base `/super`.
 
 #### Saúde do sistema
 
-`/super/sistema` · M5
+`/super/sistema` · M0 (base) e seguintes (ADR 0022)
 
 **Contém**
 
-- Backups (último, restauração testada)
-- Jobs e filas
-- Erros recentes (Sentry)
-- E-mails com falha de entrega
+- Saúde: disponibilidade, taxa de erro, tempo de resposta p95, versão publicada
+- Logs: busca por código (`ÁREA.CATEGORIA.EVENTO`), severidade, empresa, usuário, período e ID da requisição
+- Gargalos: rotas, consultas e tarefas mais lentas
+- Segurança: logins falhos, bloqueios, recusas do RLS, limites atingidos, entradas rejeitadas, CSP, resultado da varredura semanal
+- Fila: tarefas pendentes e com falha
+- Banco: espaço usado em relação ao limite, conexões, consultas lentas
+- Backups (último, restauração testada) e e-mails com falha de entrega
+- Alertas críticos abertos no topo do Super Admin
 
 **Ações**
 
-- Reexecutar job
+- Filtrar e abrir o erro no Sentry
+- Marcar alerta como visto
+- Reexecutar tarefa
 - Baixar backup
 
 ## Acesso

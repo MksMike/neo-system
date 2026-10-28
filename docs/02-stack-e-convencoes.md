@@ -33,7 +33,8 @@ Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura)
 | IA | API do Claude atrás de `packages/ai` | Ver ADR 0008 |
 | Testes | Vitest (unitário e golden tests), Playwright (ponta a ponta), pgTAP (RLS) | |
 | Qualidade | ESLint + Prettier, TypeScript `noUncheckedIndexedAccess` | |
-| Erros | Sentry | |
+| Erros e logs | Sentry + logger estruturado (`packages/observability`) gravando eventos e métricas no Postgres | Códigos `ÁREA.CATEGORIA.EVENTO`; painel em `/super/sistema` (ADR 0022) |
+| Segurança | Escrita só por funções SQL, `server-only`, cabeçalhos (CSP, HSTS), Semgrep, gitleaks, `supabase db lint`, OWASP ZAP semanal | ADR 0023 |
 | CI | GitHub Actions | lint, typecheck, test, testes do banco, build |
 
 ## Estrutura do repositório
@@ -60,6 +61,7 @@ NEO-SYSTEM/
 │  ├─ db/                     cliente Supabase, tipos gerados, camada de portabilidade
 │  ├─ ai/                     serviço único de IA
 │  ├─ validation/             esquemas Zod por tipo de campo, normalização e máscaras (ADR 0019)
+│  ├─ observability/          logger estruturado, catálogo de códigos de evento, remoção de campos proibidos (ADR 0022)
 │  └─ config/                 tsconfig, eslint, prettier compartilhados
 ├─ supabase/
 │  ├─ migrations/             SQL versionado
@@ -79,6 +81,8 @@ NEO-SYSTEM/
 - **Regras numeradas:** `R<camada>-<nº>` no documento da camada, citadas no nome do teste: `it('R10-07 multa limitada a 50% do 平均賃金 por ocorrência')`.
 - **Server Actions** validam com os esquemas de `packages/validation`, checam permissão, registram auditoria e devolvem `{ ok, data }` ou `{ ok: false, code, message }` (ADR 0020); nunca confiam no cliente.
 - **Entradas:** normalização NFKC, máscaras de CEP (`123-4567`) e telefone, texto sempre exibido como texto, `dangerouslySetInnerHTML` proibido, exportação CSV/Excel com fórmulas neutralizadas (ADR 0019).
+- **Escrita no banco** só por funções SQL, com `search_path` fixo quando `SECURITY DEFINER`; nunca `INSERT`/`UPDATE`/`DELETE` direto do cliente (ADR 0023).
+- **Logs:** todo evento com código do catálogo (`ÁREA.CATEGORIA.EVENTO`); nunca PIN, senha, token ou dado pessoal (ADR 0022).
 - **Componentes de tela** usam só `packages/ui`; estilo novo vira token ou variante, nunca CSS solto.
 - **Textos** sempre por chave de i18n.
 - **Acessibilidade:** botões reais, rótulos em todos os campos, foco visível, contraste AA, alvo de toque ≥ 44 px no app do funcionário.
