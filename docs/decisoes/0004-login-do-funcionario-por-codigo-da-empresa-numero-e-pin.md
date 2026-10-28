@@ -1,6 +1,6 @@
 # ADR 0004 — Login do funcionário por código da empresa, número e PIN
 
-- **Status:** Aceita
+- **Status:** Substituída por ADR 0016 (2026-10-28)
 - **Data:** 2026-10-28
 - **Decisores:** Mike
 

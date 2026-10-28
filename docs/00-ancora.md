@@ -58,7 +58,7 @@ O código e o SaaS são do Mike; a Sugita financia o desenvolvimento e recebe c�
 | Item | Titular |
 | --- | --- |
 | Repositório no GitHub | Organização do Mike (ou da futura empresa do SaaS); Sugita com leitura |
-| Vercel, Supabase, serviços do sistema | Mike; a Sugita paga a mensalidade da instância dela, ou fica isenta por contrato |
+| Hostinger, Supabase, serviços do sistema | Mike; a Sugita paga a mensalidade da instância dela, ou fica isenta por contrato |
 | Domínio, site e e-mail da Sugita | Sugita (hospedagem japonesa com fatura em iene, ex.: Xserver) |
 | Dados da Sugita | Sugita |
 
@@ -114,8 +114,8 @@ A revisão da especificação encontrou 18 pontos contraditórios ou vagos. A co
 | 5 | 有給 | "Só 社員" | Para **todo vínculo de emprego** (社員 e パート), por lei; nunca para 下請/業務委託 |
 | 6 | 外注会社 como vínculo | Listado como tipo de funcionário | **Removido.** Empresa terceira é organização; seus trabalhadores entram como 下請 vinculados a ela ✱ |
 | 7 | Limite de admins | Sugita com 1 admin; recomendação de 2–3 no Básico | Admin = Proprietário + Gestor. Limites: Básico 2, Padrão 3, Completo ilimitado. Sugita: Padrão com ajuste para 1 ✱ |
-| 8 | Login na fase 1 | LINE Login só na fase 2; fase 1 sem método definido | Fase 1: **código da empresa + nº do funcionário + PIN**; admins com e-mail + senha. LINE Login na fase 2 ✱ |
-| 9 | Modo offline | Fase 2, mas a confirmação diária (fase 1) acontece em planta sem sinal | Fase 1: exceção de registro tardio com prazo e motivo (camada 07). Offline completo na fase 2 |
+| 8 | Login na fase 1 | LINE Login só na fase 2; fase 1 sem método definido | Fase 1: **ID de 8 dígitos + PIN de 4 dígitos**; admins com e-mail + senha e 2FA. LINE Login na fase 2 (ADR 0016) |
+| 9 | Modo offline | Fase 2, mas a confirmação diária (fase 1) acontece em planta sem sinal | Fase 1 (M2): **registro offline** no app, com fila no celular e envio automático (ADR 0021); o registro tardio pelo 班長 continua para quem não usou o app |
 | 10 | Escopo da fase 1 | Incluía conciliação bancária, despesas, design system completo e planos: grande demais para substituir o Bubble | Fase 1 dividida em marcos (Roadmap). Conciliação e leitura por IA vão para a fase 2 ✱ |
 | 11 | Dois 締め | "締め" usado para fatura e para folha | São independentes: 締め do **cliente** (fatura) e 締め do **ciclo de pagamento** (folha) |
 | 12 | Imposto no registro do dia | Tela do Bubble tinha imposto no dia | Imposto só na escalação/cliente e na fatura; calculado uma vez sobre o total |
@@ -137,13 +137,15 @@ flowchart TB
   A[Painel admin · web] --> N
   B[App do funcionário · PWA] --> N
   C[Super Admin] --> N
-  subgraph N[Next.js · Vercel Tóquio]
+  subgraph N[Next.js · Hostinger]
     N1[Telas e ações] --- N2[packages/calc] --- N3[packages/pdf]
+    N4[Rota da fila · cron Hostinger]
   end
   N --> S
+  A & B --> S4
   subgraph S[Supabase Tóquio]
     S1[Postgres + RLS] --- S2[Auth] --- S3[Storage privado]
-    S4[Realtime] --- S5[Edge Functions] --- S6[Cron e filas]
+    S4[Realtime] --- S6[pg_cron e fila job]
   end
   N & S --> E1[LINE] & E2[IA de visão] & E3[国税庁 API] & E4[Banco: CSV entra · 全銀 sai]
 ```
@@ -153,13 +155,13 @@ As regras de negócio rodam no servidor da aplicação; os cálculos de dinheiro
 | Parte | Escolha | Por quê |
 | --- | --- | --- |
 | Linguagem | TypeScript em todo o projeto | Um idioma do banco à tela; tipos gerados do esquema |
-| Aplicação | Next.js (App Router) na Vercel, região Tóquio | Admin, PWA e Super Admin no mesmo código |
+| Aplicação | Next.js (App Router) num Web App Node.js da Hostinger (ADR 0013) | Admin, PWA e Super Admin no mesmo código |
 | Interface | Tailwind + shadcn/ui + Lucide, next-intl | Design system consistente e multilíngue |
 | Banco | Supabase Postgres com RLS | Isolamento por empresa no banco; SQL padrão, sem lock-in |
 | Login | Supabase Auth; PIN do funcionário com limite de tentativas; LINE Login (fase 2) | Funcionários sem e-mail |
 | Arquivos | Supabase Storage privado, links assinados | Recibos, 在留カード, PDFs emitidos |
-| Tempo real | Supabase Realtime | Painel atualiza quando o 班長 confirma |
-| Jobs | Edge Functions + pg\_cron + filas | Lembretes, vencimentos, envio ao LINE, leitura de recibos |
+| Tempo real | Supabase Realtime, com o navegador conectado direto ao Supabase | Painel atualiza quando o 班長 confirma; a Hostinger não aceita WebSocket |
+| Jobs | Fila `job` no Postgres + pg\_cron + cron da Hostinger; outbox para efeitos externos (ADR 0014) | Lembretes, vencimentos, e-mails, PDFs em lote; processo sempre ligado numa VPS só na fase 2 |
 | Cálculos | `packages/calc` (funções puras) | Testável isoladamente com golden tests |
 | PDF | `packages/pdf` com @react-pdf/renderer e fonte Noto Sans JP | Sem servidor de navegador; mesmo componente gera prévia e arquivo |
 | Erros e logs | Sentry | Ver falhas do campo antes do cliente reclamar |
@@ -169,23 +171,23 @@ Cada linha desta tabela vira um ADR em `docs/decisoes/` na criação do reposit�
 
 ### Infraestrutura e hospedagem
 
-Sem servidor próprio: serviços gerenciados, com o dado sensível em Tóquio e o código portável para qualquer servidor.
+Serviços gerenciados, com o código portável para qualquer servidor. Atualizado em 28/10/2026 pelas ADRs 0013 (hospedagem), 0014 (fila e cron) e 0015 (segurança do MVP).
 
-| Fase | Banco | Aplicação | Custo mensal aproximado |
+| Fase | Banco | Aplicação | Dados |
 | --- | --- | --- | --- |
-| Desenvolvimento (M0–M4) | Supabase Free (2 projetos) | Vercel Hobby | \~¥0 + domínio |
-| Go-live da Sugita (M5) | Supabase Pro (backup diário, sem pausa) + staging no Free | Vercel Pro, ou Next.js numa hospedagem que rode Node | \~¥5,5–10 mil |
-| Vários clientes (M6+) | + PITR, instância maior | Vercel Pro | Cresce com o uso; coberto pelo preço por funcionário |
+| MVP | Supabase Free, Tóquio | Hostinger Business (Node.js) | Só fictícios ou anonimizados |
+| Dados reais (gatilho da ADR 0015) | Supabase Pro, Tóquio (backup diário, sem pausa) | Hostinger, reavaliada no gatilho | Nível completo de proteção de dados |
+| Fase 2 | + PITR, instância maior conforme o uso | + VPS pequena para processos sempre ligados (IMAP, LINE) | — |
 
-- **Planos gratuitos nunca em produção:** Supabase Free não tem backup automático e pausa após 1 semana sem uso; Vercel Hobby proíbe uso comercial.
-- **Backup externo diário desde o M0:** dump do banco para um storage separado (GitHub Actions), com teste de restauração mensal.
+- **Planos gratuitos nunca com dados reais:** o Supabase Free não tem backup automático e pausa após 1 semana sem uso. No MVP, o backup externo e o cron da fila compensam isso.
+- **Backup externo diário desde o M0:** dump do banco criptografado no Cloudflare R2 (GitHub Actions), com teste de restauração automático mensal (ADR 0017).
 - **Regra de portabilidade:** regras de negócio em Postgres padrão (SQL + RLS); login, arquivos e filas do Supabase atrás de uma camada própria no código; Next.js sem recursos exclusivos da Vercel. Migrar para VPS ou outra nuvem deve ser troca de implementação, não reescrita.
-- **VPS avaliada e adiada:** reduz custo, mas transfere ao Mike a operação de um servidor com dados de folha. Reavaliar quando a infraestrutura passar de \~10% da receita do SaaS.
-- **Hostinger:** roda Next.js nos planos Business e Cloud, mas não tem data center no Japão (mais próximos: Malásia e Indonésia). Só serve para a aplicação, com o banco no Supabase em Tóquio.
-- **Tarefas longas** (lotes de PDF, IA) rodam em fila no Supabase, nunca dentro da requisição.
-- **Três ambientes isolados**, segredos só em variáveis de ambiente, 2FA em todas as contas (GitHub, Vercel, Supabase, domínio).
+- **VPS só para processos sempre ligados:** entra na fase 2, para IMAP e LINE, consumindo a mesma fila. Hospedar tudo numa VPS continua adiado: transfere ao Mike a operação de um servidor com dados de folha.
+- **Hostinger:** roda o app Next.js; requisições são cortadas em 120 s, não há processo sempre ligado nem WebSocket de entrada, e o app dorme sem acesso (ADR 0013). O data center é o mais próximo do Japão disponível; o banco fica no Supabase em Tóquio.
+- **Tarefas longas** (lotes de PDF, IA, e-mails) rodam na fila `job`, nunca dentro da requisição, em partes de até ~90 s (ADR 0014).
+- **Ambientes isolados** (local e MVP; staging quando necessário), segredos só em variáveis de ambiente, 2FA em todas as contas (GitHub, Hostinger, Supabase, domínio).
 - **E-mail:** a caixa da empresa (e-mails "humanos") fica no provedor do domínio, via IMAP/SMTP; avisos automáticos saem por serviço transacional num subdomínio (ex.: `avisos.dominio`). SPF, DKIM e DMARC obrigatórios.
-- **個人情報保護法:** política de privacidade informa onde os dados ficam (Tóquio) e quais fornecedores os processam.
+- **個人情報保護法:** política de privacidade informa onde os dados ficam (Tóquio) e quais fornecedores os processam. No MVP, com dados fictícios, os requisitos completos ficam adiados até o gatilho da ADR 0015.
 
 ## Regras transversais
 
@@ -200,6 +202,9 @@ Estas regras valem para todas as camadas; um módulo só é considerado pronto s
 - Arquivos em storage privado, entregues por link assinado de curta duração.
 - Geolocalização capturada só no toque de confirmação, com aviso de finalidade (個人情報保護法).
 - O sistema nunca guarda senha de banco nem movimenta dinheiro.
+- Ninguém escreve direto nas tabelas: toda escrita passa por funções SQL que validam de novo; o usuário anônimo não acessa tabela nenhuma (ADR 0023).
+- Toda entrada é validada e normalizada pelo mesmo esquema na tela e no servidor; texto é sempre exibido como texto (ADR 0019).
+- Todo evento do sistema tem código do catálogo e aparece no painel de saúde do Super Admin; logs nunca contêm dados pessoais (ADR 0022).
 
 ### Papéis
 
@@ -262,7 +267,7 @@ O sistema tem 16 camadas. Cada uma tem um documento de referência em `docs/cama
 | 04 | Organizações e locais | Cadastro único de organizações, clientes, cadeia de subs (cor e sigla), locais, regras de cobrança | 03 | M1 |
 | 05 | Funcionários | Ficha completa, vínculo, estrangeiro, qualificações, vencimentos, japonês, pagamento | 03 | M1; CCUS na fase 3 |
 | 06 | Escalação e calendário | Escalações, alocação, equipes, grade 勤怠表, conflitos, mensagem do LINE | 04, 05 | M2 |
-| 07 | Apontamento | Confirmação diária (funcionário e 班長), geolocalização, travas, trechos, trabalho interno, ocorrências e multas | 06 | M2; offline na fase 2 |
+| 07 | Apontamento | Confirmação diária (funcionário e 班長), geolocalização, travas, trechos, trabalho interno, ocorrências e multas | 06 | M2, com offline (ADR 0021) |
 | 08 | Documentos e biblioteca | Motor de PDF, modelos, numeração, armazenamento e guarda, biblioteca, arquivo mensal, modelos e editor | 03 | M3 |
 | 09 | Fechamento e faturamento | Fechamento da escalação, 請求書 consolidado, 勤怠表, ciclo de recebimento | 07, 08 | M3 |
 | 10 | Folha e pagamentos | Folha por ciclo, 給与明細, 請求書 do 下請, 支払明細書, adiantamentos, lotes 全銀 e dinheiro | 07, 08 | M4; carteira digital na fase 3 |
@@ -279,13 +284,13 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 ### 00 · Plataforma
 
 - **Escopo:** cadastro de empresas, planos (Básico, Padrão, Completo), ajustes individuais, add-ons, cotas, assinatura, bloqueio, cobrança do SaaS, tabelas legais versionadas, painel Super Admin.
-- **Regras:** cobrança = base mensal (inclui N pessoas) + preço por funcionário ativo no mês (teve ao menos um registro; 下請 conta). Planos se diferenciam por funcionalidade. Admins (Proprietário + Gestor) por plano: Básico 2, Padrão 3, Completo ilimitado. Gateway de cobrança recorrente na fase 3. Limite atingido bloqueia só novos cadastros. Status: Teste → Ativo → Em atraso (tolerância) → Somente leitura → Bloqueado; Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
+- **Regras:** contrato por cliente, de três tipos (ADR 0018): mensal e anual, com valor fixo em iene e vencimento; Parceiro (vitalício), sem receita, para a Sugita e as parceiras indicadas por ela. Módulos opcionais marcados por cliente; planos Básico, Padrão e Completo são só modelos que pré-marcam módulos. Pagamento por 銀行振込 ou 現金, registrado manualmente; gateway na fase 3. Período de teste opcional. Status: Teste → Ativo → Em atraso (até 7 dias) → Somente leitura → Bloqueado (+15 dias); o contrato Parceiro nunca muda de status sozinho. O Super Admin pode suspender, reativar e cancelar qualquer empresa, com motivo e log, exceto cancelar a Sugita (investidora, protegida pelo 覚書), que só pode ser suspensa por motivo técnico. Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
 - **Pronto quando:** uma empresa nova é criada, recebe plano e ajuste, e cada limite e funcionalidade é recusado pelo servidor quando fora do plano (teste automatizado por regra).
 
 ### 01 · Identidade e acesso
 
-- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (código da empresa + nº + PIN; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
-- **Regras:** cadastro do funcionário existe sem login; um login por e-mail ou LINE pode estar ligado a mais de uma empresa; o login por PIN é sempre de uma empresa só. Permissão checada no servidor e no RLS.
+- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (ID de 8 dígitos + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
+- **Regras:** cadastro do funcionário existe sem login; qualquer login (e-mail, ID ou LINE) pode estar ligado a mais de uma empresa, e a pessoa escolhe a empresa depois de entrar; a sessão do funcionário expira após 7 dias sem uso. Permissão checada no servidor e no RLS, por participação (`membership`). Detalhes na ADR 0016.
 - **Pronto quando:** testes provam que nenhum papel lê ou altera fora do seu escopo, e que nenhuma empresa enxerga outra.
 
 ### 02 · Design system e interface
@@ -321,7 +326,7 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 
 ### 07 · Apontamento
 
-- **Escopo:** card "Hoje" no app com confirmação em um toque (定時) e exceções (残業, 半日, fora do horário, escritório, adicionais, observação, foto); modo 1 toque ou 出勤 + 退勤; geolocalização com raio por local; confirmação pelo 班長 para os membros liberados; registro de trabalho interno pelo funcionário (aguarda aprovação); ocorrências e multas pelo admin; solicitação de correção. Fase 2: modo offline (grava no celular com horário e localização do toque e sincroniza depois).
+- **Escopo:** card "Hoje" no app com confirmação em um toque (定時) e exceções (残業, 半日, fora do horário, escritório, adicionais, observação, foto); modo 1 toque ou 出勤 + 退勤; geolocalização com raio por local; confirmação pelo 班長 para os membros liberados; registro de trabalho interno pelo funcionário (aguarda aprovação); ocorrências e multas pelo admin; solicitação de correção. Modo offline no M2 (ADR 0021): grava no celular com horário e localização do toque e envia sozinho quando o sinal volta.
 - **Travas:** passado não muda, exceto por (a) solicitação de correção aprovada pelo admin ou (b) registro tardio pelo 班長 ou admin até o fechamento da escalação, com motivo obrigatório, marcado no registro e listado no fechamento; hoje editável até o corte configurável (ex.: 5h do dia seguinte); futuro aceita marcar e desmarcar 休 (有給 vira pedido). 休 futuro avisa admin e coordenador na hora.
 - **Regras:** status Pendente → Confirmado → Aprovado; cada registro guarda quem confirmou (próprio, 班長, admin). Em "ambos registram", divergência vai para o admin. Fora do raio ou sem GPS registra e marca, não bloqueia. 班長 não vê valores, não multa e só mexe no passado pelo registro tardio. Trabalho interno em minutos, pago pela diária interna ÷ jornada. Multa (減給の制裁) separada do desconto de tempo não trabalhado; motivo obrigatório; funcionário vê e contesta. Lembrete automático (ex.: 18h).
 - **Pronto quando:** uma semana real da Sugita foi registrada pelo app (funcionários e um 班長) e bate com o lançamento manual.
@@ -392,12 +397,12 @@ A fase 1 tem sete marcos (M0–M6), cada um com critério de passagem objetivo. 
 | --- | --- | --- |
 | M0 · Fundação (contrato assinado antes) | Repositório, CI, Supabase, RLS, login, papéis, auditoria, design system, idiomas, docs | Testes de RLS e permissões provam o isolamento entre empresas |
 | M1 · Cadastros e configurações | Configurações com vigência, organizações e subs, locais, ficha completa, importação do Bubble | Cadastros do Bubble importados sem duplicatas; ficha com os campos do 作業員名簿 |
-| M2 · Escalação e apontamento | Escalações, grade 勤怠表, app Hoje, 班長, travas, trabalho interno, alertas, mensagem do LINE | Uma semana real da Sugita registrada pelo app bate com o lançamento manual |
+| M2 · Escalação e apontamento | Escalações, grade 勤怠表, app Hoje, 班長, travas, trabalho interno, registro offline, alertas, mensagem do LINE | Uma semana real da Sugita registrada pelo app bate com o lançamento manual |
 | M3 · Fechamento e faturamento | Fechamento, PDFs, 請求書 e 勤怠表 com envio por e-mail, biblioteca, 在職証明書, recebimentos, painel | O 請求書 de setembro do 熊澤工業 (¥1,047,200) é reproduzido exatamente |
 | M4 · Folha e pagamentos | Folha por ciclo, 給与明細, 請求書 do 下請, adiantamentos, 全銀, dinheiro, caixa, despesas, arquivo mensal | Folha de setembro igual à do Bubble; diferença só se for erro documentado do Bubble |
 | M5 · Operação paralela e go-live da Sugita | Um mês nos dois sistemas; 勤怠表, 請求書 e folha comparados linha a linha | Zero diferença não explicada; Bubble somente leitura por 3 meses |
 | M6 · SaaS comercial | Planos, licenças, assinatura com cobrança manual, bloqueio, Super Admin, termos de uso | A segunda empresa opera sozinha no sistema |
-| Fase 2 · Diferenciais | LINE oficial e Login, offline, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
+| Fase 2 · Diferenciais | LINE oficial e Login, IA de recibos, extrato e conciliação, pacote do contador, e-mail com IA, modelos e editor A4/A3, PDFs personalizados, tarefas e 日報, japonês, dashboard | — |
 | Fase 3 · Expansão | CCUS, gateway de cobrança recorrente, conexão bancária automática, carteira digital, prova de japonês, app nativo se necessário | — |
 
 Um marco só começa quando o anterior passou no critério. Datas são definidas quando as pendências de dados da Sugita estiverem respondidas; cada marco termina com versão publicada, demo para a Sugita e CHANGELOG. As obrigações anuais da folha (年末調整 e afins) são entrega obrigatória antes do primeiro dezembro após o go-live.
@@ -412,7 +417,7 @@ O desenvolvimento acontece por marcos pequenos, cada um demonstrável à Sugita,
 2. Branch a partir de `main`: `feat/10-folha-adiantamentos`, `fix/07-apontamento-corte`.
 3. Commits no padrão Conventional Commits com a camada no escopo: `feat(10): plano de parcelas do adiantamento`.
 4. Pull request com o modelo do repositório (checklist de documentação, testes e migração); revisão antes do merge, mesmo trabalhando sozinho (revisão própria + revisão por IA).
-5. CI obrigatório: tipagem, lint, testes unitários, testes de RLS, validação das migrações.
+5. CI obrigatório: tipagem, lint, testes unitários, testes de RLS, validação das migrações. Deploy pelo CI: migrações primeiro, depois o build publicado na branch `deploy` que a Hostinger observa (ADR 0017).
 6. Merge por squash em `main`; `main` sempre implantável em staging.
 7. Versão publicada a cada marco, com tag (`v0.3.0`) e entrada no CHANGELOG.
 
@@ -461,6 +466,7 @@ saas-genba/
 ├─ packages/calc/         cálculos puros (folha, impostos, fatura) + golden tests
 ├─ packages/pdf/          modelos e motor de PDF
 ├─ packages/ui/           design system
+├─ packages/validation/   esquemas de entrada, normalização e máscaras
 ├─ supabase/
 │  ├─ migrations/         esquema do banco versionado
 │  ├─ functions/          funções de servidor e jobs
@@ -524,7 +530,7 @@ Nenhuma pendência abaixo bloqueia o M0; as de dados da Sugita precisam estar re
 
 - [ ] \#6 · Trabalhadores de empresa terceira entram como 下請 vinculados a uma organização.
 - [ ] \#7 · Básico com 2 admins; Sugita com 1 por ajuste.
-- [ ] \#8 · Login do funcionário na fase 1 por código da empresa + nº + PIN.
+- [x] \#8 · Login do funcionário na fase 1 por ID de 8 dígitos + PIN de 4 dígitos (ADR 0016, 2026-10-28).
 - [ ] \#10 · Conciliação bancária e leitura por IA saem da fase 1.
 - [ ] \#13 · Regra do funcionário mensal (faltas descontam mensal ÷ dias úteis).
 - [ ] \#18 · Prazos de guarda e o que acontece com os dados após cancelamento.
@@ -546,7 +552,8 @@ Nenhuma pendência abaixo bloqueia o M0; as de dados da Sugita precisam estar re
 
 ### Comercial
 
-- [ ] Preços (base, pessoas incluídas, preço por pessoa por plano, add-ons, implantação), cotas de IA e armazenamento, dias de tolerância, condições do plano fundador (antes do M6).
+- [x] Modelo de cobrança: valor fixo por contrato (mensal, anual ou Parceiro), tolerância de 7 + 15 dias, teste opcional (ADR 0018, 2026-10-28).
+- [ ] Valores de cada contrato, cotas de IA e armazenamento, limite de admins por contrato (antes do SaaS comercial).
 - [ ] Termos de uso e contrato do SaaS (antes do M6).
 
 ### Riscos
