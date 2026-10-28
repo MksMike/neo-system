@@ -25,6 +25,9 @@ export default defineConfig({
       : `pnpm exec next dev --port ${String(port)}`,
     url: `http://localhost:${String(port)}`,
     reuseExistingServer: !ci,
+    // In CI the server log goes to the job output (JSON lines with event codes, ADR 0022).
+    stdout: ci ? 'pipe' : 'ignore',
+    stderr: 'pipe',
     timeout: 120_000,
   },
 });

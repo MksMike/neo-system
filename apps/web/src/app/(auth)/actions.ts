@@ -15,12 +15,17 @@ export const signIn = defineAction({
     const supabase = await userClient();
     const { error } = await supabase.auth.signInWithPassword(input);
     if (error) {
-      ctx.log('AUTH.LOGIN.FAILED', { reason: error.code ?? 'unknown' });
+      if (error.code === 'invalid_credentials') {
+        ctx.log('AUTH.LOGIN.FAILED', { reason: error.code });
+        // Same answer for unknown e-mail and wrong password: no account probing.
+        throw new ActionError('validation', 'invalid_credentials');
+      }
       if (error.code === 'over_request_rate_limit' || error.status === 429) {
+        ctx.log('SEC.RATE.LIMITED', { reason: error.code ?? 'status_429' });
         throw new ActionError('rate_limited', 'too_many_attempts');
       }
-      // Same answer for unknown e-mail and wrong password: no account probing.
-      throw new ActionError('validation', 'invalid_credentials');
+      // Anything else is our problem (Auth down, schema, network), never "wrong password".
+      throw new Error(`signInWithPassword: ${error.code ?? 'no_code'} ${String(error.status)} ${error.message}`);
     }
 
     const session = await getSession();
