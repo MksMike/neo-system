@@ -38,6 +38,7 @@
 - **`/dev/ui`** (só em desenvolvimento; 404 em produção): catálogo com todos os componentes e estados, troca de tema (azul, grafite, roxo × claro, escuro, sistema) e de idioma (ja, pt).
 - **Componentes disponíveis:** Button (primary, solid, secondary, ghost, soft, danger; sm, md, lg; ícone; carregando), Field, Input, Textarea, NativeSelect, PostalCodeInput, MobilePhoneInput, LandlinePhoneInput, EmployeeIdInput, Checkbox, RadioGroup/Radio, Switch, Card, Stat, Badge, Chip, DayCell, Table, Alert, Toaster/toast, Tooltip, DropdownMenu, Dialog (centralizado, gaveta à direita e gaveta à esquerda para menus), Tabs (segmento e linha), SegmentedControl, Skeleton, EmptyState, Progress, Avatar, Spinner.
 - **Layout de área** (SA-07): Sidebar, SidebarBrand, SidebarSection, NavItem (item ativo com `aria-current="page"` e barra em gradiente), PageHeader (título, descrição e ações) e SkipLink ("pular para o conteúdo", visível no foco). No celular, o menu lateral vira gaveta à esquerda.
+- **Abas por link** (SA-09): TabNav e TabNavItem, com o visual das abas `line`, uma URL por aba e `aria-current="page"` na atual.
 - **Assistente** (SA-08): Steps (passos feitos, atual com `aria-current="step"` e próximos; no celular, só o nome do passo atual aparece).
 - **Ainda não feitos** (entram quando a primeira tela precisar): calendário e seletor de data, busca ⌘K, paginação, stepper, upload, teclado do PIN, shell do admin e do app.
 
@@ -64,3 +65,4 @@
 | 2026-10-28 | 0.2 | SA-03: tokens gerados, tema e idioma por cookie, componentes, máscaras, `/dev/ui`; regras R02-01 a R02-05 | SA-03 |
 | 2026-10-29 | 0.3 | SA-07: componentes de layout (Sidebar, NavItem, PageHeader, SkipLink) e gaveta à esquerda | SA-07 |
 | 2026-10-29 | 0.4 | SA-08: Steps (progresso de assistente) | SA-08 |
+| 2026-10-29 | 0.5 | SA-09: TabNav (abas por link) | SA-09 |

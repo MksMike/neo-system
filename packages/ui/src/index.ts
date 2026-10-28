@@ -30,12 +30,19 @@ export {
 export {
   SegmentedControl,
   Steps,
+  TabNav,
+  TabNavItem,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from './components/navigation';
-export type { SegmentedControlProps, SegmentedOption, StepsProps } from './components/navigation';
+export type {
+  SegmentedControlProps,
+  SegmentedOption,
+  StepsProps,
+  TabNavItemProps,
+} from './components/navigation';
 export {
   Dialog,
   DialogClose,

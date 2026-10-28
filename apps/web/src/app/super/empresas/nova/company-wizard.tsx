@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardInset,
   CardTitle,
-  Checkbox,
   Field,
   Input,
   LandlinePhoneInput,
@@ -31,15 +30,10 @@ import { useFormatter, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { z } from 'zod';
-import {
-  dependentsOf,
-  enableModule,
-  missingAnyDependency,
-  modulesForPlan,
-  type ModuleDef,
-} from '@/lib/modules';
+import { missingAnyDependency, modulesForPlan } from '@/lib/modules';
 import { useAction } from '@/lib/use-action';
 import { checkCompanyCode, provisionCompany } from '../actions';
+import { ModuleChecklist, type NamedModule } from '../module-checklist';
 import {
   billingStart,
   companyStep,
@@ -48,12 +42,13 @@ import {
   modulesStep,
   ownerStep,
   PAYMENT_METHODS,
+  suggestedStart,
   type ProvisionInput,
 } from '../schema';
 import { businessDateValue } from '../status';
 
 export interface WizardCatalog {
-  modules: (ModuleDef & { name: string })[];
+  modules: NamedModule[];
   plans: { key: string; modules: string[]; name: string }[];
   companies: { id: string; code: string; display_name: string }[];
   /** Today in Asia/Tokyo, from the server. */
@@ -133,7 +128,6 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<{ message: string; requestId: string }>();
-  const [notice, setNotice] = useState('');
   const [codeTouched, setCodeTouched] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const firstRender = useRef(true);
@@ -158,7 +152,7 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
       type: '',
       priceYen: '',
       paymentMethod: '',
-      startsOn: catalog.today,
+      startsOn: suggestedStart(catalog.today),
       trialDays: '0',
     },
     owner: { name: '', email: '' },
@@ -177,7 +171,6 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
   }, [step]);
 
   const moduleName = (key: string) => catalog.modules.find((m) => m.key === key)?.name ?? key;
-  const list = (keys: string[]) => format.list(keys.map(moduleName), { type: 'conjunction' });
   const err = (path: string) => (errors[path] ? t(errors[path]) : undefined);
   const date = (value: string) =>
     format.dateTime(businessDateValue(value), { dateStyle: 'long', timeZone: 'UTC' });
@@ -212,29 +205,7 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
     const chosen = catalog.plans.find((p) => p.key === key);
     if (chosen) {
       setForm((f) => ({ ...f, modules: modulesForPlan(chosen.modules, catalog.modules) }));
-      setNotice('');
     }
-  }
-
-  function toggleModule(key: string, on: boolean) {
-    let modules: string[];
-    if (on) {
-      const result = enableModule(form.modules, key, catalog.modules);
-      modules = result.selected;
-      setNotice(
-        result.added.length > 0
-          ? t('super.wizard.modules.alsoEnabled', {
-              module: moduleName(key),
-              list: list(result.added),
-            })
-          : '',
-      );
-    } else {
-      modules = form.modules.filter((k) => k !== key);
-      setNotice('');
-    }
-    setForm((f) => ({ ...f, modules }));
-    setPlan(matchingPlan(modules));
   }
 
   function validateStep(index: number): boolean {
@@ -311,7 +282,6 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
     legalName: form.company.legalName,
     kana: form.company.legalNameKana,
   });
-  const missingAny = missingAnyDependency(form.modules, catalog.modules);
   const isReview = step === STEP_KEYS.length - 1;
   const stepLabels = STEP_KEYS.map((key) => t(`super.wizard.steps.${key}`));
 
@@ -519,69 +489,15 @@ export function CompanyWizard({ catalog }: { catalog: WizardCatalog }) {
               <p className="m-0 text-xs text-ink-subtle">{t('super.wizard.modules.planHelp')}</p>
             </div>
 
-            <p aria-live="polite" className="m-0 min-h-5 text-sm text-primary-text">
-              {notice}
-            </p>
-            {err('modules') ? (
-              <Alert variant="danger" title={err('modules')}>
-                {missingAny
-                  .map((m) =>
-                    t('super.wizard.modules.needsOneOf', {
-                      module: m.name,
-                      list: format.list(m.depends_any.map(moduleName), { type: 'disjunction' }),
-                    }),
-                  )
-                  .join(' ')}
-              </Alert>
-            ) : null}
-
-            {(['base', 'optional', 'addon'] as const).map((kind) => (
-              <fieldset
-                key={kind}
-                className="m-0 flex flex-col gap-3 rounded-lg border border-line bg-surface-1 p-5"
-              >
-                <legend className="px-1 type-label text-ink-muted">
-                  {t(`super.wizard.modules.kinds.${kind}`)}
-                </legend>
-                <div className="grid gap-3 md:grid-cols-2">
-                  {catalog.modules
-                    .filter((m) => m.kind === kind)
-                    .map((m) => {
-                      const on = kind === 'base' || form.modules.includes(m.key);
-                      const dependents =
-                        on && kind !== 'base'
-                          ? dependentsOf(m.key, form.modules, catalog.modules)
-                          : [];
-                      const description =
-                        kind === 'base'
-                          ? t('super.wizard.modules.always')
-                          : dependents.length > 0
-                            ? t('super.wizard.modules.requiredBy', { list: list(dependents) })
-                            : m.depends_on.length > 0
-                              ? t('super.wizard.modules.needs', { list: list(m.depends_on) })
-                              : m.depends_any.length > 0
-                                ? t('super.wizard.modules.needsAny', {
-                                    list: format.list(m.depends_any.map(moduleName), {
-                                      type: 'disjunction',
-                                    }),
-                                  })
-                                : undefined;
-                      return (
-                        <Checkbox
-                          key={m.key}
-                          checked={on}
-                          disabled={kind === 'base' || dependents.length > 0}
-                          onCheckedChange={(checked) => {
-                            toggleModule(m.key, checked === true);
-                          }}
-                          label={m.name}
-                          description={description}
-                        />
-                      );
-                    })}
-                </div>
-              </fieldset>
-            ))}
+            <ModuleChecklist
+              catalog={catalog.modules}
+              selected={form.modules}
+              onChange={(modules) => {
+                setForm((f) => ({ ...f, modules }));
+                setPlan(matchingPlan(modules));
+              }}
+              error={err('modules')}
+            />
           </div>
         ) : null}
 

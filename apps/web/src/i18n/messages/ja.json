@@ -447,6 +447,149 @@
         "codeTaken": "このコードは使用中です。別のコードを選んでください。",
         "modules": "必要なモジュールが不足しています。"
       }
+    },
+    "company": {
+      "back": "会社一覧",
+      "tabs": {
+        "label": "会社の項目",
+        "summary": "概要",
+        "modules": "モジュール",
+        "contract": "契約・入金",
+        "users": "ユーザー",
+        "history": "履歴"
+      },
+      "validFrom": "適用開始日",
+      "validFromToday": "今日から。過去の日付は指定できません。",
+      "validFromHelp": "{date}から適用されます。",
+      "readOnlyCanceled": "解約済みのため、モジュールと契約は変更できません。",
+      "conflict": {
+        "title": "他の人が変更しました",
+        "text": "このページを開いた後にデータが変更されました。再読み込みして最新の内容を確認し、もう一度変更してください。",
+        "reload": "再読み込み"
+      },
+      "summary": {
+        "data": "会社情報",
+        "contract": "現在の契約",
+        "modules": "有効なモジュール（{count}）",
+        "createdAt": "登録日時",
+        "statusReason": "状態の理由",
+        "seeAll": "契約を見る",
+        "edit": "変更"
+      },
+      "modules": {
+        "title": "モジュールの変更",
+        "help": "オン・オフを選び、適用開始日を指定します。モジュールをオンにすると必要なモジュールもオンになります。過去は変わらず、変更ごとに新しい期間が記録されます。",
+        "willEnable": "オン：{list}。",
+        "willDisable": "オフ：{list}。",
+        "noChanges": "変更はありません。",
+        "reset": "元に戻す",
+        "save": "モジュールを保存",
+        "saved": "モジュールを保存しました。",
+        "periods": "モジュールごとの期間",
+        "module": "モジュール",
+        "from": "開始",
+        "to": "終了",
+        "state": "状況",
+        "noEnd": "終了なし",
+        "baseOnly": "基本モジュールのみ（常に含まれます）。",
+        "states": {
+          "active": "有効",
+          "scheduled": "予定",
+          "ended": "終了"
+        }
+      },
+      "contract": {
+        "current": "契約",
+        "change": "契約を変更",
+        "changeHelp": "指定日から新しいバージョンを作成します。現在のバージョンは前日で終了し、作成済みの請求は変わりません。",
+        "note": "備考",
+        "confirm": "新しいバージョンを保存",
+        "saved": "契約の新しいバージョンを保存しました。",
+        "previousEnds": "現在のバージョンは{date}までです。",
+        "previousReplaced": "現在のバージョンはまだ適用前のため、置き換えられます。",
+        "paidFrom": "新しい金額は{date}から始まる有料期間に適用されます。",
+        "partnerFrom": "{date}から無料・請求なしになります。",
+        "beforeCurrent": "この日付より後に予定されたバージョンがあります。同じ日かそれ以降を指定してください。",
+        "scheduled": "予定されている変更",
+        "scheduledText": "{date}から契約は{type}になります。",
+        "versions": "契約のバージョン",
+        "billingDay": "支払期日",
+        "everyMonth": "毎月{day}日",
+        "everyYear": "毎年{date}",
+        "trialEnds": "試用期限",
+        "since": "適用開始",
+        "alreadyCharged": "{date}までの請求は作成済みのため、以前の金額のままです。新しい金額はその後の請求から適用されます。"
+      },
+      "billing": {
+        "charges": "請求",
+        "payments": "入金",
+        "noCharges": "まだ請求はありません。",
+        "noPayments": "入金の記録はありません。",
+        "period": "期間",
+        "dueOn": "支払期日",
+        "amount": "金額",
+        "paid": "入金額",
+        "paidOn": "入金日",
+        "reference": "参照",
+        "settlement": "消込",
+        "fee": "手数料：{fee}",
+        "chargeStatus": {
+          "open": "未入金",
+          "partial": "一部入金",
+          "paid": "入金済",
+          "canceled": "取消"
+        },
+        "settlements": {
+          "full": "全額",
+          "settle_with_fee": "手数料差引で完了",
+          "leave_open": "残額あり"
+        }
+      },
+      "users": {
+        "members": "アクセスできる人",
+        "noMembers": "まだ招待を承認した人はいません。",
+        "name": "氏名",
+        "role": "役割",
+        "since": "登録日時",
+        "email": "メールアドレス",
+        "memberStatus": {
+          "active": "有効",
+          "inactive": "無効"
+        },
+        "invitations": "オーナーへの招待",
+        "noInvitations": "招待はありません。",
+        "sentAt": "送信日時",
+        "acceptedAt": "承認日時",
+        "invitationStatus": {
+          "pending": "送信待ち",
+          "sent": "送信済",
+          "accepted": "承認済",
+          "failed": "失敗"
+        }
+      },
+      "history": {
+        "empty": "まだ記録はありません。",
+        "statusChanged": "状態：{from} → {to}",
+        "source": {
+          "auto": "自動",
+          "manual": "手動"
+        },
+        "system": "システム",
+        "from": "{date}から",
+        "modulesDetail": "オプションモジュール{count}件、{date}から",
+        "actions": {
+          "company_provisioned": "会社を登録",
+          "company_modules_changed": "モジュールを変更",
+          "contract_changed": "契約を変更",
+          "owner_invitation_accepted": "オーナーが招待を承認",
+          "payment_registered": "入金を登録",
+          "company_suspended": "会社を一時停止",
+          "company_reactivated": "会社を再開",
+          "company_canceled": "会社を解約",
+          "company_cancel_scheduled": "解約を予約",
+          "job_retried": "キューのタスクを再実行"
+        }
+      }
     }
   },
   "admin": {

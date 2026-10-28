@@ -1148,7 +1148,12 @@ export type Database = {
         Returns: string;
       };
       change_contract: {
-        Args: { p: Json; p_company_id: string; p_valid_from?: string };
+        Args: {
+          p: Json;
+          p_company_id: string;
+          p_expected_contract_id?: string;
+          p_valid_from?: string;
+        };
         Returns: string;
       };
       claim_jobs: {
@@ -1195,7 +1200,12 @@ export type Database = {
       register_saas_payment: { Args: { p: Json; p_charge_id: string }; Returns: Json };
       retry_job: { Args: { p_job_id: string }; Returns: undefined };
       set_company_modules: {
-        Args: { p_company_id: string; p_module_keys: string[]; p_valid_from?: string };
+        Args: {
+          p_company_id: string;
+          p_expected?: string[];
+          p_module_keys: string[];
+          p_valid_from?: string;
+        };
         Returns: Json;
       };
       suspend_company: { Args: { p_company_id: string; p_reason: string }; Returns: undefined };
