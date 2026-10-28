@@ -1,0 +1,85 @@
+/* NEO-SYSTEM — movimento, gradientes e base. Valores de docs/design-system.html.
+   Cores, raios, tamanhos e tipografia vêm de tokens.css (gerado). */
+
+:root {
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 320ms;
+  --grad-brand: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  --grad-page: linear-gradient(180deg, var(--surface-0), var(--page-tint));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+}
+
+@theme inline {
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.3, 0, 0, 1);
+  --animate-nx-spin: nx-spin 0.8s linear infinite;
+  --animate-nx-pulse: nx-pulse 1.4s ease-in-out infinite;
+  --animate-nx-enter: nx-enter var(--dur-base) cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-nx-shake: nx-shake 0.4s cubic-bezier(0.2, 0, 0, 1);
+
+  @keyframes nx-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes nx-pulse {
+    50% {
+      opacity: 0.5;
+    }
+  }
+  @keyframes nx-enter {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+  @keyframes nx-shake {
+    20%,
+    60% {
+      transform: translateX(-6px);
+    }
+    40%,
+    80% {
+      transform: translateX(6px);
+    }
+  }
+}
+
+@utility bg-grad-brand {
+  background-image: var(--grad-brand);
+}
+
+@utility bg-grad-page {
+  background-image: var(--grad-page);
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--surface-0);
+    background-image: var(--grad-page);
+    color: var(--ink);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: var(--nx-font-sans);
+    font-size: 14px;
+    line-height: 22px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :where(button, a, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+}

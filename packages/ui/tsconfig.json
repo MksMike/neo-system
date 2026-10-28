@@ -1,4 +1,7 @@
 {
-  "extends": "@neo/config/tsconfig/library.json",
-  "include": ["src"]
+  "extends": "@neo/config/tsconfig/react.json",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", "scripts"]
 }

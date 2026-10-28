@@ -1,0 +1,185 @@
+{
+  "common": {
+    "appName": "NEO-SYSTEM",
+    "tagline": "現場管理",
+    "close": "閉じる",
+    "loading": "読み込み中",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "undo": "元に戻す"
+  },
+  "preferences": {
+    "theme": "テーマ",
+    "mode": "モード",
+    "language": "言語",
+    "hues": { "azul": "ブルー", "grafite": "グラファイト", "roxo": "パープル" },
+    "modes": { "claro": "ライト", "escuro": "ダーク", "sistema": "システム" },
+    "languages": { "ja": "日本語", "pt": "Português" }
+  },
+  "home": {
+    "title": "NEO-SYSTEM 開発中",
+    "description": "ローカル開発環境です。スーパー管理画面は次のタスクで追加されます。",
+    "devUi": "コンポーネント一覧を見る"
+  },
+  "devUi": {
+    "title": "コンポーネント一覧",
+    "description": "packages/ui のすべてのコンポーネントと、ホバー・フォーカス・エラー・読み込み中・空の状態。上部でテーマと言語を切り替えられます。",
+    "sections": {
+      "buttons": "ボタン",
+      "fields": "入力欄",
+      "masks": "入力マスク",
+      "choices": "選択",
+      "cards": "カードと数値",
+      "badges": "バッジとチップ",
+      "days": "勤務区分（勤怠表）",
+      "table": "表",
+      "alerts": "アラートとトースト",
+      "overlays": "メニュー・ツールチップ・ダイアログ",
+      "tabs": "タブ",
+      "states": "読み込み中・空・進捗"
+    },
+    "buttons": {
+      "primary": "会社を登録",
+      "solid": "保存",
+      "secondary": "エクスポート",
+      "ghost": "絞り込み",
+      "soft": "入金を登録",
+      "danger": "契約を解除",
+      "loading": "保存中",
+      "disabled": "利用不可",
+      "icon": "その他の操作"
+    },
+    "fields": {
+      "companyName": "法人名",
+      "companyNameHelp": "登記簿の表記どおりに入力してください。",
+      "search": "検索",
+      "searchPlaceholder": "会社コードまたは会社名",
+      "price": "月額",
+      "note": "備考",
+      "contract": "契約種別",
+      "contractMonthly": "月額",
+      "contractAnnual": "年額",
+      "contractPartner": "パートナー（無期限）",
+      "disabled": "入力不可の欄",
+      "errorExample": "エラーのある欄",
+      "validate": "検証"
+    },
+    "masks": {
+      "postalCode": "郵便番号",
+      "mobile": "携帯電話",
+      "landline": "固定電話",
+      "employeeId": "従業員ID",
+      "help": "数字だけを入力してください。ハイフンは自動で入ります。全角（０９０）も使えます。"
+    },
+    "choices": {
+      "modules": "モジュール",
+      "employees": "従業員",
+      "scheduling": "配置・カレンダー",
+      "schedulingHelp": "同時に有効化：取引先、従業員",
+      "attendance": "勤怠確認",
+      "paymentMethod": "支払方法",
+      "transfer": "銀行振込",
+      "cash": "現金",
+      "trial": "試用期間"
+    },
+    "cards": {
+      "active": "稼働中の会社",
+      "revenue": "今月の売上",
+      "pastDue": "支払遅延",
+      "deltaUp": "今月 +2",
+      "deltaDown": "1社が7日超過",
+      "feature": "次の支払期限",
+      "featureText": "DEMO・11/01"
+    },
+    "badges": {
+      "active": "稼働中",
+      "trial": "試用中",
+      "pastDue": "支払遅延",
+      "readOnly": "閲覧のみ",
+      "blocked": "停止中",
+      "partner": "パートナー",
+      "canceled": "解約済み",
+      "filterAll": "すべて",
+      "filterPaid": "入金済み"
+    },
+    "days": {
+      "teiji": "定時",
+      "hannichi": "半日",
+      "yasumi": "休",
+      "kekkin": "欠勤",
+      "chushi": "中止",
+      "kyugyo": "休業",
+      "yukyu": "有給",
+      "pending": "未確認",
+      "empty": "記録なし",
+      "overtime": "残業 {hours}時間"
+    },
+    "table": {
+      "code": "コード",
+      "name": "会社",
+      "contract": "契約",
+      "paidUntil": "支払済み期限",
+      "status": "状態",
+      "amount": "金額"
+    },
+    "alerts": {
+      "infoTitle": "請求を作成しました",
+      "infoText": "11月分の請求は「入金」で確認できます。",
+      "successTitle": "入金を登録しました",
+      "successText": "DEMO は稼働中に戻りました。",
+      "warningTitle": "支払いが遅れています",
+      "warningText": "あと3日で閲覧のみになります。",
+      "dangerTitle": "会社を停止しました",
+      "dangerText": "入金されるまで管理者はログインできません。",
+      "toastSuccess": "成功トーストを表示",
+      "toastError": "エラートーストを表示",
+      "toastSaved": "モジュールを無効にしました",
+      "toastFailed": "保存できませんでした。もう一度お試しください。"
+    },
+    "overlays": {
+      "tooltip": "詳細を見る",
+      "tooltipText": "10/31 まで支払済み",
+      "menu": "操作",
+      "menuLabel": "会社",
+      "edit": "情報を編集",
+      "payment": "入金を登録",
+      "suspend": "停止する",
+      "openDialog": "ダイアログを開く",
+      "openDrawer": "ドロワーを開く",
+      "dialogTitle": "DEMO を停止しますか？",
+      "dialogText": "再開するまで管理者はログインできません。理由は履歴に残ります。",
+      "reason": "理由",
+      "drawerTitle": "入金を登録",
+      "drawerText": "入金額を入力してください。振込手数料が差し引かれている場合は、消し込み方法を選べます。"
+    },
+    "tabs": {
+      "summary": "概要",
+      "modules": "モジュール",
+      "contract": "契約と入金",
+      "users": "ユーザー",
+      "history": "履歴",
+      "content": "{tab} タブの内容です。"
+    },
+    "states": {
+      "emptyTitle": "会社が登録されていません",
+      "emptyText": "最初の会社を登録してください。",
+      "emptyAction": "会社を登録",
+      "progress": "登録",
+      "skeleton": "一覧を読み込み中"
+    }
+  },
+  "validation": {
+    "required": "必須項目です。",
+    "tooLong": "文字数が多すぎます。",
+    "email": "メールアドレスが正しくありません。",
+    "postalCode": "郵便番号は7桁（123-4567）で入力してください。",
+    "mobilePhone": "携帯電話は070・080・090で始まる11桁で入力してください。",
+    "phone": "電話番号が正しくありません。",
+    "integer": "整数で入力してください。",
+    "min": "最小値を下回っています。",
+    "max": "最大値を超えています。",
+    "employeeLoginId": "IDは8桁で入力してください。",
+    "pin": "PINは4桁で入力してください。",
+    "pinTrivial": "推測されやすいPINです。同じ数字や連続した数字は避けてください。"
+  }
+}

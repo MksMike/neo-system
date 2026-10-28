@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@import '@neo/ui/styles.css';
+
+/* Tailwind scans the design system components, which live outside the app. */
+@source '../../../../packages/ui/src';

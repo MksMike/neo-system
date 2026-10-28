@@ -25,9 +25,9 @@ A primeira entrega é o **Super Admin v1**, especificado em [`docs/camadas/00-pl
 
 | # | Tarefa | Entrega | ADRs |
 | --- | --- | --- | --- |
-| SA-01 | Monorepo | pnpm + Turborepo, `packages/config`, pacotes base. PR #2; acrescentar `packages/validation` e `packages/observability` | 0011, 0019, 0022 |
+| SA-01 ✅ | Monorepo | pnpm + Turborepo, `packages/config`, pacotes base. PR #2; acrescentar `packages/validation` e `packages/observability` | 0011, 0019, 0022 |
 | SA-02 | CI | CI em todo PR no GitHub Actions (lint, typecheck, test, build, format, gitleaks, Semgrep, `pnpm audit`); Dependabot. Sem deploy por enquanto | 0017, 0023 |
-| SA-03 | App e design system | `apps/web` com Next.js (App Router) e Tailwind v4; tokens de `docs/design-tokens.json` em `packages/ui` (6 temas); componentes shadcn/ui adaptados, incluindo as máscaras de CEP e telefone; `/dev/ui` com troca de tema e idioma (ja/pt); cabeçalhos de segurança | 0010, 0019, 0023 |
+| SA-03 ✅ | App e design system | `apps/web` com Next.js (App Router) e Tailwind v4; tokens de `docs/design-tokens.json` em `packages/ui` (6 temas); componentes shadcn/ui adaptados, incluindo as máscaras de CEP e telefone; `/dev/ui` com troca de tema e idioma (ja/pt); cabeçalhos de segurança | 0010, 0019, 0023 |
 | SA-04 | Banco da plataforma | Supabase local; migrações das tabelas da seção 3 da camada 00; RLS; `anon` sem acesso e sem escrita direta; funções da seção 3; `pg_cron`; seeds de módulos e planos; pgTAP para isolamento, permissões, provisionamento que falha sem resto, R00-04, R00-06, R00-07, R00-13 a R00-17; `supabase db lint` no CI | 0012, 0014, 0016, 0018, 0020, 0023 |
 | SA-05 | Base de erros e logs | Helper de ações com resposta `{ ok, code, message }`, ID da requisição, idempotência e `version`; `packages/observability` com catálogo de códigos; tabelas de eventos e métricas; rota `/api/jobs/run` (localmente, disparada por um script em vez do cron da Hostinger) | 0014, 0020, 0022 |
 | SA-06 | Login | Super Admin (e-mail + senha + TOTP obrigatório, só `platform_admin`, 404 para os demais em `/super`); admin da empresa (e-mail + senha, 2FA para Proprietário e Gestor); `membership`; aceite do convite do Proprietário; seed local com 1 Super Admin e as empresas SUGITA (Parceiro, investidora) e DEMO (mensal); Playwright | 0016 |
