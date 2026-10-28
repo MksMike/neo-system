@@ -5,23 +5,34 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import { ADMIN_HOME, ADMIN_SECTIONS, isActiveHref, SIDEBAR_COOKIE } from './sections';
 
 const COLLAPSED_WIDTH = 'w-[68px]';
 
-const ENTRIES = [ADMIN_HOME, ...ADMIN_SECTIONS.filter((s) => s.key !== 'settings')];
-const SETTINGS = ADMIN_SECTIONS.filter((s) => s.key === 'settings');
+const ENTRIES = [ADMIN_HOME, ...ADMIN_SECTIONS];
 
-function Brand({ subtitle }: { subtitle: string }) {
+/** First character of the company name, the company symbol until logos exist (design system, panel). */
+function initialOf(name: string): string {
+  return Array.from(name.trim())[0]?.toUpperCase() ?? '?';
+}
+
+export function CompanyMark({ name }: { name: string }) {
+  return (
+    <span className="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-grad-brand text-[13px] font-bold leading-none text-on-grad">
+      {initialOf(name)}
+    </span>
+  );
+}
+
+/** Company symbol and name, with the product name under it (design system, "Telas do painel"). */
+function Brand({ company }: { company: string }) {
   return (
     <span className="flex min-w-0 items-center gap-2.5">
-      <span className="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-grad-brand text-[13px] font-bold leading-none text-on-grad">
-        NEO
-      </span>
+      <CompanyMark name={company} />
       <span className="nav-label min-w-0">
-        <span className="block truncate text-[13px] font-bold">NEO-SYSTEM</span>
-        <small className="block truncate text-xs text-ink-subtle">{subtitle}</small>
+        <span className="block truncate text-[13px] font-bold">{company}</span>
+        <small className="block truncate text-xs text-ink-subtle">NEO-SYSTEM</small>
       </span>
     </span>
   );
@@ -62,7 +73,13 @@ function NavLinks({ entries, onNavigate }: { entries: typeof ENTRIES; onNavigate
  * Desktop side menu. Pinned open, or collapsed to icons; when collapsed, pointing at it (or
  * tabbing into it) expands it over the page and reveals the labels.
  */
-export function AdminSidebar({ initialCollapsed }: { initialCollapsed: boolean }) {
+export function AdminSidebar({
+  company,
+  initialCollapsed,
+}: {
+  company: string;
+  initialCollapsed: boolean;
+}) {
   const t = useTranslations('admin.nav');
   const [collapsed, setCollapsed] = useState(initialCollapsed);
   const [peek, setPeek] = useState(false);
@@ -110,11 +127,10 @@ export function AdminSidebar({ initialCollapsed }: { initialCollapsed: boolean }
           href={ADMIN_HOME.href}
           className="rounded-md px-[5px] pt-1 text-ink no-underline focus-visible:outline-2 focus-visible:outline-focus"
         >
-          <Brand subtitle={t('subtitle')} />
+          <Brand company={company} />
         </Link>
         <NavLinks entries={ENTRIES} />
         <div className="mt-auto flex flex-col gap-0.5 border-t border-line pt-3">
-          <NavLinks entries={SETTINGS} />
           <button
             type="button"
             onClick={toggle}
@@ -138,7 +154,7 @@ export function AdminSidebar({ initialCollapsed }: { initialCollapsed: boolean }
  * Phone menu: the logo at the top left opens it; choosing a screen closes it and opens the screen.
  * It enters fading in from the left and leaves fading out to the right (drawer-start).
  */
-export function AdminMobileMenu({ footer }: { footer?: ReactNode }) {
+export function AdminMobileMenu({ company }: { company: string }) {
   const t = useTranslations();
   const [open, setOpen] = useState(false);
   const close = () => {
@@ -152,9 +168,7 @@ export function AdminMobileMenu({ footer }: { footer?: ReactNode }) {
           aria-label={t('admin.nav.open')}
           className="cursor-pointer rounded-[10px] border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-focus md:hidden"
         >
-          <span className="grid size-[34px] place-items-center rounded-[10px] bg-grad-brand text-[13px] font-bold leading-none text-on-grad shadow-[0_0_0_4px_var(--glow)]">
-            NEO
-          </span>
+          <CompanyMark name={company} />
         </button>
       </DialogTrigger>
       <DialogContent
@@ -168,13 +182,9 @@ export function AdminMobileMenu({ footer }: { footer?: ReactNode }) {
         >
           <DialogTitle className="sr-only">{t('admin.nav.label')}</DialogTitle>
           <div className="px-[5px] pt-1">
-            <Brand subtitle={t('admin.nav.subtitle')} />
+            <Brand company={company} />
           </div>
           <NavLinks entries={ENTRIES} onNavigate={close} />
-          <div className="mt-auto flex flex-col gap-3 border-t border-line pt-3">
-            <NavLinks entries={SETTINGS} onNavigate={close} />
-            {footer}
-          </div>
         </nav>
       </DialogContent>
     </Dialog>

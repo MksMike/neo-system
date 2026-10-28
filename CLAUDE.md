@@ -71,6 +71,7 @@ pnpm dev              # app web local (a partir da tarefa SA-03)
 pnpm build            # build de tudo
 pnpm test             # testes unitários (Vitest)
 pnpm test:e2e         # testes ponta a ponta (Playwright; precisa do db:start e do env:local)
+E2E_SERVER=start pnpm test:e2e   # o mesmo contra o build (depois do pnpm build), como no CI; mais rápido e estável
 pnpm lint && pnpm typecheck
 pnpm format           # Prettier (format:check no CI)
 pnpm db:start        # Supabase local no Docker (portas 55320–55329)

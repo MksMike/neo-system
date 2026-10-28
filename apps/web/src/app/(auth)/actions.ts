@@ -3,6 +3,8 @@
 import { ActionError } from '@neo/db';
 import { email, loginPassword, newPassword } from '@neo/validation';
 import { z } from 'zod';
+import { isLocale } from '@/i18n/config';
+import { writeLocaleCookie } from '@/i18n/cookie';
 import { destinationFor, officeMemberships } from '@/lib/destination';
 import { defineAction } from '@/server/define-action';
 import { getSession, setActiveCompany, userClient } from '@/server/session';
@@ -38,6 +40,9 @@ export const signIn = defineAction({
       throw new ActionError('forbidden', 'no_access');
     }
     if (destination.companyId) await setActiveCompany(destination.companyId);
+    // The panel opens in the language the person chose, whatever this browser had before.
+    const savedLocale = session.locale ?? undefined;
+    if (isLocale(savedLocale)) await writeLocaleCookie(savedLocale);
     ctx.log('AUTH.LOGIN.SUCCEEDED', { superAdmin: session.isPlatformAdmin });
     return { redirectTo: destination.path };
   },

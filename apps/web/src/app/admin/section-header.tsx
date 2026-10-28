@@ -23,11 +23,7 @@ export async function SectionHeader({
 
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader
-        title={t(`nav.${section.key}`)}
-        description={t(`sections.${section.key}`)}
-        actions={actions}
-      />
+      <PageHeader title={t(`nav.${section.key}`)} actions={actions} />
       {section.screens.length > 1 ? (
         <TabNav aria-label={t('screensOf', { section: t(`nav.${section.key}`) })}>
           {section.screens.map((screen) => (

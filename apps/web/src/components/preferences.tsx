@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { setLocale } from '@/i18n/actions';
-import { LOCALES } from '@/i18n/config';
+import { isLocale, LOCALES } from '@/i18n/config';
 import {
   HUE_COOKIE,
   HUES,
@@ -74,9 +74,9 @@ export function LocaleSwitcher() {
       value={locale}
       options={LOCALES.map((l) => ({ value: l, label: t(`languages.${l}`) }))}
       onValueChange={(v) => {
-        if (pending) return;
+        if (pending || !isLocale(v)) return;
         startTransition(async () => {
-          const result = await setLocale(v);
+          const result = await setLocale({ locale: v });
           if (result.ok) router.refresh();
           else toast.error(t('language'));
         });

@@ -595,7 +595,6 @@
   "admin": {
     "nav": {
       "label": "Menu do painel",
-      "subtitle": "Painel da empresa",
       "open": "Abrir menu",
       "collapse": "Recolher menu",
       "pin": "Manter menu aberto",
@@ -627,7 +626,6 @@
       "phase2": "Fase 2"
     },
     "dashboard": {
-      "description": "Visão geral da empresa e atalhos para cada área do sistema.",
       "sections": "Áreas do sistema"
     },
     "screens": {
@@ -746,5 +744,15 @@
       "blocked": "Bloqueada",
       "canceled": "Cancelada"
     }
+  },
+  "account": {
+    "label": "Menu da conta",
+    "open": "Abrir menu da conta de {name}",
+    "manage": "Gerenciar conta",
+    "darkMode": "Modo escuro",
+    "title": "Minha conta",
+    "email": "E-mail",
+    "company": "Empresa",
+    "soon": "Foto do perfil, troca de senha e nome entram em breve."
   }
 }

@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 import {
   Dialog as DialogPrimitive,
   DropdownMenu as MenuPrimitive,
+  Popover as PopoverPrimitive,
   Tooltip as TooltipPrimitive,
 } from 'radix-ui';
 import type { ComponentProps, ReactNode } from 'react';
@@ -112,6 +113,34 @@ export function DropdownMenuSeparator({
 }: ComponentProps<typeof MenuPrimitive.Separator>) {
   return (
     <MenuPrimitive.Separator className={cn('mx-1 my-1.5 h-px bg-line', className)} {...props} />
+  );
+}
+
+/* ---------- Popover (panel with form controls, e.g. the account menu) ---------- */
+
+export const Popover = PopoverPrimitive.Root;
+export const PopoverTrigger = PopoverPrimitive.Trigger;
+export const PopoverClose = PopoverPrimitive.Close;
+
+/** Same surface as the dropdown menu; unlike it, holds switches, selects and buttons. */
+export function PopoverContent({
+  className,
+  sideOffset = 8,
+  align = 'end',
+  ...props
+}: ComponentProps<typeof PopoverPrimitive.Content>) {
+  return (
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Content
+        sideOffset={sideOffset}
+        align={align}
+        className={cn(
+          'z-(--z-dropdown) w-[min(300px,calc(100vw-32px))] animate-nx-enter rounded-lg border border-line bg-surface-1 p-2 shadow-md outline-none',
+          className,
+        )}
+        {...props}
+      />
+    </PopoverPrimitive.Portal>
   );
 }
 

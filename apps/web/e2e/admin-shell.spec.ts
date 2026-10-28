@@ -74,7 +74,7 @@ test('on a phone the logo opens the menu and choosing a screen closes it', async
   await page.waitForLoadState('networkidle');
   await expect(page.getByRole('navigation', { name: 'Menu do painel' })).toBeHidden();
 
-  await page.getByRole('button', { name: 'Abrir menu' }).click();
+  await page.getByRole('button', { name: 'Abrir menu', exact: true }).click();
   const drawer = page.getByRole('dialog', { name: 'Menu do painel' });
   await expect(drawer).toBeVisible();
   await drawer.getByRole('link', { name: 'Escalações' }).click();
@@ -90,4 +90,26 @@ test('an unknown screen answers 404', async ({ page }) => {
   await signInAsDemoOwner(page);
   const response = await page.goto('/admin/funcionarios/nao-existe');
   expect(response?.status()).toBe(404);
+});
+
+test('the account menu holds the theme and the logout', async ({ page }) => {
+  await signInAsDemoOwner(page);
+  await page.waitForLoadState('networkidle');
+  await page.getByRole('button', { name: /Abrir menu da conta/ }).click();
+  const menu = page.getByRole('dialog', { name: 'Menu da conta' });
+  await expect(menu.getByRole('link', { name: 'Gerenciar conta' })).toBeVisible();
+
+  await menu.getByRole('switch', { name: 'Modo escuro' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-mode', /escuro|claro/);
+  await menu.getByRole('radio', { name: 'Roxo' }).click();
+  await expect(page.locator('html')).toHaveAttribute('data-hue', 'roxo');
+  await expect(menu.getByRole('radio', { name: 'Roxo' })).toHaveAttribute('aria-checked', 'true');
+
+  await menu.getByRole('link', { name: 'Gerenciar conta' }).click();
+  await expect(page).toHaveURL(/\/admin\/conta$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Minha conta' })).toBeVisible();
+
+  await page.getByRole('button', { name: /Abrir menu da conta/ }).click();
+  await page.getByRole('button', { name: 'Sair' }).click();
+  await expect(page).toHaveURL(/\/login$/);
 });

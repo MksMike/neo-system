@@ -58,6 +58,10 @@ export {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
   Tooltip,
   TooltipProvider,
 } from './components/overlay';

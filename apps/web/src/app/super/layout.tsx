@@ -3,8 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
-import { LocaleSwitcher, ThemeSwitcher } from '@/components/preferences';
-import { SignOutButton } from '@/components/sign-out-button';
+import { AccountMenu } from '@/components/account-menu';
 import { HUE_COOKIE, MODE_COOKIE, parseHue, parseMode } from '@/lib/theme';
 import { getSession } from '@/server/session';
 import { MobileMenu } from './mobile-menu';
@@ -19,13 +18,6 @@ export default async function SuperLayout({ children }: { children: ReactNode })
   if (!session?.isPlatformAdmin) notFound();
 
   const [t, cookieStore] = await Promise.all([getTranslations(), cookies()]);
-  const theme = (
-    <ThemeSwitcher
-      initialHue={parseHue(cookieStore.get(HUE_COOKIE)?.value)}
-      initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)}
-    />
-  );
-
   return (
     <>
       <SkipLink>{t('common.skipToContent')}</SkipLink>
@@ -34,18 +26,20 @@ export default async function SuperLayout({ children }: { children: ReactNode })
           aria-label={t('super.nav.label')}
           className="sticky top-0 h-screen overflow-y-auto max-md:hidden"
         >
-          <SidebarBrand mark="NEO" title="NEO-SYSTEM" subtitle={t('super.title')} />
+          <SidebarBrand mark="NX" variant="mono" title="NEO-SYSTEM" subtitle={t('super.title')} />
           <SuperNav />
         </Sidebar>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-(--z-sticky) flex min-h-15 items-center gap-2 border-b border-line bg-[color-mix(in_srgb,var(--surface-1)_86%,transparent)] px-4 py-2 backdrop-blur-md md:px-8">
-            <MobileMenu footer={theme} />
-            <div className="ml-auto flex items-center gap-2">
-              <div className="max-lg:hidden">{theme}</div>
-              <LocaleSwitcher />
-              <span className="type-num text-ink-subtle max-sm:hidden">{session.email}</span>
-              <SignOutButton />
+          <header className="flex min-h-15 items-center gap-2 px-4 pt-3 md:px-8">
+            <MobileMenu />
+            <div className="ml-auto">
+              <AccountMenu
+                name={session.displayName ?? session.email.split('@')[0] ?? session.email}
+                email={session.email}
+                initialHue={parseHue(cookieStore.get(HUE_COOKIE)?.value)}
+                initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)}
+              />
             </div>
           </header>
           <main

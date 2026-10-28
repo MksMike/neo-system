@@ -38,7 +38,7 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title={t('nav.dashboard')} description={t('dashboard.description')} />
+      <PageHeader title={t('nav.dashboard')} />
 
       <Card>
         <CardHeader>

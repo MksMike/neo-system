@@ -46,6 +46,7 @@ test('turns a module on from a future date (R00-04, R00-05)', async ({ page }) =
 });
 
 test('a change based on an old page is refused (ADR 0020)', async ({ page, context }) => {
+  test.slow(); // two tabs: in local dev mode each one compiles its page
   await signInAsSuperAdmin(page);
   const url = await createPartnerCompany(page, uniqueCode('CNF'));
   await page.goto(`${url}?aba=modulos`);

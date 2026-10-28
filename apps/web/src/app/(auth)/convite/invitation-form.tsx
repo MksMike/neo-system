@@ -48,6 +48,9 @@ export function InvitationForm() {
 
   return (
     <form
+      // POST even before the page hydrates: a native GET would put the password in the URL,
+      // the browser history and the server logs (ADR 0022).
+      method="post"
       onSubmit={(event) => {
         void onSubmit(event);
       }}

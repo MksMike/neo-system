@@ -49,7 +49,7 @@ Uma fatia que funciona de ponta a ponta para mostrar ao dono da Sugita. Todas as
 
 | # | Tarefa | Entrega | Camadas |
 | --- | --- | --- | --- |
-| D-01 ✅ | Menu do painel | `/admin` com o menu do mapa: recolhível em ícones (expande ao passar o mouse, lembra a escolha), gaveta pelo logo no celular com animação, todas as telas com título, abas e o marco em que chegam | 02 |
+| D-01 ✅ | Menu do painel | `/admin` com o menu do mapa: recolhível em ícones (expande ao passar o mouse, lembra a escolha), gaveta pelo logo no celular com animação, todas as telas com título, abas e o marco em que chegam; menu da conta no avatar (tema, cores, idioma salvo no perfil, logout) | 02, 01 |
 | D-02 | Clientes, subs e locais | Lista e cadastro rápido de clientes; subcontratantes vinculados com cor e sigla; locais | 04 |
 | D-03 | Funcionários | Lista e cadastro básico; criação do acesso ao app (ID de 8 dígitos + PIN) | 05, 01 |
 | D-04 | Escalações | Nova escalação (cliente, sub, local, período, horário) com seleção de funcionários; calendário por escalação, mês e semana | 06 |

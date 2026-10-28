@@ -5,6 +5,8 @@ const PASSWORD = 'neo-local-2026';
 
 async function signIn(page: Page, email: string, password = PASSWORD) {
   await page.goto('/login');
+  // Wait for hydration: the form must be submitted by the app, not natively.
+  await page.waitForLoadState('networkidle');
   await page.getByLabel('E-mail').fill(email);
   await page.getByLabel('Senha').fill(password);
   await page.getByRole('button', { name: 'Entrar' }).click();
@@ -34,6 +36,7 @@ test('the Super Admin lands on /super and can sign out', async ({ page }) => {
   await expect(page).toHaveURL(/\/super$/);
   await expect(page.getByRole('heading', { level: 1, name: 'Início' })).toBeVisible();
 
+  await page.getByRole('button', { name: /Abrir menu da conta/ }).click();
   await page.getByRole('button', { name: 'Sair' }).click();
   await expect(page).toHaveURL(/\/login$/);
   const response = await page.goto('/super');
@@ -47,4 +50,11 @@ test('a company owner lands on /admin and gets 404 on /super', async ({ page }) 
 
   const response = await page.goto('/super');
   expect(response?.status()).toBe(404);
+});
+
+test('the login form never sends the password in the URL, even before it hydrates', async ({
+  page,
+}) => {
+  await page.goto('/login');
+  await expect(page.locator('form')).toHaveAttribute('method', 'post');
 });

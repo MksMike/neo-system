@@ -10,6 +10,10 @@ export const COMPANY_COOKIE = 'neo-company';
 export interface Session extends SessionSummary {
   userId: string;
   email: string;
+  /** Name in the profile, when there is one. */
+  displayName: string | null;
+  /** Language saved by the person (layer 01); the app opens in it after login. */
+  locale: string | null;
 }
 
 export async function userClient(): Promise<Db> {
@@ -28,12 +32,16 @@ export const getSession = cache(async (): Promise<Session | null> => {
   if (error) throw error;
   const summary = data as unknown as {
     is_platform_admin: boolean;
+    display_name: string | null;
+    locale: string | null;
     memberships: SessionMembership[];
   };
   return {
     userId: user.id,
     email: user.email ?? '',
     isPlatformAdmin: summary.is_platform_admin,
+    displayName: summary.display_name,
+    locale: summary.locale,
     memberships: summary.memberships,
   };
 });

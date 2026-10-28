@@ -3,6 +3,8 @@ import { expect, type Page } from '@playwright/test';
 // Dev seed Super Admin and companies SUGITA and DEMO (local database only): supabase/seeds/10_dev_data.sql
 export async function signInAsSuperAdmin(page: Page) {
   await page.goto('/login');
+  // Wait for hydration: the form must be submitted by the app, not natively.
+  await page.waitForLoadState('networkidle');
   await page.getByLabel('E-mail').fill('admin@neo.local');
   await page.getByLabel('Senha').fill('neo-local-2026');
   await page.getByRole('button', { name: 'Entrar' }).click();
@@ -92,6 +94,8 @@ export async function invitationLink(to: string, timeoutMs = 45_000): Promise<st
 /** Owner of the DEMO company (dev seed): lands on the office panel. */
 export async function signInAsDemoOwner(page: Page) {
   await page.goto('/login');
+  // Wait for hydration: the form must be submitted by the app, not natively.
+  await page.waitForLoadState('networkidle');
   await page.getByLabel('E-mail').fill('dono.demo@neo.local');
   await page.getByLabel('Senha').fill('neo-local-2026');
   await page.getByRole('button', { name: 'Entrar' }).click();

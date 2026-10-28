@@ -20,14 +20,22 @@ export function SidebarBrand({
   mark,
   title,
   subtitle,
+  variant = 'brand',
 }: {
   mark: ReactNode;
   title: ReactNode;
   subtitle?: ReactNode;
+  /** `mono` is the Super Admin symbol (design system, product family). */
+  variant?: 'brand' | 'mono';
 }) {
   return (
     <div className="flex items-center gap-2.5 px-2 pt-1 pb-4">
-      <span className="grid size-[34px] shrink-0 place-items-center rounded-[10px] bg-grad-brand text-[13px] font-bold leading-none text-on-grad">
+      <span
+        className={cn(
+          'grid size-[34px] shrink-0 place-items-center rounded-[10px] text-[13px] font-bold leading-none',
+          variant === 'mono' ? 'bg-ink text-surface-1' : 'bg-grad-brand text-on-grad',
+        )}
+      >
         {mark}
       </span>
       <span className="min-w-0">
