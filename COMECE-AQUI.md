@@ -37,7 +37,7 @@ A primeira entrega é o **Super Admin v1**, especificado em [`docs/camadas/00-pl
 | SA-10 | Cobranças e status automático | `generate_saas_charges` e `recompute_company_status` diários; `/super/pagamentos`; registrar pagamento com a escolha de quitação; testes active → past_due → read_only → blocked → active | 0018 |
 | SA-11 | Suspender, cancelar e bloqueio aplicado | Suspender, reativar e cancelar com motivo (cancelar recusado para a investidora); no app da empresa, faixa de atraso, modo somente leitura e tela de bloqueio; módulo desligado responde 404; Playwright por status | 0018, 0023 |
 | SA-12 | Saúde do sistema | `/super/sistema` (Saúde, Logs, Fila, Banco) e alertas críticos no topo; rota `/api/health` | 0022 |
-| SA-13 | Publicação | Quando houver telas para mostrar: projeto `neo-mvp` no Supabase, Web App na Hostinger com o subdomínio, workflow de deploy (CI de novo → migrações → build → branch `deploy`), segredos, backup diário criptografado no R2 com teste de restauração mensal, monitor de disponibilidade, varredura OWASP ZAP semanal | 0013, 0017, 0023 |
+| SA-13 | Publicação | Workflow manual "Publicar no MVP" já existe (branch `deploy`). Falta, quando houver telas para mostrar: projeto `neo-mvp` no Supabase, Web App na Hostinger com o subdomínio, workflow de deploy (CI de novo → migrações → build → branch `deploy`), segredos, backup diário criptografado no R2 com teste de restauração mensal, monitor de disponibilidade, varredura OWASP ZAP semanal | 0013, 0017, 0023 |
 
 ## Super Admin v1 pronto quando
 
