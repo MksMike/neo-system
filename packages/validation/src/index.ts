@@ -2,6 +2,14 @@
 // Same schema on the client and the server.
 export { digitsOnly, normalizeText } from './normalize';
 export {
+  companyCode,
+  invoiceRegNo,
+  kanaText,
+  romanizeKana,
+  suggestCompanyCode,
+  toKatakana,
+} from './company';
+export {
   formatEmployeeLoginId,
   formatLandlinePhone,
   formatMobilePhone,
@@ -9,6 +17,8 @@ export {
   formatYen,
 } from './format';
 export {
+  addDays,
+  businessDate,
   email,
   employeeLoginId,
   freeText,
@@ -18,7 +28,9 @@ export {
   longText,
   mobilePhone,
   newPassword,
+  optional,
   pin,
   postalCode,
+  todayInTokyo,
   yen,
 } from './fields';

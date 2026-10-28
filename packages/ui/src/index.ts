@@ -29,12 +29,13 @@ export {
 } from './components/masked-input';
 export {
   SegmentedControl,
+  Steps,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from './components/navigation';
-export type { SegmentedControlProps, SegmentedOption } from './components/navigation';
+export type { SegmentedControlProps, SegmentedOption, StepsProps } from './components/navigation';
 export {
   Dialog,
   DialogClose,

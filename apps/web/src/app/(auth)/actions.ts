@@ -34,7 +34,7 @@ export const signIn = defineAction({
     if (!session) throw new ActionError('internal', 'session_missing_after_sign_in');
     const destination = destinationFor(session);
     if ('noAccess' in destination) {
-      await supabase.auth.signOut();
+      await supabase.auth.signOut({ scope: 'local' });
       throw new ActionError('forbidden', 'no_access');
     }
     if (destination.companyId) await setActiveCompany(destination.companyId);
@@ -48,7 +48,7 @@ export const signOut = defineAction({
   schema: z.object({}),
   handler: async () => {
     const supabase = await userClient();
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: 'local' });
     return { redirectTo: '/login' };
   },
 });

@@ -196,7 +196,13 @@
     "pinTrivial": "PIN fácil demais. Evite números repetidos ou em sequência.",
     "invalid": "Valor inválido.",
     "passwordTooShort": "Use pelo menos 10 caracteres.",
-    "passwordMismatch": "As senhas não conferem."
+    "passwordMismatch": "As senhas não conferem.",
+    "companyCode": "De 3 a 12 letras maiúsculas e números, sem espaço.",
+    "invoiceRegNo": "T seguido de 13 dígitos (T1234567890123).",
+    "kana": "Use katakana (letras e números também valem).",
+    "date": "Data inválida.",
+    "dateInPast": "A data não pode ser anterior a hoje.",
+    "billingDayOver28": "O período pago precisa começar até o dia 28, para todo mês ter a data. Ajuste o início ou os dias de teste."
   },
   "errors": {
     "validation": "Confira os campos destacados.",
@@ -277,14 +283,12 @@
         "title": "Empresas",
         "description": "Empresas clientes, com contrato, módulos e status.",
         "new": "Nova empresa",
-        "emptyTitle": "Lista de empresas em construção",
-        "emptyText": "A busca, os filtros e a tabela de empresas entram na tarefa SA-08."
+        "emptyTitle": "Nenhuma empresa cadastrada",
+        "emptyText": "Cadastre a primeira empresa cliente para começar."
       },
       "newCompany": {
         "title": "Nova empresa",
-        "description": "Cadastro em 4 passos: dados, módulos, contrato e Proprietário.",
-        "emptyTitle": "Assistente de cadastro em construção",
-        "emptyText": "O cadastro em 4 passos entra na tarefa SA-08."
+        "description": "Cadastro em 4 passos: dados, módulos, contrato e Proprietário."
       },
       "payments": {
         "title": "Pagamentos",
@@ -303,6 +307,145 @@
         "description": "Saúde do sistema: logs, gargalos, fila, banco e alertas.",
         "emptyTitle": "Painel de saúde em construção",
         "emptyText": "As abas de saúde, logs, fila e banco entram na tarefa SA-12."
+      }
+    },
+    "status": {
+      "trial": "Em teste",
+      "active": "Ativa",
+      "past_due": "Em atraso",
+      "read_only": "Somente leitura",
+      "blocked": "Bloqueada",
+      "canceled": "Cancelada"
+    },
+    "contractType": {
+      "monthly": "Mensal",
+      "annual": "Anual",
+      "partner": "Parceiro (vitalício)"
+    },
+    "paymentMethod": {
+      "transfer": "Transferência (銀行振込)",
+      "cash": "Dinheiro (現金)"
+    },
+    "companies": {
+      "created": "Empresa {code} criada",
+      "createdText": "O convite do Proprietário foi para a fila e sai por e-mail em instantes.",
+      "investor": "Investidora",
+      "lifetime": "Vitalício",
+      "noResults": "Nenhuma empresa encontrada",
+      "noResultsText": "Nenhuma empresa corresponde à busca e aos filtros. Tente outros termos.",
+      "columns": {
+        "code": "Código",
+        "name": "Empresa",
+        "contract": "Contrato",
+        "modules": "Módulos",
+        "paidUntil": "Pago até",
+        "status": "Status"
+      },
+      "filters": {
+        "label": "Buscar empresas",
+        "search": "Buscar",
+        "searchPlaceholder": "Código ou nome",
+        "all": "Todos",
+        "apply": "Filtrar",
+        "clear": "Limpar filtros"
+      },
+      "pagination": {
+        "label": "Páginas",
+        "range": "{first}–{last} de {total}",
+        "previous": "Anterior",
+        "next": "Próxima"
+      }
+    },
+    "wizard": {
+      "progress": "Passos do cadastro",
+      "stepTitle": "Passo {n} de {total}: {name}",
+      "steps": {
+        "company": "Dados",
+        "modules": "Módulos",
+        "contract": "Contrato",
+        "owner": "Proprietário e revisão"
+      },
+      "back": "Voltar",
+      "next": "Continuar",
+      "create": "Criar empresa",
+      "creating": "Criando…",
+      "company": {
+        "legalName": "Razão social",
+        "legalNamePlaceholder": "株式会社〇〇",
+        "legalNameKana": "Razão social em katakana",
+        "legalNameKanaHelp": "Usada na ordenação e na sugestão do código.",
+        "displayName": "Nome curto",
+        "displayNameHelp": "Aparece no menu e nas listas. Vazio usa a razão social.",
+        "code": "Código da empresa",
+        "codeHelp": "3 a 12 letras maiúsculas e números. Sugerido a partir do nome; não muda depois.",
+        "useSuggestion": "Usar a sugestão {code}",
+        "invoiceRegNo": "Número de registro (適格請求書)",
+        "invoiceRegNoHelp": "Opcional. T + 13 dígitos.",
+        "referredBy": "Indicada por",
+        "referredByHelp": "Empresa que trouxe esta cliente, se houver.",
+        "referredByNone": "Nenhuma",
+        "postalCode": "CEP (郵便番号)",
+        "phone": "Telefone",
+        "address": "Endereço",
+        "email": "E-mail da empresa",
+        "emailHelp": "Opcional. Contato geral, não é o login."
+      },
+      "modules": {
+        "plan": "Plano-modelo",
+        "custom": "Personalizado",
+        "planHelp": "O plano só pré-marca os módulos. Você pode ajustar abaixo.",
+        "kinds": {
+          "base": "Sempre incluídos",
+          "optional": "Opcionais",
+          "addon": "Adicionais"
+        },
+        "always": "Incluído em todo contrato.",
+        "needs": "Precisa de: {list}.",
+        "needsAny": "Precisa de {list}.",
+        "requiredBy": "Necessário para: {list}. Desligue esses antes.",
+        "alsoEnabled": "Para {module}, também ligamos: {list}.",
+        "needsOneOf": "{module} precisa de {list}."
+      },
+      "contract": {
+        "type": "Tipo de contrato",
+        "typeHelp": {
+          "monthly": "Valor fixo por mês, cobrado no início de cada período.",
+          "annual": "Valor fixo por ano, cobrado no início de cada período.",
+          "partner": "Vitalício, sem valor e sem cobrança. Para empresas parceiras do desenvolvimento."
+        },
+        "partnerTitle": "Contrato de parceiro",
+        "partnerText": "Não gera cobrança e o status nunca muda sozinho por atraso.",
+        "price": "Valor",
+        "priceHelp": {
+          "monthly": "Por mês, em ienes.",
+          "annual": "Por ano, em ienes."
+        },
+        "paymentMethod": "Forma de pagamento",
+        "startsOn": "Início do contrato",
+        "trialDays": "Dias de teste",
+        "trialDaysHelp": "Opcional, até 90. A primeira cobrança é do período depois do teste.",
+        "days": "dias",
+        "trialUntil": "Teste até {date}.",
+        "billingMonthly": "O período pago começa em {date}; a cobrança vence todo dia {day}.",
+        "billingAnnual": "O período pago começa em {date}; a cobrança vence uma vez por ano nessa data."
+      },
+      "owner": {
+        "name": "Nome do Proprietário",
+        "email": "E-mail do Proprietário",
+        "emailHelp": "O convite para criar a senha vai para este e-mail."
+      },
+      "review": {
+        "title": "Revisão",
+        "edit": "Editar",
+        "modules": "Módulos opcionais ({count})",
+        "baseOnly": "Só os módulos base.",
+        "trial": "{days} dias",
+        "inviteTitle": "O que acontece ao criar",
+        "inviteText": "Empresa, contrato e módulos são criados juntos, ou nada é criado. O convite do Proprietário vai para a fila e sai por e-mail logo depois."
+      },
+      "errors": {
+        "codeTaken": "Este código já está em uso. Escolha outro.",
+        "modules": "Há módulos com dependência faltando."
       }
     }
   },

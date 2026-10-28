@@ -52,3 +52,4 @@
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
 | 2026-10-28 | 0.2 | Decisões de login e acesso por empresa (ADR 0016) | #3 |
 | 2026-10-29 | 0.3 | SA-06: login de Super Admin e admins, aceite do convite, escolha de empresa, proteção de /super e /admin, testes pgTAP e Playwright; 2FA adiado (ADR 0024) | SA-06 |
+| 2026-10-29 | 0.4 | Sair encerra só a sessão do aparelho atual (antes encerrava todas as sessões da pessoa) | SA-08 |

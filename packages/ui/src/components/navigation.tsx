@@ -113,3 +113,47 @@ export function SegmentedControl({
     </ToggleGroupPrimitive.Root>
   );
 }
+
+/* ---------- Steps (wizard progress) ---------- */
+
+export interface StepsProps {
+  /** Step names, already translated. */
+  steps: string[];
+  /** Index of the current step (0-based). */
+  current: number;
+  /** Accessible name of the list (already translated). */
+  label: string;
+  className?: string;
+}
+
+/** Progress of a wizard: done, current and next steps. The current one has `aria-current="step"`. */
+export function Steps({ steps, current, label, className }: StepsProps) {
+  return (
+    <ol aria-label={label} className={cn('m-0 flex list-none gap-2 p-0', className)}>
+      {steps.map((name, index) => {
+        const state = index < current ? 'done' : index === current ? 'current' : 'next';
+        return (
+          <li
+            key={name}
+            aria-current={state === 'current' ? 'step' : undefined}
+            data-state={state}
+            className="group flex min-w-0 flex-1 flex-col gap-2"
+          >
+            <span
+              aria-hidden
+              className="h-1 rounded-full bg-surface-3 group-data-[state=current]:bg-grad-brand group-data-[state=done]:bg-primary"
+            />
+            <span className="flex items-center gap-2 text-[13px] leading-4 font-semibold text-ink-subtle group-data-[state=current]:text-ink group-data-[state=done]:text-ink-muted">
+              <span className="type-num grid size-5 shrink-0 place-items-center rounded-full border border-line text-[11px] group-data-[state=current]:border-primary group-data-[state=current]:text-primary-text group-data-[state=done]:border-primary group-data-[state=done]:bg-primary group-data-[state=done]:text-on-primary">
+                {index + 1}
+              </span>
+              <span className="truncate max-sm:sr-only max-sm:group-data-[state=current]:not-sr-only">
+                {name}
+              </span>
+            </span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}
