@@ -32,3 +32,4 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Documento-âncora, camada 07, `docs/02` e CLAUDE.md: offline saiu da fase 2 para o M2; novo pacote `packages/validation`; coluna `version` obrigatória; regras 11 (entradas) e 12 (falhas nunca silenciosas) no CLAUDE.md. (2026-10-28)
 - Documento-âncora, `docs/02`, inventário (`/super/sistema` antecipada para o M0) e CLAUDE.md (regras 13 e 14): escrita só por funções SQL e logs com códigos. (2026-10-28)
 - `COMECE-AQUI.md` reescrito com as tarefas SA-01 a SA-12, alinhadas às ADRs 0012 a 0023; inventário do Super Admin com as rotas e marcos da v1. (2026-10-28)
+- Desenvolvimento só local até haver telas para mostrar: CI continua no GitHub; servidor, banco na nuvem, deploy e backup passam para a nova tarefa SA-13 (Publicação). (2026-10-28)
