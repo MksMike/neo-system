@@ -160,7 +160,7 @@ Entrada no sistema. Rota base `/(auth)`.
 
 **Contém**
 
-- Código da empresa, nº do funcionário, PIN
+- Telefone e PIN de 4 dígitos (ADR 0016)
 - Teclado numérico grande
 - Idioma
 

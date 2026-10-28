@@ -114,7 +114,7 @@ A revisão da especificação encontrou 18 pontos contraditórios ou vagos. A co
 | 5 | 有給 | "Só 社員" | Para **todo vínculo de emprego** (社員 e パート), por lei; nunca para 下請/業務委託 |
 | 6 | 外注会社 como vínculo | Listado como tipo de funcionário | **Removido.** Empresa terceira é organização; seus trabalhadores entram como 下請 vinculados a ela ✱ |
 | 7 | Limite de admins | Sugita com 1 admin; recomendação de 2–3 no Básico | Admin = Proprietário + Gestor. Limites: Básico 2, Padrão 3, Completo ilimitado. Sugita: Padrão com ajuste para 1 ✱ |
-| 8 | Login na fase 1 | LINE Login só na fase 2; fase 1 sem método definido | Fase 1: **código da empresa + nº do funcionário + PIN**; admins com e-mail + senha. LINE Login na fase 2 ✱ |
+| 8 | Login na fase 1 | LINE Login só na fase 2; fase 1 sem método definido | Fase 1: **telefone + PIN de 4 dígitos**; admins com e-mail + senha e 2FA. LINE Login na fase 2 (ADR 0016) |
 | 9 | Modo offline | Fase 2, mas a confirmação diária (fase 1) acontece em planta sem sinal | Fase 1: exceção de registro tardio com prazo e motivo (camada 07). Offline completo na fase 2 |
 | 10 | Escopo da fase 1 | Incluía conciliação bancária, despesas, design system completo e planos: grande demais para substituir o Bubble | Fase 1 dividida em marcos (Roadmap). Conciliação e leitura por IA vão para a fase 2 ✱ |
 | 11 | Dois 締め | "締め" usado para fatura e para folha | São independentes: 締め do **cliente** (fatura) e 締め do **ciclo de pagamento** (folha) |
@@ -286,8 +286,8 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 
 ### 01 · Identidade e acesso
 
-- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (código da empresa + nº + PIN; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
-- **Regras:** cadastro do funcionário existe sem login; um login por e-mail ou LINE pode estar ligado a mais de uma empresa; o login por PIN é sempre de uma empresa só. Permissão checada no servidor e no RLS.
+- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (telefone + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
+- **Regras:** cadastro do funcionário existe sem login; qualquer login (e-mail, telefone ou LINE) pode estar ligado a mais de uma empresa, e a pessoa escolhe a empresa depois de entrar; a sessão do funcionário expira após 7 dias sem uso. Permissão checada no servidor e no RLS, por participação (`membership`). Detalhes na ADR 0016.
 - **Pronto quando:** testes provam que nenhum papel lê ou altera fora do seu escopo, e que nenhuma empresa enxerga outra.
 
 ### 02 · Design system e interface
@@ -526,7 +526,7 @@ Nenhuma pendência abaixo bloqueia o M0; as de dados da Sugita precisam estar re
 
 - [ ] \#6 · Trabalhadores de empresa terceira entram como 下請 vinculados a uma organização.
 - [ ] \#7 · Básico com 2 admins; Sugita com 1 por ajuste.
-- [ ] \#8 · Login do funcionário na fase 1 por código da empresa + nº + PIN.
+- [x] \#8 · Login do funcionário na fase 1 por telefone + PIN de 4 dígitos (ADR 0016, 2026-10-28).
 - [ ] \#10 · Conciliação bancária e leitura por IA saem da fase 1.
 - [ ] \#13 · Regra do funcionário mensal (faltas descontam mensal ÷ dias úteis).
 - [ ] \#18 · Prazos de guarda e o que acontece com os dados após cancelamento.

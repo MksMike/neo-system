@@ -54,7 +54,7 @@ Abra a pasta no VS Code, inicie o Claude Code e mande uma tarefa por vez. Cada t
 > Inicialize o Supabase local. Crie a primeira migração com: company, user_profile, membership (papel por empresa), permission, audit_log, e as funções/políticas RLS por company_id. Escreva testes pgTAP provando que um usuário de uma empresa não lê nem escreve em outra e que cada papel só faz o que deve. Documente em docs/camadas/00 e 01.
 
 **M0-04 · Login**
-> Implemente login de admin (e-mail + senha, 2FA obrigatório para Proprietário e Gestor) e o login do funcionário por código da empresa + nº + PIN com limite de tentativas, conforme ADR 0004. Rotas (auth), admin, m, super protegidas por papel.
+> Implemente login de admin (e-mail + senha, 2FA obrigatório para Proprietário e Gestor) e o login do funcionário por telefone + PIN de 4 dígitos com limite de tentativas e expiração após 7 dias sem uso, conforme ADR 0016. Rotas (auth), admin, m, super protegidas por papel.
 
 **M0-05 · Idiomas e formatos**
 > Configure next-intl com ja, pt, es, en; utilitários de data (Asia/Tokyo, 西暦/和暦), moeda em iene e minutos.

@@ -18,7 +18,7 @@ A proposta inicial foi **um banco de dados separado por cliente**, criado automa
 | Isolamento | Lógico, garantido pelo Postgres (RLS) e provado por testes pgTAP | Lógico, por schema | Físico: um vazamento entre empresas fica praticamente impossível |
 | Criar empresa | Uma transação (segundos) | Criar schema + rodar migrações | Criar projeto pela API de gerenciamento do Supabase, rodar migrações, configurar Auth, Storage, e-mail, cron e segredos (minutos, com várias etapas que podem falhar) |
 | Migrações | Roda uma vez | Roda N vezes | Roda N vezes, em N projetos; uma falha deixa empresas em versões diferentes do sistema |
-| Login | Um Auth para todos (o funcionário entra com código da empresa + nº + PIN) | Um Auth | Um Auth por projeto: o app precisa descobrir em qual projeto cada pessoa está antes do login |
+| Login | Um Auth para todos (o funcionário entra com telefone + PIN, ADR 0016) | Um Auth | Um Auth por projeto: o app precisa descobrir em qual projeto cada pessoa está antes do login |
 | Super Admin | Consulta direta (lista, uso, status de todas as empresas) | Consulta com união de schemas | Precisa consultar N bancos para montar qualquer lista |
 | Custo | Um projeto Pro | Um projeto | Um projeto por cliente: o plano Free permite só 2 projetos; no Pro, cada projeto extra cobra computação própria todo mês |
 | Backup e restauração | Um processo | Um processo, restauração por empresa mais difícil | N processos para monitorar |
