@@ -693,6 +693,43 @@ export type Database = {
           },
         ];
       };
+      platform_setting: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          deleted_at: string | null;
+          description: string;
+          key: string;
+          updated_at: string;
+          updated_by: string | null;
+          value: NonNullable<Json>;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          description: string;
+          key: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          value: NonNullable<Json>;
+          version?: number;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          description?: string;
+          key?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          value?: NonNullable<Json>;
+          version?: number;
+        };
+        Relationships: [];
+      };
       saas_charge: {
         Row: {
           amount_yen: number;
@@ -1105,6 +1142,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      accept_owner_invitation: { Args: { p_invitation_id: string }; Returns: string };
       cancel_company: {
         Args: { p_company_id: string; p_effective_on?: string; p_reason: string };
         Returns: string;
@@ -1149,6 +1187,7 @@ export type Database = {
       ingest_observability: { Args: { p_events: Json; p_metrics: Json }; Returns: undefined };
       mark_events_seen: { Args: { p_event_ids: string[] }; Returns: number };
       my_company_access: { Args: { p_company_id: string }; Returns: Json };
+      my_session: { Args: Record<PropertyKey, never>; Returns: Json };
       provision_company: { Args: { p: Json }; Returns: string };
       reactivate_company: { Args: { p_company_id: string; p_reason: string }; Returns: string };
       recompute_company_status: { Args: { p_today?: string }; Returns: number };

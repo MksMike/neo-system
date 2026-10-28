@@ -14,13 +14,16 @@ export default async function HomePage() {
         <Card>
           <h1 className="m-0 type-h1">{t('title')}</h1>
           <p className="m-0 text-ink-muted">{t('description')}</p>
-          {showDevUi ? (
-            <div>
-              <Button asChild variant="primary">
+          <div className="flex flex-wrap gap-3">
+            <Button asChild variant="primary">
+              <Link href="/login">{t('signIn')}</Link>
+            </Button>
+            {showDevUi ? (
+              <Button asChild variant="secondary">
                 <Link href="/dev/ui">{t('devUi')}</Link>
               </Button>
-            </div>
-          ) : null}
+            ) : null}
+          </div>
         </Card>
       </main>
     </>

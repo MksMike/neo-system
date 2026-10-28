@@ -14,6 +14,24 @@ A primeira entrega é o **Super Admin v1**, especificado em [`docs/camadas/00-pl
 - [ ] 覚書 assinado (o código começou antes, por decisão do Mike; continua pendente).
 - [ ] Dados só fictícios até o gatilho da ADR 0015.
 
+## Para rodar no seu computador
+
+```bash
+pnpm db:start      # Supabase local (Docker aberto)
+pnpm env:local     # gera apps/web/.env.local
+pnpm dev           # http://localhost:3000
+```
+
+Contas de desenvolvimento, criadas pelo seed (só existem no banco local; `pnpm db:reset` recria):
+
+| Conta | E-mail | Senha |
+| --- | --- | --- |
+| Super Admin | `admin@neo.local` | `neo-local-2026` |
+| Proprietário SUGITA | `dono.sugita@neo.local` | `neo-local-2026` |
+| Proprietário DEMO | `dono.demo@neo.local` | `neo-local-2026` |
+
+E-mails enviados localmente (como o convite) aparecem no Mailpit: http://127.0.0.1:55324.
+
 ## Na publicação (tarefa SA-13)
 
 - [ ] Projeto Supabase `neo-mvp` na região Tóquio (ADR 0013).
@@ -30,7 +48,7 @@ A primeira entrega é o **Super Admin v1**, especificado em [`docs/camadas/00-pl
 | SA-03 ✅ | App e design system | `apps/web` com Next.js (App Router) e Tailwind v4; tokens de `docs/design-tokens.json` em `packages/ui` (6 temas); componentes shadcn/ui adaptados, incluindo as máscaras de CEP e telefone; `/dev/ui` com troca de tema e idioma (ja/pt); cabeçalhos de segurança | 0010, 0019, 0023 |
 | SA-04 ✅ | Banco da plataforma | Supabase local; migrações das tabelas da seção 3 da camada 00; RLS; `anon` sem acesso e sem escrita direta; funções da seção 3; `pg_cron`; seeds de módulos e planos; pgTAP para isolamento, permissões, provisionamento que falha sem resto, R00-04, R00-06, R00-07, R00-13 a R00-17; `supabase db lint` no CI | 0012, 0014, 0016, 0018, 0020, 0023 |
 | SA-05 ✅ | Base de erros e logs | Helper de ações com resposta `{ ok, code, message }`, ID da requisição, idempotência e `version`; `packages/observability` com catálogo de códigos; tabelas de eventos e métricas; rota `/api/jobs/run` (localmente, disparada por um script em vez do cron da Hostinger) | 0014, 0020, 0022 |
-| SA-06 | Login | Super Admin (e-mail + senha + TOTP obrigatório, só `platform_admin`, 404 para os demais em `/super`); admin da empresa (e-mail + senha, 2FA para Proprietário e Gestor); `membership`; aceite do convite do Proprietário; seed local com 1 Super Admin e as empresas SUGITA (Parceiro, investidora) e DEMO (mensal); Playwright | 0016 |
+| SA-06 ✅ | Login | Super Admin (e-mail + senha; 2FA adiado pela ADR 0024, só `platform_admin`, 404 para os demais em `/super`); admin da empresa (e-mail + senha, 2FA para Proprietário e Gestor); `membership`; aceite do convite do Proprietário; seed local com 1 Super Admin e as empresas SUGITA (Parceiro, investidora) e DEMO (mensal); Playwright | 0016 |
 | SA-07 | Shell do Super Admin | Layout de `/super` com menu (Início, Empresas, Pagamentos, Módulos e planos, Sistema), troca de tema e idioma; páginas com título e estado vazio | 0010 |
 | SA-08 | Empresas: lista e cadastro | `/super/empresas` e o assistente `/super/empresas/nova` em 4 passos; `provision_company` numa Server Action; convite pela fila; testes de cadastro completo, código repetido e falha no meio | 0012, 0018, 0019 |
 | SA-09 | Detalhe da empresa | `/super/empresas/[id]` com as abas; módulos com vigência e dependências; troca de contrato com vigência; histórico | 0018 |

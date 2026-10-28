@@ -30,7 +30,8 @@
   "home": {
     "title": "NEO-SYSTEM 開発中",
     "description": "ローカル開発環境です。スーパー管理画面は次のタスクで追加されます。",
-    "devUi": "コンポーネント一覧を見る"
+    "devUi": "コンポーネント一覧を見る",
+    "signIn": "ログイン"
   },
   "devUi": {
     "title": "コンポーネント一覧",
@@ -192,7 +193,9 @@
     "employeeLoginId": "IDは8桁で入力してください。",
     "pin": "PINは4桁で入力してください。",
     "pinTrivial": "推測されやすいPINです。同じ数字や連続した数字は避けてください。",
-    "invalid": "値が正しくありません。"
+    "invalid": "値が正しくありません。",
+    "passwordTooShort": "10文字以上で入力してください。",
+    "passwordMismatch": "パスワードが一致しません。"
   },
   "errors": {
     "validation": "強調表示された項目を確認してください。",
@@ -209,5 +212,58 @@
     "retry": "もう一度試す",
     "pageTitle": "このページを表示できませんでした",
     "pageText": "ページの表示中に問題が発生しました。他の機能は引き続きご利用いただけます。"
+  },
+  "auth": {
+    "signOut": "ログアウト",
+    "login": {
+      "title": "ログイン",
+      "subtitle": "招待メールのメールアドレスとパスワードを入力してください。",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "submit": "ログイン",
+      "submitting": "ログイン中"
+    },
+    "invite": {
+      "title": "パスワードを設定",
+      "text": "{name} 様、NEO-SYSTEM にログインするためのパスワードを設定してください。",
+      "password": "新しいパスワード",
+      "passwordHelp": "10文字以上で入力してください。",
+      "confirm": "パスワード（確認）",
+      "submit": "保存してログイン"
+    },
+    "select": {
+      "title": "会社を選択"
+    },
+    "roles": {
+      "owner": "オーナー",
+      "manager": "マネージャー",
+      "coordinator": "コーディネーター",
+      "employee": "従業員"
+    },
+    "errors": {
+      "invalid_credentials": "メールアドレスまたはパスワードが正しくありません。",
+      "no_access": "このアカウントでアクセスできる会社がありません。招待した方にお問い合わせください。",
+      "too_many_attempts": "試行回数が多すぎます。数分待ってからもう一度お試しください。",
+      "link_invalid": "リンクの有効期限が切れているか、すでに使用されています。招待を再送してもらってください。",
+      "weak_password": "パスワードが弱すぎます。より長く、推測されにくいものにしてください。",
+      "invitation_already_accepted": "この招待はすでに承認されています。メールアドレスとパスワードでログインしてください。",
+      "invitation_not_found": "招待が見つかりません。招待を再送してもらってください。"
+    }
+  },
+  "super": {
+    "title": "スーパー管理",
+    "description": "プラットフォームの管理画面です。メニューと各画面は次のタスク（SA-07）で追加されます。"
+  },
+  "admin": {
+    "title": "会社の管理画面",
+    "description": "会社の管理画面は次のタスクで追加されます。",
+    "status": {
+      "trial": "試用中",
+      "active": "稼働中",
+      "past_due": "支払遅延",
+      "read_only": "閲覧のみ",
+      "blocked": "停止中",
+      "canceled": "解約済み"
+    }
   }
 }

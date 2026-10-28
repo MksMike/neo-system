@@ -18,7 +18,7 @@ O projeto é um MVP funcional. Cumprir desde já todos os requisitos de proteç�
 - Chave `service_role` só no servidor, sempre filtrando `company_id`.
 - Exclusão lógica e log de auditoria.
 - Segredos só em variáveis de ambiente.
-- 2FA para Super Admin e admins das empresas.
+- ~~2FA para Super Admin e admins das empresas.~~ Movido para "adiado" pela ADR 0024 (2026-10-29).
 - Storage privado com links assinados de curta duração.
 - Backup diário criptografado.
 - Regras da IA da ADR 0008, incluindo o mascaramento de dados sensíveis.
@@ -30,6 +30,7 @@ O projeto é um MVP funcional. Cumprir desde já todos os requisitos de proteç�
 - Log de cada visualização de dado sensível.
 - Restrição de região e contrato de tratamento de dados com fornecedores (Sentry, Claude, Resend).
 - Política de privacidade final com a transferência internacional informada (個人情報保護法, art. 28) e consentimentos formais.
+- 2FA obrigatório para Super Admin, Proprietário e Gestor: ligar `require_mfa` e a tela de cadastro do TOTP (ADR 0024).
 
 **Gatilho:** antes de entrar o primeiro dado pessoal real de qualquer empresa, seja por importação do Bubble, cadastro manual ou uso pelo campo. Nesse momento, tudo da lista "adiado" é implementado e o Supabase passa para o Pro (ADR 0013). A passagem é registrada por uma ADR nova.
 

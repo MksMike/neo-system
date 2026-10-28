@@ -1,7 +1,7 @@
 -- Security structure, roles and isolation between companies (ADR 0002, ADR 0016, ADR 0023).
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(24);
+select plan(27);
 
 set local app.today_override = '2026-11-03';
 
@@ -63,6 +63,9 @@ select set_config('t.b', public.provision_company(tests.company_payload('TBRAVO'
 select tests.clear_authentication();
 select tests.add_member(current_setting('t.owner_a')::uuid, current_setting('t.a')::uuid, 'owner');
 select tests.add_member(current_setting('t.worker_a')::uuid, current_setting('t.a')::uuid, 'employee');
+
+-- These checks prove that 2FA is enforced when the switch is on (ADR 0024).
+update public.platform_setting set value = 'true' where key = 'require_mfa';
 
 -- ---------------------------------------------------------------------------
 -- Anonymous
@@ -151,6 +154,27 @@ select is(
   (select count(*)::int from public.membership),
   1, 'an employee sees only their own membership'
 );
+
+-- ---------------------------------------------------------------------------
+-- ADR 0024: with the switch off (MVP), e-mail and password are enough
+-- ---------------------------------------------------------------------------
+
+select tests.clear_authentication();
+update public.platform_setting set value = 'false' where key = 'require_mfa';
+select tests.authenticate_as(current_setting('t.admin')::uuid, 'aal1');
+select is(
+  (select count(*)::int from public.company where id in (current_setting('t.a')::uuid, current_setting('t.b')::uuid)),
+  2, 'ADR 0024 with require_mfa off, the Super Admin without 2FA sees the companies'
+);
+select tests.authenticate_as(current_setting('t.owner_a')::uuid, 'aal1');
+select is((public.my_company_access(current_setting('t.a')::uuid) ->> 'code'), 'TALPHA',
+  'ADR 0024 with require_mfa off, the owner without 2FA is treated as owner');
+
+-- A missing setting means 2FA is required (safe default)
+select tests.clear_authentication();
+delete from public.platform_setting where key = 'require_mfa';
+select tests.authenticate_as(current_setting('t.admin')::uuid, 'aal1');
+select is((select count(*)::int from public.company), 0, 'ADR 0024 without the setting, 2FA is required');
 
 select * from finish();
 rollback;

@@ -30,7 +30,8 @@
   "home": {
     "title": "NEO-SYSTEM em construção",
     "description": "Ambiente local de desenvolvimento. As telas do Super Admin entram nas próximas tarefas.",
-    "devUi": "Ver o catálogo de componentes"
+    "devUi": "Ver o catálogo de componentes",
+    "signIn": "Entrar"
   },
   "devUi": {
     "title": "Catálogo de componentes",
@@ -192,7 +193,9 @@
     "employeeLoginId": "ID com 8 dígitos.",
     "pin": "PIN com 4 dígitos.",
     "pinTrivial": "PIN fácil demais. Evite números repetidos ou em sequência.",
-    "invalid": "Valor inválido."
+    "invalid": "Valor inválido.",
+    "passwordTooShort": "Use pelo menos 10 caracteres.",
+    "passwordMismatch": "As senhas não conferem."
   },
   "errors": {
     "validation": "Confira os campos destacados.",
@@ -209,5 +212,58 @@
     "retry": "Tentar de novo",
     "pageTitle": "Esta página não carregou",
     "pageText": "Algo deu errado ao abrir esta página. O resto do sistema continua funcionando."
+  },
+  "auth": {
+    "signOut": "Sair",
+    "login": {
+      "title": "Entrar",
+      "subtitle": "Use o e-mail e a senha do seu convite.",
+      "email": "E-mail",
+      "password": "Senha",
+      "submit": "Entrar",
+      "submitting": "Entrando"
+    },
+    "invite": {
+      "title": "Defina sua senha",
+      "text": "Olá, {name}. Escolha uma senha para entrar no NEO-SYSTEM.",
+      "password": "Nova senha",
+      "passwordHelp": "Pelo menos 10 caracteres.",
+      "confirm": "Repita a senha",
+      "submit": "Salvar e entrar"
+    },
+    "select": {
+      "title": "Escolha a empresa"
+    },
+    "roles": {
+      "owner": "Proprietário",
+      "manager": "Gestor",
+      "coordinator": "Coordenador",
+      "employee": "Funcionário"
+    },
+    "errors": {
+      "invalid_credentials": "E-mail ou senha incorretos.",
+      "no_access": "Seu login não dá acesso a nenhuma empresa. Fale com quem enviou o convite.",
+      "too_many_attempts": "Muitas tentativas seguidas. Espere alguns minutos e tente de novo.",
+      "link_invalid": "O link expirou ou já foi usado. Peça um novo convite.",
+      "weak_password": "Senha fraca demais. Use uma senha mais longa e menos óbvia.",
+      "invitation_already_accepted": "Este convite já foi aceito. Entre com seu e-mail e senha.",
+      "invitation_not_found": "Convite não encontrado. Peça um novo convite."
+    }
+  },
+  "super": {
+    "title": "Super Admin",
+    "description": "Painel da plataforma. O menu e as telas entram na próxima tarefa (SA-07)."
+  },
+  "admin": {
+    "title": "Painel da empresa",
+    "description": "As telas do painel da empresa entram nas próximas tarefas.",
+    "status": {
+      "trial": "Teste",
+      "active": "Ativa",
+      "past_due": "Em atraso",
+      "read_only": "Somente leitura",
+      "blocked": "Bloqueada",
+      "canceled": "Cancelada"
+    }
   }
 }

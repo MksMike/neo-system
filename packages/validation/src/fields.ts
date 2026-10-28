@@ -62,6 +62,23 @@ export const landlinePhone = z
       ),
   );
 
+/** Bytes of a string in UTF-8, without platform APIs (works in the browser, Node and the edge). */
+function utf8Length(value: string): number {
+  return encodeURIComponent(value).replace(/%[0-9A-F]{2}/g, 'x').length;
+}
+
+/** New password (Supabase Auth, ADR 0024): at least 10 characters; bcrypt reads at most 72 bytes. */
+export const newPassword = z
+  .string()
+  .min(10, 'validation.passwordTooShort')
+  .refine((v) => utf8Length(v) <= 72, 'validation.tooLong');
+
+/** Password typed at login: only presence and a sane limit; the rules belong to Supabase Auth. */
+export const loginPassword = z
+  .string()
+  .min(1, 'validation.required')
+  .max(200, 'validation.tooLong');
+
 /** Final money values are integer yen (CLAUDE.md, rule 2). */
 export const yen = z
   .number()
