@@ -1,44 +1,13 @@
-import { expect, test, type Page } from '@playwright/test';
-
-// Dev seed Super Admin and companies SUGITA and DEMO (local database only): supabase/seeds/10_dev_data.sql
-async function signInAsSuperAdmin(page: Page) {
-  await page.goto('/login');
-  await page.getByLabel('E-mail').fill('admin@neo.local');
-  await page.getByLabel('Senha').fill('neo-local-2026');
-  await page.getByRole('button', { name: 'Entrar' }).click();
-  await expect(page).toHaveURL(/\/super$/);
-}
-
-/** Unique code per run: the local database keeps the companies of earlier runs. */
-function uniqueCode(prefix: string): string {
-  return `${prefix}${Date.now().toString(36).toUpperCase()}`.slice(0, 12);
-}
-
-/** Waits for the wizard to hydrate: a click before that would submit the form natively. */
-async function openWizard(page: Page) {
-  await page.goto('/super/empresas/nova');
-  await page.waitForLoadState('networkidle');
-}
-
-/** First day of next month in Tokyo: a valid monthly billing day whatever today is (R00-14). */
-function firstOfNextMonth(): string {
-  const [y, m] = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' })
-    .format(new Date())
-    .split('-')
-    .map(Number);
-  const year = m === 12 ? (y ?? 0) + 1 : (y ?? 0);
-  const month = m === 12 ? 1 : (m ?? 0) + 1;
-  return `${String(year)}-${String(month).padStart(2, '0')}-01`;
-}
-
-const next = (page: Page) => page.getByRole('button', { name: 'Continuar' }).click();
-const stepHeading = (page: Page, n: number) =>
-  page.getByRole('heading', { level: 2, name: new RegExp(`^Passo ${String(n)} de 4`) });
-
-async function fillCompanyStep(page: Page, legalName: string, code: string) {
-  await page.getByRole('textbox', { name: /^Razão social\s*\*?$/ }).fill(legalName);
-  await page.getByRole('textbox', { name: /Código da empresa/ }).fill(code);
-}
+import { expect, test } from '@playwright/test';
+import {
+  fillCompanyStep,
+  firstOfNextMonth,
+  next,
+  openWizard,
+  signInAsSuperAdmin,
+  stepHeading,
+  uniqueCode,
+} from './helpers';
 
 test('lists the seed companies and searches by code', async ({ page }) => {
   await signInAsSuperAdmin(page);

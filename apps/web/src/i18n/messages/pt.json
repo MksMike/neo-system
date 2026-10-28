@@ -447,6 +447,149 @@
         "codeTaken": "Este código já está em uso. Escolha outro.",
         "modules": "Há módulos com dependência faltando."
       }
+    },
+    "company": {
+      "back": "Empresas",
+      "tabs": {
+        "label": "Seções da empresa",
+        "summary": "Resumo",
+        "modules": "Módulos",
+        "contract": "Contrato e pagamentos",
+        "users": "Usuários",
+        "history": "Histórico"
+      },
+      "validFrom": "Vale a partir de",
+      "validFromToday": "Hoje. Datas passadas não são aceitas.",
+      "validFromHelp": "A mudança entra em vigor em {date}.",
+      "readOnlyCanceled": "Empresa cancelada: módulos e contrato não podem mais ser alterados.",
+      "conflict": {
+        "title": "Alterado por outra pessoa",
+        "text": "Os dados mudaram depois que você abriu esta página. Recarregue para ver a versão atual e refaça a alteração.",
+        "reload": "Recarregar"
+      },
+      "summary": {
+        "data": "Dados da empresa",
+        "contract": "Contrato atual",
+        "modules": "Módulos ligados ({count})",
+        "createdAt": "Cadastrada em",
+        "statusReason": "Motivo do status",
+        "seeAll": "Ver contrato",
+        "edit": "Alterar"
+      },
+      "modules": {
+        "title": "Alterar módulos",
+        "help": "Marque e desmarque e escolha a data. Ligar um módulo liga o que ele precisa. O passado não muda: cada mudança vira um novo período.",
+        "willEnable": "Liga: {list}.",
+        "willDisable": "Desliga: {list}.",
+        "noChanges": "Nenhuma alteração.",
+        "reset": "Desfazer",
+        "save": "Salvar módulos",
+        "saved": "Módulos salvos.",
+        "periods": "Períodos de cada módulo",
+        "module": "Módulo",
+        "from": "De",
+        "to": "Até",
+        "state": "Situação",
+        "noEnd": "Sem fim",
+        "baseOnly": "Só os módulos base, sempre incluídos.",
+        "states": {
+          "active": "Ligado",
+          "scheduled": "Agendado",
+          "ended": "Encerrado"
+        }
+      },
+      "contract": {
+        "current": "Contrato",
+        "change": "Trocar contrato",
+        "changeHelp": "Cria uma nova versão a partir da data escolhida. A versão atual termina no dia anterior; cobranças já geradas não mudam.",
+        "note": "Observação",
+        "confirm": "Salvar nova versão",
+        "saved": "Nova versão do contrato salva.",
+        "previousEnds": "A versão atual vale até {date}.",
+        "previousReplaced": "A versão atual ainda não entrou em vigor e será substituída.",
+        "paidFrom": "O novo valor vale a partir do período pago que começa em {date}.",
+        "partnerFrom": "A partir de {date}, sem valor e sem cobrança.",
+        "beforeCurrent": "Já existe uma versão agendada para depois desta data. Escolha a mesma data ou uma posterior.",
+        "scheduled": "Mudança agendada",
+        "scheduledText": "A partir de {date}, o contrato passa a ser {type}.",
+        "versions": "Versões do contrato",
+        "billingDay": "Vencimento",
+        "everyMonth": "Todo dia {day}",
+        "everyYear": "Todo ano em {date}",
+        "trialEnds": "Teste até",
+        "since": "Vigente desde",
+        "alreadyCharged": "Já existe cobrança gerada até {date}; ela continua com o valor anterior. O novo valor entra nas cobranças seguintes."
+      },
+      "billing": {
+        "charges": "Cobranças",
+        "payments": "Pagamentos recebidos",
+        "noCharges": "Nenhuma cobrança gerada ainda.",
+        "noPayments": "Nenhum pagamento registrado.",
+        "period": "Período",
+        "dueOn": "Vencimento",
+        "amount": "Valor",
+        "paid": "Pago",
+        "paidOn": "Data",
+        "reference": "Referência",
+        "settlement": "Quitação",
+        "fee": "Taxa: {fee}",
+        "chargeStatus": {
+          "open": "Em aberto",
+          "partial": "Parcial",
+          "paid": "Paga",
+          "canceled": "Cancelada"
+        },
+        "settlements": {
+          "full": "Valor integral",
+          "settle_with_fee": "Quitada com taxa",
+          "leave_open": "Saldo em aberto"
+        }
+      },
+      "users": {
+        "members": "Pessoas com acesso",
+        "noMembers": "Ninguém aceitou o convite ainda.",
+        "name": "Nome",
+        "role": "Papel",
+        "since": "Desde",
+        "email": "E-mail",
+        "memberStatus": {
+          "active": "Ativo",
+          "inactive": "Inativo"
+        },
+        "invitations": "Convites do Proprietário",
+        "noInvitations": "Nenhum convite.",
+        "sentAt": "Enviado em",
+        "acceptedAt": "Aceito em",
+        "invitationStatus": {
+          "pending": "Na fila",
+          "sent": "Enviado",
+          "accepted": "Aceito",
+          "failed": "Falhou"
+        }
+      },
+      "history": {
+        "empty": "Nada registrado ainda.",
+        "statusChanged": "Status: {from} → {to}",
+        "source": {
+          "auto": "Automático",
+          "manual": "Manual"
+        },
+        "system": "Sistema",
+        "from": "a partir de {date}",
+        "modulesDetail": "{count} módulos opcionais ligados, a partir de {date}",
+        "actions": {
+          "company_provisioned": "Empresa cadastrada",
+          "company_modules_changed": "Módulos alterados",
+          "contract_changed": "Contrato alterado",
+          "owner_invitation_accepted": "Convite aceito pelo Proprietário",
+          "payment_registered": "Pagamento registrado",
+          "company_suspended": "Empresa suspensa",
+          "company_reactivated": "Empresa reativada",
+          "company_canceled": "Empresa cancelada",
+          "company_cancel_scheduled": "Cancelamento agendado",
+          "job_retried": "Tarefa da fila reexecutada"
+        }
+      }
     }
   },
   "admin": {

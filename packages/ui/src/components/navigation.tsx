@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs as TabsPrimitive, ToggleGroup as ToggleGroupPrimitive } from 'radix-ui';
+import { Slot, Tabs as TabsPrimitive, ToggleGroup as ToggleGroupPrimitive } from 'radix-ui';
 import { createContext, useContext, type ComponentProps } from 'react';
 import { cn } from '../lib/cn';
 
@@ -155,5 +155,41 @@ export function Steps({ steps, current, label, className }: StepsProps) {
         );
       })}
     </ol>
+  );
+}
+
+/* ---------- Tab navigation (tabs that are links, one URL per tab) ---------- */
+
+export function TabNav({ className, ...props }: ComponentProps<'nav'>) {
+  return (
+    <nav
+      className={cn('flex gap-5 overflow-x-auto overflow-y-hidden border-b border-line', className)}
+      {...props}
+    />
+  );
+}
+
+export type TabNavItemProps = ComponentProps<'a'> & { active?: boolean; asChild?: boolean };
+
+/** Same look as the `line` tabs; the current one has `aria-current="page"`. */
+export function TabNavItem({
+  active = false,
+  asChild = false,
+  className,
+  ...props
+}: TabNavItemProps) {
+  const Comp = asChild ? Slot.Root : 'a';
+  return (
+    <Comp
+      aria-current={active ? 'page' : undefined}
+      className={cn(
+        'relative flex h-10 shrink-0 items-center gap-1.5 px-0.5 text-[13px] font-semibold leading-none text-ink-muted no-underline hover:text-ink',
+        'rounded-xs focus-visible:outline-2 focus-visible:outline-focus',
+        'aria-[current=page]:text-primary-text aria-[current=page]:after:absolute aria-[current=page]:after:inset-x-0 aria-[current=page]:after:bottom-0 aria-[current=page]:after:h-0.5 aria-[current=page]:after:rounded-[2px] aria-[current=page]:after:bg-grad-brand',
+        '[&_svg]:size-4 [&_svg]:stroke-[1.75]',
+        className,
+      )}
+      {...props}
+    />
   );
 }

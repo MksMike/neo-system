@@ -7,6 +7,7 @@ import {
   invoiceRegNo,
   kanaText,
   landlinePhone,
+  longText,
   optional,
   postalCode,
   yen,
@@ -37,6 +38,13 @@ export const PAYMENT_METHODS = ['transfer', 'cash'] as const;
 /** First day of the first paid period (R00-14, R00-17): the day after the trial, or the start. */
 export function billingStart(startsOn: string, trialDays: number): string {
   return trialDays > 0 ? addDays(startsOn, trialDays) : startsOn;
+}
+
+/** Suggested contract start: today, or the 1st of next month on days 29 to 31 (R00-14). */
+export function suggestedStart(today: string): string {
+  if (Number(today.slice(8)) <= 28) return today;
+  const [y, m] = today.split('-').map(Number) as [number, number];
+  return m === 12 ? `${String(y + 1)}-01-01` : `${String(y)}-${String(m + 1).padStart(2, '0')}-01`;
 }
 
 export const contractStep = z
@@ -80,3 +88,47 @@ export const provisionSchema = z.object({
 
 export type ProvisionInput = z.input<typeof provisionSchema>;
 export type ProvisionData = z.output<typeof provisionSchema>;
+
+/**
+ * First day of the paid cycle of a new contract version (R00-14): a paid contract keeps the
+ * cycle of the previous paid one (from its paid-until or the change date, whichever is later);
+ * otherwise it starts on the change date. Same rule as `app.build_contract`.
+ */
+export function nextBillingStart(
+  previous: { type: string; paid_until: string | null } | null,
+  validFrom: string,
+): string {
+  if (previous && previous.type !== 'partner' && previous.paid_until) {
+    const afterPaid = addDays(previous.paid_until, 1);
+    return afterPaid > validFrom ? afterPaid : validFrom;
+  }
+  return validFrom;
+}
+
+/** Contract change with an effective date (R00-05). No trial: it only exists in the first contract. */
+export const contractChangeSchema = z
+  .object({
+    companyId: z.uuid(),
+    expectedContractId: z.uuid().nullable(),
+    type: z.enum(CONTRACT_TYPES, 'validation.required'),
+    priceYen: yen.optional(),
+    paymentMethod: z.enum(PAYMENT_METHODS, 'validation.required').optional(),
+    validFrom: businessDate,
+    note: optional(longText({ max: 500 })),
+  })
+  .superRefine((c, ctx) => {
+    if (c.type === 'partner') return;
+    if (!c.priceYen) {
+      ctx.addIssue({ code: 'custom', path: ['priceYen'], message: 'validation.required' });
+    }
+    if (!c.paymentMethod) {
+      ctx.addIssue({ code: 'custom', path: ['paymentMethod'], message: 'validation.required' });
+    }
+  });
+
+export const modulesChangeSchema = z.object({
+  companyId: z.uuid(),
+  modules: modulesStep.shape.modules,
+  expected: modulesStep.shape.modules,
+  validFrom: businessDate,
+});

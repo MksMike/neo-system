@@ -254,7 +254,14 @@ export default async function CompaniesPage({
             <TableBody>
               {list.items.map((c) => (
                 <TableRow key={c.id}>
-                  <TableCell className="type-num font-semibold">{c.code}</TableCell>
+                  <TableCell className="type-num font-semibold">
+                    <Link
+                      href={`/super/empresas/${c.id}`}
+                      className="rounded-xs text-primary-text hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                    >
+                      {c.code}
+                    </Link>
+                  </TableCell>
                   <TableCell>
                     <span className="block font-medium">{c.display_name}</span>
                     {c.display_name !== c.legal_name ? (

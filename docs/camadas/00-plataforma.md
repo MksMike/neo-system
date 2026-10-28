@@ -107,8 +107,8 @@ Toda escrita passa por estas funções (ADR 0023). Cada uma confere `is_platform
 | --- | --- |
 | `provision_company(data jsonb) → uuid` | Uma transação: empresa, contrato, módulos (com dependências), configurações padrão, papéis, convite do Proprietário na fila, log (R00-02). Aceita o `id` gerado na tela: repetir o mesmo pedido devolve a empresa já criada (ADR 0020) |
 | `list_companies(p jsonb) → jsonb` | Lista de `/super/empresas`: busca por código ou nome (`%` e `_` tratados como texto), filtro por status e tipo de contrato, ordenação por código, nome, pago até ou status, páginas de até 100. Só Super Admin |
-| `set_company_modules(company_id, modules, valid_from)` | Liga e desliga módulos com vigência, aplicando R00-04 |
-| `change_contract(company_id, data, valid_from)` | Cria nova versão do contrato; a anterior fecha em `valid_from - 1` |
+| `set_company_modules(company_id, modules, valid_from, expected)` | Liga e desliga módulos com vigência, aplicando R00-04. `expected` = módulos que a tela mostrou; se mudaram no meio, recusa com `conflict` (ADR 0020) |
+| `change_contract(company_id, data, valid_from, expected_contract_id)` | Cria nova versão do contrato; a anterior fecha em `valid_from - 1`. Recusa com `conflict` se a versão atual não é a que a tela mostrou, e recusa data anterior a uma versão já agendada |
 | `register_saas_payment(charge_id, data)` | Grava o pagamento, aplica a escolha de quitação (R00-16), avança `paid_until` (R00-07) e reativa a empresa |
 | `suspend_company(company_id, reason)` / `reactivate_company(company_id, reason)` | Suspensão manual com trava do status automático (R00-08) |
 | `cancel_company(company_id, reason, effective_on)` | Cancela com efeito imediato ou na data; recusa empresa investidora (R00-13) |
@@ -159,7 +159,7 @@ Todas em `/super`, com o design system (`docs/design-system.html`), textos por i
 | `/super` | Início | Cards por status (teste, ativas, em atraso, somente leitura, bloqueadas, canceladas), receita recebida no mês (só contratos pagos), parceiros à parte, cobranças vencendo em 10 dias, atrasos, alertas críticos do sistema |
 | `/super/empresas` | Empresas | Tabela com busca, filtro por status e tipo de contrato, ordenação e paginação: código, nome, contrato, módulos (contagem), pago até, status. Ação: Nova empresa |
 | `/super/empresas/nova` | Nova empresa | Assistente em 4 passos: 1) dados e código (sugerido a partir do nome em letras latinas ou do nome em katakana; conferido ao avançar), "indicada por"; 2) plano-modelo e ajuste de módulos, com dependências na hora (ligar liga as dependências e avisa; um módulo de que outro depende fica travado); 3) contrato: tipo, valor, forma de pagamento, início e teste opcional. O dia de cobrança é o dia do início do período pago (início ou dia seguinte ao teste) e precisa ser até 28; a tela mostra o resultado; 4) Proprietário (nome e e-mail) e revisão. Botão "Criar empresa"; depois volta à lista com aviso de sucesso |
-| `/super/empresas/[id]` | Empresa | Abas: Resumo · Módulos · Contrato e pagamentos · Usuários · Histórico. Ações: Registrar pagamento, Suspender/Reativar, Cancelar (oculto para investidora), Reenviar convite |
+| `/super/empresas/[id]` | Empresa | Abas, uma URL por aba (`?aba=modulos`, `contrato`, `usuarios`, `historico`): Resumo (dados, contrato vigente e mudança agendada, módulos ligados hoje) · Módulos (alterar com data de vigência e tabela de períodos) · Contrato e pagamentos (contrato vigente, trocar contrato com data, versões, cobranças, pagamentos; a prévia avisa quando já há cobrança gerada no período) · Usuários (pessoas com acesso e convites) · Histórico (status e ações do Super Admin). Ações: Registrar pagamento (SA-10), Suspender/Reativar e Cancelar, oculto para investidora (SA-11), Reenviar convite (pendente) |
 | `/super/pagamentos` | Pagamentos | Cobranças em aberto, parciais, vencidas e pagas no período, com filtro. Ação: Registrar pagamento |
 | `/super/modulos` | Módulos e planos | Catálogo de módulos (só leitura) e planos-modelo (editáveis) |
 | `/super/sistema` | Saúde do sistema | Versão base da ADR 0022: Saúde, Logs, Fila e Banco; Gargalos e Segurança em seguida |
@@ -203,7 +203,9 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 
 - [ ] Planos-modelo (Básico, Padrão, Completo): os módulos de cada um foram uma sugestão inicial na migração; o Mike ajusta em `/super/modulos`.
 - [ ] Configurações padrão da empresa no provisionamento: entram quando a camada 03 existir. Os papéis padrão são valores fixos de `membership.role`, sem tabela.
-- [ ] Cadastro com início nos dias 29 a 31: recusado (`billing_day_over_28`); o assistente deve sugerir o dia 1 do mês seguinte.
+- [x] Cadastro com início nos dias 29 a 31: recusado (`billing_day_over_28`); o assistente já sugere o dia 1º do mês seguinte (SA-09).
+- [ ] Reenviar convite do Proprietário: o Supabase recusa convidar de novo um e-mail já convidado; precisa de um desenho próprio (link de convite gerado no servidor ou novo convite depois de remover o usuário não confirmado).
+- [ ] Editar os dados da empresa (razão social, endereço, telefone) pelo Super Admin: ainda sem tela nem função; o código nunca muda.
 - [ ] ✱ R00-14: confirmar a antecedência de 10 dias para gerar a cobrança antes do período (proposta).
 - [ ] Acesso de suporte com permissão da empresa (R00-10): implementar antes do primeiro cliente pago.
 - [ ] Exportação de dados de empresa cancelada: na v1, feita pelo Super Admin a pedido; exportação pelo próprio cliente depois.
@@ -222,3 +224,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-29 | 0.6 | SA-06: `platform_setting` com `require_mfa`, aceite do convite e `my_session` | SA-06 |
 | 2026-10-29 | 0.7 | SA-07: layout de `/super` (menu agrupado em Clientes e Plataforma, cabeçalho com tema, idioma e sair, gaveta no celular) e páginas com título e estado vazio | SA-07 |
 | 2026-10-29 | 0.8 | SA-08: lista de empresas (`list_companies`) e assistente de cadastro; `provision_company` aceita o `id` da tela (repetição segura) | SA-08 |
+| 2026-10-29 | 0.9 | SA-09: página da empresa com abas; `set_company_modules` e `change_contract` com concorrência otimista; assistente sugere o dia 1º nos dias 29 a 31 | SA-09 |
