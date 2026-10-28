@@ -21,6 +21,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0021: registro offline no app do funcionário no M2. PWA com fila no celular, envio automático quando o sinal volta, prazo pela hora do toque, relógio suspeito e conflitos para o admin. (2026-10-28)
 - ADR 0022: observabilidade. Eventos com código `ÁREA.CATEGORIA.EVENTO` e severidade, catálogo em `packages/observability`, eventos por 30 dias e métricas por 1 ano no Postgres, painel `/super/sistema` (saúde, logs, gargalos, segurança, fila, banco), alertas só no painel e logs sem dados pessoais. (2026-10-28)
 - ADR 0023: segurança da aplicação. `anon` sem acesso, escrita só por funções SQL, `search_path` fixo, SQL dinâmico só com `format`, `server-only`, cabeçalhos de segurança; no CI, `supabase db lint`, teste de RLS e de permissões, Semgrep, gitleaks e `pnpm audit`; OWASP ZAP semanal; teste de invasão antes dos dados reais. (2026-10-28)
+- Especificação do Super Admin v1 na camada 00: modelo de dados, funções no banco, regras R00-01 a R00-20 (cobrança antecipada, pagamento menor quitado ou em aberto, sem limite de admins, sem PDF do SaaS na v1), telas, efeitos de cada status e permissões. (2026-10-28)
 
 ### Alterado
 
@@ -30,3 +31,4 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Documento-âncora e camada 00: regra de cobrança por funcionário ativo trocada pelo modelo da ADR 0018; pendência comercial atualizada. (2026-10-28)
 - Documento-âncora, camada 07, `docs/02` e CLAUDE.md: offline saiu da fase 2 para o M2; novo pacote `packages/validation`; coluna `version` obrigatória; regras 11 (entradas) e 12 (falhas nunca silenciosas) no CLAUDE.md. (2026-10-28)
 - Documento-âncora, `docs/02`, inventário (`/super/sistema` antecipada para o M0) e CLAUDE.md (regras 13 e 14): escrita só por funções SQL e logs com códigos. (2026-10-28)
+- `COMECE-AQUI.md` reescrito com as tarefas SA-01 a SA-12, alinhadas às ADRs 0012 a 0023; inventário do Super Admin com as rotas e marcos da v1. (2026-10-28)

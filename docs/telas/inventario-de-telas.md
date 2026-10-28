@@ -18,7 +18,7 @@ Plataforma do SaaS, só para o Mike. Rota base `/super`.
 
 #### Empresas
 
-`/super/empresas` · M6
+`/super/empresas` · M0 (Super Admin v1)
 
 **Contém**
 
@@ -33,52 +33,50 @@ Plataforma do SaaS, só para o Mike. Rota base `/super`.
 
 #### Detalhe da empresa
 
-`/super/empresas/[id]` · M6
+`/super/empresas/[id]` · M0 (Super Admin v1)
 
 **Contém**
 
-- Dados e plano atual
-- Ajustes individuais (limites, add-ons, preço)
-- Uso do mês
-- Histórico de assinatura e pagamentos
+- Abas: Resumo, Módulos, Contrato e pagamentos, Usuários, Histórico
+- Contrato atual (mensal, anual ou Parceiro) e versões anteriores
+- Cobranças e pagamentos
 - Log de ações da plataforma
 
 **Ações**
 
-- Trocar plano
-- Aplicar ajuste
-- Estender validade
-- Somente leitura / bloquear / desbloquear com motivo
-- Acesso de suporte (com permissão da empresa)
+- Ligar e desligar módulos com vigência
+- Trocar contrato com vigência
+- Registrar pagamento
+- Suspender, reativar e cancelar com motivo (cancelar oculto para a investidora)
+- Reenviar convite do Proprietário
+- Acesso de suporte (com permissão da empresa; depois da v1)
 
-#### Planos e add-ons
+#### Módulos e planos
 
-`/super/planos` · M6
-
-**Contém**
-
-- Básico, Padrão, Completo: limites, funcionalidades, preço base, preço por pessoa
-- Add-ons e cotas (IA, armazenamento)
-
-**Ações**
-
-- Editar plano com vigência
-- Criar add-on
-
-#### Cobrança do SaaS
-
-`/super/cobranca` · M6
+`/super/modulos` · M0 (Super Admin v1)
 
 **Contém**
 
-- Faturas emitidas às empresas
-- Pagamentos recebidos e em atraso
+- Catálogo de módulos com dependências (só leitura)
+- Planos-modelo Básico, Padrão e Completo (só pré-marcam módulos)
 
 **Ações**
 
-- Gerar 請求書 do mês
-- Marcar como pago (avança vencimento)
-- Enviar lembrete
+- Editar plano-modelo
+
+#### Pagamentos
+
+`/super/pagamentos` · M0 (Super Admin v1)
+
+**Contém**
+
+- Cobranças em aberto, parciais, vencidas e pagas, geradas automaticamente (antecipadas)
+- Pagamentos recebidos (振込 e 現金)
+
+**Ações**
+
+- Registrar pagamento, com escolha de quitação quando o valor vier menor
+- 請求書 e 領収書 em PDF depois da camada 08
 
 ### Regras e operação
 
