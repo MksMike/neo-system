@@ -29,14 +29,14 @@ gh repo create neo-system-jp/neo-system --private --source . --push
 ```
 
 3. Copie `docs/modelos/pull_request_template.md` para `.github/pull_request_template.md` (o GitHub usa esse caminho para o modelo de PR) e faça commit.
-4. Em Settings → Branches do repositório, proteja a `main` (exigir PR e CI verde).
+4. Em Settings → Branches do repositório, não há proteção da `main`: em repositório privado, ela exige GitHub Pro, e o projeto fica no plano gratuito. Nunca faça merge com o CI vermelho; o deploy roda o CI de novo e não publica se falhar (ADR 0017).
 5. Ative 2FA na conta do GitHub.
 
 ## 3. Contas de infraestrutura (gratuitas no desenvolvimento)
 
-- **Supabase:** crie dois projetos na região **Tokyo (ap-northeast-1)**: `neo-dev` e `neo-staging`. Guarde URL e chaves num gerenciador de senhas, nunca no repositório.
-- **Vercel:** conecte depois do M0, quando houver app para publicar (prévia por PR).
-- Planos pagos (Supabase Pro, Vercel Pro) só no M5.
+- **Supabase:** crie um projeto na região **Tokyo (ap-northeast-1)**: `neo-mvp` (o segundo projeto gratuito fica para staging, quando necessário). Guarde URL e chaves num gerenciador de senhas, nunca no repositório.
+- **Hostinger:** plano Business, Web App Node.js no data center mais próximo do Japão. Conecte o repositório do GitHub quando houver app para publicar e teste cedo o deploy do monorepo (ADR 0013).
+- Supabase Pro só no gatilho de dados reais (ADR 0015).
 
 ## 4. Marco M0 — tarefas para o Claude Code
 
@@ -54,7 +54,7 @@ Abra a pasta no VS Code, inicie o Claude Code e mande uma tarefa por vez. Cada t
 > Inicialize o Supabase local. Crie a primeira migração com: company, user_profile, membership (papel por empresa), permission, audit_log, e as funções/políticas RLS por company_id. Escreva testes pgTAP provando que um usuário de uma empresa não lê nem escreve em outra e que cada papel só faz o que deve. Documente em docs/camadas/00 e 01.
 
 **M0-04 · Login**
-> Implemente login de admin (e-mail + senha, 2FA obrigatório para Proprietário e Gestor) e o login do funcionário por código da empresa + nº + PIN com limite de tentativas, conforme ADR 0004. Rotas (auth), admin, m, super protegidas por papel.
+> Implemente login de admin (e-mail + senha, 2FA obrigatório para Proprietário e Gestor) e o login do funcionário por ID de 8 dígitos + PIN de 4 dígitos com limite de tentativas e expiração após 7 dias sem uso, conforme ADR 0016. Rotas (auth), admin, m, super protegidas por papel.
 
 **M0-05 · Idiomas e formatos**
 > Configure next-intl com ja, pt, es, en; utilitários de data (Asia/Tokyo, 西暦/和暦), moeda em iene e minutos.

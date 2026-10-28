@@ -36,6 +36,23 @@ NEO-SYSTEM é um SaaS multi-empresa para empresas de genba (manutenção e const
 8. **Dados sensíveis** (在留カード, マイナンバー, conta bancária, saúde) só para papéis autorizados, com log de acesso. マイナンバー nunca vai para a IA nem para logs.
 9. **IA nunca age sozinha:** não envia, aprova, paga nem apaga. Toda chamada de IA passa por `packages/ai` (camada 16).
 10. **Segredos** só em variáveis de ambiente. Nada de chave em código, teste ou documentação.
+11. **Toda entrada é validada e higienizada** (ADR 0019), em todo o projeto:
+    - todo campo usa um tipo de `packages/validation` (Zod), igual na tela e no servidor, com normalização NFKC;
+    - máscaras: CEP `123-4567`, celular `090-1234-5678`, fixo e fax pelo código de área; no banco, só dígitos;
+    - texto é sempre exibido como texto: `dangerouslySetInnerHTML` é proibido, e HTML formatado passa pelo DOMPurify;
+    - exportação CSV/Excel neutraliza fórmulas;
+    - SQL só parametrizado.
+12. **Nenhuma falha é silenciosa** (ADR 0020):
+    - criação idempotente por ID gerado na tela;
+    - edição com `version` (concorrência otimista);
+    - toda ação devolve `{ ok, code, message }`, e a tela mostra um alerta no idioma do usuário;
+    - repetição automática só em operação idempotente.
+13. **Escrita só por funções SQL** (ADR 0023):
+    - `anon` sem acesso a tabelas, e `authenticated` sem `INSERT`, `UPDATE` ou `DELETE` direto em tabela de negócio;
+    - funções `SECURITY DEFINER` com `search_path` fixo;
+    - SQL dinâmico só com `format(%I, %L)`;
+    - módulos com `service_role` importam `server-only`.
+14. **Todo evento tem código do catálogo** (`ÁREA.CATEGORIA.EVENTO`, ADR 0022), e nenhum log contém PIN, senha, token ou dado pessoal.
 
 ## Idiomas
 
@@ -50,13 +67,13 @@ Todos rodam na raiz e passam pelo Turborepo (cache em `.turbo/`). Dependências 
 
 ```bash
 pnpm install          # dependências
-pnpm dev              # app web local (a partir da tarefa 02)
+pnpm dev              # app web local (a partir da tarefa SA-03)
 pnpm build            # build de tudo
 pnpm test             # testes unitários (Vitest)
-pnpm test:e2e         # testes ponta a ponta (Playwright, a partir da tarefa 04)
+pnpm test:e2e         # testes ponta a ponta (Playwright, a partir da tarefa SA-06)
 pnpm lint && pnpm typecheck
 pnpm format           # Prettier (format:check no CI)
-supabase start        # banco local (Docker, a partir da tarefa 03)
+supabase start        # banco local (Docker, a partir da tarefa SA-04)
 supabase db reset     # recria o banco local com migrações e seeds
 supabase test db      # testes de RLS (pgTAP)
 ```

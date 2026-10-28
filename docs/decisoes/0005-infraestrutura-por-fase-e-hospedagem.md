@@ -1,6 +1,6 @@
 # ADR 0005 — Infraestrutura por fase e hospedagem
 
-- **Status:** Aceita
+- **Status:** Substituída por ADR 0013 (2026-10-28)
 - **Data:** 2026-10-28
 - **Decisores:** Mike
 
