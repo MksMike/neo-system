@@ -79,7 +79,8 @@ NEO-SYSTEM/
 - **Configurações com vigência:** `valid_from date`, nunca sobrescrever a linha antiga.
 - **Dinheiro:** colunas `*_yen bigint`; minutos: `*_minutes integer`.
 - **Regras numeradas:** `R<camada>-<nº>` no documento da camada, citadas no nome do teste: `it('R10-07 multa limitada a 50% do 平均賃金 por ocorrência')`.
-- **Server Actions** validam com os esquemas de `packages/validation`, checam permissão, registram auditoria e devolvem `{ ok, data }` ou `{ ok: false, code, message }` (ADR 0020); nunca confiam no cliente.
+- **Server Actions** são criadas com `defineAction` (`apps/web/src/server/define-action.ts`): valida com o esquema de `packages/validation`, devolve `{ ok, data }` ou `{ ok: false, code, message }` com o ID da requisição, registra o evento com código do catálogo e a métrica (ADRs 0020 e 0022). Na tela, chame com `useAction` (`apps/web/src/lib/use-action.ts`): tempo limite, nova tentativa só com `idempotent: true` e alerta traduzido. Erros conhecidos: `throw new ActionError(code, detail)` de `@neo/db`.
+- **Tarefas em segundo plano:** cada tipo de tarefa tem um executor em `apps/web/src/server/jobs/handlers.ts`; quem cria a tarefa usa `app.enqueue_job` no SQL (ADR 0014).
 - **Entradas:** normalização NFKC, máscaras de CEP (`123-4567`) e telefone, texto sempre exibido como texto, `dangerouslySetInnerHTML` proibido, exportação CSV/Excel com fórmulas neutralizadas (ADR 0019).
 - **Escrita no banco** só por funções SQL, com `search_path` fixo quando `SECURITY DEFINER`; nunca `INSERT`/`UPDATE`/`DELETE` direto do cliente (ADR 0023).
 - **Logs:** todo evento com código do catálogo (`ÁREA.CATEGORIA.EVENTO`); nunca PIN, senha, token ou dado pessoal (ADR 0022).

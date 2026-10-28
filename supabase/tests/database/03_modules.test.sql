@@ -6,7 +6,7 @@ select plan(12);
 set local app.today_override = '2026-11-03';
 select set_config('t.admin', tests.create_platform_admin('admin@neo.test')::text, true);
 select tests.authenticate_as(current_setting('t.admin')::uuid);
-select set_config('t.c', public.provision_company(tests.company_payload('MODS'))::text, true);
+select set_config('t.c', public.provision_company(tests.company_payload('TMODS'))::text, true);
 
 -- R00-03 base modules are always on; optional ones only when contracted
 select ok(public.has_module(current_setting('t.c')::uuid, 'platform'), 'R00-03 base module platform is always on');

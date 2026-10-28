@@ -2,7 +2,7 @@
 -- Inspired by the common "authenticate as" pattern: switch to the authenticated role with JWT claims.
 
 create schema if not exists tests;
-grant usage on schema tests to authenticated, anon;
+grant usage on schema tests to authenticated, anon, service_role;
 
 -- Creates a confirmed user in auth.users and returns its id.
 create or replace function tests.create_user(p_email text) returns uuid
@@ -88,4 +88,4 @@ as $$
 $$;
 
 -- Last, so it covers every helper above (new routines are not executable by PUBLIC, ADR 0023).
-grant execute on all routines in schema tests to authenticated, anon;
+grant execute on all routines in schema tests to authenticated, anon, service_role;

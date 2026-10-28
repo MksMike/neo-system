@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
   },
   "scripts": {
     "lint": "eslint .",
@@ -13,8 +14,14 @@
   },
   "devDependencies": {
     "@neo/config": "workspace:*",
+    "@types/node": "^26.6.5",
     "eslint": "^10.13.0",
     "typescript": "^6.0.3",
     "vitest": "^5.0.5"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.118.0",
+    "server-only": "^0.0.1"
   }
 }

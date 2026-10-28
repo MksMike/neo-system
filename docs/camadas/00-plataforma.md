@@ -71,10 +71,11 @@ Convenções do documento 02: nomes em inglês, `snake_case` no singular. Toda t
 | `owner_invitation` | `company_id`, `email`, `name`, `status` (`pending`, `sent`, `accepted`, `failed`), `job_id` | Convite do Proprietário pela fila |
 | `job` | Ver ADR 0014 | Fila de tarefas |
 | `app.audit_log` | `actor_id`, `scope`, `table_name`, `record_id`, `company_id`, `action`, `old_row`, `new_row` | Gatilho em toda tabela: antes e depois de cada mudança (CLAUDE.md, regra 5). Schema privado, fora da API |
-| `system_event`, `metric_rollup` | Ver ADR 0022 | Observabilidade (só Super Admin) |
+| `system_event` | `at`, `code` (`ÁREA.CATEGORIA.EVENTO`), `severity`, `request_id`, `route`, `company_id`, `user_id`, `duration_ms`, `data`, `seen_at` | Eventos (ADR 0022): particionada por mês, guardada 30 dias; `seen_at` marca alerta crítico como visto |
+| `metric_minute`, `metric_hour` | `bucket`, `kind` (`request`, `job`), `name`, `count`, `error_count`, `total_ms`, `max_ms`, `histogram` | Métricas por minuto (7 dias) e por hora (1 ano), com histograma de latência para o p95 |
 | `login_throttle` | `key`, `failed_count`, `locked_until`, `window_start` | Bloqueio por tentativas (ADR 0016) |
 
-As tabelas `platform_*`, `module`, `plan_template`, `contract`, `saas_*`, `company_status_event`, `owner_invitation`, `system_event` e `metric_rollup` são da plataforma: só o Super Admin lê e escreve. A empresa vê apenas o próprio status, módulos e vencimento, por função.
+As tabelas `platform_*`, `module`, `plan_template`, `contract`, `saas_*`, `company_status_event`, `owner_invitation`, `system_event`, `metric_minute` e `metric_hour` são da plataforma: só o Super Admin lê e escreve. A empresa vê apenas o próprio status, módulos e vencimento, por função.
 
 ### Catálogo de módulos (seed)
 
@@ -114,6 +115,10 @@ Toda escrita passa por estas funções (ADR 0023). Cada uma confere `is_platform
 | `has_module(company_id, module_key) → boolean` | Usada nas políticas e funções de cada módulo (R00-03) |
 | `company_can_write(company_id) → boolean` | Falsa em `read_only`, `blocked` e `canceled` (R00-06) |
 | `my_company_access(company_id)` | Para o app da empresa: status, módulos ligados, aviso de atraso |
+| `claim_jobs(limit, lock_seconds)` / `complete_job(id)` / `fail_job(id, error)` | Fila (ADR 0014): pega tarefas com `SKIP LOCKED`, conclui, ou falha com nova tentativa espaçada (1, 2, 4… min, até 60) até `max_attempts`. Só o servidor (`service_role`) |
+| `retry_job(id)` | Super Admin reexecuta uma tarefa que falhou |
+| `ingest_observability(events, metrics)` | O logger do servidor grava eventos e métricas em lote. Só `service_role` |
+| `mark_events_seen(ids)` | Super Admin marca alertas críticos como vistos |
 
 ## 4. Regras de negócio
 
@@ -209,3 +214,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-28 | 0.2 | Provisionamento aceito e modelo comercial (ADRs 0012 e 0018) | #3 |
 | 2026-10-28 | 0.3 | Especificação do Super Admin v1: modelo de dados, funções, regras R00-01 a R00-20, telas, efeitos de cada status e permissões | #3 |
 | 2026-10-28 | 0.4 | SA-04: migrações, RLS, funções e 83 testes pgTAP. Modelo ajustado: `company_module` por períodos, `depends_any`, `billing_start` no lugar de `billing_day`, `app.audit_log`; R00-15 explicita que o dia do vencimento ainda é em dia | SA-04 |
+| 2026-10-29 | 0.5 | SA-05: funções da fila, tabelas de eventos e métricas, convite do Proprietário enviado pela fila (`/api/jobs/run`) | SA-05 |

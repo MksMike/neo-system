@@ -11,7 +11,7 @@ select tests.authenticate_as(current_setting('t.admin')::uuid);
 -- Happy path: monthly contract, modules, invitation, job, log
 -- ---------------------------------------------------------------------------
 
-select set_config('t.demo', public.provision_company(tests.company_payload('DEMO', null, '{employees}'))::text, true);
+select set_config('t.demo', public.provision_company(tests.company_payload('TDEMO', null, '{employees}'))::text, true);
 
 select is((select status from public.company where id = current_setting('t.demo')::uuid), 'active',
   'a monthly company without trial starts active');
@@ -54,15 +54,15 @@ select is(
 -- ---------------------------------------------------------------------------
 
 select throws_ok(
-  $$ select public.provision_company(tests.company_payload('DEMO')) $$,
+  $$ select public.provision_company(tests.company_payload('TDEMO')) $$,
   'P0001', 'conflict', 'R00-01 a company code cannot be reused'
 );
 select throws_ok(
   $$ select public.provision_company(tests.company_payload('a b')) $$,
   'P0001', 'validation', 'R00-01 a code with spaces or lowercase symbols is refused'
 );
-select set_config('t.lower', public.provision_company(tests.company_payload('lower1'))::text, true);
-select is((select code from public.company where id = current_setting('t.lower')::uuid), 'LOWER1',
+select set_config('t.lower', public.provision_company(tests.company_payload('Tlower1'))::text, true);
+select is((select code from public.company where id = current_setting('t.lower')::uuid), 'TLOWER1',
   'R00-01 the code is stored in uppercase');
 
 -- ---------------------------------------------------------------------------
@@ -70,16 +70,16 @@ select is((select code from public.company where id = current_setting('t.lower')
 -- ---------------------------------------------------------------------------
 
 select throws_ok(
-  $$ select public.provision_company(tests.company_payload('BROKEN', null, '{employees,not_a_module}')) $$,
+  $$ select public.provision_company(tests.company_payload('TBROKEN', null, '{employees,not_a_module}')) $$,
   'P0001', 'validation', 'R00-02 an unknown module fails the provisioning'
 );
-select is((select count(*)::int from public.company where code = 'BROKEN'), 0,
+select is((select count(*)::int from public.company where code = 'TBROKEN'), 0,
   'R00-02 the failed provisioning left no company');
-select is((select count(*)::int from public.owner_invitation where email = 'broken@example.com'), 0,
+select is((select count(*)::int from public.owner_invitation where email = 'tbroken@example.com'), 0,
   'R00-02 the failed provisioning left no invitation');
 
 select throws_ok(
-  $$ select public.provision_company(tests.company_payload('NOPRICE', '{"type":"monthly","payment_method":"transfer"}')) $$,
+  $$ select public.provision_company(tests.company_payload('TNOPRICE', '{"type":"monthly","payment_method":"transfer"}')) $$,
   'P0001', 'validation', 'a paid contract needs a price'
 );
 
@@ -87,14 +87,14 @@ select throws_ok(
 -- R00-12 partner and R00-17 trial
 -- ---------------------------------------------------------------------------
 
-select set_config('t.partner', public.provision_company(tests.company_payload('SUGITA', '{"type":"partner"}'))::text, true);
+select set_config('t.partner', public.provision_company(tests.company_payload('TSUGITA', '{"type":"partner"}'))::text, true);
 select is(
   (select status || ':' || (select count(*) from public.saas_charge where company_id = c.id)
    from public.company c where c.id = current_setting('t.partner')::uuid),
   'active:0', 'R00-12 a partner company is active and has no charges'
 );
 
-select set_config('t.trial', public.provision_company(tests.company_payload('TRIAL',
+select set_config('t.trial', public.provision_company(tests.company_payload('TTRIAL',
   '{"type":"monthly","price_yen":30000,"payment_method":"cash","trial_days":14}'))::text, true);
 select is((select status from public.company where id = current_setting('t.trial')::uuid), 'trial',
   'R00-17 a company with trial days starts in trial');

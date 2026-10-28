@@ -78,6 +78,10 @@ pnpm db:reset        # recria o banco local com migrações e seeds
 pnpm db:lint         # linter do banco (falha em aviso)
 pnpm db:test         # testes pgTAP (isolamento, permissões, regras)
 pnpm db:stop         # para o Supabase local
+pnpm db:types        # regenera os tipos do banco em packages/db (depois de cada migração)
+pnpm env:local       # gera apps/web/.env.local a partir do Supabase local
+pnpm jobs:run        # roda a fila uma vez (local; em produção é o cron da Hostinger)
+pnpm jobs:watch      # roda a fila a cada 60 s
 ```
 
 ## Definition of Done

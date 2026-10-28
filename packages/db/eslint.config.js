@@ -1,6 +1,6 @@
 import { base } from '@neo/config/eslint';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-export default defineConfig(base, {
+export default defineConfig(globalIgnores(['src/database.types.ts']), base, {
   languageOptions: { parserOptions: { tsconfigRootDir: import.meta.dirname } },
 });
