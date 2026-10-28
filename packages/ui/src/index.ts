@@ -63,3 +63,12 @@ export {
   TableHeaderCell,
   TableRow,
 } from './components/table';
+export {
+  NavItem,
+  PageHeader,
+  Sidebar,
+  SidebarBrand,
+  SidebarSection,
+  SkipLink,
+} from './components/shell';
+export type { NavItemProps, PageHeaderProps } from './components/shell';

@@ -219,3 +219,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-28 | 0.4 | SA-04: migrações, RLS, funções e 83 testes pgTAP. Modelo ajustado: `company_module` por períodos, `depends_any`, `billing_start` no lugar de `billing_day`, `app.audit_log`; R00-15 explicita que o dia do vencimento ainda é em dia | SA-04 |
 | 2026-10-29 | 0.5 | SA-05: funções da fila, tabelas de eventos e métricas, convite do Proprietário enviado pela fila (`/api/jobs/run`) | SA-05 |
 | 2026-10-29 | 0.6 | SA-06: `platform_setting` com `require_mfa`, aceite do convite e `my_session` | SA-06 |
+| 2026-10-29 | 0.7 | SA-07: layout de `/super` (menu agrupado em Clientes e Plataforma, cabeçalho com tema, idioma e sair, gaveta no celular) e páginas com título e estado vazio | SA-07 |

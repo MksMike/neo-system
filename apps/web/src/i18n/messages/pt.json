@@ -6,7 +6,8 @@
     "loading": "Carregando",
     "cancel": "Cancelar",
     "save": "Salvar",
-    "undo": "Desfazer"
+    "undo": "Desfazer",
+    "skipToContent": "Pular para o conteúdo"
   },
   "preferences": {
     "theme": "Tema",
@@ -252,7 +253,58 @@
   },
   "super": {
     "title": "Super Admin",
-    "description": "Painel da plataforma. O menu e as telas entram na próxima tarefa (SA-07)."
+    "nav": {
+      "label": "Menu do Super Admin",
+      "open": "Abrir menu",
+      "home": "Início",
+      "companies": "Empresas",
+      "payments": "Pagamentos",
+      "modules": "Módulos e planos",
+      "system": "Sistema",
+      "sections": {
+        "clients": "Clientes",
+        "platform": "Plataforma"
+      }
+    },
+    "pages": {
+      "home": {
+        "title": "Início",
+        "description": "Visão geral das empresas, cobranças e alertas da plataforma.",
+        "emptyTitle": "Os indicadores chegam em breve",
+        "emptyText": "Empresas por status, receita do mês, vencimentos e atrasos aparecem aqui nas próximas tarefas."
+      },
+      "companies": {
+        "title": "Empresas",
+        "description": "Empresas clientes, com contrato, módulos e status.",
+        "new": "Nova empresa",
+        "emptyTitle": "Lista de empresas em construção",
+        "emptyText": "A busca, os filtros e a tabela de empresas entram na tarefa SA-08."
+      },
+      "newCompany": {
+        "title": "Nova empresa",
+        "description": "Cadastro em 4 passos: dados, módulos, contrato e Proprietário.",
+        "emptyTitle": "Assistente de cadastro em construção",
+        "emptyText": "O cadastro em 4 passos entra na tarefa SA-08."
+      },
+      "payments": {
+        "title": "Pagamentos",
+        "description": "Cobranças em aberto, parciais, vencidas e pagas.",
+        "emptyTitle": "Pagamentos em construção",
+        "emptyText": "As cobranças e o registro de pagamento entram na tarefa SA-10."
+      },
+      "modules": {
+        "title": "Módulos e planos",
+        "description": "Catálogo de módulos e planos-modelo.",
+        "emptyTitle": "Módulos e planos em construção",
+        "emptyText": "O catálogo e a edição dos planos-modelo entram nas próximas tarefas."
+      },
+      "system": {
+        "title": "Sistema",
+        "description": "Saúde do sistema: logs, gargalos, fila, banco e alertas.",
+        "emptyTitle": "Painel de saúde em construção",
+        "emptyText": "As abas de saúde, logs, fila e banco entram na tarefa SA-12."
+      }
+    }
   },
   "admin": {
     "title": "Painel da empresa",
