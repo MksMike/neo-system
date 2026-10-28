@@ -8,7 +8,7 @@ Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura)
 |---|---|---|
 | Runtime | Node.js LTS (22 ou superior) | No Windows, instalar por `fnm` ou instalador oficial |
 | Gerenciador e monorepo | pnpm + Turborepo | `pnpm` via `corepack enable` |
-| Linguagem | TypeScript em modo `strict` | Tipos do banco gerados pelo Supabase CLI |
+| Linguagem | TypeScript em modo `strict` | Tipos do banco gerados pelo Supabase CLI. Fixado em 6.0.x até o typescript-eslint aceitar a 7.x |
 | Aplicação | Next.js (App Router), React Server Components, Server Actions | Admin, app do funcionário (PWA) e Super Admin no mesmo app |
 | Estilo | Tailwind CSS v4 | Tokens do design system como variáveis CSS |
 | Componentes | shadcn/ui (Radix por baixo) | Copiados para `packages/ui`, adaptados aos tokens |

@@ -44,15 +44,19 @@ NEO-SYSTEM é um SaaS multi-empresa para empresas de genba (manutenção e const
 - Textos da interface: sempre por i18n (`next-intl`), nunca fixos no componente. Idiomas da fase 1: ja, pt, es, en (app do funcionário); ja, pt (painel admin).
 - Documentos oficiais em PDF: sempre em japonês.
 
-## Comandos (preencher no M0 conforme o scaffold)
+## Comandos
+
+Todos rodam na raiz e passam pelo Turborepo (cache em `.turbo/`). Versões das dependências ficam no `catalog:` do `pnpm-workspace.yaml`; os pacotes usam `"catalog:"` em vez de número.
 
 ```bash
 pnpm install          # dependências
-pnpm dev              # app web local
+pnpm dev              # app web local (a partir da tarefa 02)
+pnpm build            # build de tudo
 pnpm test             # testes unitários (Vitest)
-pnpm test:e2e         # testes ponta a ponta (Playwright)
+pnpm test:e2e         # testes ponta a ponta (Playwright, a partir da tarefa 04)
 pnpm lint && pnpm typecheck
-supabase start        # banco local (Docker)
+pnpm format           # Prettier (format:check no CI)
+supabase start        # banco local (Docker, a partir da tarefa 03)
 supabase db reset     # recria o banco local com migrações e seeds
 supabase test db      # testes de RLS (pgTAP)
 ```
