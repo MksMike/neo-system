@@ -1,0 +1,332 @@
+- generic:
+  - banner [aria-hidden]:
+    - link:
+      - /url: /
+      - generic: NEO
+      - generic:
+        - generic: NEO-SYSTEM
+        - generic: 現場管理
+    - generic:
+      - generic:
+        - radiogroup:
+          - radio: ブルー
+          - radio: グラファイト
+          - radio [checked]: パープル
+        - radiogroup:
+          - radio: ライト
+          - radio [checked]: ダーク
+          - radio: システム
+      - radiogroup:
+        - radio [checked]: 日本語
+        - radio: Português
+  - main [aria-hidden]:
+    - generic:
+      - paragraph: packages/ui
+      - heading [level=1]: コンポーネント一覧
+      - paragraph: packages/ui のすべてのコンポーネントと、ホバー・フォーカス・エラー・読み込み中・空の状態。上部でテーマと言語を切り替えられます。
+    - generic:
+      - generic:
+        - heading [level=2]: ボタン
+        - generic:
+          - generic:
+            - button: 会社を登録
+            - button: 保存
+            - button: エクスポート
+            - button: 絞り込み
+            - button: 入金を登録
+            - button: 契約を解除
+          - generic:
+            - button: エクスポート
+            - button: 会社を登録
+            - button: 保存
+            - button [disabled]: 利用不可
+            - button
+      - generic:
+        - heading [level=2]: 入力欄
+        - generic:
+          - generic:
+            - generic:
+              - generic: 法人名*
+              - generic:
+                - textbox
+              - paragraph: 登記簿の表記どおりに入力してください。
+            - generic:
+              - generic: 検索
+              - generic:
+                - searchbox
+            - generic:
+              - generic: 月額
+              - generic:
+                - textbox: 55,000
+                - generic: 円
+          - generic:
+            - generic:
+              - generic: 契約種別
+              - generic:
+                - combobox
+            - generic:
+              - generic: 備考
+              - generic:
+                - textbox
+            - generic:
+              - generic: 入力不可の欄
+              - generic:
+                - textbox [disabled]: SUGITA
+            - generic:
+              - generic: エラーのある欄
+              - generic:
+                - textbox [invalid]
+              - paragraph: 必須項目です。
+      - generic:
+        - heading [level=2]: 入力マスク
+        - generic:
+          - paragraph: 数字だけを入力してください。ハイフンは自動で入ります。全角（０９０）も使えます。
+          - generic:
+            - generic:
+              - generic: 郵便番号
+              - generic:
+                - textbox:
+                  - /placeholder: 123-4567
+            - generic:
+              - generic: 携帯電話
+              - generic:
+                - textbox:
+                  - /placeholder: 090-1234-5678
+            - generic:
+              - generic: 固定電話
+              - generic:
+                - textbox:
+                  - /placeholder: 03-1234-5678
+            - generic:
+              - generic: 従業員ID
+              - generic:
+                - textbox:
+                  - /placeholder: 0000-0000
+      - generic:
+        - heading [level=2]: 選択
+        - generic:
+          - generic:
+            - paragraph: モジュール
+            - generic:
+              - checkbox [checked]
+              - generic: 従業員
+            - generic:
+              - checkbox
+              - generic:
+                - text: 配置・カレンダー
+                - generic: 同時に有効化：取引先、従業員
+            - generic:
+              - checkbox [checked=mixed]
+              - generic: 勤怠確認
+            - generic:
+              - checkbox [disabled]
+              - generic: 入力不可の欄
+          - generic:
+            - paragraph: 支払方法
+            - radiogroup:
+              - generic:
+                - radio [checked]
+                - generic: 銀行振込
+              - generic:
+                - radio
+                - generic: 現金
+          - generic:
+            - generic:
+              - switch [checked]
+              - generic: 試用期間
+            - generic:
+              - switch [disabled]
+              - generic: 入力不可の欄
+      - generic:
+        - heading [level=2]: カードと数値
+        - generic:
+          - generic:
+            - generic:
+              - generic: 稼働中の会社
+              - generic: "12"
+              - generic: 今月 +2
+          - generic:
+            - generic:
+              - generic: 今月の売上
+              - generic: ￥1,047,200
+          - generic:
+            - generic:
+              - generic: 支払遅延
+              - generic: "2"
+              - generic: 1社が7日超過
+          - generic:
+            - generic:
+              - heading [level=3]: 次の支払期限
+            - generic: DEMO・11/01
+      - generic:
+        - heading [level=2]: バッジとチップ
+        - generic:
+          - generic:
+            - generic: 稼働中
+            - generic: 試用中
+            - generic: 支払遅延
+            - generic: 閲覧のみ
+            - generic: 停止中
+            - generic: パートナー
+            - generic: 解約済み
+          - generic:
+            - button [pressed]: すべて
+            - button: 入金済み
+      - generic:
+        - heading [level=2]: 勤務区分（勤怠表）
+        - generic:
+          - generic:
+            - generic:
+              - button:
+                - generic [aria-hidden]: 定
+              - generic: 定時
+            - generic:
+              - button:
+                - generic [aria-hidden]: 半
+              - generic: 半日
+            - generic:
+              - button:
+                - generic [aria-hidden]: 休
+              - generic: 休
+            - generic:
+              - button:
+                - generic [aria-hidden]: 欠
+              - generic: 欠勤
+            - generic:
+              - button:
+                - generic [aria-hidden]: 中
+              - generic: 中止
+            - generic:
+              - button:
+                - generic [aria-hidden]: 業
+              - generic: 休業
+            - generic:
+              - button:
+                - generic [aria-hidden]: 有
+              - generic: 有給
+            - generic:
+              - button:
+                - generic [aria-hidden]: "?"
+              - generic: 未確認
+            - generic:
+              - button
+              - generic: 記録なし
+            - generic:
+              - button:
+                - generic [aria-hidden]: 定
+                - generic [aria-hidden]: "2"
+              - generic: 残業 2時間
+      - generic:
+        - heading [level=2]: 表
+        - generic:
+          - table:
+            - rowgroup:
+              - row:
+                - columnheader: コード
+                - columnheader: 会社
+                - columnheader: 契約
+                - columnheader: 支払済み期限
+                - columnheader: 状態
+                - columnheader: 金額
+            - rowgroup:
+              - row:
+                - cell: SUGITA
+                - cell: 株式会社杉田工業
+                - cell:
+                  - generic: パートナー
+                - cell: —
+                - cell:
+                  - generic: 稼働中
+                - cell: ￥0
+              - row:
+                - cell: DEMO
+                - cell: デモ株式会社
+                - cell: 月額
+                - cell: 2026-10-31
+                - cell:
+                  - generic: 支払遅延
+                - cell: ￥55,000
+              - row:
+                - cell: TESTE
+                - cell: テスト建設
+                - cell: 年額
+                - cell: 2027-03-31
+                - cell:
+                  - generic: 試用中
+                - cell: ￥480,000
+      - generic:
+        - heading [level=2]: アラートとトースト
+        - generic:
+          - status:
+            - generic:
+              - paragraph: 請求を作成しました
+              - generic: 11月分の請求は「入金」で確認できます。
+          - status:
+            - generic:
+              - paragraph: 入金を登録しました
+              - generic: DEMO は稼働中に戻りました。
+          - alert:
+            - generic:
+              - paragraph: 支払いが遅れています
+              - generic: あと3日で閲覧のみになります。
+          - alert:
+            - generic:
+              - paragraph: 会社を停止しました
+              - generic: 入金されるまで管理者はログインできません。
+        - generic:
+          - button: 成功トーストを表示
+          - button: エラートーストを表示
+      - generic:
+        - heading [level=2]: メニュー・ツールチップ・ダイアログ
+        - generic:
+          - generic:
+            - button: 詳細を見る
+            - button: 操作
+            - button [expanded]: ダイアログを開く
+            - button: ドロワーを開く
+      - generic:
+        - heading [level=2]: タブ
+        - generic:
+          - generic:
+            - tablist:
+              - tab [selected]: 概要
+              - tab: モジュール
+              - tab: 契約と入金
+            - tabpanel: 概要 タブの内容です。
+          - generic:
+            - tablist:
+              - tab [selected]: 概要
+              - tab: モジュール
+              - tab: 契約と入金
+              - tab: ユーザー
+              - tab: 履歴
+            - tabpanel: 概要 タブの内容です。
+      - generic:
+        - heading [level=2]: 読み込み中・空・進捗
+        - generic:
+          - generic:
+            - status
+            - generic:
+              - generic: 登録 · 3/4
+              - progressbar
+            - generic:
+              - generic: MI
+              - generic: 杉
+              - generic: DE
+          - generic:
+            - paragraph: 会社が登録されていません
+            - paragraph: 最初の会社を登録してください。
+            - button: 会社を登録
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=f2e402] [cursor=pointer]
+  - alert
+  - dialog [ref=f2e407]:
+    - heading "DEMO を停止しますか？" [level=2] [ref=f2e408]
+    - paragraph [ref=f2e409]: 再開するまで管理者はログインできません。理由は履歴に残ります。
+    - generic [ref=f2e410]:
+      - generic [ref=f2e411]: 理由*
+      - textbox "理由" [active] [ref=f2e413]
+    - generic [ref=f2e414]:
+      - button "キャンセル" [ref=f2e415] [cursor=pointer]
+      - button "停止する" [ref=f2e416] [cursor=pointer]
+    - button "閉じる" [ref=f2e417] [cursor=pointer]

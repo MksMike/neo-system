@@ -10,6 +10,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Página âncora da identidade visual (`docs/design-system.html`) e tokens (`docs/design-tokens.json`). (2026-10-28)
 - `COMECE-AQUI.md`: arquivo de partida com o Super Admin v1 (módulos, licença vitalícia/mensal/anual, status e bloqueio, pagamentos do SaaS), regras R00-01 a R00-11, modelo de dados, telas e 10 tarefas para o Claude Code. (2026-10-28)
 - ADR 0012: provisionamento de empresas em banco único com RLS; banco dedicado como plano pago. (2026-10-28)
+- CI no GitHub Actions (tarefa SA-02): em todo PR e push na `main`, formato, lint, tipos, testes e build; segurança com gitleaks (segredos), Semgrep (regras OWASP, TypeScript, React, Next.js) e `pnpm audit`. Dependabot semanal para npm e GitHub Actions, com PRs agrupados. Os testes de banco (Supabase local e pgTAP) entram na SA-04. (2026-10-28)
 - ADR 0013: hospedagem do MVP na Hostinger (Node.js) com Supabase Free em Tóquio; substitui a ADR 0005. (2026-10-28)
 - ADR 0014: tarefas em segundo plano por fila no Postgres (`job`), pg_cron e cron da Hostinger, com outbox para efeitos externos. (2026-10-28)
 - ADR 0015: segurança do MVP com dados só fictícios e gatilho para o nível completo de proteção de dados antes do primeiro dado real. (2026-10-28)
