@@ -39,6 +39,10 @@ E-mails enviados localmente (como o convite) aparecem no Mailpit: http://127.0.0
 - [ ] Subdomínio `neo-system.sugitakogyo.pro` apontando para o Web App (domínio próprio antes do SaaS comercial, ADR 0013).
 - [ ] Conta no Cloudflare R2 para os backups (ADR 0017).
 
+## Prioridade atual (decisão do Mike, 29/10/2026)
+
+O Super Admin fica, por enquanto, com **cadastrar empresas e liberar o acesso do Proprietário** (SA-01 a SA-09, mais o convite enviado na hora). As tarefas SA-10 a SA-12 ficam **pausadas** e voltam depois do primeiro marco do sistema da empresa, que é o que o dono da Sugita precisa ver.
+
 ## Tarefas do Super Admin v1
 
 | # | Tarefa | Entrega | ADRs |
@@ -52,9 +56,9 @@ E-mails enviados localmente (como o convite) aparecem no Mailpit: http://127.0.0
 | SA-07 ✅ | Shell do Super Admin | Layout de `/super` com menu (Início, Empresas, Pagamentos, Módulos e planos, Sistema), troca de tema e idioma; páginas com título e estado vazio | 0010 |
 | SA-08 ✅ | Empresas: lista e cadastro | `/super/empresas` e o assistente `/super/empresas/nova` em 4 passos; `provision_company` numa Server Action; convite pela fila; testes de cadastro completo, código repetido e falha no meio | 0012, 0018, 0019 |
 | SA-09 ✅ | Detalhe da empresa | `/super/empresas/[id]` com as abas; módulos com vigência e dependências; troca de contrato com vigência; histórico | 0018 |
-| SA-10 | Cobranças e status automático | `generate_saas_charges` e `recompute_company_status` diários; `/super/pagamentos`; registrar pagamento com a escolha de quitação; testes active → past_due → read_only → blocked → active | 0018 |
-| SA-11 | Suspender, cancelar e bloqueio aplicado | Suspender, reativar e cancelar com motivo (cancelar recusado para a investidora); no app da empresa, faixa de atraso, modo somente leitura e tela de bloqueio; módulo desligado responde 404; Playwright por status | 0018, 0023 |
-| SA-12 | Saúde do sistema | `/super/sistema` (Saúde, Logs, Fila, Banco) e alertas críticos no topo; rota `/api/health` | 0022 |
+| SA-10 ⏸ | Cobranças e status automático | `generate_saas_charges` e `recompute_company_status` diários; `/super/pagamentos`; registrar pagamento com a escolha de quitação; testes active → past_due → read_only → blocked → active | 0018 |
+| SA-11 ⏸ | Suspender, cancelar e bloqueio aplicado | Suspender, reativar e cancelar com motivo (cancelar recusado para a investidora); no app da empresa, faixa de atraso, modo somente leitura e tela de bloqueio; módulo desligado responde 404; Playwright por status | 0018, 0023 |
+| SA-12 ⏸ | Saúde do sistema | `/super/sistema` (Saúde, Logs, Fila, Banco) e alertas críticos no topo; rota `/api/health` | 0022 |
 | SA-13 | Publicação | **Pausada: o plano atual da Hostinger da Sugita não suporta Web Apps Node.js; retomar quando o plano for atualizado (Business ou Cloud).** Workflow manual "Publicar no MVP" já existe (branch `deploy`). Falta, quando houver telas para mostrar: projeto `neo-mvp` no Supabase, Web App na Hostinger com o subdomínio, workflow de deploy (CI de novo → migrações → build → branch `deploy`), segredos, backup diário criptografado no R2 com teste de restauração mensal, monitor de disponibilidade, varredura OWASP ZAP semanal | 0013, 0017, 0023 |
 
 ## Super Admin v1 pronto quando

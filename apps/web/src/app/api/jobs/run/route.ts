@@ -1,8 +1,6 @@
-import { createAdminClient } from '@neo/db/server';
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { after, NextResponse, type NextRequest } from 'next/server';
-import { createHandlers } from '@/server/jobs/handlers';
-import { runJobs } from '@/server/jobs/runner';
+import { processQueue } from '@/server/jobs/process';
 import { logger } from '@/server/logger';
 
 export const dynamic = 'force-dynamic';
@@ -35,35 +33,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, code: 'forbidden' }, { status: 401 });
   }
 
-  const admin = createAdminClient();
   const started = performance.now();
-  const result = await runJobs({
-    logger,
-    handlers: createHandlers({
-      admin,
-      logger,
-      appUrl: process.env.APP_URL ?? 'http://localhost:3000',
-    }),
-    queue: {
-      async claim(limit) {
-        const { data, error } = await admin.rpc('claim_jobs', {
-          p_limit: limit,
-          p_lock_seconds: 120,
-        });
-        if (error) throw error;
-        return data;
-      },
-      async complete(jobId) {
-        const { error } = await admin.rpc('complete_job', { p_job_id: jobId });
-        if (error) throw error;
-      },
-      async fail(jobId, message) {
-        const { data, error } = await admin.rpc('fail_job', { p_job_id: jobId, p_error: message });
-        if (error) throw error;
-        return data;
-      },
-    },
-  });
+  const result = await processQueue();
 
   logger.metric({
     kind: 'request',

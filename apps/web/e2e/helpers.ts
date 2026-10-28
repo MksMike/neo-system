@@ -64,3 +64,27 @@ export async function createPartnerCompany(page: Page, code: string): Promise<st
   await page.waitForLoadState('networkidle');
   return page.url();
 }
+
+/** Mailpit of the local Supabase (supabase/config.toml, [local_smtp]): every e-mail lands here. */
+const MAILPIT = process.env.MAILPIT_URL ?? 'http://127.0.0.1:55324';
+
+/** Waits for the invitation e-mail sent to `to` and returns the confirmation link in it. */
+export async function invitationLink(to: string, timeoutMs = 45_000): Promise<string> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    const search = await fetch(
+      `${MAILPIT}/api/v1/search?query=${encodeURIComponent(`to:"${to}"`)}&limit=1`,
+    );
+    const found = (await search.json()) as { messages: { ID: string }[] };
+    const id = found.messages[0]?.ID;
+    if (id) {
+      const message = (await (await fetch(`${MAILPIT}/api/v1/message/${id}`)).json()) as {
+        HTML: string;
+      };
+      const href = /href="([^"]*\/auth\/confirm\?[^"]*)"/.exec(message.HTML)?.[1];
+      if (href) return href.replaceAll('&amp;', '&');
+    }
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  throw new Error(`No invitation e-mail for ${to} within ${String(timeoutMs)} ms`);
+}
