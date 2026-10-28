@@ -1,6 +1,6 @@
 # ADR 0017 — DevOps: CI, deploy, backup e monitoramento
 
-- **Status:** Aceita (proteção da `main` pendente; ver Decisão, item 1)
+- **Status:** Aceita
 - **Data:** 2026-10-28
 - **Decisores:** Mike
 - **Relação:** usa as ADRs 0011 (monorepo), 0013 (hospedagem), 0014 (fila) e 0015 (segurança do MVP)
@@ -20,7 +20,10 @@ Três restrições pesam:
 ### 1. Fluxo no GitHub
 
 - Uma branch por tarefa, PR com o modelo do repositório e merge por squash na `main`.
-- **Proteção da `main` (merge só com CI verde): pendente.** Exige GitHub Pro (~US$ 4/mês). Sem ele, o CI roda e mostra o resultado no PR, mas não bloqueia o merge.
+- **Sem proteção da `main`: o repositório fica no plano gratuito** (decisão do Mike, 28/10/2026). O CI roda e mostra o resultado no PR, mas não bloqueia o merge.
+- **Regra de trabalho:** nunca fazer merge com o CI vermelho.
+- **Trava no deploy (compensação):** o workflow de deploy roda o CI completo de novo sobre a `main` antes de qualquer passo. Se falhar, nenhuma migração é aplicada e nada é publicado.
+- Se o projeto passar a ter mais de um desenvolvedor, a proteção da `main` (GitHub Pro ou Team) passa a ser obrigatória.
 
 ### 2. CI em todo PR (GitHub Actions)
 
@@ -30,9 +33,10 @@ Três restrições pesam:
 
 No merge na `main`, um workflow:
 
-1. aplica as migrações no projeto MVP (`supabase db push`);
-2. faz o build do app (Next.js `standalone`) no Actions;
-3. publica o resultado numa branch `deploy`, que a Hostinger observa, com comando de start `node server.js`.
+1. roda o CI completo de novo (a trava do item 1); se falhar, para aqui;
+2. aplica as migrações no projeto MVP (`supabase db push`);
+3. faz o build do app (Next.js `standalone`) no Actions;
+4. publica o resultado numa branch `deploy`, que a Hostinger observa, com comando de start `node server.js`.
 
 Voltar uma versão é republicar um commit antigo da branch `deploy`.
 
@@ -66,5 +70,5 @@ O Dependabot abre PRs semanais agrupados, passando pelo CI. Como as versões nã
 
 - **O primeiro teste prático** é confirmar que a Hostinger publica a partir de uma branch escolhida, com comando de start próprio. Se não publicar, o envio do build muda (por exemplo, SSH), e o resto continua igual.
 - **A ordem banco → app é sempre garantida**, e o build da Hostinger deixa de ser um risco.
-- **Custo:** zero, menos o GitHub Pro se for assinado. O CI usa os 2.000 minutos mensais gratuitos do Actions para repositório privado.
+- **Custo:** zero. O CI usa os 2.000 minutos mensais gratuitos do Actions para repositório privado; rodar o CI de novo no deploy gasta uns minutos a mais por merge.
 - **O backup do Supabase Free fica coberto** sem depender do plano Pro, e a restauração é provada todo mês.
