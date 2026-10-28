@@ -1,0 +1,104 @@
+# Publica o app no ambiente MVP (Hostinger) quando o Mike quiser mostrar algo ao dono da Sugita.
+# Acionado à mão em Actions → "Publicar no MVP" → Run workflow (ADR 0013 e ADR 0017).
+# A Hostinger observa a branch `deploy`, que contém só o app pronto (Next.js standalone).
+# Cada publicação substitui a anterior; para voltar, publique de novo informando o commit antigo.
+# Migrações do banco entram aqui quando o banco existir (SA-04 e SA-13).
+name: Publicar no MVP
+
+on:
+  # Em PR que mexe neste arquivo: roda tudo, menos a publicação (teste do próprio workflow).
+  pull_request:
+    paths: [.github/workflows/publicar.yml]
+  workflow_dispatch:
+    inputs:
+      motivo:
+        description: 'O que está sendo publicado (fica no commit da branch deploy)'
+        required: true
+      ref:
+        description: 'Commit ou branch a publicar (padrão: main; use um commit antigo para voltar)'
+        required: false
+        default: main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publicar-mvp
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    name: Verificar, montar e publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Trava da ADR 0017: se a verificação falhar, nada é publicado.
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+
+      - name: Montar o app pronto para rodar
+        run: |
+          out="$RUNNER_TEMP/deploy"
+          mkdir -p "$out"
+          cp -a apps/web/.next/standalone/. "$out/"
+          mkdir -p "$out/apps/web/.next"
+          cp -a apps/web/.next/static "$out/apps/web/.next/static"
+          if [ -d apps/web/public ]; then cp -a apps/web/public "$out/apps/web/public"; fi
+          # Ponto de entrada na raiz, sem dependências para instalar.
+          printf "require('./apps/web/server.js');\n" > "$out/server.js"
+          cat > "$out/package.json" <<'JSON'
+          {
+            "name": "neo-system-web",
+            "private": true,
+            "scripts": { "start": "node server.js" },
+            "engines": { "node": ">=22" }
+          }
+          JSON
+          du -sh "$out"
+
+      - name: Conferir links e testar o app montado
+        run: |
+          out="$RUNNER_TEMP/deploy"
+          # Links absolutos quebram fora desta máquina (pnpm usa links entre pastas).
+          if find "$out" -type l -lname "/*" | grep -q .; then
+            echo "Links absolutos no app montado:"; find "$out" -type l -lname "/*" | head; exit 1
+          fi
+          (cd "$out" && PORT=3999 HOSTNAME=127.0.0.1 node server.js > "$RUNNER_TEMP/server.log" 2>&1 &)
+          for i in $(seq 1 30); do curl -sf -o /dev/null http://127.0.0.1:3999/ && break; sleep 1; done
+          page="$(curl -sf http://127.0.0.1:3999/)" || { cat "$RUNNER_TEMP/server.log"; exit 1; }
+          css="$(echo "$page" | grep -oE "/_next/static/[^\"]+.css" | head -1)"
+          js="$(echo "$page" | grep -oE "/_next/static/chunks/[^\"]+.js" | head -1)"
+          test -n "$css" && test -n "$js"
+          curl -sf -o /dev/null "http://127.0.0.1:3999$css"
+          curl -sf -o /dev/null "http://127.0.0.1:3999$js"
+          test "$(curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3999/dev/ui)" = "404"
+          echo "App montado responde: página, CSS e JS 200; /dev/ui 404."
+
+      - name: Publicar na branch deploy
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          MOTIVO: ${{ inputs.motivo }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd "$RUNNER_TEMP/deploy"
+          sha="$(git -C "$GITHUB_WORKSPACE" rev-parse --short HEAD)"
+          git init -q -b deploy
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -q -m "publica $sha: $MOTIVO"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" deploy
+          echo "Publicado $sha na branch deploy" >> "$GITHUB_STEP_SUMMARY"
