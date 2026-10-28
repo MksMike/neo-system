@@ -1,5 +1,7 @@
 import js from '@eslint/js';
+import nextPlugin from '@next/eslint-plugin-next';
 import prettier from 'eslint-config-prettier';
+import reactHooks from 'eslint-plugin-react-hooks';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -23,6 +25,14 @@ export const base = defineConfig(
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
+      // Text is always rendered as text, never as HTML (ADR 0019).
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "JSXAttribute[name.name='dangerouslySetInnerHTML']",
+          message: 'dangerouslySetInnerHTML is forbidden (ADR 0019). Render text as text.',
+        },
+      ],
     },
   },
   {
@@ -32,3 +42,17 @@ export const base = defineConfig(
   },
   prettier,
 );
+
+/** React packages and the Next.js app: base + hooks rules + browser globals. */
+export const react = defineConfig(base, reactHooks.configs.flat['recommended-latest'], {
+  languageOptions: { globals: { ...globals.browser } },
+});
+
+/** The Next.js app: react + Next.js rules (core web vitals). */
+export const next = defineConfig(react, {
+  plugins: { '@next/next': nextPlugin },
+  rules: {
+    ...nextPlugin.configs.recommended.rules,
+    ...nextPlugin.configs['core-web-vitals'].rules,
+  },
+});
