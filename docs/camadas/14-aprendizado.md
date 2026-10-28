@@ -1,0 +1,45 @@
+# Camada 14 · Aprendizado (fase 2 e 3)
+
+> Documento de referência da camada. Fonte inicial: `docs/00-ancora.md` (Diretrizes por camada). Regras novas recebem número `R14-NN`.
+
+## 1. Objetivo e escopo
+
+- **Escopo:** cards de japonês de genba (foto, japonês com furigana e romaji, áudio, tradução), trilhas (ferramentas, peças, gírias, fala do 職長, segurança), "palavras para amanhã" pela escalação, progresso visível ao admin. Fase 3: prova que preenche o nível de japonês da ficha.
+- **Regras:** conteúdo gerado com IA só publica após revisão de japonês nativo do genba.
+
+## 2. Decisões
+
+| Data | Decisão | ADR |
+| --- | --- | --- |
+| 2026-10-28 | Escopo inicial herdado do documento-âncora | — |
+
+## 3. Modelo de dados
+
+— (definido na implementação)
+
+## 4. Regras de negócio
+
+— (numerar a partir das regras do escopo acima ao implementar)
+
+## 5. Telas e fluxos
+
+Ver `docs/telas/inventario-de-telas.md`.
+
+## 6. Permissões por papel
+
+| Ação | Proprietário | Gestor | Coordenador | Funcionário |
+| --- | --- | --- | --- | --- |
+
+## 7. Para o usuário
+
+—
+
+## 8. Pendências
+
+—
+
+## 9. Histórico
+
+| Data | Versão | Mudança | PR |
+| --- | --- | --- | --- |
+| 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |

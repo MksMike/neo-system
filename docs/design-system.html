@@ -1,0 +1,1602 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="azul-claro" data-lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEO-SYSTEM Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+try { var d=document.documentElement, h=localStorage.getItem('neo-hue'), m=localStorage.getItem('neo-mode'), l=localStorage.getItem('neo-lang');
+  if(!m) m = matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro';
+  d.dataset.theme=(h||'azul')+'-'+m; if(l) d.dataset.lang=l; } catch(e) {}
+</script>
+<style>
+/* NEO-SYSTEM — generated from tokens.json */
+:root, [data-theme="azul-claro"] {
+  --surface-0: #ECEFF4;
+  --surface-1: #FFFFFF;
+  --surface-2: #F4F6F9;
+  --surface-3: #E3E8F0;
+  --line: #D3DAE5;
+  --line-strong: #8090A8;
+  --ink: #0F172A;
+  --ink-muted: #475066;
+  --ink-subtle: #5E6779;
+  --primary: #1E3A8A;
+  --primary-hover: #1A3278;
+  --primary-soft: #E2E9F8;
+  --on-primary: #FFFFFF;
+  --on-grad: #FFFFFF;
+  --primary-text: #1E3A8A;
+  --grad-start: #1E3A8A;
+  --grad-end: #3A63CF;
+  --glow: #3A63CF1F;
+  --page-tint: #E2E8F2;
+  --focus: #2F5BD3;
+  --overlay: #0A13248C;
+  --success: #166534;
+  --success-soft: #E5F3EA;
+  --warning: #9A4A06;
+  --warning-soft: #FBF0E1;
+  --danger: #B4232A;
+  --danger-soft: #FBE8E8;
+  --info: #1D4ED8;
+  --info-soft: #E5EDFC;
+  --day-teiji: #2F5BD3;
+  --day-hannichi: #0E7490;
+  --day-yasumi: #6B7280;
+  --day-kekkin: #B4232A;
+  --day-chushi: #7C3AED;
+  --day-kyugyo: #44403C;
+  --day-yukyu: #166534;
+  --day-pending: #B45309;
+  --day-zangyo: #C2410C;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.06);
+  --shadow-md: 0 4px 16px rgba(15,23,42,0.08);
+  --shadow-lg: 0 16px 48px rgba(15,23,42,0.18);
+}
+[data-theme="azul-escuro"] {
+  --surface-0: #0A1324;
+  --surface-1: #101C33;
+  --surface-2: #0D172C;
+  --surface-3: #172644;
+  --line: #22335A;
+  --line-strong: #5470AE;
+  --ink: #E8EDF7;
+  --ink-muted: #ABB8D1;
+  --ink-subtle: #8D9BB8;
+  --primary: #86A8FF;
+  --primary-hover: #A3BEFF;
+  --primary-soft: #1A2B52;
+  --on-primary: #0A1324;
+  --on-grad: #FFFFFF;
+  --primary-text: #9DBAFF;
+  --grad-start: #203E9C;
+  --grad-end: #3558C0;
+  --glow: #4A72DE33;
+  --page-tint: #0D1A33;
+  --focus: #9DBAFF;
+  --overlay: #000000A6;
+  --success: #5FD08D;
+  --success-soft: #123122;
+  --warning: #F2B04A;
+  --warning-soft: #352509;
+  --danger: #F48A8A;
+  --danger-soft: #3B1618;
+  --info: #7FB0FF;
+  --info-soft: #132544;
+  --day-teiji: #7FA2FF;
+  --day-hannichi: #56C6DF;
+  --day-yasumi: #9CA3AF;
+  --day-kekkin: #F48A8A;
+  --day-chushi: #C4A5FF;
+  --day-kyugyo: #C2BBB4;
+  --day-yukyu: #5FD08D;
+  --day-pending: #F2B04A;
+  --day-zangyo: #FB9A5B;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.35);
+  --shadow-lg: 0 20px 56px rgba(0,0,0,0.55);
+}
+[data-theme="grafite-claro"] {
+  --surface-0: #F6F6F7;
+  --surface-1: #FFFFFF;
+  --surface-2: #F1F1F3;
+  --surface-3: #E7E7EA;
+  --line: #E0E0E5;
+  --line-strong: #8C8C96;
+  --ink: #18181B;
+  --ink-muted: #52525B;
+  --ink-subtle: #6B6B74;
+  --primary: #27272A;
+  --primary-hover: #3F3F46;
+  --primary-soft: #ECECEF;
+  --on-primary: #FFFFFF;
+  --on-grad: #FFFFFF;
+  --primary-text: #27272A;
+  --grad-start: #202024;
+  --grad-end: #4D4D56;
+  --glow: #4D4D561A;
+  --page-tint: #EDEDF0;
+  --focus: #2563EB;
+  --overlay: #18181B80;
+  --success: #166534;
+  --success-soft: #E5F3EA;
+  --warning: #9A4A06;
+  --warning-soft: #FBF0E1;
+  --danger: #B4232A;
+  --danger-soft: #FBE8E8;
+  --info: #1D4ED8;
+  --info-soft: #E5EDFC;
+  --day-teiji: #2F5BD3;
+  --day-hannichi: #0E7490;
+  --day-yasumi: #6B7280;
+  --day-kekkin: #B4232A;
+  --day-chushi: #7C3AED;
+  --day-kyugyo: #44403C;
+  --day-yukyu: #166534;
+  --day-pending: #B45309;
+  --day-zangyo: #C2410C;
+  --shadow-sm: 0 1px 2px rgba(24,24,27,0.06);
+  --shadow-md: 0 4px 16px rgba(24,24,27,0.08);
+  --shadow-lg: 0 16px 48px rgba(24,24,27,0.18);
+}
+[data-theme="grafite-escuro"] {
+  --surface-0: #141416;
+  --surface-1: #1C1C1F;
+  --surface-2: #18181A;
+  --surface-3: #27272B;
+  --line: #2E2E33;
+  --line-strong: #6E6E78;
+  --ink: #F4F4F5;
+  --ink-muted: #B4B4BB;
+  --ink-subtle: #93939B;
+  --primary: #E4E4E7;
+  --primary-hover: #FFFFFF;
+  --primary-soft: #2B2B30;
+  --on-primary: #18181B;
+  --on-grad: #FFFFFF;
+  --primary-text: #E4E4E7;
+  --grad-start: #2E2E33;
+  --grad-end: #55555E;
+  --glow: #A1A1AA1F;
+  --page-tint: #1A1A1D;
+  --focus: #93C5FD;
+  --overlay: #000000A6;
+  --success: #5FD08D;
+  --success-soft: #123122;
+  --warning: #F2B04A;
+  --warning-soft: #352509;
+  --danger: #F48A8A;
+  --danger-soft: #3B1618;
+  --info: #7FB0FF;
+  --info-soft: #132544;
+  --day-teiji: #7FA2FF;
+  --day-hannichi: #56C6DF;
+  --day-yasumi: #9CA3AF;
+  --day-kekkin: #F48A8A;
+  --day-chushi: #C4A5FF;
+  --day-kyugyo: #C2BBB4;
+  --day-yukyu: #5FD08D;
+  --day-pending: #F2B04A;
+  --day-zangyo: #FB9A5B;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 56px rgba(0,0,0,0.6);
+}
+[data-theme="roxo-claro"] {
+  --surface-0: #F3F0F9;
+  --surface-1: #FFFFFF;
+  --surface-2: #F8F5FC;
+  --surface-3: #EAE3F6;
+  --line: #DDD4ED;
+  --line-strong: #9483B8;
+  --ink: #1B1530;
+  --ink-muted: #4D4467;
+  --ink-subtle: #665D82;
+  --primary: #5B2A9E;
+  --primary-hover: #4E2389;
+  --primary-soft: #ECE4FA;
+  --on-primary: #FFFFFF;
+  --on-grad: #FFFFFF;
+  --primary-text: #5B2A9E;
+  --grad-start: #4A1F8C;
+  --grad-end: #7C4DD6;
+  --glow: #7C4DD61F;
+  --page-tint: #ECE5F7;
+  --focus: #7C3AED;
+  --overlay: #1B15308C;
+  --success: #166534;
+  --success-soft: #E5F3EA;
+  --warning: #9A4A06;
+  --warning-soft: #FBF0E1;
+  --danger: #B4232A;
+  --danger-soft: #FBE8E8;
+  --info: #1D4ED8;
+  --info-soft: #E5EDFC;
+  --day-teiji: #2F5BD3;
+  --day-hannichi: #0E7490;
+  --day-yasumi: #6B7280;
+  --day-kekkin: #B4232A;
+  --day-chushi: #7C3AED;
+  --day-kyugyo: #44403C;
+  --day-yukyu: #166534;
+  --day-pending: #B45309;
+  --day-zangyo: #C2410C;
+  --shadow-sm: 0 1px 2px rgba(27,21,48,0.06);
+  --shadow-md: 0 4px 16px rgba(27,21,48,0.08);
+  --shadow-lg: 0 16px 48px rgba(27,21,48,0.18);
+}
+[data-theme="roxo-escuro"] {
+  --surface-0: #120C21;
+  --surface-1: #1A1230;
+  --surface-2: #160F29;
+  --surface-3: #241940;
+  --line: #2F2350;
+  --line-strong: #7462A8;
+  --ink: #EEE9F8;
+  --ink-muted: #B9B0D2;
+  --ink-subtle: #968CB2;
+  --primary: #C6ABFF;
+  --primary-hover: #D6C2FF;
+  --primary-soft: #2E2156;
+  --on-primary: #120C21;
+  --on-grad: #FFFFFF;
+  --primary-text: #CDB6FF;
+  --grad-start: #3F2380;
+  --grad-end: #6A44BE;
+  --glow: #9B7BE433;
+  --page-tint: #1A1030;
+  --focus: #CDB6FF;
+  --overlay: #000000A6;
+  --success: #5FD08D;
+  --success-soft: #123122;
+  --warning: #F2B04A;
+  --warning-soft: #352509;
+  --danger: #F48A8A;
+  --danger-soft: #3B1618;
+  --info: #7FB0FF;
+  --info-soft: #132544;
+  --day-teiji: #7FA2FF;
+  --day-hannichi: #56C6DF;
+  --day-yasumi: #9CA3AF;
+  --day-kekkin: #F48A8A;
+  --day-chushi: #C4A5FF;
+  --day-kyugyo: #C2BBB4;
+  --day-yukyu: #5FD08D;
+  --day-pending: #F2B04A;
+  --day-zangyo: #FB9A5B;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.45);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 56px rgba(0,0,0,0.6);
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+  --touch-min: 44px;
+  --sidebar: 248px;
+  --tabbar: 64px;
+  --z-sticky: 10;
+  --z-dropdown: 30;
+  --z-overlay: 40;
+  --z-modal: 50;
+  --z-toast: 60;
+  --font-sans: "IBM Plex Sans JP", "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+.display { font-family: var(--font-sans); font-size: 32px; line-height: 40px; font-weight: 700; letter-spacing: -0.01em; }
+.h1 { font-family: var(--font-sans); font-size: 24px; line-height: 32px; font-weight: 700; }
+.h2 { font-family: var(--font-sans); font-size: 20px; line-height: 28px; font-weight: 600; }
+.h3 { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 600; }
+.body-lg { font-family: var(--font-sans); font-size: 16px; line-height: 24px; font-weight: 400; }
+.body { font-family: var(--font-sans); font-size: 14px; line-height: 22px; font-weight: 400; }
+.small { font-family: var(--font-sans); font-size: 13px; line-height: 20px; font-weight: 400; }
+.label { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 600; letter-spacing: 0.04em; }
+.caption { font-family: var(--font-sans); font-size: 12px; line-height: 16px; font-weight: 400; }
+.num-lg { font-family: var(--font-mono); font-size: 28px; line-height: 36px; font-weight: 500; }
+.num { font-family: var(--font-mono); font-size: 13px; line-height: 20px; font-weight: 400; }
+
+
+/* NEO-SYSTEM — estilos dos componentes. Só usa tokens; nenhuma cor literal. */
+:root, [data-theme] {
+  --dur-fast: 120ms; --dur-base: 200ms; --dur-slow: 320ms;
+  --ease-standard: cubic-bezier(.2,0,0,1); --ease-emphasized: cubic-bezier(.3,0,0,1);
+  --grad-brand: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+  --grad-page: linear-gradient(180deg, var(--surface-0), var(--page-tint));
+}
+@media (prefers-reduced-motion: reduce) { :root, [data-theme] { --dur-fast: 0ms; --dur-base: 0ms; --dur-slow: 0ms; } }
+
+html, body { background: var(--grad-page), var(--surface-0); background-color: var(--surface-0); color: var(--ink); }
+body { margin: 0; font-family: var(--font-sans); font-size: 14px; line-height: 22px; -webkit-font-smoothing: antialiased; }
+*, *::before, *::after { box-sizing: border-box; }
+.nx-stack { display: flex; flex-direction: column; gap: var(--space-3); }
+.nx-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); }
+.nx-pad { padding: var(--space-5); }
+.nx-muted { color: var(--ink-muted); }
+.nx-subtle { color: var(--ink-subtle); }
+.nx-num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.nx-icon { width: 20px; height: 20px; stroke-width: 1.75; flex: none; }
+.nx-icon-sm { width: 16px; height: 16px; }
+.nx-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:where(button, a, input, select, textarea, [tabindex]):focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* ---------- Botões ---------- */
+.nx-btn { --h: var(--control-md); display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); height: var(--h); padding: 0 var(--space-4); border-radius: var(--radius-md); border: 1px solid transparent; font: 600 14px/1 var(--font-sans); cursor: pointer; white-space: nowrap; text-decoration: none; transition: background-color var(--dur-fast) var(--ease-standard), border-color var(--dur-fast), color var(--dur-fast), box-shadow var(--dur-fast), transform var(--dur-fast); }
+.nx-btn:active:not(:disabled) { transform: scale(.98); }
+.nx-btn:disabled, .nx-btn[aria-disabled="true"] { opacity: .45; cursor: default; }
+.nx-btn--sm { --h: var(--control-sm); padding: 0 var(--space-3); font-size: 13px; }
+.nx-btn--lg { --h: var(--control-lg); padding: 0 var(--space-5); font-size: 16px; border-radius: 12px; }
+.nx-btn--block { width: 100%; }
+.nx-btn--primary { background: var(--grad-brand); color: var(--on-grad); box-shadow: var(--shadow-sm); }
+.nx-btn--primary:hover:not(:disabled) { box-shadow: 0 0 0 4px var(--glow), var(--shadow-md); filter: brightness(1.08); }
+.nx-btn--solid { background: var(--primary); color: var(--on-primary); }
+.nx-btn--solid:hover:not(:disabled) { background: var(--primary-hover); }
+.nx-btn--secondary { background: var(--surface-1); color: var(--ink); border-color: var(--line-strong); }
+.nx-btn--secondary:hover:not(:disabled) { background: var(--surface-3); }
+.nx-btn--ghost { background: transparent; color: var(--ink); }
+.nx-btn--ghost:hover:not(:disabled) { background: var(--surface-3); }
+.nx-btn--soft { background: var(--primary-soft); color: var(--primary-text); }
+.nx-btn--soft:hover:not(:disabled) { background: var(--surface-3); }
+.nx-btn--danger { background: var(--danger); color: var(--surface-1); }
+.nx-btn--danger:hover:not(:disabled) { filter: brightness(1.08); }
+.nx-btn--icon { width: var(--h); padding: 0; }
+.nx-btn .nx-spin { width: 16px; height: 16px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: nx-spin .8s linear infinite; }
+@keyframes nx-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Campos ---------- */
+.nx-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.nx-label { font: 600 12px/16px var(--font-sans); letter-spacing: .04em; color: var(--ink-muted); }
+.nx-label .nx-req { color: var(--danger); margin-left: 2px; }
+.nx-help { font-size: 12px; line-height: 16px; color: var(--ink-subtle); }
+.nx-error { font-size: 12px; line-height: 16px; color: var(--danger); display: flex; gap: 6px; align-items: center; }
+.nx-control { position: relative; display: flex; align-items: center; height: var(--control-md); border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-1); color: var(--ink); transition: border-color var(--dur-fast), box-shadow var(--dur-fast), background-color var(--dur-fast); }
+.nx-control:hover { border-color: var(--line-strong); }
+.nx-control:focus-within { border-color: var(--focus); box-shadow: 0 0 0 3px var(--glow); }
+.nx-control > .nx-icon { margin-left: var(--space-3); color: var(--ink-subtle); }
+.nx-control input, .nx-control select, .nx-control textarea { flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; color: inherit; font: 400 14px/22px var(--font-sans); padding: 0 var(--space-3); outline: none; }
+.nx-control input::placeholder, .nx-control textarea::placeholder { color: var(--ink-subtle); }
+.nx-control .nx-suffix { padding-right: var(--space-3); color: var(--ink-subtle); font-size: 13px; }
+.nx-control--lg { height: var(--control-lg); }
+.nx-control--area { height: auto; align-items: stretch; }
+.nx-control--area textarea { min-height: 88px; padding: var(--space-3); resize: vertical; }
+.nx-control[data-invalid="true"] { border-color: var(--danger); background: var(--danger-soft); }
+.nx-control[data-invalid="true"]:focus-within { box-shadow: 0 0 0 3px var(--danger-soft); }
+.nx-control[data-disabled="true"] { background: var(--surface-2); opacity: .6; pointer-events: none; }
+.nx-control[data-valid="true"] { border-color: var(--success); }
+.nx-control select { appearance: none; cursor: pointer; padding-right: 36px; }
+.nx-control .nx-chevron { position: absolute; right: var(--space-3); pointer-events: none; color: var(--ink-subtle); }
+
+/* ---------- Checkbox, radio, switch ---------- */
+.nx-check { display: inline-flex; align-items: flex-start; gap: var(--space-2); cursor: pointer; font-size: 14px; line-height: 22px; min-height: 22px; }
+.nx-check input { appearance: none; margin: 2px 0 0; width: 18px; height: 18px; flex: none; border: 1.5px solid var(--line-strong); background: var(--surface-1); border-radius: var(--radius-xs); display: grid; place-items: center; cursor: pointer; transition: background-color var(--dur-fast), border-color var(--dur-fast); }
+.nx-check input[type="radio"] { border-radius: 50%; }
+.nx-check input:hover { border-color: var(--primary); }
+.nx-check input:checked { background: var(--primary); border-color: var(--primary); }
+.nx-check input[type="checkbox"]:checked::after { content: ""; width: 10px; height: 6px; border-left: 2px solid var(--on-primary); border-bottom: 2px solid var(--on-primary); transform: translateY(-1px) rotate(-45deg); }
+.nx-check input[type="checkbox"]:indeterminate { background: var(--primary); border-color: var(--primary); }
+.nx-check input[type="checkbox"]:indeterminate::after { content: ""; width: 10px; height: 2px; background: var(--on-primary); }
+.nx-check input[type="radio"]:checked::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--on-primary); }
+.nx-check input:disabled { opacity: .45; cursor: default; }
+.nx-check small { display: block; color: var(--ink-subtle); font-size: 12px; line-height: 16px; }
+.nx-switch { display: inline-flex; align-items: center; gap: var(--space-3); cursor: pointer; }
+.nx-switch input { appearance: none; width: 40px; height: 24px; margin: 0; border-radius: var(--radius-full); background: var(--line-strong); position: relative; cursor: pointer; transition: background-color var(--dur-base) var(--ease-standard); flex: none; }
+.nx-switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--surface-1); box-shadow: var(--shadow-sm); transition: transform var(--dur-base) var(--ease-standard); }
+.nx-switch input:checked { background: var(--primary); }
+.nx-switch input:checked::after { transform: translateX(16px); }
+
+/* ---------- Card ---------- */
+.nx-card { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-3); min-width: 0; transition: box-shadow var(--dur-base) var(--ease-standard), border-color var(--dur-base), transform var(--dur-base) var(--ease-standard); }
+.nx-card--interactive { cursor: pointer; }
+.nx-card--interactive:hover { box-shadow: var(--shadow-md); border-color: var(--line-strong); transform: translateY(-2px); }
+.nx-card--feature { background: var(--grad-brand); color: var(--on-grad); border: 0; box-shadow: 0 0 0 6px var(--glow), var(--shadow-md); }
+.nx-card--feature .nx-muted { color: var(--on-grad); opacity: .82; }
+.nx-card__head { display: flex; align-items: center; gap: var(--space-3); }
+.nx-card__title { font: 600 16px/24px var(--font-sans); margin: 0; flex: 1; min-width: 0; }
+.nx-card__inset { background: var(--surface-2); border-radius: var(--radius-md); padding: var(--space-3); }
+.nx-stat { display: flex; flex-direction: column; gap: 4px; }
+.nx-stat__label { display: flex; align-items: center; gap: var(--space-2); color: var(--ink-muted); font-weight: 500; }
+.nx-stat__value { font: 500 28px/36px var(--font-mono); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.nx-stat__delta { font-size: 12px; font-weight: 600; }
+.nx-stat__icon { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); }
+
+/* ---------- Badge / chip ---------- */
+.nx-badge { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 10px; border-radius: var(--radius-full); font: 600 12px/1 var(--font-sans); background: var(--surface-3); color: var(--ink-muted); white-space: nowrap; }
+.nx-badge .nx-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.nx-badge--primary { background: var(--primary-soft); color: var(--primary-text); }
+.nx-badge--success { background: var(--success-soft); color: var(--success); }
+.nx-badge--warning { background: var(--warning-soft); color: var(--warning); }
+.nx-badge--danger { background: var(--danger-soft); color: var(--danger); }
+.nx-badge--info { background: var(--info-soft); color: var(--info); }
+.nx-badge--outline { background: transparent; border: 1px solid var(--line-strong); color: var(--ink-muted); }
+.nx-chip { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border-radius: var(--radius-full); border: 1px solid var(--line); background: var(--surface-1); color: var(--ink); font: 500 13px/1 var(--font-sans); cursor: pointer; transition: background-color var(--dur-fast), border-color var(--dur-fast), color var(--dur-fast); }
+.nx-chip:hover { border-color: var(--line-strong); background: var(--surface-3); }
+.nx-chip[aria-pressed="true"] { background: var(--primary-soft); border-color: var(--primary); color: var(--primary-text); }
+
+/* ---------- Tipos do dia (grade 勤怠表) ---------- */
+.nx-day { --c: var(--day-teiji); position: relative; display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: var(--radius-xs); font: 600 13px/1 var(--font-sans); color: var(--c); background: color-mix(in srgb, var(--c) 14%, var(--surface-1)); border: 1px solid color-mix(in srgb, var(--c) 40%, transparent); cursor: pointer; transition: transform var(--dur-fast), box-shadow var(--dur-fast); }
+.nx-day:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.nx-day--teiji { --c: var(--day-teiji); } .nx-day--hannichi { --c: var(--day-hannichi); } .nx-day--yasumi { --c: var(--day-yasumi); }
+.nx-day--kekkin { --c: var(--day-kekkin); } .nx-day--chushi { --c: var(--day-chushi); } .nx-day--kyugyo { --c: var(--day-kyugyo); }
+.nx-day--yukyu { --c: var(--day-yukyu); } .nx-day--pending { --c: var(--day-pending); border-style: dashed; }
+.nx-day--empty { --c: var(--ink-subtle); background: transparent; border: 1px dashed var(--line); }
+.nx-day .nx-ot { position: absolute; top: -4px; right: -4px; min-width: 16px; height: 16px; padding: 0 3px; border-radius: 8px; background: var(--day-zangyo); color: var(--surface-1); font: 600 9.5px/16px var(--font-mono); }
+.nx-day .nx-sub { position: absolute; left: 0; bottom: 0; width: 100%; height: 3px; border-radius: 0 0 5px 5px; background: var(--sub, transparent); }
+
+/* ---------- Tabela ---------- */
+.nx-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--surface-1); }
+.nx-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.nx-table th { text-align: left; font: 600 12px/16px var(--font-sans); letter-spacing: .04em; color: var(--ink-muted); background: var(--surface-2); padding: 10px var(--space-4); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.nx-table td { padding: 12px var(--space-4); border-bottom: 1px solid var(--line); vertical-align: middle; }
+.nx-table tr:last-child td { border-bottom: 0; }
+.nx-table tbody tr { transition: background-color var(--dur-fast); }
+.nx-table tbody tr:hover { background: var(--surface-3); }
+.nx-table tbody tr[aria-selected="true"] { background: var(--primary-soft); }
+.nx-table .nx-right { text-align: right; }
+
+/* ---------- Alertas ---------- */
+.nx-alert { --c: var(--info); --bg: var(--info-soft); display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); background: var(--bg); color: var(--ink); border: 1px solid color-mix(in srgb, var(--c) 30%, transparent); }
+.nx-alert > .nx-icon { color: var(--c); margin-top: 1px; }
+.nx-alert__body { flex: 1; min-width: 0; }
+.nx-alert__title { font-weight: 600; margin: 0; }
+.nx-alert__text { margin: 2px 0 0; color: var(--ink-muted); font-size: 13px; line-height: 20px; }
+.nx-alert--success { --c: var(--success); --bg: var(--success-soft); }
+.nx-alert--warning { --c: var(--warning); --bg: var(--warning-soft); }
+.nx-alert--danger { --c: var(--danger); --bg: var(--danger-soft); }
+
+/* ---------- Toast ---------- */
+.nx-toasts { position: fixed; right: 16px; bottom: 16px; display: flex; flex-direction: column; gap: var(--space-2); z-index: var(--z-toast); width: min(380px, calc(100% - 32px)); }
+.nx-toast { display: flex; align-items: center; gap: var(--space-3); padding: 12px var(--space-4); border-radius: var(--radius-lg); background: var(--ink); color: var(--surface-1); box-shadow: var(--shadow-lg); font-size: 14px; animation: nx-toast-in var(--dur-slow) var(--ease-emphasized); }
+.nx-toast.nx-out { animation: nx-toast-out var(--dur-base) var(--ease-standard) forwards; }
+.nx-toast > .nx-icon { color: var(--surface-1); }
+.nx-toast__msg { flex: 1; min-width: 0; }
+.nx-toast__action { background: transparent; border: 0; color: var(--surface-1); font: 700 13px/1 var(--font-sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; padding: 6px; border-radius: 6px; }
+@keyframes nx-toast-in { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+@keyframes nx-toast-out { to { opacity: 0; transform: translateY(8px); } }
+
+/* ---------- Tooltip ---------- */
+.nx-tip { position: relative; display: inline-flex; }
+.nx-tip__bubble { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translate(-50%, 4px); background: var(--ink); color: var(--surface-1); font: 500 12px/16px var(--font-sans); padding: 6px 10px; border-radius: var(--radius-sm); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard); z-index: var(--z-dropdown); }
+.nx-tip:hover .nx-tip__bubble, .nx-tip:focus-within .nx-tip__bubble { opacity: 1; transform: translate(-50%, 0); transition-delay: 300ms; }
+
+/* ---------- Menu suspenso / popover ---------- */
+.nx-pop { position: relative; display: inline-block; }
+.nx-menu { position: absolute; top: calc(100% + 6px); left: 0; min-width: 220px; background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 6px; z-index: var(--z-dropdown); opacity: 0; transform: translateY(-4px) scale(.98); transform-origin: top left; pointer-events: none; transition: opacity var(--dur-base) var(--ease-standard), transform var(--dur-base) var(--ease-standard); }
+.nx-pop[data-open="true"] .nx-menu { opacity: 1; transform: none; pointer-events: auto; }
+.nx-menu__item { display: flex; align-items: center; gap: var(--space-2); width: 100%; min-height: 36px; padding: 0 10px; border: 0; background: transparent; color: var(--ink); font: 400 14px/1 var(--font-sans); border-radius: var(--radius-sm); cursor: pointer; text-align: left; }
+.nx-menu__item:hover, .nx-menu__item[aria-selected="true"] { background: var(--surface-3); }
+.nx-menu__item[aria-checked="true"] { color: var(--primary-text); font-weight: 600; }
+.nx-menu__item--danger { color: var(--danger); }
+.nx-menu__item kbd { margin-left: auto; font: 500 11px/1 var(--font-mono); color: var(--ink-subtle); }
+.nx-menu__sep { height: 1px; background: var(--line); margin: 6px 4px; }
+.nx-menu__label { padding: 8px 10px 4px; font: 600 11px/1 var(--font-sans); letter-spacing: .06em; color: var(--ink-subtle); }
+
+/* ---------- Modal e gaveta ---------- */
+.nx-overlay { position: fixed; inset: 0; background: var(--overlay); display: grid; place-items: center; padding: var(--space-4); z-index: var(--z-overlay); opacity: 0; pointer-events: none; transition: opacity var(--dur-slow) var(--ease-standard); }
+.nx-overlay[data-open="true"] { opacity: 1; pointer-events: auto; }
+.nx-dialog { width: min(480px, 100%); background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); transform: translateY(12px) scale(.98); transition: transform var(--dur-slow) var(--ease-emphasized); z-index: var(--z-modal); }
+.nx-overlay[data-open="true"] .nx-dialog { transform: none; }
+.nx-dialog__title { margin: 0; font: 600 20px/28px var(--font-sans); }
+.nx-dialog__actions { display: flex; justify-content: flex-end; gap: var(--space-2); flex-wrap: wrap; }
+.nx-drawer-overlay { place-items: stretch end; padding: 0; }
+.nx-drawer { width: min(420px, 100%); height: 100%; background: var(--surface-1); border-left: 1px solid var(--line); box-shadow: var(--shadow-lg); padding: var(--space-6); display: flex; flex-direction: column; gap: var(--space-4); transform: translateX(24px); transition: transform var(--dur-slow) var(--ease-emphasized); border-radius: var(--radius-xl) 0 0 var(--radius-xl); }
+.nx-overlay[data-open="true"] .nx-drawer { transform: none; }
+
+/* ---------- Abas ---------- */
+.nx-tabs { display: inline-flex; gap: 2px; padding: 3px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-md); }
+.nx-tab { height: 32px; padding: 0 var(--space-3); border: 0; border-radius: 8px; background: transparent; color: var(--ink-muted); font: 600 13px/1 var(--font-sans); cursor: pointer; transition: background-color var(--dur-base) var(--ease-standard), color var(--dur-base), box-shadow var(--dur-base); }
+.nx-tab:hover { color: var(--ink); }
+.nx-tab[aria-selected="true"] { background: var(--surface-1); color: var(--ink); box-shadow: var(--shadow-sm); }
+.nx-tabs--line { background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 0; gap: var(--space-4); }
+.nx-tabs--line .nx-tab { border-radius: 0; padding: 0 2px; height: 40px; box-shadow: none; position: relative; }
+.nx-tabs--line .nx-tab[aria-selected="true"] { background: transparent; color: var(--primary-text); }
+.nx-tabs--line .nx-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--grad-brand); border-radius: 2px; }
+
+/* ---------- Navegação ---------- */
+.nx-side { width: var(--sidebar); background: var(--surface-1); border-right: 1px solid var(--line); padding: var(--space-4) var(--space-3); display: flex; flex-direction: column; gap: 2px; }
+.nx-side__brand { display: flex; align-items: center; gap: 10px; padding: 4px 8px var(--space-4); }
+.nx-side__logo { width: 34px; height: 34px; border-radius: 10px; background: var(--grad-brand); color: var(--on-grad); display: grid; place-items: center; font: 700 13px/1 var(--font-sans); }
+.nx-side__section { padding: var(--space-3) 10px 6px; font: 600 11px/1 var(--font-sans); letter-spacing: .06em; color: var(--ink-subtle); }
+.nx-nav { display: flex; align-items: center; gap: var(--space-3); min-height: 40px; padding: 0 10px; border-radius: var(--radius-md); color: var(--ink-muted); text-decoration: none; font-weight: 500; transition: background-color var(--dur-fast), color var(--dur-fast); position: relative; }
+.nx-nav:hover { background: var(--surface-3); color: var(--ink); }
+.nx-nav[aria-current="page"] { background: var(--primary-soft); color: var(--primary-text); font-weight: 600; }
+.nx-nav[aria-current="page"]::before { content: ""; position: absolute; left: -12px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--grad-brand); }
+.nx-nav .nx-badge { margin-left: auto; height: 20px; padding: 0 7px; }
+.nx-tabbar { display: flex; background: var(--surface-1); border-top: 1px solid var(--line); padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px)); }
+.nx-tabbar a { flex: 1; min-height: 52px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: var(--ink-subtle); text-decoration: none; font: 600 11px/1 var(--font-sans); border-radius: 12px; transition: color var(--dur-fast); }
+.nx-tabbar a[aria-current="page"] { color: var(--primary-text); }
+.nx-tabbar a[aria-current="page"] .nx-icon { transform: translateY(-1px); }
+.nx-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-subtle); }
+.nx-crumbs a { color: var(--ink-muted); text-decoration: none; }
+.nx-crumbs a:hover { color: var(--primary-text); text-decoration: underline; }
+
+/* ---------- Calendário e date picker ---------- */
+.nx-cal { width: 296px; background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: var(--space-3); }
+.nx-cal__head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2); }
+.nx-cal__title { font-weight: 600; }
+.nx-cal__grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+.nx-cal__dow { text-align: center; font: 600 11px/24px var(--font-sans); color: var(--ink-subtle); }
+.nx-cal__dow.sun, .nx-cal__day.sun { color: var(--danger); }
+.nx-cal__dow.sat, .nx-cal__day.sat { color: var(--info); }
+.nx-cal__day { height: 36px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--ink); font: 500 13px/1 var(--font-sans); cursor: pointer; position: relative; transition: background-color var(--dur-fast); font-variant-numeric: tabular-nums; }
+.nx-cal__day:hover { background: var(--surface-3); }
+.nx-cal__day.out { color: var(--ink-subtle); opacity: .55; }
+.nx-cal__day.today { box-shadow: inset 0 0 0 1.5px var(--primary); }
+.nx-cal__day.holiday::after { content: ""; position: absolute; bottom: 5px; left: 50%; width: 4px; height: 4px; margin-left: -2px; border-radius: 50%; background: var(--danger); }
+.nx-cal__day.in-range { background: var(--primary-soft); border-radius: 0; color: var(--primary-text); }
+.nx-cal__day[aria-selected="true"] { background: var(--grad-brand); color: var(--on-grad); font-weight: 700; }
+.nx-cal__foot { display: flex; justify-content: space-between; align-items: center; margin-top: var(--space-2); padding-top: var(--space-2); border-top: 1px solid var(--line); }
+.nx-time { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; max-height: 168px; overflow: auto; }
+.nx-time button { height: 32px; border: 1px solid var(--line); background: var(--surface-1); color: var(--ink); border-radius: var(--radius-sm); font: 500 13px/1 var(--font-mono); cursor: pointer; }
+.nx-time button:hover { border-color: var(--line-strong); background: var(--surface-3); }
+.nx-time button[aria-pressed="true"] { background: var(--primary); border-color: var(--primary); color: var(--on-primary); }
+
+/* ---------- Avatar, progresso, esqueleto, vazio ---------- */
+.nx-avatar { width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); font: 700 13px/1 var(--font-sans); flex: none; border: 2px solid var(--surface-1); }
+.nx-avatar--brand { background: var(--grad-brand); color: var(--on-grad); }
+.nx-avatars { display: flex; } .nx-avatars .nx-avatar + .nx-avatar { margin-left: -10px; }
+.nx-progress { height: 8px; border-radius: var(--radius-full); background: var(--surface-3); overflow: hidden; }
+.nx-progress > span { display: block; height: 100%; border-radius: inherit; background: var(--grad-brand); transition: width var(--dur-slow) var(--ease-standard); }
+.nx-skel { background: var(--surface-3); border-radius: var(--radius-sm); animation: nx-pulse 1.4s ease-in-out infinite; }
+@keyframes nx-pulse { 50% { opacity: .5; } }
+.nx-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-3); padding: var(--space-10) var(--space-6); border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); background: var(--surface-1); }
+.nx-empty__icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); }
+
+/* ---------- Upload ---------- */
+.nx-drop { display: flex; flex-direction: column; align-items: center; gap: var(--space-2); padding: var(--space-6); border: 1.5px dashed var(--line-strong); border-radius: var(--radius-lg); background: var(--surface-2); color: var(--ink-muted); text-align: center; cursor: pointer; transition: border-color var(--dur-fast), background-color var(--dur-fast); }
+.nx-drop:hover, .nx-drop[data-over="true"] { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-text); }
+
+/* ---------- PIN ---------- */
+.nx-pin { display: flex; gap: var(--space-3); justify-content: center; }
+.nx-pin span { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--line-strong); transition: background-color var(--dur-fast), transform var(--dur-fast); }
+.nx-pin span.on { background: var(--primary); border-color: var(--primary); transform: scale(1.1); }
+.nx-pin[data-error="true"] { animation: nx-shake .4s var(--ease-standard); }
+.nx-pin[data-error="true"] span { border-color: var(--danger); }
+@keyframes nx-shake { 20%, 60% { transform: translateX(-6px); } 40%, 80% { transform: translateX(6px); } }
+.nx-keypad { display: grid; grid-template-columns: repeat(3, 72px); gap: var(--space-3); justify-content: center; }
+.nx-keypad button { height: 56px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-1); color: var(--ink); font: 600 20px/1 var(--font-sans); cursor: pointer; transition: background-color var(--dur-fast), transform var(--dur-fast); }
+.nx-keypad button:hover { background: var(--surface-3); }
+.nx-keypad button:active { transform: scale(.95); }
+
+/* ---------- Animações utilitárias ---------- */
+.nx-enter { animation: nx-enter var(--dur-base) var(--ease-standard) both; }
+@keyframes nx-enter { from { opacity: 0; transform: translateY(6px); } }
+.nx-fade { animation: nx-fade var(--dur-base) var(--ease-standard) both; }
+@keyframes nx-fade { from { opacity: 0; } }
+
+/* ---------- Estrutura da página âncora ---------- */
+html { scroll-behavior: smooth; }
+body { min-height: 100vh; }
+.ja-only { display: none; }
+[data-lang="ja"] .ja-only { display: revert; }
+[data-lang="ja"] .pt-only { display: none; }
+.top { position: sticky; top: 0; z-index: var(--z-sticky); display: flex; align-items: center; gap: var(--space-3); height: 60px; padding: 0 var(--space-5); background: color-mix(in srgb, var(--surface-1) 86%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; min-width: 0; }
+.mark { display: inline-grid; place-items: center; width: 34px; height: 34px; border-radius: 10px; background: var(--grad-brand); color: var(--on-grad); font: 700 13px/1 var(--font-sans); letter-spacing: .02em; flex: none; box-shadow: 0 0 0 4px var(--glow); }
+.mark--lg { width: 72px; height: 72px; border-radius: 20px; font-size: 24px; box-shadow: 0 0 0 10px var(--glow); }
+.mark--mono { background: var(--ink); color: var(--surface-1); box-shadow: none; }
+.mark--light { background: var(--on-grad); color: var(--grad-start); box-shadow: none; }
+.brand-name { display: block; font-weight: 700; letter-spacing: .02em; }
+.brand-sub { display: block; font-size: 12px; line-height: 14px; color: var(--ink-subtle); }
+.top-actions { margin-left: auto; display: flex; align-items: center; gap: var(--space-2); }
+.seg { display: inline-flex; padding: 3px; gap: 2px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-md); }
+.seg button { height: 30px; padding: 0 10px; border: 0; border-radius: 7px; background: transparent; color: var(--ink-muted); font: 600 12px/1 var(--font-sans); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: background-color var(--dur-fast), color var(--dur-fast); }
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--surface-1); color: var(--ink); box-shadow: var(--shadow-sm); }
+.seg .swatch { width: 12px; height: 12px; border-radius: 50%; }
+.menu-btn { display: none; }
+
+.layout { display: flex; align-items: flex-start; }
+.side { position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; flex: none; padding: var(--space-5) var(--space-3) var(--space-8); background: var(--surface-1); }
+.side-head { display: none; }
+.content { flex: 1; min-width: 0; max-width: 1180px; padding: var(--space-8) var(--space-8) 120px; }
+.route { padding-bottom: var(--space-12); margin-bottom: var(--space-12); border-bottom: 1px solid var(--line); scroll-margin-top: 80px; }
+.route:last-child { border-bottom: 0; }
+.r-head { margin-bottom: var(--space-6); }
+.r-head .eyebrow { font: 600 12px/16px var(--font-sans); letter-spacing: .08em; color: var(--primary-text); text-transform: uppercase; }
+.r-head h1 { margin: 6px 0 8px; font: 700 32px/40px var(--font-sans); letter-spacing: -.01em; }
+.r-head p { margin: 0; max-width: 72ch; color: var(--ink-muted); font-size: 15px; line-height: 24px; }
+.block { margin-top: var(--space-8); }
+.block-head { margin-bottom: var(--space-4); }
+.block-head h2 { margin: 0; font: 600 20px/28px var(--font-sans); }
+.block-head p { margin: 4px 0 0; color: var(--ink-muted); max-width: 72ch; }
+.grid { display: grid; gap: var(--space-4); }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cap { font: 600 11px/16px var(--font-sans); letter-spacing: .06em; color: var(--ink-subtle); text-transform: uppercase; }
+.demo { background: var(--surface-1); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); min-width: 0; }
+.demo--flat { background: var(--surface-2); }
+.code { font: 400 12px/18px var(--font-mono); color: var(--ink-muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 2px 6px; }
+.rules { margin: 0; padding-left: 18px; color: var(--ink-muted); display: flex; flex-direction: column; gap: 6px; }
+.rules b { color: var(--ink); }
+
+/* Marca */
+.hero { position: relative; overflow: hidden; display: flex; align-items: center; gap: var(--space-8); padding: var(--space-10); border-radius: var(--radius-xl); background: var(--grad-brand); color: var(--on-grad); }
+.hero::after { content: ""; position: absolute; inset: auto -10% -60% 40%; height: 140%; background: radial-gradient(closest-side, rgba(255,255,255,.18), transparent); pointer-events: none; }
+.hero h2 { margin: 0 0 8px; font: 700 28px/36px var(--font-sans); }
+.hero p { margin: 0; opacity: .88; max-width: 56ch; font-size: 15px; line-height: 24px; }
+.hero .pill { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; height: 28px; padding: 0 12px; border-radius: 99px; background: rgba(255,255,255,.16); font: 600 12px/1 var(--font-sans); }
+.lockup { display: inline-flex; align-items: center; gap: 10px; font: 700 16px/1 var(--font-sans); letter-spacing: .01em; }
+.lockup small { font-weight: 500; color: var(--ink-subtle); }
+.tile { height: 140px; border-radius: var(--radius-lg); display: grid; place-items: center; border: 1px solid var(--line); }
+.tile--grad { background: var(--grad-brand); color: var(--on-grad); border: 0; }
+.tile--grad .lockup small { color: var(--on-grad); opacity: .8; }
+.principle h3 { margin: 10px 0 4px; font: 600 16px/24px var(--font-sans); }
+.principle p { margin: 0; color: var(--ink-muted); }
+.voice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: var(--radius-md); background: var(--surface-2); }
+.voice .nx-icon { margin-top: 1px; }
+.voice.yes .nx-icon { color: var(--success); }
+.voice.no .nx-icon { color: var(--danger); }
+.voice.no span { text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--danger) 50%, transparent); color: var(--ink-muted); }
+
+/* Cores */
+.themes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.theme-card { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); cursor: pointer; transition: box-shadow var(--dur-base), transform var(--dur-base) var(--ease-standard); background: none; padding: 0; text-align: left; font: inherit; color: inherit; }
+.theme-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.theme-card[aria-pressed="true"] { outline: 2px solid var(--focus); outline-offset: 2px; }
+.theme-pair { display: grid; grid-template-columns: 1fr 1fr; }
+.mini { background: linear-gradient(180deg, var(--surface-0), var(--page-tint)); color: var(--ink); padding: 14px; display: flex; flex-direction: column; gap: 8px; min-height: 150px; }
+.mini .m-card { background: var(--surface-1); border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; font-size: 11px; color: var(--ink-muted); }
+.mini .m-card b { display: block; font: 500 16px/20px var(--font-mono); color: var(--ink); }
+.mini .m-btn { align-self: flex-start; height: 24px; padding: 0 10px; border-radius: 7px; background: var(--grad-brand); color: var(--on-grad); font: 600 11px/24px var(--font-sans); }
+.mini .m-bar { height: 6px; border-radius: 3px; background: var(--grad-brand); }
+.theme-card .t-name { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--surface-1); border-top: 1px solid var(--line); font-weight: 600; font-size: 13px; color: var(--ink); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); }
+.sw { border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; background: var(--surface-1); }
+.sw-chip { height: 56px; border-bottom: 1px solid var(--line); }
+.sw-meta { padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; }
+.sw-name { font: 600 12px/16px var(--font-mono); }
+.sw-hex { font: 400 11px/14px var(--font-mono); color: var(--ink-subtle); }
+.grads { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4); }
+.grad-box { height: 120px; border-radius: var(--radius-lg); display: flex; align-items: flex-end; padding: 12px 14px; font: 600 12px/16px var(--font-sans); border: 1px solid var(--line); }
+.days { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--space-3); }
+.day-row { display: flex; align-items: center; gap: var(--space-3); padding: 10px; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-1); }
+.day-row b { display: block; font-size: 13px; } .day-row small { color: var(--ink-subtle); font: 400 11px/14px var(--font-mono); }
+
+/* Tipografia */
+.type-table { width: 100%; border-collapse: collapse; }
+.type-table td { padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+.type-table td:first-child { width: 120px; font: 600 12px/16px var(--font-mono); color: var(--primary-text); }
+.type-table td:last-child { width: 170px; text-align: right; font: 400 12px/16px var(--font-mono); color: var(--ink-subtle); }
+.type-hero { font: 700 56px/64px var(--font-sans); letter-spacing: -.02em; margin: 0; }
+.weights { display: flex; gap: var(--space-6); flex-wrap: wrap; font-size: 22px; }
+
+/* Ícones */
+.icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: var(--space-2); }
+.ic { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px 12px; border-radius: var(--radius-md); border: 1px solid var(--line); background: var(--surface-1); color: var(--ink); cursor: pointer; transition: border-color var(--dur-fast), background-color var(--dur-fast), transform var(--dur-fast); font: inherit; }
+.ic:hover { border-color: var(--primary); background: var(--primary-soft); color: var(--primary-text); transform: translateY(-1px); }
+.ic .nx-icon { width: 24px; height: 24px; }
+.ic small { font: 400 11px/14px var(--font-mono); color: var(--ink-subtle); text-align: center; word-break: break-all; }
+.ic em { font-style: normal; font-size: 11px; line-height: 14px; color: var(--ink-muted); text-align: center; }
+.ic-sizes { display: flex; align-items: flex-end; gap: var(--space-6); }
+.ic-sizes div { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.ic-box { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--primary-soft); color: var(--primary-text); }
+.ic-box.round { border-radius: 50%; }
+.ic-box.solid { background: var(--grad-brand); color: var(--on-grad); }
+.ic-box.ok { background: var(--success-soft); color: var(--success); }
+.ic-box.bad { background: var(--danger-soft); color: var(--danger); }
+.ic-box.warn { background: var(--warning-soft); color: var(--warning); }
+
+/* Movimento */
+.motion-row { display: grid; grid-template-columns: 160px 1fr 80px; align-items: center; gap: var(--space-4); padding: 10px 0; border-bottom: 1px solid var(--line); }
+.track { position: relative; height: 36px; border-radius: 10px; background: var(--surface-2); }
+.track .ball { position: absolute; top: 4px; left: 4px; width: 28px; height: 28px; border-radius: 8px; background: var(--grad-brand); }
+.track.go .ball { left: calc(100% - 32px); }
+.radii { display: flex; flex-wrap: wrap; gap: var(--space-4); }
+.radii div { width: 88px; height: 72px; background: var(--primary-soft); border: 1.5px solid var(--primary); display: grid; place-items: center; font: 500 11px/14px var(--font-mono); color: var(--primary-text); }
+.elev { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-6); }
+.elev div { height: 96px; border-radius: var(--radius-lg); background: var(--surface-1); display: grid; place-items: center; font: 500 12px/16px var(--font-mono); color: var(--ink-muted); }
+
+/* Formulários extras */
+.stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--radius-md); background: var(--surface-1); height: var(--control-md); }
+.stepper button { width: 38px; height: 100%; border: 0; background: transparent; color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.stepper button:hover { background: var(--surface-3); }
+.stepper output { min-width: 48px; text-align: center; font: 500 14px/1 var(--font-mono); }
+.dd { position: relative; }
+.dd-trigger { width: 100%; justify-content: space-between; cursor: pointer; padding: 0 var(--space-3); font: 400 14px/1 var(--font-sans); text-align: left; }
+.dd-trigger .val { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.dd .nx-menu { width: 100%; }
+.dd-search { padding: 4px 4px 8px; }
+.client-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.picker { display: flex; gap: var(--space-4); flex-wrap: wrap; align-items: flex-start; }
+
+/* Menus */
+.ctx-area { height: 140px; border: 1.5px dashed var(--line-strong); border-radius: var(--radius-lg); display: grid; place-items: center; color: var(--ink-subtle); background: var(--surface-2); user-select: none; }
+.ctx-menu { position: fixed; }
+.pager { display: flex; align-items: center; gap: 4px; }
+.pager button { min-width: 34px; height: 34px; border-radius: var(--radius-sm); border: 1px solid transparent; background: transparent; color: var(--ink-muted); font: 500 13px/1 var(--font-mono); cursor: pointer; }
+.pager button:hover { background: var(--surface-3); color: var(--ink); }
+.pager button[aria-current="page"] { background: var(--primary-soft); color: var(--primary-text); border-color: color-mix(in srgb, var(--primary) 40%, transparent); }
+.cmdk { width: min(560px, 100%); padding: 0; gap: 0; overflow: hidden; }
+.cmdk .nx-control { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; height: 52px; box-shadow: none !important; }
+.cmdk-list { max-height: 320px; overflow: auto; padding: 6px; }
+.kbd { display: inline-flex; align-items: center; height: 22px; padding: 0 6px; border: 1px solid var(--line-strong); border-bottom-width: 2px; border-radius: 6px; font: 500 11px/1 var(--font-mono); color: var(--ink-muted); background: var(--surface-1); }
+
+/* Avisos */
+.sk-card { display: flex; gap: var(--space-3); align-items: center; }
+
+/* Cards */
+.person { display: flex; align-items: center; gap: var(--space-3); }
+.person b { display: block; } .person small { color: var(--ink-subtle); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 13px; }
+.kv dt { color: var(--ink-subtle); } .kv dd { margin: 0; text-align: right; }
+.today { position: relative; }
+.genba-color { width: 4px; align-self: stretch; border-radius: 4px; }
+
+/* Tabelas */
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); padding: var(--space-3); border-bottom: 1px solid var(--line); }
+.toolbar .nx-control { height: var(--control-sm); min-width: 220px; }
+.bulk { display: none; align-items: center; gap: var(--space-2); padding: 8px var(--space-3); background: var(--primary-soft); color: var(--primary-text); font-weight: 600; font-size: 13px; border-bottom: 1px solid var(--line); }
+.bulk.on { display: flex; animation: nx-fade var(--dur-base) var(--ease-standard); }
+.tfoot { display: flex; justify-content: space-between; align-items: center; padding: 10px var(--space-3); border-top: 1px solid var(--line); color: var(--ink-subtle); font-size: 13px; }
+.sort { background: none; border: 0; padding: 0; font: inherit; color: inherit; letter-spacing: inherit; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.kintai { border-collapse: separate; border-spacing: 3px; font-size: 12px; }
+.kintai th { font: 600 11px/14px var(--font-mono); color: var(--ink-subtle); padding: 2px; text-align: center; background: none; border: 0; }
+.kintai th.sun { color: var(--danger); } .kintai th.sat { color: var(--info); }
+.kintai td { padding: 0; border: 0; }
+.kintai td.name { padding-right: 10px; white-space: nowrap; font-weight: 600; font-size: 13px; position: sticky; left: 0; background: var(--surface-1); z-index: 1; }
+.kintai td.tot { padding-left: 10px; text-align: right; font: 500 12px/1 var(--font-mono); white-space: nowrap; }
+.kintai .nx-day { width: 30px; height: 30px; font-size: 12px; }
+
+/* Gráficos */
+.chart { width: 100%; height: auto; display: block; }
+.chart text { font: 500 11px var(--font-mono); fill: var(--ink-subtle); }
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-4); font-size: 12px; color: var(--ink-muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+/* Relatórios (papel A4) */
+.paper-wrap { background: var(--surface-3); border-radius: var(--radius-lg); padding: var(--space-6); overflow-x: auto; }
+.paper { width: 595px; min-height: 842px; margin: 0 auto; background: #FFFFFF; color: #111827; box-shadow: 0 8px 32px rgba(0,0,0,.18); padding: 44px 44px 36px; font-size: 10.5px; line-height: 16px; font-family: var(--font-sans); }
+.paper h3 { margin: 0; text-align: center; font-size: 20px; letter-spacing: .5em; font-weight: 700; }
+.paper .p-top { display: flex; justify-content: space-between; margin-top: 24px; gap: 24px; }
+.paper .p-to { font-size: 14px; font-weight: 700; border-bottom: 1.5px solid #111827; padding-bottom: 4px; min-width: 220px; }
+.paper .p-total { margin-top: 18px; display: flex; align-items: baseline; gap: 16px; border: 1.5px solid #111827; padding: 8px 12px; width: 300px; }
+.paper .p-total b { font: 700 20px/1 var(--font-mono); }
+.paper table { width: 100%; border-collapse: collapse; margin-top: 18px; }
+.paper th { background: #EEF1F6; font-weight: 600; border: 1px solid #9CA3AF; padding: 5px 6px; }
+.paper td { border: 1px solid #9CA3AF; padding: 5px 6px; }
+.paper .r { text-align: right; font-family: var(--font-mono); }
+.paper .inkan { width: 46px; height: 46px; border: 2px solid #C0262D; color: #C0262D; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 12px; transform: rotate(-8deg); }
+.paper .p-bank { margin-top: 18px; border: 1px solid #9CA3AF; padding: 8px 10px; }
+.paper .p-band { height: 6px; margin: -44px -44px 30px; background: linear-gradient(90deg, #1E3A8A, #3A63CF); }
+
+/* Telas: moldura de navegador */
+.browser { border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); background: var(--surface-0); }
+.browser-bar { display: flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
+.browser-bar .url { margin-left: 12px; flex: 1; max-width: 420px; height: 24px; border-radius: 7px; background: var(--surface-1); border: 1px solid var(--line); font: 400 11px/22px var(--font-mono); color: var(--ink-subtle); padding: 0 10px; }
+.app { display: flex; min-height: 560px; background: var(--grad-page); }
+.app .nx-side { flex: none; width: 208px; }
+.app-main { flex: 1; min-width: 0; padding: var(--space-5); display: flex; flex-direction: column; gap: var(--space-4); }
+.app-head { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+.app-head h3 { margin: 0; font: 700 22px/28px var(--font-sans); flex: 1; }
+
+/* Celular */
+.phones { display: flex; gap: var(--space-8); flex-wrap: wrap; justify-content: center; }
+.phone-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.phone { width: 300px; height: 620px; border-radius: 40px; padding: 10px; background: #0B0F19; box-shadow: var(--shadow-lg); }
+.screen { position: relative; width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: var(--grad-page); background-color: var(--surface-0); display: flex; flex-direction: column; }
+.notch { position: absolute; top: 8px; left: 50%; margin-left: -46px; width: 92px; height: 24px; border-radius: 14px; background: #0B0F19; z-index: 3; }
+.s-status { height: 40px; flex: none; }
+.s-body { flex: 1; overflow: hidden; padding: 0 16px 12px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 22px; }
+.s-band { margin: -40px -16px 0; padding: 56px 20px 26px; background: var(--grad-brand); color: var(--on-grad); border-radius: 0 0 28px 28px; }
+.s-band h4 { margin: 4px 0 0; font: 700 22px/28px var(--font-sans); }
+.s-band small { opacity: .85; font-size: 13px; }
+.s-title { font: 700 22px/28px var(--font-sans); margin: 4px 0 0; }
+.screen .nx-tabbar { flex: none; }
+.screen .nx-tabbar a { min-height: 48px; }
+.list-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--surface-1); border: 1px solid var(--line); border-radius: 14px; }
+.list-item b { display: block; font-size: 14px; line-height: 20px; } .list-item small { color: var(--ink-subtle); font-size: 12px; line-height: 16px; }
+.list-item .nx-day { margin-left: auto; }
+
+/* Responsivo */
+@media (max-width: 1080px) { .g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .g3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } .themes { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 860px) {
+  .menu-btn { display: inline-flex; }
+  .side { position: fixed; top: 0; left: 0; height: 100vh; z-index: var(--z-modal); transform: translateX(-100%); transition: transform var(--dur-slow) var(--ease-emphasized); box-shadow: var(--shadow-lg); }
+  .side-head { display: flex; align-items: center; justify-content: space-between; padding: 0 4px var(--space-3); }
+  body.nav-open .side { transform: none; }
+  .scrim { position: fixed; inset: 0; background: var(--overlay); z-index: var(--z-overlay); opacity: 0; pointer-events: none; transition: opacity var(--dur-slow); }
+  body.nav-open .scrim { opacity: 1; pointer-events: auto; }
+  .content { padding: var(--space-6) var(--space-4) 96px; }
+  .brand-sub, .seg-theme .lbl { display: none; }
+  .hero { flex-direction: column; align-items: flex-start; padding: var(--space-6); }
+  .app .nx-side { display: none; }
+  .motion-row { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (max-width: 600px) { .g2, .g3, .g4, .themes, .grads, .elev { grid-template-columns: 1fr; } .top { padding: 0 var(--space-3); } .type-hero { font-size: 40px; line-height: 48px; } .r-head h1 { font-size: 26px; line-height: 34px; } }
+.seg button { white-space: nowrap; }
+@media (max-width: 600px) { .brand > span:last-child { display: none; } .top-actions { gap: 6px; } .seg button { padding: 0 8px; } }
+
+</style>
+</head>
+<body>
+<a class="nx-sr" href="#content">Pular para o conteúdo</a>
+<header class="top">
+  <button type="button" class="nx-btn nx-btn--ghost nx-btn--icon menu-btn" data-act="nav-open" aria-label="Abrir menu"><i data-lucide="menu" class="nx-icon"></i></button>
+  <a class="brand" href="#marca"><span class="mark">NX</span><span><span class="brand-name">NEO-SYSTEM</span><span class="brand-sub"><span class="pt-only">Design system · página âncora</span><span class="ja-only" lang="ja">デザインシステム · 基準ページ</span></span></span></a>
+  <div class="top-actions">
+    <div class="seg seg-theme" role="group" aria-label="Tema">
+      <button type="button" data-hue="azul"><span class="swatch" style="background:linear-gradient(135deg,#1E3A8A,#3A63CF)"></span><span class="lbl"><span class="pt-only">Azul</span><span class="ja-only" lang="ja">ブルー</span></span></button>
+      <button type="button" data-hue="grafite"><span class="swatch" style="background:linear-gradient(135deg,#18181B,#52525B)"></span><span class="lbl"><span class="pt-only">Grafite</span><span class="ja-only" lang="ja">グラファイト</span></span></button>
+      <button type="button" data-hue="roxo"><span class="swatch" style="background:linear-gradient(135deg,#4A1F8C,#7C4DD6)"></span><span class="lbl"><span class="pt-only">Roxo</span><span class="ja-only" lang="ja">パープル</span></span></button>
+    </div>
+    <button type="button" class="nx-btn nx-btn--secondary nx-btn--icon" data-act="mode" aria-label="Claro ou escuro" title="Claro / escuro"><i data-lucide="moon" class="nx-icon mode-moon"></i></button>
+    <div class="seg" role="group" aria-label="Idioma">
+      <button type="button" data-lang="pt">PT</button>
+      <button type="button" data-lang="ja" lang="ja">日本語</button>
+    </div>
+  </div>
+</header>
+<div class="scrim" data-act="nav-close"></div>
+<div class="layout">
+  <nav class="side nx-side" id="side" aria-label="Seções">
+    <div class="side-head"><span class="lockup"><span class="mark">NX</span>Design system</span><button type="button" class="nx-btn nx-btn--ghost nx-btn--icon" data-act="nav-close" aria-label="Fechar menu"><i data-lucide="x" class="nx-icon"></i></button></div>
+    <div class="nx-side__section"><span class="pt-only">FUNDAMENTOS</span><span class="ja-only" lang="ja">基礎</span></div>
+    <a class="nx-nav" href="#marca"><i data-lucide="sparkles" class="nx-icon"></i><span class="pt-only">Marca</span><span class="ja-only" lang="ja">ブランド</span></a>
+    <a class="nx-nav" href="#cores"><i data-lucide="palette" class="nx-icon"></i><span class="pt-only">Cores e temas</span><span class="ja-only" lang="ja">カラー・テーマ</span></a>
+    <a class="nx-nav" href="#tipografia"><i data-lucide="type" class="nx-icon"></i><span class="pt-only">Tipografia</span><span class="ja-only" lang="ja">タイポグラフィ</span></a>
+    <a class="nx-nav" href="#icones"><i data-lucide="shapes" class="nx-icon"></i><span class="pt-only">Ícones</span><span class="ja-only" lang="ja">アイコン</span></a>
+    <a class="nx-nav" href="#movimento"><i data-lucide="wand-sparkles" class="nx-icon"></i><span class="pt-only">Movimento e forma</span><span class="ja-only" lang="ja">動き・形</span></a>
+    <div class="nx-side__section"><span class="pt-only">COMPONENTES</span><span class="ja-only" lang="ja">コンポーネント</span></div>
+    <a class="nx-nav" href="#botoes"><i data-lucide="mouse-pointer-click" class="nx-icon"></i><span class="pt-only">Botões</span><span class="ja-only" lang="ja">ボタン</span></a>
+    <a class="nx-nav" href="#formularios"><i data-lucide="text-cursor-input" class="nx-icon"></i><span class="pt-only">Formulários</span><span class="ja-only" lang="ja">フォーム</span></a>
+    <a class="nx-nav" href="#datas"><i data-lucide="calendar-days" class="nx-icon"></i><span class="pt-only">Datas e calendário</span><span class="ja-only" lang="ja">日付・カレンダー</span></a>
+    <a class="nx-nav" href="#menus"><i data-lucide="list" class="nx-icon"></i><span class="pt-only">Menus e navegação</span><span class="ja-only" lang="ja">メニュー・ナビ</span></a>
+    <a class="nx-nav" href="#popups"><i data-lucide="app-window" class="nx-icon"></i><span class="pt-only">Popups</span><span class="ja-only" lang="ja">ポップアップ</span></a>
+    <a class="nx-nav" href="#avisos"><i data-lucide="bell" class="nx-icon"></i><span class="pt-only">Avisos e estados</span><span class="ja-only" lang="ja">通知・状態</span></a>
+    <a class="nx-nav" href="#cards"><i data-lucide="layers" class="nx-icon"></i><span class="pt-only">Cards</span><span class="ja-only" lang="ja">カード</span></a>
+    <a class="nx-nav" href="#tabelas"><i data-lucide="table-2" class="nx-icon"></i><span class="pt-only">Tabelas e 勤怠表</span><span class="ja-only" lang="ja">表・勤怠表</span></a>
+    <a class="nx-nav" href="#graficos"><i data-lucide="chart-pie" class="nx-icon"></i><span class="pt-only">Gráficos</span><span class="ja-only" lang="ja">グラフ</span></a>
+    <div class="nx-side__section"><span class="pt-only">APLICAÇÃO</span><span class="ja-only" lang="ja">適用例</span></div>
+    <a class="nx-nav" href="#relatorios"><i data-lucide="file-text" class="nx-icon"></i><span class="pt-only">PDFs e relatórios</span><span class="ja-only" lang="ja">PDF・帳票</span></a>
+    <a class="nx-nav" href="#telas"><i data-lucide="monitor" class="nx-icon"></i><span class="pt-only">Telas do painel</span><span class="ja-only" lang="ja">管理画面</span></a>
+    <a class="nx-nav" href="#celular"><i data-lucide="smartphone" class="nx-icon"></i><span class="pt-only">App do funcionário</span><span class="ja-only" lang="ja">従業員アプリ</span></a>
+  </nav>
+
+  <main class="content" id="content">
+
+<!-- ============================ MARCA ============================ -->
+<section class="route" id="marca">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Fundamentos</span><span class="ja-only" lang="ja">基礎</span></div><h1><span class="pt-only">Marca</span><span class="ja-only" lang="ja">ブランド</span></h1><p><span class="pt-only">NEO-SYSTEM é a gestão de empresas de genba: escritório no painel web, campo no celular. A identidade é corporativa, calma e precisa. Tudo nesta página é a referência: nenhuma tela inventa cor, tamanho ou componente fora daqui.</span><span class="ja-only" lang="ja">NEO-SYSTEMは現場会社のための管理システムです。事務所はWeb管理画面、現場はスマホ。落ち着いた、正確で信頼できるデザインを基本とします。このページが唯一の基準であり、ここにない色・サイズ・部品は使いません。</span></p></div>
+  <div class="hero">
+    <span class="mark mark--light mark--lg">NX</span>
+    <div><h2>NEO-SYSTEM</h2><p><span class="pt-only">Do escritório ao genba, um só sistema: escalação, 勤怠表, 請求書, folha e documentos, com a empresa em primeiro lugar.</span><span class="ja-only" lang="ja">事務所から現場まで、ひとつのシステムで。手配、勤怠表、請求書、給与、書類をまとめて管理。</span></p><span class="pill"><i data-lucide="shield-check" class="nx-icon nx-icon-sm"></i><span class="pt-only">Multiempresa · ja / pt / es / en</span><span class="ja-only" lang="ja">マルチテナント · ja / pt / es / en</span></span></div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Família de produtos</span><span class="ja-only" lang="ja">製品ファミリー</span></h2><p><span class="pt-only">Um símbolo, quatro áreas. O nome da área vem ao lado, nunca dentro do símbolo.</span><span class="ja-only" lang="ja">ひとつのマーク、4つのエリア。エリア名はマークの横に置きます。</span></p></div>
+    <div class="grid g4">
+      <div class="nx-card"><span class="lockup"><span class="mark">NX</span>Painel</span><span class="nx-muted"><span class="pt-only">Escritório da empresa (web)</span><span class="ja-only" lang="ja">事務所向け管理画面</span></span></div>
+      <div class="nx-card"><span class="lockup"><span class="mark">NX</span>App</span><span class="nx-muted"><span class="pt-only">Funcionário no celular</span><span class="ja-only" lang="ja">従業員のスマホアプリ</span></span></div>
+      <div class="nx-card"><span class="lockup"><span class="mark">NX</span>Portal</span><span class="nx-muted"><span class="pt-only">Cliente e 下請</span><span class="ja-only" lang="ja">取引先・下請ポータル</span></span></div>
+      <div class="nx-card"><span class="lockup"><span class="mark mark--mono">NX</span>Super</span><span class="nx-muted"><span class="pt-only">Painel SaaS (planos, empresas)</span><span class="ja-only" lang="ja">SaaS管理（プラン・会社）</span></span></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Logo sobre fundos</span><span class="ja-only" lang="ja">背景別ロゴ</span></h2></div>
+    <div class="grid g3">
+      <div class="tile" style="background:var(--surface-1)"><span class="lockup"><span class="mark">NX</span>NEO-SYSTEM</span></div>
+      <div class="tile" data-theme="azul-escuro" style="background:var(--surface-0);color:var(--ink)"><span class="lockup"><span class="mark">NX</span>NEO-SYSTEM</span></div>
+      <div class="tile tile--grad"><span class="lockup"><span class="mark mark--light">NX</span>NEO-SYSTEM</span></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Princípios</span><span class="ja-only" lang="ja">原則</span></h2></div>
+    <div class="grid g4">
+      <div class="nx-card principle"><span class="ic-box"><i data-lucide="gauge" class="nx-icon"></i></span><h3><span class="pt-only">Calmo</span><span class="ja-only" lang="ja">落ち着き</span></h3><p><span class="pt-only">Uma grade de 31 dias × 20 pessoas não pode cansar. Cor só onde informa.</span><span class="ja-only" lang="ja">31日×20人の表でも疲れない。色は意味がある所だけ。</span></p></div>
+      <div class="nx-card principle"><span class="ic-box"><i data-lucide="crosshair" class="nx-icon"></i></span><h3><span class="pt-only">Preciso</span><span class="ja-only" lang="ja">正確</span></h3><p><span class="pt-only">Ienes alinhados, datas sem ambiguidade, totais que batem com o PDF.</span><span class="ja-only" lang="ja">金額は桁揃え、日付は明確、合計はPDFと一致。</span></p></div>
+      <div class="nx-card principle"><span class="ic-box"><i data-lucide="hand" class="nx-icon"></i></span><h3><span class="pt-only">Um toque</span><span class="ja-only" lang="ja">ワンタップ</span></h3><p><span class="pt-only">No genba, de luva: alvos grandes, confirmar o dia em um toque.</span><span class="ja-only" lang="ja">現場で手袋のままでも押せる大きさ。1タップで確定。</span></p></div>
+      <div class="nx-card principle"><span class="ic-box"><i data-lucide="languages" class="nx-icon"></i></span><h3><span class="pt-only">Bilíngue</span><span class="ja-only" lang="ja">多言語</span></h3><p><span class="pt-only">Japonês e português lado a lado; termos de domínio ficam em japonês.</span><span class="ja-only" lang="ja">日本語とポルトガル語を併記。業界用語は日本語のまま。</span></p></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Voz da interface</span><span class="ja-only" lang="ja">UIの言葉づかい</span></h2><p><span class="pt-only">Direta e respeitosa. O botão diz o que acontece; o erro diz como resolver.</span><span class="ja-only" lang="ja">簡潔で丁寧に。ボタンは結果を、エラーは解決方法を示す。</span></p></div>
+    <div class="grid g2">
+      <div class="nx-stack"><div class="voice yes"><i data-lucide="check" class="nx-icon"></i><span><span class="pt-only">Confirmar 定時</span><span class="ja-only" lang="ja">定時で確定</span></span></div><div class="voice yes"><i data-lucide="check" class="nx-icon"></i><span><span class="pt-only">O PIN tem 4 dígitos. Confira e tente de novo.</span><span class="ja-only" lang="ja">PINは4桁です。確認してもう一度入力してください。</span></span></div><div class="voice yes"><i data-lucide="check" class="nx-icon"></i><span><span class="pt-only">Dia confirmado</span><span class="ja-only" lang="ja">確定しました</span></span></div></div>
+      <div class="nx-stack"><div class="voice no"><i data-lucide="x" class="nx-icon"></i><span><span class="pt-only">OK / Enviar dados</span><span class="ja-only" lang="ja">OK / データ送信</span></span></div><div class="voice no"><i data-lucide="x" class="nx-icon"></i><span><span class="pt-only">Ops! Algo deu errado :(</span><span class="ja-only" lang="ja">エラーが発生しました！</span></span></div><div class="voice no"><i data-lucide="x" class="nx-icon"></i><span><span class="pt-only">Sucesso!!! 🎉</span><span class="ja-only" lang="ja">成功しました！！🎉</span></span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CORES ============================ -->
+<section class="route" id="cores">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Fundamentos</span><span class="ja-only" lang="ja">基礎</span></div><h1><span class="pt-only">Cores e temas</span><span class="ja-only" lang="ja">カラー・テーマ</span></h1><p><span class="pt-only">Três temas, cada um com claro e escuro, todos com os mesmos nomes de token. Clique num tema para aplicar na página inteira. As cores mudam só em tokens.json, nunca no componente.</span><span class="ja-only" lang="ja">3つのテーマにそれぞれライトとダーク。トークン名は共通です。クリックするとページ全体に適用されます。色の変更は tokens.json だけで行います。</span></p></div>
+  <div class="themes" id="theme-cards"></div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Tokens do tema atual</span><span class="ja-only" lang="ja">現在のテーマのトークン</span></h2><p><span class="pt-only">Os valores abaixo são lidos ao vivo do tema aplicado.</span><span class="ja-only" lang="ja">下の値は適用中のテーマから読み取っています。</span></p></div>
+    <div class="cap" style="margin-bottom:8px"><span class="pt-only">Superfícies e texto</span><span class="ja-only" lang="ja">面・文字</span></div><div class="swatches" data-sw="surface-0 surface-1 surface-2 surface-3 line line-strong ink ink-muted ink-subtle"></div>
+    <div class="cap" style="margin:20px 0 8px"><span class="pt-only">Marca</span><span class="ja-only" lang="ja">ブランド</span></div><div class="swatches" data-sw="primary primary-hover primary-soft primary-text grad-start grad-end focus"></div>
+    <div class="cap" style="margin:20px 0 8px"><span class="pt-only">Estados</span><span class="ja-only" lang="ja">状態</span></div><div class="swatches" data-sw="success success-soft warning warning-soft danger danger-soft info info-soft"></div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Degradês suaves</span><span class="ja-only" lang="ja">やわらかなグラデーション</span></h2><p><span class="pt-only">O degradê é o traço da marca: aparece pouco e sempre igual. Nunca atrás de texto corrido, tabela, campo ou alerta.</span><span class="ja-only" lang="ja">グラデーションはブランドの印。使う場所を限定し、本文・表・入力欄・アラートの背景には使いません。</span></p></div>
+    <div class="grads">
+      <div class="grad-box" style="background:var(--grad-brand);color:var(--on-grad);border:0"><span class="pt-only">Marca 135° · botão primário, login, card de destaque</span><span class="ja-only" lang="ja">ブランド 135° · 主ボタン・ログイン・強調カード</span></div>
+      <div class="grad-box" style="background:var(--grad-page)"><span class="pt-only">Fundo da página · surface-0 → page-tint</span><span class="ja-only" lang="ja">ページ背景 · surface-0 → page-tint</span></div>
+      <div class="grad-box" style="background:var(--surface-1);box-shadow:0 0 0 8px var(--glow), var(--shadow-md);border:0"><span class="pt-only">Brilho (glow) · card “Hoje”</span><span class="ja-only" lang="ja">グロー · 「今日」カード</span></div>
+    </div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Tipos do dia</span><span class="ja-only" lang="ja">勤務区分</span></h2><p><span class="pt-only">A mesma cor na grade 勤怠表, no app e nos PDFs. A célula sempre mostra a abreviação além da cor.</span><span class="ja-only" lang="ja">勤怠表・アプリ・PDFで同じ色。色だけでなく略字も必ず表示します。</span></p></div>
+    <div class="days">
+      <div class="day-row"><span class="nx-day nx-day--teiji">定</span><div><b>定時</b><small>day-teiji</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--hannichi">半</span><div><b>半日</b><small>day-hannichi</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--yasumi">休</span><div><b>休み</b><small>day-yasumi</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--kekkin">欠</span><div><b>欠勤</b><small>day-kekkin</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--chushi">中</span><div><b>中止</b><small>day-chushi</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--kyugyo">業</span><div><b>休業</b><small>day-kyugyo</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--yukyu">有</span><div><b>有給</b><small>day-yukyu</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--pending">?</span><div><b><span class="pt-only">Pendente</span><span class="ja-only" lang="ja">未確定</span></b><small>day-pending</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--teiji">定<span class="nx-ot">2</span></span><div><b>残業 +2h</b><small>day-zangyo</small></div></div>
+      <div class="day-row"><span class="nx-day nx-day--empty">–</span><div><b><span class="pt-only">Em branco</span><span class="ja-only" lang="ja">空白</span></b><small><span class="pt-only">sem registro</span><span class="ja-only" lang="ja">記録なし</span></small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TIPOGRAFIA ============================ -->
+<section class="route" id="tipografia">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Fundamentos</span><span class="ja-only" lang="ja">基礎</span></div><h1><span class="pt-only">Tipografia</span><span class="ja-only" lang="ja">タイポグラフィ</span></h1><p><span class="pt-only">IBM Plex Sans JP: japonês e latim no mesmo desenho. IBM Plex Mono só para números alinhados (IDs, horários, ienes em tabela).</span><span class="ja-only" lang="ja">IBM Plex Sans JP：日本語と欧文を同じデザインで。数字の桁揃えにはIBM Plex Monoを使います。</span></p></div>
+  <div class="demo">
+    <p class="type-hero">現場 Genba 2026</p>
+    <div class="weights"><span style="font-weight:400">Regular 400 あ</span><span style="font-weight:500">Medium 500 あ</span><span style="font-weight:600">Semibold 600 あ</span><span style="font-weight:700">Bold 700 あ</span></div>
+  </div>
+  <div class="block"><div class="block-head"><h2><span class="pt-only">Escala</span><span class="ja-only" lang="ja">スケール</span></h2></div>
+    <div class="nx-table-wrap"><table class="type-table">
+      <tr><td>display</td><td><span class="display"><span class="pt-only">Fechamento de outubro</span><span class="ja-only" lang="ja">10月の締め</span></span></td><td>32 / 40 · 700</td></tr>
+      <tr><td>h1</td><td><span class="h1"><span class="pt-only">勤怠表 · Sugita Kogyo</span><span class="ja-only" lang="ja">勤怠表 · 杉田工業</span></span></td><td>24 / 32 · 700</td></tr>
+      <tr><td>h2</td><td><span class="h2"><span class="pt-only">Escalação de amanhã</span><span class="ja-only" lang="ja">明日の手配</span></span></td><td>20 / 28 · 600</td></tr>
+      <tr><td>h3</td><td><span class="h3"><span class="pt-only">Dados bancários</span><span class="ja-only" lang="ja">振込先</span></span></td><td>16 / 24 · 600</td></tr>
+      <tr><td>body-lg</td><td><span class="body-lg"><span class="pt-only">Texto do app do funcionário, mais confortável no genba.</span><span class="ja-only" lang="ja">従業員アプリの本文。現場でも読みやすいサイズ。</span></span></td><td>16 / 24 · 400</td></tr>
+      <tr><td>body</td><td><span class="body"><span class="pt-only">Texto padrão do painel: formulários, tabelas, descrições.</span><span class="ja-only" lang="ja">管理画面の標準本文：フォーム、表、説明。</span></span></td><td>14 / 22 · 400</td></tr>
+      <tr><td>small</td><td><span class="small"><span class="pt-only">Texto de apoio e metadados.</span><span class="ja-only" lang="ja">補足テキスト・メタ情報。</span></span></td><td>13 / 20 · 400</td></tr>
+      <tr><td>label</td><td><span class="label"><span class="pt-only">NOME DO CLIENTE</span><span class="ja-only" lang="ja">取引先名</span></span></td><td>12 / 16 · 600</td></tr>
+      <tr><td>caption</td><td><span class="caption"><span class="pt-only">Atualizado há 3 min por Mike</span><span class="ja-only" lang="ja">3分前にMikeが更新</span></span></td><td>12 / 16 · 400</td></tr>
+      <tr><td>num-lg</td><td><span class="num-lg">¥1,047,200</span></td><td>Mono 28 / 36 · 500</td></tr>
+      <tr><td>num</td><td><span class="num">2026-10-28 08:00 · ID 000142</span></td><td>Mono 13 / 20 · 400</td></tr>
+    </table></div>
+  </div>
+  <div class="block"><ul class="rules">
+    <li><span class="pt-only"><b>Ienes</b> sempre com tabular-nums e alinhados à direita: ¥15,000.</span><span class="ja-only" lang="ja"><b>金額</b>は必ず等幅数字・右揃え：¥15,000。</span></li>
+    <li><span class="pt-only"><b>label</b> em maiúsculas só em pt/es/en; em japonês, nunca maiúsculas nem espaçamento extra.</span><span class="ja-only" lang="ja"><b>label</b> の大文字化は欧文のみ。日本語では字間を広げません。</span></li>
+    <li><span class="pt-only"><b>Português fica até 30% mais longo</b> que japonês: componentes quebram linha e nunca cortam palavra.</span><span class="ja-only" lang="ja"><b>ポルトガル語は日本語より最大30%長い</b>ため、部品は折り返し対応にします。</span></li>
+  </ul></div>
+</section>
+
+<!-- ============================ ÍCONES ============================ -->
+<section class="route" id="icones">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Fundamentos</span><span class="ja-only" lang="ja">基礎</span></div><h1><span class="pt-only">Ícones</span><span class="ja-only" lang="ja">アイコン</span></h1><p><span class="pt-only">Lucide, traço 1,75, cor do texto ao lado. 16 px em tabelas, 20 px no padrão, 24 px no app. Clique para copiar o nome.</span><span class="ja-only" lang="ja">Lucide、線幅1.75、隣の文字色を継承。表16px・標準20px・アプリ24px。クリックで名前をコピー。</span></p></div>
+  <div class="block-head"><h2><span class="pt-only">Ícones de domínio</span><span class="ja-only" lang="ja">業務アイコン</span></h2></div>
+  <div class="icons" id="icon-grid"></div>
+  <div class="block grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Tamanhos</span><span class="ja-only" lang="ja">サイズ</span></span><div class="ic-sizes"><div><i data-lucide="hard-hat" class="nx-icon nx-icon-sm"></i><small class="nx-num nx-subtle">16</small></div><div><i data-lucide="hard-hat" class="nx-icon"></i><small class="nx-num nx-subtle">20</small></div><div><i data-lucide="hard-hat" class="nx-icon" style="width:24px;height:24px"></i><small class="nx-num nx-subtle">24</small></div><div><i data-lucide="hard-hat" class="nx-icon" style="width:32px;height:32px"></i><small class="nx-num nx-subtle">32</small></div></div></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Recipientes</span><span class="ja-only" lang="ja">アイコン枠</span></span><div class="nx-row"><span class="ic-box"><i data-lucide="users" class="nx-icon"></i></span><span class="ic-box round"><i data-lucide="map-pin" class="nx-icon"></i></span><span class="ic-box solid"><i data-lucide="sparkles" class="nx-icon"></i></span><span class="ic-box ok"><i data-lucide="check" class="nx-icon"></i></span><span class="ic-box warn"><i data-lucide="badge-alert" class="nx-icon"></i></span><span class="ic-box bad"><i data-lucide="octagon-x" class="nx-icon"></i></span></div></div>
+  </div>
+</section>
+
+<!-- ============================ MOVIMENTO ============================ -->
+<section class="route" id="movimento">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Fundamentos</span><span class="ja-only" lang="ja">基礎</span></div><h1><span class="pt-only">Movimento e forma</span><span class="ja-only" lang="ja">動き・形</span></h1><p><span class="pt-only">Movimento comunica mudança de estado; nunca é decoração. Com “reduzir movimento” no sistema, as durações caem para zero.</span><span class="ja-only" lang="ja">動きは状態の変化を伝えるためだけに使います。OSで「視差効果を減らす」が有効なら時間は0になります。</span></p></div>
+  <div class="demo">
+    <div class="nx-row" style="justify-content:space-between"><span class="cap"><span class="pt-only">Durações · clique em Reproduzir</span><span class="ja-only" lang="ja">時間 · 再生をクリック</span></span><button class="nx-btn nx-btn--soft nx-btn--sm" data-act="play"><i data-lucide="play" class="nx-icon nx-icon-sm"></i><span class="pt-only">Reproduzir</span><span class="ja-only" lang="ja">再生</span></button></div>
+    <div class="motion-row"><span class="code">--dur-fast · 120ms</span><div class="track" data-dur="var(--dur-fast)"><span class="ball"></span></div><span class="nx-subtle small">hover</span></div>
+    <div class="motion-row"><span class="code">--dur-base · 200ms</span><div class="track" data-dur="var(--dur-base)"><span class="ball"></span></div><span class="nx-subtle small">menu</span></div>
+    <div class="motion-row"><span class="code">--dur-slow · 320ms</span><div class="track" data-dur="var(--dur-slow)"><span class="ball"></span></div><span class="nx-subtle small">modal</span></div>
+    <div class="motion-row"><span class="code">ease-emphasized</span><div class="track" data-dur="var(--dur-slow)" data-ease="var(--ease-emphasized)"><span class="ball"></span></div><span class="nx-subtle small"><span class="pt-only">entrada</span><span class="ja-only" lang="ja">入場</span></span></div>
+  </div>
+  <div class="block grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Cantos</span><span class="ja-only" lang="ja">角丸</span></span><div class="radii"><div style="border-radius:var(--radius-xs)">xs · 6</div><div style="border-radius:var(--radius-sm)">sm · 8</div><div style="border-radius:var(--radius-md)">md · 10</div><div style="border-radius:var(--radius-lg)">lg · 16</div><div style="border-radius:var(--radius-xl)">xl · 24</div></div></div>
+    <div class="demo demo--flat"><span class="cap"><span class="pt-only">Elevação</span><span class="ja-only" lang="ja">影</span></span><div class="elev"><div style="box-shadow:var(--shadow-sm)">shadow-sm</div><div style="box-shadow:var(--shadow-md)">shadow-md</div><div style="box-shadow:var(--shadow-lg)">shadow-lg</div></div></div>
+  </div>
+  <div class="block"><ul class="rules">
+    <li><span class="pt-only"><b>Entradas:</b> aparecer + subir 4–8 px. <b>Saídas</b> são 30% mais curtas.</span><span class="ja-only" lang="ja"><b>入場：</b>フェード＋4〜8px上昇。<b>退場</b>は30%短く。</span></li>
+    <li><span class="pt-only"><b>Pressionar:</b> escala 0,98, sem trocar a cor.</span><span class="ja-only" lang="ja"><b>押下：</b>0.98に縮小、色は変えない。</span></li>
+    <li><span class="pt-only"><b>Nada pisca nem fica em loop</b>, exceto spinner e esqueleto.</span><span class="ja-only" lang="ja"><b>点滅・ループ禁止</b>（スピナーとスケルトンを除く）。</span></li>
+  </ul></div>
+</section>
+
+<!-- ============================ BOTÕES ============================ -->
+<section class="route" id="botoes">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Botões</span><span class="ja-only" lang="ja">ボタン</span></h1><p><span class="pt-only">Um primário (com degradê) por área. O rótulo diz o que acontece. Passe o mouse, use Tab e clique para ver os estados.</span><span class="ja-only" lang="ja">主ボタン（グラデーション）は1エリアに1つ。ラベルは結果を表す。ホバー・Tab・クリックで状態を確認できます。</span></p></div>
+  <div class="grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Variantes</span><span class="ja-only" lang="ja">種類</span></span><div class="nx-row">
+      <button class="nx-btn nx-btn--primary"><i data-lucide="check" class="nx-icon"></i><span class="pt-only">Confirmar 定時</span><span class="ja-only" lang="ja">定時で確定</span></button>
+      <button class="nx-btn nx-btn--solid"><span class="pt-only">Salvar</span><span class="ja-only" lang="ja">保存</span></button>
+      <button class="nx-btn nx-btn--secondary"><span class="pt-only">Cancelar</span><span class="ja-only" lang="ja">キャンセル</span></button>
+      <button class="nx-btn nx-btn--soft"><i data-lucide="plus" class="nx-icon"></i><span class="pt-only">Adicionar</span><span class="ja-only" lang="ja">追加</span></button>
+      <button class="nx-btn nx-btn--ghost"><span class="pt-only">Ver tudo</span><span class="ja-only" lang="ja">すべて表示</span></button>
+      <button class="nx-btn nx-btn--danger"><i data-lucide="trash-2" class="nx-icon"></i><span class="pt-only">Excluir</span><span class="ja-only" lang="ja">削除</span></button>
+    </div></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Tamanhos</span><span class="ja-only" lang="ja">サイズ</span></span><div class="nx-row">
+      <button class="nx-btn nx-btn--primary nx-btn--sm">Small 32</button>
+      <button class="nx-btn nx-btn--primary">Medium 40</button>
+      <button class="nx-btn nx-btn--primary nx-btn--lg"><span class="pt-only">Large 48 · app</span><span class="ja-only" lang="ja">Large 48 · アプリ</span></button>
+    </div></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Estados</span><span class="ja-only" lang="ja">状態</span></span><div class="nx-row">
+      <button class="nx-btn nx-btn--primary" data-act="load"><i data-lucide="file-text" class="nx-icon"></i><span><span class="pt-only">Gerar 請求書</span><span class="ja-only" lang="ja">請求書を作成</span></span></button>
+      <button class="nx-btn nx-btn--primary" disabled><span class="pt-only">Desabilitado</span><span class="ja-only" lang="ja">無効</span></button>
+      <button class="nx-btn nx-btn--secondary" disabled><span class="pt-only">Desabilitado</span><span class="ja-only" lang="ja">無効</span></button>
+    </div><span class="nx-help"><span class="pt-only">Clique em “Gerar 請求書”: o rótulo fica, entra o spinner.</span><span class="ja-only" lang="ja">「請求書を作成」をクリック：ラベルはそのまま、スピナーが入ります。</span></span></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Só ícone (com aria-label e tooltip)</span><span class="ja-only" lang="ja">アイコンのみ（aria-label＋ツールチップ）</span></span><div class="nx-row">
+      <span class="nx-tip"><button class="nx-btn nx-btn--secondary nx-btn--icon" aria-label="Editar"><i data-lucide="pencil" class="nx-icon"></i></button><span class="nx-tip__bubble"><span class="pt-only">Editar</span><span class="ja-only" lang="ja">編集</span></span></span>
+      <span class="nx-tip"><button class="nx-btn nx-btn--secondary nx-btn--icon" aria-label="Duplicar"><i data-lucide="copy" class="nx-icon"></i></button><span class="nx-tip__bubble"><span class="pt-only">Duplicar</span><span class="ja-only" lang="ja">複製</span></span></span>
+      <span class="nx-tip"><button class="nx-btn nx-btn--ghost nx-btn--icon" aria-label="Mais"><i data-lucide="ellipsis" class="nx-icon"></i></button><span class="nx-tip__bubble"><span class="pt-only">Mais ações</span><span class="ja-only" lang="ja">その他</span></span></span>
+      <span class="nx-tip"><button class="nx-btn nx-btn--primary nx-btn--icon" aria-label="Novo"><i data-lucide="plus" class="nx-icon"></i></button><span class="nx-tip__bubble"><span class="pt-only">Novo</span><span class="ja-only" lang="ja">新規</span></span></span>
+    </div></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Grupo segmentado</span><span class="ja-only" lang="ja">セグメント</span></span><div class="seg" role="group" data-seg><button aria-pressed="true"><span class="pt-only">Dia</span><span class="ja-only" lang="ja">日</span></button><button><span class="pt-only">Semana</span><span class="ja-only" lang="ja">週</span></button><button><span class="pt-only">Mês</span><span class="ja-only" lang="ja">月</span></button></div></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Bloco no app</span><span class="ja-only" lang="ja">アプリの全幅ボタン</span></span><button class="nx-btn nx-btn--primary nx-btn--lg nx-btn--block"><i data-lucide="clipboard-check" class="nx-icon"></i><span class="pt-only">Confirmar o dia</span><span class="ja-only" lang="ja">今日を確定</span></button></div>
+  </div>
+</section>
+
+<!-- ============================ FORMULÁRIOS ============================ -->
+<section class="route" id="formularios">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Formulários</span><span class="ja-only" lang="ja">フォーム</span></h1><p><span class="pt-only">Rótulo sempre visível, ajuda embaixo, erro dizendo como resolver. Digite no campo de e-mail para ver a validação.</span><span class="ja-only" lang="ja">ラベルは常に表示、補足は下、エラーは解決方法を書く。メール欄に入力すると検証が動きます。</span></p></div>
+  <div class="grid g2">
+    <div class="demo">
+      <div class="nx-field"><label class="nx-label" for="f1"><span class="pt-only">NOME COMPLETO</span><span class="ja-only" lang="ja">氏名</span><span class="nx-req">*</span></label><div class="nx-control"><i data-lucide="user" class="nx-icon"></i><input id="f1" placeholder="Ex.: Tanaka Hiroshi" value="Silva Mike"></div></div>
+      <div class="nx-field"><label class="nx-label" for="f2">E-MAIL</label><div class="nx-control" id="email-ctl" data-invalid="true"><i data-lucide="mail" class="nx-icon"></i><input id="f2" value="mike@sugita" aria-describedby="f2e"></div><span class="nx-error" id="f2e"><i data-lucide="circle-alert" class="nx-icon nx-icon-sm"></i><span><span class="pt-only">Falta o domínio. Ex.: nome@empresa.co.jp</span><span class="ja-only" lang="ja">ドメインがありません。例：name@company.co.jp</span></span></span></div>
+      <div class="nx-field"><label class="nx-label" for="f3"><span class="pt-only">DIÁRIA (税込)</span><span class="ja-only" lang="ja">日当（税込）</span></label><div class="nx-control" data-valid="true"><span class="nx-suffix" style="padding:0 0 0 12px">¥</span><input id="f3" class="nx-num" value="15,000" style="text-align:right"><i data-lucide="circle-check" class="nx-icon" style="color:var(--success);margin:0 12px 0 0"></i></div><span class="nx-help"><span class="pt-only">Valor por dia de 定時. 半日 usa a regra da empresa.</span><span class="ja-only" lang="ja">定時1日の金額。半日は会社設定に従います。</span></span></div>
+      <div class="nx-field"><label class="nx-label"><span class="pt-only">CÓDIGO (DESABILITADO)</span><span class="ja-only" lang="ja">コード（無効）</span></label><div class="nx-control" data-disabled="true"><input value="SGT-000142" class="nx-num"></div></div>
+    </div>
+    <div class="demo">
+      <div class="nx-field"><label class="nx-label" for="f5"><span class="pt-only">TIPO DE CONTRATO</span><span class="ja-only" lang="ja">契約形態</span></label><div class="nx-control"><select id="f5"><option>社員</option><option>下請（一人親方）</option><option>アルバイト</option></select><i data-lucide="chevron-down" class="nx-icon nx-icon-sm nx-chevron"></i></div></div>
+      <div class="nx-field"><span class="nx-label"><span class="pt-only">CLIENTE (DROPDOWN COM BUSCA)</span><span class="ja-only" lang="ja">取引先（検索付き）</span></span>
+        <div class="dd nx-pop" id="dd-client"><button type="button" class="nx-control dd-trigger" data-act="dd" aria-haspopup="listbox"><span class="val"><span class="client-dot" style="background:#2F5BD3"></span><span>大成建設 · 品川</span></span><i data-lucide="chevrons-up-down" class="nx-icon nx-icon-sm" style="margin:0"></i></button>
+          <div class="nx-menu" role="listbox"><div class="dd-search"><div class="nx-control" style="height:34px"><i data-lucide="search" class="nx-icon nx-icon-sm"></i><input placeholder="Buscar…" data-filter></div></div><div data-opts></div><div class="nx-menu__sep"></div><button class="nx-menu__item" style="color:var(--primary-text)"><i data-lucide="plus" class="nx-icon nx-icon-sm"></i><span class="pt-only">Cadastro rápido</span><span class="ja-only" lang="ja">クイック登録</span></button></div></div></div>
+      <div class="nx-field"><label class="nx-label" for="f6"><span class="pt-only">OBSERVAÇÃO</span><span class="ja-only" lang="ja">備考</span></label><div class="nx-control nx-control--area"><textarea id="f6" placeholder="Ponto de encontro, ferramentas…"></textarea></div></div>
+      <div class="nx-row"><div class="nx-field"><span class="nx-label"><span class="pt-only">PESSOAS</span><span class="ja-only" lang="ja">人数</span></span><div class="stepper" data-stepper><button aria-label="Menos"><i data-lucide="minus" class="nx-icon nx-icon-sm"></i></button><output>3</output><button aria-label="Mais"><i data-lucide="plus" class="nx-icon nx-icon-sm"></i></button></div></div>
+      <div class="nx-field"><span class="nx-label"><span class="pt-only">BUSCA</span><span class="ja-only" lang="ja">検索</span></span><div class="nx-control"><i data-lucide="search" class="nx-icon"></i><input placeholder="Nome, ID…"><span class="kbd" style="margin-right:8px">/</span></div></div></div>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Seleção</span><span class="ja-only" lang="ja">選択</span></span>
+      <label class="nx-check"><input type="checkbox" checked> <span><span class="pt-only">Cobrar transporte (交通費)</span><span class="ja-only" lang="ja">交通費を請求する</span></span></label>
+      <label class="nx-check"><input type="checkbox" class="indet"> <span><span class="pt-only">Todos os funcionários (parcial)</span><span class="ja-only" lang="ja">全従業員（一部選択）</span></span></label>
+      <label class="nx-check"><input type="checkbox"> <span><span class="pt-only">Incluir 残業 no 請求書<small>Aparece como linha separada.</small></span><span class="ja-only" lang="ja">残業を請求書に含める<small>別行で表示されます。</small></span></span></label>
+      <label class="nx-check"><input type="checkbox" disabled> <span class="nx-subtle"><span class="pt-only">Desabilitado</span><span class="ja-only" lang="ja">無効</span></span></label>
+      <div class="nx-row" role="radiogroup"><label class="nx-check"><input type="radio" name="pg" checked> <span><span class="pt-only">Transferência</span><span class="ja-only" lang="ja">振込</span></span></label><label class="nx-check"><input type="radio" name="pg"> <span><span class="pt-only">Dinheiro</span><span class="ja-only" lang="ja">現金</span></span></label></div>
+      <label class="nx-switch"><input type="checkbox" checked> <span><span class="pt-only">Exigir geolocalização no check-in</span><span class="ja-only" lang="ja">出勤時に位置情報を必須にする</span></span></label>
+      <label class="nx-switch"><input type="checkbox"> <span><span class="pt-only">Notificar 班長 por e-mail</span><span class="ja-only" lang="ja">班長にメール通知</span></span></label>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Chips de filtro e upload</span><span class="ja-only" lang="ja">フィルター・アップロード</span></span>
+      <div class="nx-row" data-chips><button class="nx-chip" aria-pressed="true">社員</button><button class="nx-chip">下請</button><button class="nx-chip" aria-pressed="true"><span class="pt-only">Ativos</span><span class="ja-only" lang="ja">在籍</span></button><button class="nx-chip"><span class="pt-only">Visto vencendo</span><span class="ja-only" lang="ja">在留期限間近</span></button></div>
+      <label class="nx-drop" id="drop"><i data-lucide="cloud-upload" class="nx-icon" style="width:28px;height:28px"></i><b><span class="pt-only">Arraste o recibo ou clique</span><span class="ja-only" lang="ja">領収書をドラッグまたはクリック</span></b><span class="small">PDF, JPG, PNG · <span class="pt-only">até</span><span class="ja-only" lang="ja">最大</span> 10 MB</span><input type="file" class="nx-sr"></label>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DATAS ============================ -->
+<section class="route" id="datas">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Datas e calendário</span><span class="ja-only" lang="ja">日付・カレンダー</span></h1><p><span class="pt-only">Semana começa no domingo (padrão japonês), domingo e feriado em vermelho, sábado em azul. Datas exibidas como 2026/10/28（水）. Fuso sempre Asia/Tokyo.</span><span class="ja-only" lang="ja">週は日曜始まり。日曜・祝日は赤、土曜は青。表示は 2026/10/28（水）。タイムゾーンは常に Asia/Tokyo。</span></p></div>
+  <div class="grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Seletor de data (clique no campo)</span><span class="ja-only" lang="ja">日付選択（欄をクリック）</span></span>
+      <div class="nx-field nx-pop" id="dp"><span class="nx-label"><span class="pt-only">DATA DO GENBA</span><span class="ja-only" lang="ja">現場日</span></span><button type="button" class="nx-control dd-trigger" data-act="dp" style="max-width:280px"><span class="val"><i data-lucide="calendar" class="nx-icon nx-icon-sm" style="margin:0;color:var(--ink-subtle)"></i><span data-dp-val class="nx-num">2026/10/28（水）</span></span><i data-lucide="chevron-down" class="nx-icon nx-icon-sm" style="margin:0"></i></button><div class="nx-menu" style="padding:0;border:0;background:none;box-shadow:none"><div class="nx-cal" data-cal="single"></div></div></div>
+      <div class="nx-field" style="margin-top:8px"><span class="nx-label"><span class="pt-only">HORÁRIO DE ENCONTRO</span><span class="ja-only" lang="ja">集合時間</span></span><div class="nx-time" data-time></div></div>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Intervalo (escalar vários dias)</span><span class="ja-only" lang="ja">期間（複数日の手配）</span></span><div class="nx-cal" data-cal="range"></div><span class="nx-help" data-range-out></span></div>
+  </div>
+</section>
+
+<!-- ============================ MENUS ============================ -->
+<section class="route" id="menus">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Menus e navegação</span><span class="ja-only" lang="ja">メニュー・ナビ</span></h1><p><span class="pt-only">Tudo funciona com teclado: Tab, setas, Enter e Esc. Aperte Ctrl+K (ou ⌘K) para a busca global.</span><span class="ja-only" lang="ja">すべてキーボード操作可能：Tab、矢印、Enter、Esc。Ctrl+K（⌘K）で全体検索。</span></p></div>
+  <div class="grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Menu de ações</span><span class="ja-only" lang="ja">アクションメニュー</span></span>
+      <div class="nx-pop" id="menu1"><button class="nx-btn nx-btn--secondary" data-act="menu"><i data-lucide="ellipsis" class="nx-icon"></i><span class="pt-only">Ações</span><span class="ja-only" lang="ja">操作</span><i data-lucide="chevron-down" class="nx-icon nx-icon-sm"></i></button>
+        <div class="nx-menu" role="menu"><div class="nx-menu__label"><span class="pt-only">FUNCIONÁRIO</span><span class="ja-only" lang="ja">従業員</span></div><button class="nx-menu__item" role="menuitem"><i data-lucide="pencil" class="nx-icon nx-icon-sm"></i><span class="pt-only">Editar ficha</span><span class="ja-only" lang="ja">台帳を編集</span><kbd>E</kbd></button><button class="nx-menu__item" role="menuitem"><i data-lucide="calendar-days" class="nx-icon nx-icon-sm"></i><span class="pt-only">Escalar</span><span class="ja-only" lang="ja">手配する</span></button><button class="nx-menu__item" role="menuitem"><i data-lucide="wallet" class="nx-icon nx-icon-sm"></i><span class="pt-only">Ver holerite</span><span class="ja-only" lang="ja">給与明細を見る</span></button><div class="nx-menu__sep"></div><button class="nx-menu__item nx-menu__item--danger" role="menuitem"><i data-lucide="archive" class="nx-icon nx-icon-sm"></i><span class="pt-only">Arquivar</span><span class="ja-only" lang="ja">アーカイブ</span></button></div></div>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Menu de contexto</span><span class="ja-only" lang="ja">コンテキストメニュー</span></span><div class="ctx-area" id="ctx"><span class="pt-only">Clique com o botão direito numa célula do 勤怠表</span><span class="ja-only" lang="ja">勤怠表のセルを右クリック</span></div>
+      <div class="nx-pop ctx-menu" id="ctx-menu"><div class="nx-menu" role="menu"><button class="nx-menu__item"><span class="nx-day nx-day--teiji" style="width:22px;height:22px;font-size:11px">定</span>定時</button><button class="nx-menu__item"><span class="nx-day nx-day--hannichi" style="width:22px;height:22px;font-size:11px">半</span>半日</button><button class="nx-menu__item"><span class="nx-day nx-day--yasumi" style="width:22px;height:22px;font-size:11px">休</span>休み</button><button class="nx-menu__item"><span class="nx-day nx-day--kekkin" style="width:22px;height:22px;font-size:11px">欠</span>欠勤</button><div class="nx-menu__sep"></div><button class="nx-menu__item"><i data-lucide="alarm-clock-plus" class="nx-icon nx-icon-sm"></i><span class="pt-only">Adicionar 残業</span><span class="ja-only" lang="ja">残業を追加</span></button></div></div>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Abas</span><span class="ja-only" lang="ja">タブ</span></span>
+      <div class="nx-tabs" role="tablist" data-tabs><button class="nx-tab" role="tab" aria-selected="true"><span class="pt-only">Resumo</span><span class="ja-only" lang="ja">概要</span></button><button class="nx-tab" role="tab">勤怠</button><button class="nx-tab" role="tab"><span class="pt-only">Documentos</span><span class="ja-only" lang="ja">書類</span></button><button class="nx-tab" role="tab"><span class="pt-only">Pagamentos</span><span class="ja-only" lang="ja">支払</span></button></div>
+      <div class="nx-tabs nx-tabs--line" role="tablist" data-tabs><button class="nx-tab" role="tab" aria-selected="true"><span class="pt-only">Todos</span><span class="ja-only" lang="ja">すべて</span> <span class="nx-badge" style="height:18px;padding:0 6px">24</span></button><button class="nx-tab" role="tab"><span class="pt-only">Pendentes</span><span class="ja-only" lang="ja">未確定</span></button><button class="nx-tab" role="tab"><span class="pt-only">Confirmados</span><span class="ja-only" lang="ja">確定済</span></button></div>
+    </div>
+    <div class="demo"><span class="cap"><span class="pt-only">Trilha e paginação</span><span class="ja-only" lang="ja">パンくず・ページ送り</span></span>
+      <nav class="nx-crumbs"><a href="#menus"><span class="pt-only">Início</span><span class="ja-only" lang="ja">ホーム</span></a><i data-lucide="chevron-right" class="nx-icon nx-icon-sm"></i><a href="#menus"><span class="pt-only">Funcionários</span><span class="ja-only" lang="ja">従業員</span></a><i data-lucide="chevron-right" class="nx-icon nx-icon-sm"></i><span style="color:var(--ink)">Silva Mike</span></nav>
+      <div class="pager" data-pager><button aria-label="Anterior"><i data-lucide="chevron-left" class="nx-icon nx-icon-sm"></i></button><button>1</button><button aria-current="page">2</button><button>3</button><span class="nx-subtle">…</span><button>12</button><button aria-label="Próxima"><i data-lucide="chevron-right" class="nx-icon nx-icon-sm"></i></button></div>
+    </div>
+    <div class="demo" style="grid-column:1/-1"><span class="cap"><span class="pt-only">Busca global</span><span class="ja-only" lang="ja">全体検索</span></span><div class="nx-row"><button class="nx-btn nx-btn--secondary" data-act="cmdk" style="min-width:280px;justify-content:flex-start;color:var(--ink-subtle)"><i data-lucide="search" class="nx-icon"></i><span class="pt-only">Buscar funcionário, genba, 請求書…</span><span class="ja-only" lang="ja">従業員・現場・請求書を検索…</span><span class="kbd" style="margin-left:auto">Ctrl K</span></button></div></div>
+  </div>
+</section>
+
+<!-- ============================ POPUPS ============================ -->
+<section class="route" id="popups">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Popups</span><span class="ja-only" lang="ja">ポップアップ</span></h1><p><span class="pt-only">Modal para decisões, gaveta para editar sem sair da lista, popover para detalhes rápidos. Esc fecha tudo.</span><span class="ja-only" lang="ja">判断はモーダル、一覧のまま編集はドロワー、ちょっとした詳細はポップオーバー。Escで閉じる。</span></p></div>
+  <div class="grid g3">
+    <div class="demo"><span class="cap"><span class="pt-only">Confirmação</span><span class="ja-only" lang="ja">確認</span></span><button class="nx-btn nx-btn--primary" data-open="dlg-confirm"><i data-lucide="send" class="nx-icon"></i><span class="pt-only">Enviar 請求書</span><span class="ja-only" lang="ja">請求書を送信</span></button><span class="nx-help"><span class="pt-only">Ação importante e reversível.</span><span class="ja-only" lang="ja">重要だが取り消し可能な操作。</span></span></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Destrutivo</span><span class="ja-only" lang="ja">削除系</span></span><button class="nx-btn nx-btn--danger" data-open="dlg-danger"><i data-lucide="trash-2" class="nx-icon"></i><span class="pt-only">Excluir genba</span><span class="ja-only" lang="ja">現場を削除</span></button><span class="nx-help"><span class="pt-only">Digitar o nome para confirmar.</span><span class="ja-only" lang="ja">名前を入力して確認。</span></span></div>
+    <div class="demo"><span class="cap"><span class="pt-only">Gaveta lateral</span><span class="ja-only" lang="ja">ドロワー</span></span><button class="nx-btn nx-btn--secondary" data-open="drawer"><i data-lucide="panel-right-open" class="nx-icon"></i><span class="pt-only">Editar escalação</span><span class="ja-only" lang="ja">手配を編集</span></button><span class="nx-help"><span class="pt-only">Abre pela direita; a lista continua visível.</span><span class="ja-only" lang="ja">右から開き、一覧は見えたまま。</span></span></div>
+  </div>
+  <div class="block grid g2">
+    <div class="demo"><span class="cap"><span class="pt-only">Popover</span><span class="ja-only" lang="ja">ポップオーバー</span></span><div class="nx-pop" id="pop1"><button class="nx-btn nx-btn--soft" data-act="menu"><i data-lucide="map-pin" class="nx-icon"></i><span class="pt-only">Ponto de encontro</span><span class="ja-only" lang="ja">集合場所</span></button>
+      <div class="nx-menu" style="width:280px;padding:14px"><div class="nx-stack" style="gap:8px"><b>品川駅 港南口</b><span class="small nx-muted"><span class="pt-only">Encontro 07:30 · saída 07:40</span><span class="ja-only" lang="ja">集合 07:30 · 出発 07:40</span></span><a class="nx-btn nx-btn--secondary nx-btn--sm" href="#popups"><i data-lucide="map" class="nx-icon nx-icon-sm"></i><span class="pt-only">Abrir no mapa</span><span class="ja-only" lang="ja">地図で開く</span></a></div></div></div></div>
+    <div class="demo"><span class="cap">Tooltip</span><div class="nx-row"><span class="nx-tip"><span class="nx-badge nx-badge--warning" tabindex="0"><i data-lucide="badge-alert" class="nx-icon nx-icon-sm"></i><span class="pt-only">Visto em 28 dias</span><span class="ja-only" lang="ja">在留期限まで28日</span></span><span class="nx-tip__bubble"><span class="pt-only">Vence em 2026/11/25</span><span class="ja-only" lang="ja">2026/11/25 期限</span></span></span></div></div>
+  </div>
+</section>
+
+<!-- ============================ AVISOS ============================ -->
+<section class="route" id="avisos">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Avisos e estados</span><span class="ja-only" lang="ja">通知・状態</span></h1><p><span class="pt-only">Cor de estado sempre vem com ícone ou palavra. Ação reversível ganha toast com “Desfazer”.</span><span class="ja-only" lang="ja">状態色には必ずアイコンか文字を添える。取り消せる操作には「元に戻す」付きトーストを出す。</span></p></div>
+  <div class="grid g2">
+    <div class="nx-stack">
+      <div class="nx-alert"><i data-lucide="info" class="nx-icon"></i><div class="nx-alert__body"><p class="nx-alert__title"><span class="pt-only">Fechamento no dia 20</span><span class="ja-only" lang="ja">20日締め</span></p><p class="nx-alert__text"><span class="pt-only">Faltam 3 dias. 12 registros ainda pendentes.</span><span class="ja-only" lang="ja">あと3日。未確定が12件あります。</span></p></div></div>
+      <div class="nx-alert nx-alert--success"><i data-lucide="circle-check" class="nx-icon"></i><div class="nx-alert__body"><p class="nx-alert__title"><span class="pt-only">請求書 enviado</span><span class="ja-only" lang="ja">請求書を送信しました</span></p><p class="nx-alert__text"><span class="pt-only">大成建設 · ¥1,047,200 · enviado para keiri@taisei.co.jp</span><span class="ja-only" lang="ja">大成建設 · ¥1,047,200 · keiri@taisei.co.jp へ送信</span></p></div></div>
+      <div class="nx-alert nx-alert--warning"><i data-lucide="triangle-alert" class="nx-icon"></i><div class="nx-alert__body"><p class="nx-alert__title"><span class="pt-only">2 vistos vencem este mês</span><span class="ja-only" lang="ja">今月 在留期限切れ 2名</span></p><p class="nx-alert__text"><span class="pt-only">Atualize a ficha antes de escalar.</span><span class="ja-only" lang="ja">手配前に台帳を更新してください。</span></p></div><button class="nx-btn nx-btn--sm nx-btn--secondary"><span class="pt-only">Ver</span><span class="ja-only" lang="ja">見る</span></button></div>
+      <div class="nx-alert nx-alert--danger"><i data-lucide="octagon-x" class="nx-icon"></i><div class="nx-alert__body"><p class="nx-alert__title"><span class="pt-only">Dois genbas no mesmo horário</span><span class="ja-only" lang="ja">同じ時間に現場が2件</span></p><p class="nx-alert__text"><span class="pt-only">Tanaka está em 品川 e 横浜 às 08:00. Ajuste um deles.</span><span class="ja-only" lang="ja">田中さんが08:00に品川と横浜に入っています。どちらかを調整してください。</span></p></div></div>
+    </div>
+    <div class="nx-stack">
+      <div class="demo"><span class="cap">Toast</span><div class="nx-row"><button class="nx-btn nx-btn--secondary" data-toast="ok"><span class="pt-only">Confirmar dia</span><span class="ja-only" lang="ja">日を確定</span></button><button class="nx-btn nx-btn--secondary" data-toast="del"><span class="pt-only">Arquivar</span><span class="ja-only" lang="ja">アーカイブ</span></button><button class="nx-btn nx-btn--secondary" data-toast="err"><span class="pt-only">Erro de rede</span><span class="ja-only" lang="ja">通信エラー</span></button></div></div>
+      <div class="demo"><span class="cap">Badges</span><div class="nx-row"><span class="nx-badge nx-badge--success"><span class="nx-dot"></span><span class="pt-only">Pago</span><span class="ja-only" lang="ja">支払済</span></span><span class="nx-badge nx-badge--warning"><span class="nx-dot"></span><span class="pt-only">Pendente</span><span class="ja-only" lang="ja">未確定</span></span><span class="nx-badge nx-badge--danger"><span class="nx-dot"></span><span class="pt-only">Atrasado</span><span class="ja-only" lang="ja">延滞</span></span><span class="nx-badge nx-badge--info"><span class="nx-dot"></span><span class="pt-only">Rascunho</span><span class="ja-only" lang="ja">下書き</span></span><span class="nx-badge nx-badge--primary">班長</span><span class="nx-badge nx-badge--outline">下請</span></div></div>
+      <div class="demo"><span class="cap"><span class="pt-only">Progresso e carregamento</span><span class="ja-only" lang="ja">進捗・読み込み</span></span><div class="nx-stack" style="gap:6px"><div class="nx-row" style="justify-content:space-between"><span class="small"><span class="pt-only">Fechamento de outubro</span><span class="ja-only" lang="ja">10月締め</span></span><span class="small nx-num">18 / 24</span></div><div class="nx-progress"><span style="width:75%"></span></div></div>
+        <div class="sk-card"><div class="nx-skel" style="width:40px;height:40px;border-radius:50%"></div><div class="nx-stack" style="gap:8px;flex:1"><div class="nx-skel" style="height:12px;width:60%"></div><div class="nx-skel" style="height:12px;width:35%"></div></div><span class="nx-btn nx-btn--ghost" style="pointer-events:none"><span class="nx-spin" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--primary);border-right-color:transparent;animation:nx-spin .8s linear infinite;display:block"></span></span></div></div>
+    </div>
+  </div>
+  <div class="block nx-empty"><div class="nx-empty__icon"><i data-lucide="receipt" class="nx-icon" style="width:24px;height:24px"></i></div><b style="font-size:16px"><span class="pt-only">Nenhuma despesa neste mês</span><span class="ja-only" lang="ja">今月の経費はまだありません</span></b><span class="nx-muted" style="max-width:44ch"><span class="pt-only">As despesas com foto do recibo aparecem aqui e vão para o pacote do contador.</span><span class="ja-only" lang="ja">領収書の写真付き経費がここに表示され、税理士用パッケージにまとまります。</span></span><button class="nx-btn nx-btn--primary"><i data-lucide="plus" class="nx-icon"></i><span class="pt-only">Lançar despesa</span><span class="ja-only" lang="ja">経費を登録</span></button></div>
+</section>
+
+<!-- ============================ CARDS ============================ -->
+<section class="route" id="cards">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Cards</span><span class="ja-only" lang="ja">カード</span></h1><p><span class="pt-only">Card = surface-1 + borda + canto 16. No máximo um card com degradê por tela. Não empilhe card dentro de card.</span><span class="ja-only" lang="ja">カード＝surface-1＋枠線＋角丸16。グラデーションカードは1画面に1枚まで。カードの入れ子は禁止。</span></p></div>
+  <div class="grid g4">
+    <div class="nx-card nx-card--feature"><div class="nx-stat"><span class="nx-stat__label" style="color:var(--on-grad);opacity:.85"><i data-lucide="file-text" class="nx-icon nx-icon-sm"></i><span class="pt-only">A faturar · outubro</span><span class="ja-only" lang="ja">10月 請求予定</span></span><span class="nx-stat__value">¥4,280,500</span><span class="nx-stat__delta" style="color:var(--on-grad);opacity:.85">+8,2% <span class="pt-only">vs set.</span><span class="ja-only" lang="ja">前月比</span></span></div></div>
+    <div class="nx-card"><div class="nx-stat"><span class="nx-stat__label"><span class="nx-stat__icon"><i data-lucide="users" class="nx-icon nx-icon-sm"></i></span><span class="pt-only">No genba hoje</span><span class="ja-only" lang="ja">本日の現場人数</span></span><span class="nx-stat__value">18</span><span class="nx-stat__delta" style="color:var(--success)"><span class="pt-only">3 genbas ativos</span><span class="ja-only" lang="ja">稼働現場 3件</span></span></div></div>
+    <div class="nx-card"><div class="nx-stat"><span class="nx-stat__label"><span class="nx-stat__icon"><i data-lucide="clipboard-check" class="nx-icon nx-icon-sm"></i></span><span class="pt-only">Pendentes</span><span class="ja-only" lang="ja">未確定</span></span><span class="nx-stat__value">12</span><span class="nx-stat__delta" style="color:var(--warning)"><span class="pt-only">fecha em 3 dias</span><span class="ja-only" lang="ja">締めまで3日</span></span></div></div>
+    <div class="nx-card"><div class="nx-stat"><span class="nx-stat__label"><span class="nx-stat__icon"><i data-lucide="wallet" class="nx-icon nx-icon-sm"></i></span><span class="pt-only">Vales do mês</span><span class="ja-only" lang="ja">今月の前払い</span></span><span class="nx-stat__value">¥210,000</span><span class="nx-stat__delta nx-subtle"><span class="pt-only">7 pedidos</span><span class="ja-only" lang="ja">7件</span></span></div></div>
+  </div>
+  <div class="block grid g3">
+    <div class="nx-card nx-card--interactive"><div class="person"><span class="nx-avatar nx-avatar--brand">SM</span><div style="flex:1;min-width:0"><b>Silva Mike</b><small>社員 · ID 000142</small></div><span class="nx-badge nx-badge--primary">班長</span></div><dl class="kv"><dt><span class="pt-only">Diária</span><span class="ja-only" lang="ja">日当</span></dt><dd class="nx-num">¥15,000</dd><dt><span class="pt-only">Visto</span><span class="ja-only" lang="ja">在留期限</span></dt><dd class="nx-num">2028/03/31</dd><dt><span class="pt-only">Japonês</span><span class="ja-only" lang="ja">日本語</span></dt><dd>N3</dd></dl></div>
+    <div class="nx-card nx-card--interactive" style="flex-direction:row;gap:14px"><span class="genba-color" style="background:#2F5BD3"></span><div class="nx-stack" style="gap:6px;flex:1;min-width:0"><div class="nx-row" style="justify-content:space-between"><b>大成建設 · 品川</b><span class="nx-badge nx-badge--success"><span class="nx-dot"></span><span class="pt-only">Ativo</span><span class="ja-only" lang="ja">稼働中</span></span></div><span class="small nx-muted"><i data-lucide="map-pin" class="nx-icon nx-icon-sm" style="vertical-align:-3px"></i> 東京都港区港南2-16</span><div class="nx-row" style="justify-content:space-between"><div class="nx-avatars"><span class="nx-avatar">TH</span><span class="nx-avatar">SM</span><span class="nx-avatar">KY</span></div><span class="small nx-subtle"><span class="pt-only">3 pessoas · 07:30</span><span class="ja-only" lang="ja">3名 · 07:30</span></span></div></div></div>
+    <div class="nx-card today" style="box-shadow:0 0 0 6px var(--glow), var(--shadow-md);border-color:var(--primary)"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Hoje · 10/28（水）</span><span class="ja-only" lang="ja">今日 · 10/28（水）</span></h3><span class="nx-badge nx-badge--warning"><span class="nx-dot"></span><span class="pt-only">Pendente</span><span class="ja-only" lang="ja">未確定</span></span></div><div class="nx-card__inset small"><b>大成建設 · 品川</b><br><span class="pt-only">Encontro 07:30 · 品川駅 港南口</span><span class="ja-only" lang="ja">集合 07:30 · 品川駅 港南口</span></div><button class="nx-btn nx-btn--primary nx-btn--block" data-toast="ok"><i data-lucide="check" class="nx-icon"></i><span class="pt-only">Confirmar 定時</span><span class="ja-only" lang="ja">定時で確定</span></button></div>
+  </div>
+</section>
+
+<!-- ============================ TABELAS ============================ -->
+<section class="route" id="tabelas">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Tabelas e 勤怠表</span><span class="ja-only" lang="ja">表・勤怠表</span></h1><p><span class="pt-only">Tabelas largas rolam dentro do próprio card, nunca a página. Ienes à direita, em mono. Selecione linhas para ver a barra de ações em massa; clique no cabeçalho para ordenar.</span><span class="ja-only" lang="ja">横に長い表はカード内でスクロール。金額は右揃え・等幅。行を選ぶと一括操作バー、見出しクリックで並べ替え。</span></p></div>
+  <div class="nx-table-wrap" id="tbl">
+    <div class="toolbar"><div class="nx-control"><i data-lucide="search" class="nx-icon nx-icon-sm"></i><input placeholder="Buscar funcionário…" data-tfilter></div><div class="nx-row" data-chips style="gap:6px"><button class="nx-chip" aria-pressed="true"><span class="pt-only">Todos</span><span class="ja-only" lang="ja">すべて</span></button><button class="nx-chip">社員</button><button class="nx-chip">下請</button></div><span style="flex:1"></span><button class="nx-btn nx-btn--secondary nx-btn--sm"><i data-lucide="download" class="nx-icon nx-icon-sm"></i>CSV</button><button class="nx-btn nx-btn--primary nx-btn--sm"><i data-lucide="plus" class="nx-icon nx-icon-sm"></i><span class="pt-only">Novo</span><span class="ja-only" lang="ja">新規</span></button></div>
+    <div class="bulk"><span data-bulk-n></span><span style="flex:1"></span><button class="nx-btn nx-btn--soft nx-btn--sm"><i data-lucide="calendar-days" class="nx-icon nx-icon-sm"></i><span class="pt-only">Escalar</span><span class="ja-only" lang="ja">手配</span></button><button class="nx-btn nx-btn--soft nx-btn--sm"><i data-lucide="mail" class="nx-icon nx-icon-sm"></i><span class="pt-only">E-mail</span><span class="ja-only" lang="ja">メール</span></button></div>
+    <table class="nx-table"><thead><tr><th style="width:40px"><label class="nx-check"><input type="checkbox" data-all aria-label="Selecionar todos"></label></th><th><button class="sort" data-sort="0"><span class="pt-only">FUNCIONÁRIO</span><span class="ja-only" lang="ja">従業員</span> <i data-lucide="arrow-up-down" class="nx-icon nx-icon-sm"></i></button></th><th><span class="pt-only">TIPO</span><span class="ja-only" lang="ja">区分</span></th><th class="nx-right"><button class="sort" data-sort="2"><span class="pt-only">DIAS</span><span class="ja-only" lang="ja">日数</span> <i data-lucide="arrow-up-down" class="nx-icon nx-icon-sm"></i></button></th><th class="nx-right"><button class="sort" data-sort="3"><span class="pt-only">A RECEBER</span><span class="ja-only" lang="ja">支給額</span> <i data-lucide="arrow-up-down" class="nx-icon nx-icon-sm"></i></button></th><th><span class="pt-only">STATUS</span><span class="ja-only" lang="ja">状態</span></th></tr></thead><tbody data-rows></tbody></table>
+    <div class="tfoot"><span data-tcount></span><div class="pager"><button aria-label="Anterior"><i data-lucide="chevron-left" class="nx-icon nx-icon-sm"></i></button><button aria-current="page">1</button><button>2</button><button aria-label="Próxima"><i data-lucide="chevron-right" class="nx-icon nx-icon-sm"></i></button></div></div>
+  </div>
+  <div class="block"><div class="block-head"><h2>勤怠表</h2><p><span class="pt-only">Grade do mês: clique numa célula para trocar o tipo do dia. A barrinha embaixo é a cor do cliente; o número laranja é 残業 em horas.</span><span class="ja-only" lang="ja">月間グリッド：セルをクリックで区分を切替。下の線は取引先の色、オレンジの数字は残業時間。</span></p></div>
+    <div class="nx-table-wrap" style="padding:12px"><table class="kintai" id="kintai"></table></div>
+    <div class="legend" style="margin-top:10px"><span><i style="background:#2F5BD3"></i>大成建設</span><span><i style="background:#0E7490"></i>鹿島建設</span><span><i style="background:#B45309"></i>清水建設</span></div>
+  </div>
+</section>
+
+<!-- ============================ GRÁFICOS ============================ -->
+<section class="route" id="graficos">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Componentes</span><span class="ja-only" lang="ja">コンポーネント</span></div><h1><span class="pt-only">Gráficos</span><span class="ja-only" lang="ja">グラフ</span></h1><p><span class="pt-only">Poucos gráficos, sempre com o número escrito. Série principal na cor primária; comparação em cinza. Nada de 3D nem pizza com mais de 5 fatias.</span><span class="ja-only" lang="ja">グラフは最小限、数値も必ず表示。主系列はプライマリ、比較はグレー。3Dや6分割以上の円グラフは使わない。</span></p></div>
+  <div class="grid g2">
+    <div class="nx-card"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Faturamento por mês</span><span class="ja-only" lang="ja">月別売上</span></h3><span class="nx-badge nx-badge--outline">2026</span></div><svg class="chart" id="ch-bar" viewBox="0 0 520 220"></svg><div class="legend"><span><i style="background:var(--primary)"></i>2026</span><span><i style="background:var(--line-strong)"></i>2025</span></div></div>
+    <div class="nx-card"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Fluxo de caixa · 30 dias</span><span class="ja-only" lang="ja">資金繰り · 30日</span></h3><span class="nx-num small nx-muted">¥2,140,000</span></div><svg class="chart" id="ch-line" viewBox="0 0 520 220"></svg><div class="legend"><span><i style="background:var(--primary)"></i><span class="pt-only">Saldo</span><span class="ja-only" lang="ja">残高</span></span><span><i style="background:var(--danger)"></i><span class="pt-only">Mínimo seguro</span><span class="ja-only" lang="ja">安全残高</span></span></div></div>
+    <div class="nx-card"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Dias por cliente · outubro</span><span class="ja-only" lang="ja">取引先別日数 · 10月</span></h3></div><div class="nx-row" style="gap:24px"><svg id="ch-donut" viewBox="0 0 160 160" style="width:160px;height:160px"></svg><div class="nx-stack" id="donut-legend" style="gap:8px;flex:1"></div></div></div>
+    <div class="nx-card"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Metas do mês</span><span class="ja-only" lang="ja">今月の目標</span></h3></div>
+      <div class="nx-stack"><div><div class="nx-row" style="justify-content:space-between"><span class="small"><span class="pt-only">Dias confirmados</span><span class="ja-only" lang="ja">確定日数</span></span><span class="small nx-num">412 / 480</span></div><div class="nx-progress"><span style="width:86%"></span></div></div><div><div class="nx-row" style="justify-content:space-between"><span class="small"><span class="pt-only">請求書 enviados</span><span class="ja-only" lang="ja">請求書送信</span></span><span class="small nx-num">5 / 8</span></div><div class="nx-progress"><span style="width:62%"></span></div></div><div><div class="nx-row" style="justify-content:space-between"><span class="small"><span class="pt-only">Recibos com foto</span><span class="ja-only" lang="ja">写真付き領収書</span></span><span class="small nx-num">31 / 34</span></div><div class="nx-progress"><span style="width:91%"></span></div></div></div></div>
+  </div>
+</section>
+
+<!-- ============================ RELATÓRIOS ============================ -->
+<section class="route" id="relatorios">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Aplicação</span><span class="ja-only" lang="ja">適用例</span></div><h1><span class="pt-only">PDFs e relatórios</span><span class="ja-only" lang="ja">PDF・帳票</span></h1><p><span class="pt-only">Documentos impressos seguem o formato japonês: A4 retrato, preto no branco, uma faixa fina com o degradê da marca, 印鑑 em PNG. Nenhum tema escuro em PDF.</span><span class="ja-only" lang="ja">印刷物は日本の書式：A4縦、白地に黒、ブランドの細いライン、印鑑はPNG。PDFにダークテーマは使いません。</span></p></div>
+  <div class="grid" style="grid-template-columns:minmax(0,1fr) 280px">
+    <div class="paper-wrap"><div class="paper">
+      <div class="p-band"></div>
+      <h3>請求書</h3>
+      <div class="p-top"><div><div class="p-to">大成建設株式会社　御中</div><p style="margin:10px 0 0">下記のとおりご請求申し上げます。</p><div class="p-total"><span>ご請求金額（税込）</span><b>¥1,047,200</b></div></div>
+        <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:2px"><span class="nx-num">No. INV-2026-1028</span><span class="nx-num">発行日 2026/10/31</span><div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div style="text-align:right"><b>株式会社杉田工業</b><br>〒000-0000 東京都○○区<br>T1234567890123</div><span class="inkan">杉田</span></div></div></div>
+      <table><thead><tr><th>日付</th><th>内容</th><th>数量</th><th>単価</th><th>金額</th></tr></thead><tbody>
+        <tr><td class="nx-num">10/01–10/20</td><td>品川現場 定時（Silva Mike）</td><td class="r">16</td><td class="r">20,000</td><td class="r">320,000</td></tr>
+        <tr><td class="nx-num">10/01–10/20</td><td>品川現場 定時（田中 浩）</td><td class="r">18</td><td class="r">20,000</td><td class="r">360,000</td></tr>
+        <tr><td class="nx-num">10/07</td><td>品川現場 半日（田中 浩）</td><td class="r">1</td><td class="r">12,000</td><td class="r">12,000</td></tr>
+        <tr><td class="nx-num">10月</td><td>残業（計 18h）</td><td class="r">18</td><td class="r">3,000</td><td class="r">54,000</td></tr>
+        <tr><td class="nx-num">10月</td><td>交通費・駐車場</td><td class="r">1</td><td class="r">206,000</td><td class="r">206,000</td></tr>
+        <tr><td colspan="4" class="r">小計</td><td class="r">952,000</td></tr><tr><td colspan="4" class="r">消費税（10%）</td><td class="r">95,200</td></tr><tr><td colspan="4" class="r"><b>合計</b></td><td class="r"><b>1,047,200</b></td></tr>
+      </tbody></table>
+      <div class="p-bank"><b>お振込先</b>　○○銀行 ○○支店 普通 1234567 カ）スギタコウギョウ<br>お支払期限 2026/11/30</div>
+    </div></div>
+    <div class="nx-stack">
+      <div class="demo"><span class="cap"><span class="pt-only">Regras do PDF</span><span class="ja-only" lang="ja">PDFルール</span></span><ul class="rules small"><li><span class="pt-only">A4 retrato, margem 15 mm</span><span class="ja-only" lang="ja">A4縦・余白15mm</span></li><li>Noto Sans JP · 10,5 pt</li><li><span class="pt-only">Valores em mono, à direita</span><span class="ja-only" lang="ja">金額は等幅・右揃え</span></li><li><span class="pt-only">Faixa de marca de 6 px no topo</span><span class="ja-only" lang="ja">上部に6pxのブランドライン</span></li><li><span class="pt-only">印鑑 em PNG transparente</span><span class="ja-only" lang="ja">印鑑は透過PNG</span></li><li><span class="pt-only">Nº de registro (T + 13 dígitos)</span><span class="ja-only" lang="ja">登録番号（T＋13桁）</span></li></ul></div>
+      <div class="demo"><span class="cap"><span class="pt-only">Documentos do sistema</span><span class="ja-only" lang="ja">帳票一覧</span></span><div class="nx-stack" style="gap:6px"><span class="nx-row small"><i data-lucide="file-text" class="nx-icon nx-icon-sm"></i>請求書</span><span class="nx-row small"><i data-lucide="calendar-days" class="nx-icon nx-icon-sm"></i>勤怠表</span><span class="nx-row small"><i data-lucide="wallet" class="nx-icon nx-icon-sm"></i><span class="pt-only">Holerite</span><span class="ja-only" lang="ja">給与明細</span></span><span class="nx-row small"><i data-lucide="file-badge" class="nx-icon nx-icon-sm"></i><span class="pt-only">Atestado de trabalho</span><span class="ja-only" lang="ja">在職証明書</span></span><span class="nx-row small"><i data-lucide="package" class="nx-icon nx-icon-sm"></i><span class="pt-only">Pacote do contador</span><span class="ja-only" lang="ja">税理士パッケージ</span></span></div></div>
+      <button class="nx-btn nx-btn--primary" data-act="load"><i data-lucide="download" class="nx-icon"></i><span><span class="pt-only">Baixar PDF</span><span class="ja-only" lang="ja">PDFをダウンロード</span></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TELAS ============================ -->
+<section class="route" id="telas">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Aplicação</span><span class="ja-only" lang="ja">適用例</span></div><h1><span class="pt-only">Telas do painel</span><span class="ja-only" lang="ja">管理画面</span></h1><p><span class="pt-only">Exemplo montado só com os componentes acima: menu lateral de 248 px, conteúdo fluido até 1440 px, um card de destaque.</span><span class="ja-only" lang="ja">上の部品だけで組んだ例：248pxのサイドメニュー、最大1440pxの可変コンテンツ、強調カード1枚。</span></p></div>
+  <div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span class="url">app.neo-system.jp/sugita/dashboard</span></div>
+    <div class="app">
+      <aside class="nx-side"><div class="nx-side__brand"><span class="nx-side__logo">杉</span><div><b style="display:block;font-size:13px">杉田工業</b><small class="nx-subtle">NEO-SYSTEM</small></div></div>
+        <a class="nx-nav" aria-current="page" href="#telas"><i data-lucide="layout-dashboard" class="nx-icon"></i><span class="pt-only">Início</span><span class="ja-only" lang="ja">ホーム</span></a><a class="nx-nav" href="#telas"><i data-lucide="calendar-days" class="nx-icon"></i><span class="pt-only">Escalação</span><span class="ja-only" lang="ja">手配</span><span class="nx-badge nx-badge--warning">3</span></a><a class="nx-nav" href="#telas"><i data-lucide="clipboard-check" class="nx-icon"></i>勤怠表</a><a class="nx-nav" href="#telas"><i data-lucide="file-text" class="nx-icon"></i>請求書</a><a class="nx-nav" href="#telas"><i data-lucide="wallet" class="nx-icon"></i><span class="pt-only">Folha</span><span class="ja-only" lang="ja">給与</span></a>
+        <div class="nx-side__section"><span class="pt-only">CADASTROS</span><span class="ja-only" lang="ja">マスター</span></div><a class="nx-nav" href="#telas"><i data-lucide="users" class="nx-icon"></i><span class="pt-only">Funcionários</span><span class="ja-only" lang="ja">従業員</span></a><a class="nx-nav" href="#telas"><i data-lucide="building-2" class="nx-icon"></i><span class="pt-only">Clientes</span><span class="ja-only" lang="ja">取引先</span></a><a class="nx-nav" href="#telas"><i data-lucide="hard-hat" class="nx-icon"></i><span class="pt-only">Genbas</span><span class="ja-only" lang="ja">現場</span></a></aside>
+      <div class="app-main">
+        <div class="app-head"><h3><span class="pt-only">Bom dia, Mike</span><span class="ja-only" lang="ja">おはようございます、Mikeさん</span></h3><button class="nx-btn nx-btn--secondary nx-btn--sm" data-act="cmdk"><i data-lucide="search" class="nx-icon nx-icon-sm"></i><span class="pt-only">Buscar</span><span class="ja-only" lang="ja">検索</span><span class="kbd">Ctrl K</span></button><button class="nx-btn nx-btn--primary nx-btn--sm"><i data-lucide="plus" class="nx-icon nx-icon-sm"></i><span class="pt-only">Nova escalação</span><span class="ja-only" lang="ja">新規手配</span></button></div>
+        <div class="grid g3"><div class="nx-card nx-card--feature"><div class="nx-stat"><span class="nx-stat__label" style="color:var(--on-grad);opacity:.85"><span class="pt-only">A faturar</span><span class="ja-only" lang="ja">請求予定</span></span><span class="nx-stat__value">¥4,280,500</span></div></div><div class="nx-card"><div class="nx-stat"><span class="nx-stat__label"><span class="pt-only">No genba hoje</span><span class="ja-only" lang="ja">本日の現場</span></span><span class="nx-stat__value">18</span></div></div><div class="nx-card"><div class="nx-stat"><span class="nx-stat__label"><span class="pt-only">Pendentes</span><span class="ja-only" lang="ja">未確定</span></span><span class="nx-stat__value">12</span></div></div></div>
+        <div class="nx-alert nx-alert--warning"><i data-lucide="triangle-alert" class="nx-icon"></i><div class="nx-alert__body"><p class="nx-alert__title"><span class="pt-only">Fechamento em 3 dias · 12 pendentes</span><span class="ja-only" lang="ja">締めまで3日 · 未確定12件</span></p></div><button class="nx-btn nx-btn--sm nx-btn--secondary"><span class="pt-only">Resolver</span><span class="ja-only" lang="ja">対応する</span></button></div>
+        <div class="nx-table-wrap"><table class="nx-table"><thead><tr><th><span class="pt-only">GENBA DE HOJE</span><span class="ja-only" lang="ja">本日の現場</span></th><th><span class="pt-only">PESSOAS</span><span class="ja-only" lang="ja">人数</span></th><th><span class="pt-only">ENCONTRO</span><span class="ja-only" lang="ja">集合</span></th><th><span class="pt-only">STATUS</span><span class="ja-only" lang="ja">状態</span></th></tr></thead><tbody><tr><td><b>大成建設 · 品川</b></td><td class="nx-num">3</td><td class="nx-num">07:30</td><td><span class="nx-badge nx-badge--success"><span class="nx-dot"></span><span class="pt-only">Confirmado</span><span class="ja-only" lang="ja">確定</span></span></td></tr><tr><td><b>鹿島建設 · 横浜</b></td><td class="nx-num">8</td><td class="nx-num">07:00</td><td><span class="nx-badge nx-badge--warning"><span class="nx-dot"></span><span class="pt-only">2 pendentes</span><span class="ja-only" lang="ja">未確定2</span></span></td></tr><tr><td><b>清水建設 · 川崎</b></td><td class="nx-num">7</td><td class="nx-num">08:00</td><td><span class="nx-badge nx-badge--success"><span class="nx-dot"></span><span class="pt-only">Confirmado</span><span class="ja-only" lang="ja">確定</span></span></td></tr></tbody></table></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CELULAR ============================ -->
+<section class="route" id="celular">
+  <div class="r-head"><div class="eyebrow"><span class="pt-only">Aplicação</span><span class="ja-only" lang="ja">適用例</span></div><h1><span class="pt-only">App do funcionário</span><span class="ja-only" lang="ja">従業員アプリ</span></h1><p><span class="pt-only">Uma coluna, texto 16 px, alvos de toque ≥ 44 px, botões de 48 px, barra de abas na base. Digite o PIN no primeiro celular (qualquer 4 dígitos; 0000 mostra o erro).</span><span class="ja-only" lang="ja">1カラム、本文16px、タップ領域44px以上、ボタン48px、下部タブバー。左のスマホでPINを入力できます（0000でエラー表示）。</span></p></div>
+  <div class="phones">
+    <div class="phone-col"><div class="phone"><div class="screen"><span class="notch"></span><div class="s-status"></div><div class="s-body" style="align-items:center;justify-content:center;gap:20px;padding-bottom:28px">
+      <span class="mark mark--lg">NX</span><div style="text-align:center"><b style="font-size:18px">杉田工業</b><br><span class="small nx-muted"><span class="pt-only">Digite seu PIN</span><span class="ja-only" lang="ja">PINを入力</span></span></div>
+      <div class="nx-pin" id="pin"><span></span><span></span><span></span><span></span></div><span class="nx-error" id="pin-err" style="visibility:hidden"><span class="pt-only">PIN incorreto. Tente de novo.</span><span class="ja-only" lang="ja">PINが違います。もう一度。</span></span>
+      <div class="nx-keypad" id="keypad"></div></div></div></div><span class="cap">Login PIN</span></div>
+    <div class="phone-col"><div class="phone"><div class="screen"><span class="notch"></span><div class="s-status"></div><div class="s-body">
+      <div class="s-band"><small><span class="pt-only">Quarta, 28 de outubro</span><span class="ja-only" lang="ja">10月28日（水）</span></small><h4><span class="pt-only">Olá, Mike</span><span class="ja-only" lang="ja">こんにちは、Mikeさん</span></h4></div>
+      <div class="nx-card" style="box-shadow:0 0 0 6px var(--glow), var(--shadow-md);margin-top:-22px;border-color:var(--primary)"><div class="nx-card__head"><h3 class="nx-card__title"><span class="pt-only">Hoje</span><span class="ja-only" lang="ja">今日</span></h3><span class="nx-badge nx-badge--warning" id="today-badge"><span class="nx-dot"></span><span class="pt-only">Pendente</span><span class="ja-only" lang="ja">未確定</span></span></div><div class="small nx-muted"><b style="color:var(--ink);font-size:15px">大成建設 · 品川</b><br>07:30 · 品川駅 港南口</div><button class="nx-btn nx-btn--primary nx-btn--lg nx-btn--block" data-act="confirm-day"><i data-lucide="check" class="nx-icon"></i><span><span class="pt-only">Confirmar 定時</span><span class="ja-only" lang="ja">定時で確定</span></span></button><button class="nx-btn nx-btn--ghost nx-btn--block"><span class="pt-only">Outro tipo (半日, 残業…)</span><span class="ja-only" lang="ja">他の区分（半日・残業…）</span></button></div>
+      <div class="list-item"><span class="ic-box"><i data-lucide="calendar-days" class="nx-icon"></i></span><div><b><span class="pt-only">Amanhã · 鹿島建設</span><span class="ja-only" lang="ja">明日 · 鹿島建設</span></b><small>07:00 · 横浜</small></div></div></div>
+      <nav class="nx-tabbar"><a aria-current="page" href="#celular"><i data-lucide="house" class="nx-icon"></i><span class="pt-only">Hoje</span><span class="ja-only" lang="ja">今日</span></a><a href="#celular"><i data-lucide="calendar-days" class="nx-icon"></i><span class="pt-only">Escala</span><span class="ja-only" lang="ja">予定</span></a><a href="#celular"><i data-lucide="wallet" class="nx-icon"></i><span class="pt-only">Holerite</span><span class="ja-only" lang="ja">明細</span></a><a href="#celular"><i data-lucide="user" class="nx-icon"></i><span class="pt-only">Eu</span><span class="ja-only" lang="ja">マイページ</span></a></nav></div></div><span class="cap"><span class="pt-only">Hoje</span><span class="ja-only" lang="ja">今日</span></span></div>
+    <div class="phone-col"><div class="phone"><div class="screen"><span class="notch"></span><div class="s-status"></div><div class="s-body">
+      <p class="s-title"><span class="pt-only">Minha escala</span><span class="ja-only" lang="ja">自分の予定</span></p><div class="nx-tabs" style="align-self:flex-start" data-tabs><button class="nx-tab" aria-selected="true"><span class="pt-only">Semana</span><span class="ja-only" lang="ja">週</span></button><button class="nx-tab"><span class="pt-only">Mês</span><span class="ja-only" lang="ja">月</span></button></div>
+      <div class="list-item"><span class="nx-day nx-day--teiji" style="margin:0">定</span><div><b>10/27（火）大成建設</b><small><span class="pt-only">品川 · confirmado</span><span class="ja-only" lang="ja">品川 · 確定</span></small></div></div>
+      <div class="list-item"><span class="nx-day nx-day--pending" style="margin:0">?</span><div><b>10/28（水）大成建設</b><small><span class="pt-only">品川 · pendente</span><span class="ja-only" lang="ja">品川 · 未確定</span></small></div></div>
+      <div class="list-item"><span class="nx-day nx-day--empty" style="margin:0">–</span><div><b>10/29（木）鹿島建設</b><small>07:00 · 横浜</small></div></div>
+      <div class="list-item"><span class="nx-day nx-day--yasumi" style="margin:0">休</span><div><b>10/31（土）</b><small><span class="pt-only">Folga</span><span class="ja-only" lang="ja">休み</span></small></div></div></div>
+      <nav class="nx-tabbar"><a href="#celular"><i data-lucide="house" class="nx-icon"></i><span class="pt-only">Hoje</span><span class="ja-only" lang="ja">今日</span></a><a aria-current="page" href="#celular"><i data-lucide="calendar-days" class="nx-icon"></i><span class="pt-only">Escala</span><span class="ja-only" lang="ja">予定</span></a><a href="#celular"><i data-lucide="wallet" class="nx-icon"></i><span class="pt-only">Holerite</span><span class="ja-only" lang="ja">明細</span></a><a href="#celular"><i data-lucide="user" class="nx-icon"></i><span class="pt-only">Eu</span><span class="ja-only" lang="ja">マイページ</span></a></nav></div></div><span class="cap"><span class="pt-only">Escala</span><span class="ja-only" lang="ja">予定</span></span></div>
+  </div>
+</section>
+
+  </main>
+</div>
+
+<!-- Overlays -->
+<div class="nx-overlay" id="dlg-confirm" role="dialog" aria-modal="true" aria-labelledby="dc-t"><div class="nx-dialog"><div class="nx-row"><span class="ic-box"><i data-lucide="send" class="nx-icon"></i></span><h2 class="nx-dialog__title" id="dc-t"><span class="pt-only">Enviar 請求書 para 大成建設?</span><span class="ja-only" lang="ja">大成建設に請求書を送信しますか？</span></h2></div><p class="nx-muted" style="margin:0"><span class="pt-only">¥1,047,200 · 5 linhas · para keiri@taisei.co.jp. Você pode cancelar o envio por 10 minutos.</span><span class="ja-only" lang="ja">¥1,047,200 · 5行 · keiri@taisei.co.jp 宛。送信後10分間は取り消せます。</span></p><div class="nx-dialog__actions"><button class="nx-btn nx-btn--secondary" data-close><span class="pt-only">Cancelar</span><span class="ja-only" lang="ja">キャンセル</span></button><button class="nx-btn nx-btn--primary" data-close data-toast="sent"><i data-lucide="send" class="nx-icon"></i><span class="pt-only">Enviar</span><span class="ja-only" lang="ja">送信</span></button></div></div></div>
+<div class="nx-overlay" id="dlg-danger" role="dialog" aria-modal="true" aria-labelledby="dd-t"><div class="nx-dialog"><div class="nx-row"><span class="ic-box bad"><i data-lucide="trash-2" class="nx-icon"></i></span><h2 class="nx-dialog__title" id="dd-t"><span class="pt-only">Excluir o genba 品川?</span><span class="ja-only" lang="ja">現場「品川」を削除しますか？</span></h2></div><p class="nx-muted" style="margin:0"><span class="pt-only">Os 412 registros de 勤怠 continuam no histórico (exclusão lógica). Digite <b>品川</b> para confirmar.</span><span class="ja-only" lang="ja">勤怠412件は履歴に残ります（論理削除）。確認のため <b>品川</b> と入力してください。</span></p><div class="nx-control"><input id="del-input" placeholder="品川"></div><div class="nx-dialog__actions"><button class="nx-btn nx-btn--secondary" data-close><span class="pt-only">Cancelar</span><span class="ja-only" lang="ja">キャンセル</span></button><button class="nx-btn nx-btn--danger" id="del-btn" disabled data-close data-toast="del"><span class="pt-only">Excluir</span><span class="ja-only" lang="ja">削除</span></button></div></div></div>
+<div class="nx-overlay nx-drawer-overlay" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dr-t"><div class="nx-drawer"><div class="nx-row" style="justify-content:space-between"><h2 class="nx-dialog__title" id="dr-t"><span class="pt-only">Escalação · 10/29（木）</span><span class="ja-only" lang="ja">手配 · 10/29（木）</span></h2><button class="nx-btn nx-btn--ghost nx-btn--icon" data-close aria-label="Fechar"><i data-lucide="x" class="nx-icon"></i></button></div>
+  <div class="nx-field"><span class="nx-label">GENBA</span><div class="nx-control"><select><option>鹿島建設 · 横浜</option><option>大成建設 · 品川</option></select><i data-lucide="chevron-down" class="nx-icon nx-icon-sm nx-chevron"></i></div></div>
+  <div class="nx-field"><span class="nx-label"><span class="pt-only">ENCONTRO</span><span class="ja-only" lang="ja">集合</span></span><div class="nx-control"><i data-lucide="clock" class="nx-icon"></i><input value="07:00" class="nx-num"></div></div>
+  <div class="nx-field"><span class="nx-label"><span class="pt-only">EQUIPE</span><span class="ja-only" lang="ja">メンバー</span></span><div class="nx-stack" style="gap:8px"><label class="nx-check"><input type="checkbox" checked> <span>Silva Mike <span class="nx-badge nx-badge--primary" style="height:20px">班長</span></span></label><label class="nx-check"><input type="checkbox" checked> <span>田中 浩</span></label><label class="nx-check"><input type="checkbox"> <span>山本 健</span></label></div></div>
+  <div style="flex:1"></div><div class="nx-dialog__actions"><button class="nx-btn nx-btn--secondary" data-close><span class="pt-only">Cancelar</span><span class="ja-only" lang="ja">キャンセル</span></button><button class="nx-btn nx-btn--primary" data-close data-toast="saved"><span class="pt-only">Salvar escalação</span><span class="ja-only" lang="ja">手配を保存</span></button></div></div></div>
+<div class="nx-overlay" id="cmdk" role="dialog" aria-modal="true" aria-label="Busca" style="place-items:start center;padding-top:12vh"><div class="nx-dialog cmdk"><div class="nx-control"><i data-lucide="search" class="nx-icon"></i><input id="cmdk-input" placeholder="Buscar funcionário, genba, 請求書…"><span class="kbd" style="margin-right:12px">Esc</span></div><div class="cmdk-list" id="cmdk-list"></div></div></div>
+<div class="nx-toasts" id="toasts" aria-live="polite"></div>
+
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>
+(function () {
+  const d = document.documentElement;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  const L = (pt, ja) => (d.dataset.lang === 'ja' ? ja : pt);
+  const icons = () => { if (window.lucide) window.lucide.createIcons({ attrs: { 'stroke-width': 1.75 } }); };
+  const yen = n => '¥' + n.toLocaleString('en-US');
+
+  /* ---------- Tema e idioma ---------- */
+  let hue = store.get('neo-hue') || 'azul';
+  let mode = store.get('neo-mode') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro');
+  function applyTheme() {
+    d.dataset.theme = hue + '-' + mode;
+    $$('[data-hue]').forEach(b => b.setAttribute('aria-pressed', b.dataset.hue === hue));
+    $$('.theme-card').forEach(b => b.setAttribute('aria-pressed', b.dataset.card === hue));
+    const btn = $('[data-act="mode"]');
+    btn.innerHTML = '<i data-lucide="' + (mode === 'claro' ? 'moon' : 'sun') + '" class="nx-icon"></i>';
+    icons(); paintSwatches();
+    store.set('neo-hue', hue); store.set('neo-mode', mode);
+  }
+  function applyLang(l) {
+    d.dataset.lang = l; d.lang = l === 'ja' ? 'ja' : 'pt-BR';
+    $$('[data-lang]').forEach(b => { if (b.tagName === 'BUTTON') b.setAttribute('aria-pressed', b.dataset.lang === l); });
+    store.set('neo-lang', l);
+    renderRows(); renderDonut(); renderIcons(); updateRange();
+  }
+  $$('[data-hue]').forEach(b => b.addEventListener('click', () => { hue = b.dataset.hue; applyTheme(); }));
+  $('[data-act="mode"]').addEventListener('click', () => { mode = mode === 'claro' ? 'escuro' : 'claro'; applyTheme(); });
+  $$('button[data-lang]').forEach(b => b.addEventListener('click', () => applyLang(b.dataset.lang)));
+
+  /* ---------- Cards de tema ---------- */
+  const themeInfo = [['azul', 'Azul', 'ブルー', 'Grafite claro · azul-noite'], ['grafite', 'Grafite', 'グラファイト', 'Branco · cinza escuro'], ['roxo', 'Roxo', 'パープル', 'Lilás claro · roxo-noite']];
+  const mini = id => '<div class="mini" data-theme="' + id + '"><div class="m-bar"></div><div class="m-card">' + (id.endsWith('escuro') ? 'Dark' : 'Light') + '<b>¥1,047,200</b></div><span class="m-btn">定時</span></div>';
+  $('#theme-cards').innerHTML = themeInfo.map(t => '<button type="button" class="theme-card" data-card="' + t[0] + '"><div class="theme-pair">' + mini(t[0] + '-claro') + mini(t[0] + '-escuro') + '</div><div class="t-name"><span><span class="pt-only">' + t[1] + '</span><span class="ja-only">' + t[2] + '</span></span><span class="nx-subtle small" style="font-weight:400">' + t[3] + '</span></div></button>').join('');
+  $$('.theme-card').forEach(b => b.addEventListener('click', () => { hue = b.dataset.card; applyTheme(); }));
+
+  function paintSwatches() {
+    const cs = getComputedStyle(d);
+    $$('[data-sw]').forEach(box => {
+      box.innerHTML = box.dataset.sw.split(' ').map(n => '<div class="sw"><div class="sw-chip" style="background:var(--' + n + ')"></div><div class="sw-meta"><span class="sw-name">' + n + '</span><span class="sw-hex">' + cs.getPropertyValue('--' + n).trim() + '</span></div></div>').join('');
+    });
+  }
+
+  /* ---------- Navegação ---------- */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-act="nav-open"]'); if (a) document.body.classList.add('nav-open');
+    const c = e.target.closest('[data-act="nav-close"], .side .nx-nav'); if (c) document.body.classList.remove('nav-open');
+  });
+  const links = $$('.side .nx-nav');
+  const setCur = id => links.forEach(l => { if (l.getAttribute('href') === '#' + id) l.setAttribute('aria-current', 'page'); else l.removeAttribute('aria-current'); });
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) setCur(en.target.id); }), { rootMargin: '-25% 0px -70% 0px' });
+  $$('.route').forEach(s => io.observe(s));
+  links.forEach(l => l.addEventListener('click', () => setTimeout(() => setCur(l.getAttribute('href').slice(1)), 60)));
+
+  /* ---------- Ícones ---------- */
+  const domainIcons = [['hard-hat', 'Genba', '現場'], ['calendar-days', 'Escalação', '手配'], ['clipboard-check', 'Confirmação', '確定'], ['file-text', '請求書', '請求書'], ['wallet', 'Folha', '給与'], ['receipt', 'Despesa', '経費'], ['users', 'Equipe', 'メンバー'], ['user-round', 'Funcionário', '従業員'], ['building-2', 'Cliente', '取引先'], ['handshake', '下請', '下請'], ['map-pin', 'Local', '場所'], ['badge-alert', 'Vencimento', '期限'], ['clock', 'Horário', '時間'], ['alarm-clock-plus', '残業', '残業'], ['banknote', 'Vale', '前払い'], ['landmark', 'Banco', '銀行'], ['folder-open', 'Documentos', '書類'], ['stamp', '印鑑', '印鑑'], ['mail', 'E-mail', 'メール'], ['bell', 'Avisos', '通知'], ['sparkles', 'IA', 'AI'], ['chart-column', 'Relatórios', 'レポート'], ['settings', 'Ajustes', '設定'], ['shield-check', 'Permissões', '権限']];
+  function renderIcons() {
+    $('#icon-grid').innerHTML = domainIcons.map(i => '<button type="button" class="ic" data-copy="' + i[0] + '"><i data-lucide="' + i[0] + '" class="nx-icon"></i><em>' + L(i[1], i[2]) + '</em><small>' + i[0] + '</small></button>').join('');
+    icons();
+  }
+  document.addEventListener('click', e => { const b = e.target.closest('[data-copy]'); if (!b) return; try { navigator.clipboard.writeText(b.dataset.copy); } catch (x) {} toast(L('Copiado: ', 'コピー：') + b.dataset.copy, 'copy'); });
+
+  /* ---------- Movimento ---------- */
+  $('[data-act="play"]').addEventListener('click', () => $$('.track').forEach(t => {
+    const ball = $('.ball', t); ball.style.transition = 'left ' + t.dataset.dur + ' ' + (t.dataset.ease || 'var(--ease-standard)');
+    t.classList.toggle('go');
+  }));
+
+  /* ---------- Botões ---------- */
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-act="load"]'); if (!b || b.dataset.busy) return;
+    b.dataset.busy = 1; const ic = b.querySelector('svg'); const sp = document.createElement('span'); sp.className = 'nx-spin';
+    if (ic) ic.replaceWith(sp); else b.prepend(sp);
+    setTimeout(() => { sp.replaceWith(ic || ''); delete b.dataset.busy; toast(L('PDF gerado', 'PDFを作成しました'), 'ok'); }, 1400);
+  });
+  document.addEventListener('click', e => {
+    const s = e.target.closest('[data-seg] button, .nx-tabs .nx-tab'); if (s) { const p = s.parentElement; $$(':scope > button', p).forEach(x => x.setAttribute(x.classList.contains('nx-tab') ? 'aria-selected' : 'aria-pressed', x === s)); }
+    const c = e.target.closest('[data-chips] .nx-chip'); if (c) c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') !== 'true');
+    const pg = e.target.closest('[data-pager] button'); if (pg && /^\d+$/.test(pg.textContent)) { $$('button', pg.parentElement).forEach(x => x.removeAttribute('aria-current')); pg.setAttribute('aria-current', 'page'); }
+  });
+
+  /* ---------- Formulários ---------- */
+  $$('.indet').forEach(i => (i.indeterminate = true));
+  $$('[data-stepper]').forEach(s => { const o = $('output', s); const [m, p] = $$('button', s); m.onclick = () => (o.textContent = Math.max(0, +o.textContent - 1)); p.onclick = () => (o.textContent = +o.textContent + 1); });
+  const email = $('#f2'), ectl = $('#email-ctl'), eerr = $('#f2e');
+  email.addEventListener('input', () => { const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value); ectl.dataset.invalid = !ok; ectl.dataset.valid = ok; eerr.style.visibility = ok ? 'hidden' : 'visible'; });
+  const drop = $('#drop');
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.dataset.over = true; }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.dataset.over = false; if (t === 'drop') toast(L('Recibo anexado', '領収書を添付しました'), 'ok'); }));
+  $('input[type=file]', drop).addEventListener('change', () => toast(L('Recibo anexado', '領収書を添付しました'), 'ok'));
+
+  /* Dropdown com busca */
+  const clients = [['大成建設 · 品川', '#2F5BD3'], ['鹿島建設 · 横浜', '#0E7490'], ['清水建設 · 川崎', '#B45309'], ['大林組 · 新宿', '#7C3AED'], ['竹中工務店 · 千葉', '#166534']];
+  const dd = $('#dd-client');
+  function renderOpts(q = '') {
+    $('[data-opts]', dd).innerHTML = clients.filter(c => c[0].includes(q)).map(c => '<button class="nx-menu__item" role="option" data-pick="' + c[0] + '" data-color="' + c[1] + '"><span class="client-dot" style="background:' + c[1] + '"></span>' + c[0] + '</button>').join('') || '<div class="nx-menu__label">' + L('Nenhum resultado', '該当なし') + '</div>';
+  }
+  renderOpts();
+  $('[data-filter]', dd).addEventListener('input', e => renderOpts(e.target.value));
+  dd.addEventListener('click', e => { const o = e.target.closest('[data-pick]'); if (!o) return; $('.val', dd).innerHTML = '<span class="client-dot" style="background:' + o.dataset.color + '"></span><span>' + o.dataset.pick + '</span>'; closePops(); });
+
+  /* ---------- Popovers / menus ---------- */
+  function closePops(except) { $$('.nx-pop[data-open="true"]').forEach(p => { if (p !== except) p.dataset.open = false; }); }
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-act="menu"], [data-act="dd"], [data-act="dp"]');
+    if (t) { const p = t.closest('.nx-pop'); const open = p.dataset.open !== 'true'; closePops(p); p.dataset.open = open; if (open) { const f = $('input[data-filter]', p); if (f) setTimeout(() => f.focus(), 50); } return; }
+    if (!e.target.closest('.nx-menu')) closePops();
+    else if (e.target.closest('.nx-menu__item') && !e.target.closest('#dd-client')) { closePops(); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closePops(); $$('.nx-overlay[data-open="true"]').forEach(closeOv); document.body.classList.remove('nav-open'); }
+    const m = document.activeElement && document.activeElement.closest('.nx-pop[data-open="true"] .nx-menu');
+    if (m && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) { e.preventDefault(); const it = $$('.nx-menu__item', m); const i = it.indexOf(document.activeElement); it[(i + (e.key === 'ArrowDown' ? 1 : -1) + it.length) % it.length].focus(); }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); openCmdk(); }
+  });
+  /* menu de contexto */
+  const ctxm = $('#ctx-menu');
+  $('#ctx').addEventListener('contextmenu', e => { e.preventDefault(); closePops(); ctxm.style.left = Math.min(e.clientX, innerWidth - 240) + 'px'; ctxm.style.top = Math.min(e.clientY, innerHeight - 240) + 'px'; ctxm.dataset.open = true; });
+
+  /* ---------- Date picker ---------- */
+  const DOW = { pt: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'], ja: ['日', '月', '火', '水', '木', '金', '土'] };
+  const JDOW = ['日', '月', '火', '水', '木', '金', '土'];
+  const holidays = { '2026-10-12': 'スポーツの日', '2026-11-03': '文化の日', '2026-11-23': '勤労感謝の日', '2026-09-21': '敬老の日', '2026-09-23': '秋分の日', '2026-12-31': '' };
+  const TODAY = new Date(2026, 9, 28);
+  const iso = x => x.getFullYear() + '-' + String(x.getMonth() + 1).padStart(2, '0') + '-' + String(x.getDate()).padStart(2, '0');
+  const fmt = x => x.getFullYear() + '/' + String(x.getMonth() + 1).padStart(2, '0') + '/' + String(x.getDate()).padStart(2, '0') + '（' + JDOW[x.getDay()] + '）';
+  function calendar(el) {
+    const st = { view: new Date(2026, 9, 1), sel: new Date(TODAY), a: new Date(2026, 9, 26), b: new Date(2026, 9, 30) };
+    const range = el.dataset.cal === 'range';
+    el._st = st;
+    function draw() {
+      const y = st.view.getFullYear(), m = st.view.getMonth();
+      const first = new Date(y, m, 1), start = new Date(y, m, 1 - first.getDay());
+      let h = '<div class="nx-cal__head"><button class="nx-btn nx-btn--ghost nx-btn--icon nx-btn--sm" data-nav="-1" aria-label="Mês anterior"><i data-lucide="chevron-left" class="nx-icon nx-icon-sm"></i></button><span class="nx-cal__title">' + y + '年 ' + (m + 1) + '月</span><button class="nx-btn nx-btn--ghost nx-btn--icon nx-btn--sm" data-nav="1" aria-label="Próximo mês"><i data-lucide="chevron-right" class="nx-icon nx-icon-sm"></i></button></div><div class="nx-cal__grid">';
+      (d.dataset.lang === 'ja' ? DOW.ja : DOW.pt).forEach((n, i) => (h += '<span class="nx-cal__dow' + (i === 0 ? ' sun' : i === 6 ? ' sat' : '') + '">' + n + '</span>'));
+      for (let i = 0; i < 42; i++) {
+        const x = new Date(start); x.setDate(start.getDate() + i); const k = iso(x);
+        const c = ['nx-cal__day']; if (x.getMonth() !== m) c.push('out'); if (x.getDay() === 0 || k in holidays) c.push('sun'); else if (x.getDay() === 6) c.push('sat');
+        if (k in holidays) c.push('holiday'); if (k === iso(TODAY)) c.push('today');
+        let sel = false;
+        if (range) { const t = x.getTime(); if (st.a && st.b && t > st.a.getTime() && t < st.b.getTime()) c.push('in-range'); sel = (st.a && k === iso(st.a)) || (st.b && k === iso(st.b)); } else sel = k === iso(st.sel);
+        h += '<button class="' + c.join(' ') + '" data-day="' + k + '" aria-selected="' + sel + '" title="' + (holidays[k] || '') + '">' + x.getDate() + '</button>';
+      }
+      h += '</div><div class="nx-cal__foot"><button class="nx-btn nx-btn--ghost nx-btn--sm" data-today>' + L('Hoje', '今日') + '</button><span class="caption nx-subtle">Asia/Tokyo</span></div>';
+      el.innerHTML = h; icons();
+    }
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const n = e.target.closest('[data-nav]'); if (n) { st.view.setMonth(st.view.getMonth() + +n.dataset.nav); return draw(); }
+      if (e.target.closest('[data-today]')) { st.view = new Date(2026, 9, 1); st.sel = new Date(TODAY); draw(); if (!range) pick(); return; }
+      const b = e.target.closest('[data-day]'); if (!b) return;
+      const [Y, M, D] = b.dataset.day.split('-').map(Number); const x = new Date(Y, M - 1, D);
+      if (range) { if (!st.a || st.b) { st.a = x; st.b = null; } else if (x < st.a) { st.b = st.a; st.a = x; } else st.b = x; draw(); updateRange(); }
+      else { st.sel = x; draw(); pick(); }
+    });
+    function pick() { $('[data-dp-val]').textContent = fmt(st.sel); closePops(); }
+    el._draw = draw; draw();
+  }
+  $$('[data-cal]').forEach(calendar);
+  function updateRange() {
+    const el = $('[data-cal="range"]'); if (!el || !el._st) return; const st = el._st; el._draw();
+    const out = $('[data-range-out]');
+    if (st.a && st.b) { let n = 0, w = 0; for (let x = new Date(st.a); x <= st.b; x.setDate(x.getDate() + 1)) { n++; if (x.getDay() === 0 || iso(x) in holidays) w++; } out.textContent = fmt(st.a) + ' → ' + fmt(st.b) + ' · ' + n + L(' dias (', '日（') + w + L(' domingo/feriado marcado como 休)', '日は日曜・祝日のため休）'); }
+    else out.textContent = L('Escolha o último dia.', '最終日を選んでください。');
+  }
+  const times = []; for (let h = 6; h <= 9; h++) for (const m of ['00', '15', '30', '45']) times.push(String(h).padStart(2, '0') + ':' + m);
+  $('[data-time]').innerHTML = times.map(t => '<button aria-pressed="' + (t === '07:30') + '">' + t + '</button>').join('');
+  $('[data-time]').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; $$('button', b.parentElement).forEach(x => x.setAttribute('aria-pressed', x === b)); });
+
+  /* ---------- Modais e gaveta ---------- */
+  let lastFocus = null;
+  function openOv(id) { const o = document.getElementById(id); lastFocus = document.activeElement; o.dataset.open = true; setTimeout(() => { const f = $('input, button:not([disabled])', o); if (f) f.focus(); }, 60); }
+  function closeOv(o) { o.dataset.open = false; if (lastFocus) lastFocus.focus(); }
+  document.addEventListener('click', e => {
+    const op = e.target.closest('[data-open]'); if (op) return openOv(op.dataset.open);
+    const cl = e.target.closest('[data-close]'); if (cl) return closeOv(cl.closest('.nx-overlay'));
+    if (e.target.classList && e.target.classList.contains('nx-overlay')) closeOv(e.target);
+  });
+  $('#del-input').addEventListener('input', e => ($('#del-btn').disabled = e.target.value.trim() !== '品川'));
+
+  /* ---------- Busca global ---------- */
+  const cmdItems = () => [['user-round', 'Silva Mike', L('Funcionário · 社員', '従業員 · 社員')], ['user-round', '田中 浩', L('Funcionário · 下請', '従業員 · 下請')], ['hard-hat', '大成建設 · 品川', 'Genba'], ['hard-hat', '鹿島建設 · 横浜', 'Genba'], ['file-text', 'INV-2026-1028', '請求書 · ¥1,047,200'], ['calendar-days', L('Nova escalação', '新規手配'), L('Ação', '操作')], ['wallet', L('Fechamento de outubro', '10月締め'), L('Folha', '給与')]];
+  let cmdSel = 0;
+  function renderCmd() {
+    const q = $('#cmdk-input').value.toLowerCase();
+    const list = cmdItems().filter(i => (i[1] + i[2]).toLowerCase().includes(q));
+    cmdSel = Math.min(cmdSel, Math.max(0, list.length - 1));
+    $('#cmdk-list').innerHTML = list.length ? list.map((i, n) => '<button class="nx-menu__item" aria-selected="' + (n === cmdSel) + '" data-close><i data-lucide="' + i[0] + '" class="nx-icon nx-icon-sm"></i><span>' + i[1] + '</span><kbd>' + i[2] + '</kbd></button>').join('') : '<div class="nx-empty" style="border:0;padding:24px"><span class="nx-muted">' + L('Nada encontrado para “', '「') + q + L('”', '」は見つかりません') + '</span></div>';
+    icons();
+  }
+  function openCmdk() { $('#cmdk-input').value = ''; cmdSel = 0; renderCmd(); openOv('cmdk'); }
+  $$('[data-act="cmdk"]').forEach(b => b.addEventListener('click', openCmdk));
+  $('#cmdk-input').addEventListener('input', () => { cmdSel = 0; renderCmd(); });
+  $('#cmdk-input').addEventListener('keydown', e => {
+    const n = $$('#cmdk-list .nx-menu__item').length; if (!n) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); cmdSel = (cmdSel + (e.key === 'ArrowDown' ? 1 : -1) + n) % n; renderCmd(); }
+    if (e.key === 'Enter') { closeOv($('#cmdk')); toast(L('Abrindo…', '開いています…'), 'ok'); }
+  });
+
+  /* ---------- Toast ---------- */
+  function toast(msg, kind, undo) {
+    const t = document.createElement('div'); t.className = 'nx-toast'; t.setAttribute('role', 'status');
+    const ic = { ok: 'check', del: 'archive', err: 'wifi-off', copy: 'copy', sent: 'send', saved: 'check' }[kind] || 'info';
+    t.innerHTML = '<i data-lucide="' + ic + '" class="nx-icon"></i><span class="nx-toast__msg">' + msg + '</span>' + (undo ? '<button class="nx-toast__action">' + undo + '</button>' : '') + '<button class="nx-toast__action" aria-label="Fechar" style="text-decoration:none">✕</button>';
+    $('#toasts').appendChild(t); icons();
+    const kill = () => { t.classList.add('nx-out'); setTimeout(() => t.remove(), 220); };
+    t.addEventListener('click', e => { if (e.target.closest('.nx-toast__action')) { if (undo && e.target.textContent === undo) setTimeout(() => toast(L('Ação desfeita', '元に戻しました'), 'ok'), 250); kill(); } });
+    setTimeout(kill, kind === 'err' ? 7000 : 5000);
+  }
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-toast]'); if (!b) return;
+    const k = b.dataset.toast;
+    if (k === 'ok') toast(L('Dia confirmado · 定時', '定時で確定しました'), 'ok', L('Desfazer', '元に戻す'));
+    if (k === 'del') toast(L('Arquivado', 'アーカイブしました'), 'del', L('Desfazer', '元に戻す'));
+    if (k === 'err') toast(L('Sem conexão. O registro fica salvo no celular e é enviado depois.', 'オフラインです。記録は端末に保存され、後で送信されます。'), 'err', L('Tentar de novo', '再試行'));
+    if (k === 'sent') toast(L('請求書 enviado para 大成建設', '大成建設に請求書を送信しました'), 'sent', L('Cancelar envio', '送信を取り消す'));
+    if (k === 'saved') toast(L('Escalação salva · 3 pessoas avisadas', '手配を保存 · 3名に通知'), 'saved', L('Desfazer', '元に戻す'));
+  });
+
+  /* ---------- Tabela ---------- */
+  const rows = [['Silva Mike', '社員', 18, 270000, 'ok'], ['田中 浩', '下請', 20, 300000, 'pend'], ['山本 健', '社員', 15, 225000, 'ok'], ['Santos Ana', '下請', 12, 180000, 'late'], ['佐藤 大輔', '社員', 19, 285000, 'ok'], ['Oliveira João', '下請', 9, 135000, 'pend']];
+  let sortK = -1, sortDir = 1, sel = new Set();
+  const status = s => ({ ok: '<span class="nx-badge nx-badge--success"><span class="nx-dot"></span>' + L('Pago', '支払済') + '</span>', pend: '<span class="nx-badge nx-badge--warning"><span class="nx-dot"></span>' + L('Pendente', '未確定') + '</span>', late: '<span class="nx-badge nx-badge--danger"><span class="nx-dot"></span>' + L('Atrasado', '延滞') + '</span>' }[s]);
+  function renderRows() {
+    const q = ($('[data-tfilter]').value || '').toLowerCase();
+    let r = rows.filter(x => x[0].toLowerCase().includes(q));
+    if (sortK >= 0) r = r.slice().sort((a, b) => (a[sortK] > b[sortK] ? 1 : -1) * sortDir);
+    $('[data-rows]').innerHTML = r.map(x => '<tr aria-selected="' + sel.has(x[0]) + '"><td><label class="nx-check"><input type="checkbox" data-row="' + x[0] + '"' + (sel.has(x[0]) ? ' checked' : '') + ' aria-label="Selecionar"></label></td><td><div class="person"><span class="nx-avatar" style="width:30px;height:30px;font-size:11px">' + x[0].slice(0, 2) + '</span><b>' + x[0] + '</b></div></td><td><span class="nx-badge nx-badge--outline">' + x[1] + '</span></td><td class="nx-right nx-num">' + x[2] + '</td><td class="nx-right nx-num">' + yen(x[3]) + '</td><td>' + status(x[4]) + '</td></tr>').join('');
+    $('[data-tcount]').textContent = r.length + L(' de ', ' / ') + rows.length + L(' funcionários', '名');
+    const bulk = $('.bulk'); bulk.classList.toggle('on', sel.size > 0); $('[data-bulk-n]').textContent = sel.size + L(' selecionados', '件選択中');
+    const all = $('[data-all]'); all.checked = sel.size === rows.length; all.indeterminate = sel.size > 0 && sel.size < rows.length;
+  }
+  $('[data-tfilter]').addEventListener('input', renderRows);
+  $('#tbl').addEventListener('change', e => {
+    if (e.target.dataset.row) { e.target.checked ? sel.add(e.target.dataset.row) : sel.delete(e.target.dataset.row); renderRows(); }
+    if ('all' in e.target.dataset) { sel = e.target.checked ? new Set(rows.map(r => r[0])) : new Set(); renderRows(); }
+  });
+  $$('[data-sort]').forEach(b => b.addEventListener('click', () => { const k = +b.dataset.sort; sortDir = sortK === k ? -sortDir : 1; sortK = k; renderRows(); }));
+
+  /* ---------- 勤怠表 ---------- */
+  const types = [['teiji', '定'], ['hannichi', '半'], ['yasumi', '休'], ['kekkin', '欠'], ['chushi', '中'], ['yukyu', '有'], ['pending', '?']];
+  const subs = ['#2F5BD3', '#0E7490', '#B45309'];
+  const people = ['Silva Mike', '田中 浩', '山本 健', 'Santos Ana'];
+  let seed = 7; const rnd = () => ((seed = (seed * 9301 + 49297) % 233280) / 233280);
+  const grid = people.map((p, pi) => Array.from({ length: 31 }, (_, i) => {
+    const x = new Date(2026, 9, i + 1); const k = iso(x);
+    if (x.getDay() === 0 || k in holidays) return { t: 2 };
+    if (i + 1 > 28) return { t: -1 };
+    if (i + 1 === 28) return { t: 6, s: pi % 3 };
+    const r = rnd(); return { t: r < .74 ? 0 : r < .84 ? 1 : r < .9 ? 2 : r < .94 ? 3 : r < .97 ? 4 : 5, s: (pi + (i > 14 ? 1 : 0)) % 3, ot: rnd() < .18 ? 1 + Math.floor(rnd() * 3) : 0 };
+  }));
+  function renderKintai() {
+    let h = '<thead><tr><th></th>';
+    for (let i = 1; i <= 31; i++) { const w = new Date(2026, 9, i).getDay(); h += '<th class="' + (w === 0 || iso(new Date(2026, 9, i)) in holidays ? 'sun' : w === 6 ? 'sat' : '') + '">' + i + '<br>' + JDOW[w] + '</th>'; }
+    h += '<th>計</th></tr></thead><tbody>';
+    grid.forEach((row, pi) => {
+      h += '<tr><td class="name">' + people[pi] + '</td>'; let days = 0, ot = 0;
+      row.forEach((c, i) => {
+        if (c.t === -1) { h += '<td><span class="nx-day nx-day--empty" data-k="' + pi + ',' + i + '">–</span></td>'; return; }
+        const t = types[c.t]; if (c.t === 0) days += 1; if (c.t === 1) days += .5; ot += c.ot || 0;
+        h += '<td><span class="nx-day nx-day--' + t[0] + '" data-k="' + pi + ',' + i + '" style="--sub:' + (c.t <= 1 || c.t === 6 ? subs[c.s || 0] : 'transparent') + '" title="10/' + (i + 1) + '">' + t[1] + (c.ot ? '<span class="nx-ot">' + c.ot + '</span>' : '') + '<span class="nx-sub"></span></span></td>';
+      });
+      h += '<td class="tot">' + days + L('d', '日') + (ot ? ' · ' + ot + 'h' : '') + '</td></tr>';
+    });
+    $('#kintai').innerHTML = h + '</tbody>';
+  }
+  $('#kintai').addEventListener('click', e => { const c = e.target.closest('[data-k]'); if (!c) return; const [p, i] = c.dataset.k.split(',').map(Number); const cell = grid[p][i]; cell.t = cell.t === -1 ? 0 : (cell.t + 1) % types.length; if (cell.s == null) cell.s = p % 3; renderKintai(); });
+
+  /* ---------- Gráficos ---------- */
+  function renderBar() {
+    const a = [3.1, 3.4, 3.2, 3.8, 4.0, 3.6, 4.2, 4.1, 3.96, 4.28], b = [2.8, 3.0, 3.1, 3.2, 3.5, 3.3, 3.6, 3.7, 3.6, 3.9];
+    let s = ''; const W = 520, H = 220, x0 = 36, yb = 190, sc = 160 / 5;
+    for (let g = 0; g <= 5; g++) { const y = yb - g * sc; s += '<line x1="' + x0 + '" x2="' + W + '" y1="' + y + '" y2="' + y + '" style="stroke:var(--line)"/><text x="0" y="' + (y + 4) + '">' + g + 'M</text>'; }
+    a.forEach((v, i) => { const x = x0 + 8 + i * 48; s += '<rect x="' + x + '" y="' + (yb - b[i] * sc) + '" width="16" height="' + b[i] * sc + '" rx="4" style="fill:var(--line-strong);opacity:.55"/><rect x="' + (x + 18) + '" y="' + (yb - v * sc) + '" width="16" height="' + v * sc + '" rx="4" style="fill:var(--primary)"><title>' + (i + 1) + '月 ¥' + v + 'M</title></rect><text x="' + (x + 6) + '" y="208">' + (i + 1) + '月</text>'; });
+    $('#ch-bar').innerHTML = s;
+  }
+  function renderLine() {
+    const pts = [1.6, 1.7, 1.65, 1.9, 1.85, 1.2, 1.25, 1.3, 1.5, 1.55, 1.7, 1.6, 1.95, 2.0, 2.1, 1.4, 1.45, 1.6, 1.75, 1.8, 1.9, 2.05, 2.0, 2.2, 2.3, 1.7, 1.8, 1.95, 2.05, 2.14];
+    const W = 520, x0 = 36, yb = 190, sc = 160 / 3, dx = (W - x0 - 8) / (pts.length - 1);
+    let s = ''; for (let g = 0; g <= 3; g++) { const y = yb - g * sc; s += '<line x1="' + x0 + '" x2="' + W + '" y1="' + y + '" y2="' + y + '" style="stroke:var(--line)"/><text x="0" y="' + (y + 4) + '">' + g + 'M</text>'; }
+    const P = pts.map((v, i) => [x0 + i * dx, yb - v * sc]);
+    const line = P.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    s += '<defs><linearGradient id="lg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" style="stop-color:var(--primary);stop-opacity:.25"/><stop offset="1" style="stop-color:var(--primary);stop-opacity:0"/></linearGradient></defs>';
+    s += '<path d="' + line + ' L' + P[P.length - 1][0] + ' ' + yb + ' L' + x0 + ' ' + yb + 'Z" fill="url(#lg)"/><path d="' + line + '" style="fill:none;stroke:var(--primary);stroke-width:2.5;stroke-linejoin:round"/>';
+    s += '<line x1="' + x0 + '" x2="' + W + '" y1="' + (yb - 1.0 * sc) + '" y2="' + (yb - 1.0 * sc) + '" style="stroke:var(--danger);stroke-dasharray:5 5"/>';
+    const last = P[P.length - 1]; s += '<circle cx="' + last[0] + '" cy="' + last[1] + '" r="5" style="fill:var(--surface-1);stroke:var(--primary);stroke-width:2.5"/>';
+    ['10/01', '10/10', '10/20', '10/30'].forEach((t, i) => (s += '<text x="' + (x0 + i * (W - x0 - 40) / 3) + '" y="208">' + t + '</text>'));
+    $('#ch-line').innerHTML = s;
+  }
+  function renderDonut() {
+    const data = [['大成建設', 162, '#2F5BD3'], ['鹿島建設', 128, '#0E7490'], ['清水建設', 84, '#B45309'], [L('Interno', '社内'), 38, 'var(--line-strong)']];
+    const tot = data.reduce((s, x) => s + x[1], 0); let a = -Math.PI / 2, s = '';
+    data.forEach(x => { const f = x[1] / tot, a2 = a + f * Math.PI * 2, r = 64, c = 80; const p = (an, rr) => [c + rr * Math.cos(an), c + rr * Math.sin(an)]; const [x1, y1] = p(a, r), [x2, y2] = p(a2 - .02, r); s += '<path d="M' + x1 + ' ' + y1 + ' A' + r + ' ' + r + ' 0 ' + (f > .5 ? 1 : 0) + ' 1 ' + x2 + ' ' + y2 + '" style="fill:none;stroke:' + x[2] + ';stroke-width:22"/>'; a = a2; });
+    s += '<text x="80" y="78" text-anchor="middle" style="font:600 22px var(--font-mono);fill:var(--ink)">' + tot + '</text><text x="80" y="98" text-anchor="middle" style="font:500 11px var(--font-sans);fill:var(--ink-subtle)">' + L('dias', '日') + '</text>';
+    $('#ch-donut').innerHTML = s;
+    $('#donut-legend').innerHTML = data.map(x => '<div class="nx-row" style="justify-content:space-between;gap:8px"><span class="nx-row" style="gap:8px"><i style="width:10px;height:10px;border-radius:3px;background:' + x[2] + ';display:inline-block"></i>' + x[0] + '</span><span class="nx-num small">' + x[1] + ' · ' + Math.round(x[1] / tot * 100) + '%</span></div>').join('');
+  }
+
+  /* ---------- App: PIN e confirmar ---------- */
+  let pin = '';
+  const keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '', '0', '⌫'];
+  $('#keypad').innerHTML = keys.map(k => k ? '<button type="button" data-k="' + k + '" aria-label="' + (k === '⌫' ? 'Apagar' : k) + '">' + k + '</button>' : '<span></span>').join('');
+  $('#keypad').addEventListener('click', e => {
+    const b = e.target.closest('[data-k]'); if (!b) return; const k = b.dataset.k;
+    const box = $('#pin'); box.dataset.error = false; $('#pin-err').style.visibility = 'hidden';
+    if (k === '⌫') pin = pin.slice(0, -1); else if (pin.length < 4) pin += k;
+    $$('span', box).forEach((s, i) => s.classList.toggle('on', i < pin.length));
+    if (pin.length === 4) setTimeout(() => {
+      if (pin === '0000') { box.dataset.error = true; $('#pin-err').style.visibility = 'visible'; } else toast(L('Bem-vindo, Mike', 'ようこそ、Mikeさん'), 'ok');
+      pin = ''; $$('span', box).forEach(s => s.classList.remove('on'));
+    }, 220);
+  });
+  $('[data-act="confirm-day"]').addEventListener('click', e => {
+    const b = e.currentTarget, badge = $('#today-badge');
+    badge.className = 'nx-badge nx-badge--success'; badge.innerHTML = '<span class="nx-dot"></span>' + L('Confirmado', '確定');
+    b.disabled = true; toast(L('Dia confirmado · 定時', '定時で確定しました'), 'ok', L('Desfazer', '元に戻す'));
+    setTimeout(() => { b.disabled = false; badge.className = 'nx-badge nx-badge--warning'; badge.innerHTML = '<span class="nx-dot"></span>' + L('Pendente', '未確定'); }, 6000);
+  });
+
+  /* ---------- Início ---------- */
+  renderKintai(); renderBar(); renderLine(); renderIcons();
+  applyLang(store.get('neo-lang') || 'pt');
+  applyTheme();
+})();
+
+</script>
+</body>
+</html>

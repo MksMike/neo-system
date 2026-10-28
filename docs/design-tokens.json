@@ -1,0 +1,798 @@
+{
+ "name": "NEO-SYSTEM",
+ "version": 1,
+ "color": {
+  "note": "Três temas, cada um com claro e escuro. Troque a paleta aqui, nunca no componente. Texto principal e secundário com contraste ≥ 4,5:1 em todas as surfaces; bordas de controle e foco ≥ 3:1.",
+  "themes": [
+   {
+    "id": "azul-claro",
+    "name": "Azul · claro (grafite claro)"
+   },
+   {
+    "id": "azul-escuro",
+    "name": "Azul · escuro"
+   },
+   {
+    "id": "grafite-claro",
+    "name": "Grafite · claro (branco)"
+   },
+   {
+    "id": "grafite-escuro",
+    "name": "Grafite · escuro (cinza)"
+   },
+   {
+    "id": "roxo-claro",
+    "name": "Roxo · claro (lilás)"
+   },
+   {
+    "id": "roxo-escuro",
+    "name": "Roxo · escuro"
+   }
+  ],
+  "tokens": [
+   {
+    "name": "surface-0",
+    "value": {
+     "azul-claro": "#ECEFF4",
+     "azul-escuro": "#0A1324",
+     "grafite-claro": "#F6F6F7",
+     "grafite-escuro": "#141416",
+     "roxo-claro": "#F3F0F9",
+     "roxo-escuro": "#120C21"
+    },
+    "usage": "Fundo da página (com gradiente suave de surface-0 para page-tint)."
+   },
+   {
+    "name": "surface-1",
+    "value": {
+     "azul-claro": "#FFFFFF",
+     "azul-escuro": "#101C33",
+     "grafite-claro": "#FFFFFF",
+     "grafite-escuro": "#1C1C1F",
+     "roxo-claro": "#FFFFFF",
+     "roxo-escuro": "#1A1230"
+    },
+    "usage": "Cards, painéis, menus, modais, campos."
+   },
+   {
+    "name": "surface-2",
+    "value": {
+     "azul-claro": "#F4F6F9",
+     "azul-escuro": "#0D172C",
+     "grafite-claro": "#F1F1F3",
+     "grafite-escuro": "#18181A",
+     "roxo-claro": "#F8F5FC",
+     "roxo-escuro": "#160F29"
+    },
+    "usage": "Áreas internas: cabeçalho de tabela, linha zebrada, campo desabilitado."
+   },
+   {
+    "name": "surface-3",
+    "value": {
+     "azul-claro": "#E3E8F0",
+     "azul-escuro": "#172644",
+     "grafite-claro": "#E7E7EA",
+     "grafite-escuro": "#27272B",
+     "roxo-claro": "#EAE3F6",
+     "roxo-escuro": "#241940"
+    },
+    "usage": "Hover de itens de lista e de linhas; fundo de chip neutro."
+   },
+   {
+    "name": "line",
+    "value": {
+     "azul-claro": "#D3DAE5",
+     "azul-escuro": "#22335A",
+     "grafite-claro": "#E0E0E5",
+     "grafite-escuro": "#2E2E33",
+     "roxo-claro": "#DDD4ED",
+     "roxo-escuro": "#2F2350"
+    },
+    "usage": "Bordas de cards, divisores, borda de campo em repouso."
+   },
+   {
+    "name": "line-strong",
+    "value": {
+     "azul-claro": "#8090A8",
+     "azul-escuro": "#5470AE",
+     "grafite-claro": "#8C8C96",
+     "grafite-escuro": "#6E6E78",
+     "roxo-claro": "#9483B8",
+     "roxo-escuro": "#7462A8"
+    },
+    "usage": "Borda de campo em hover; divisores que precisam aparecer; contorno de controles (3:1)."
+   },
+   {
+    "name": "ink",
+    "value": {
+     "azul-claro": "#0F172A",
+     "azul-escuro": "#E8EDF7",
+     "grafite-claro": "#18181B",
+     "grafite-escuro": "#F4F4F5",
+     "roxo-claro": "#1B1530",
+     "roxo-escuro": "#EEE9F8"
+    },
+    "usage": "Texto principal sobre surface-0, -1, -2 e -3."
+   },
+   {
+    "name": "ink-muted",
+    "value": {
+     "azul-claro": "#475066",
+     "azul-escuro": "#ABB8D1",
+     "grafite-claro": "#52525B",
+     "grafite-escuro": "#B4B4BB",
+     "roxo-claro": "#4D4467",
+     "roxo-escuro": "#B9B0D2"
+    },
+    "usage": "Texto secundário, rótulos e metadados sobre qualquer surface."
+   },
+   {
+    "name": "ink-subtle",
+    "value": {
+     "azul-claro": "#5E6779",
+     "azul-escuro": "#8D9BB8",
+     "grafite-claro": "#6B6B74",
+     "grafite-escuro": "#93939B",
+     "roxo-claro": "#665D82",
+     "roxo-escuro": "#968CB2"
+    },
+    "usage": "Placeholders, legendas e ícones decorativos sobre surface-1 e surface-2."
+   },
+   {
+    "name": "primary",
+    "value": {
+     "azul-claro": "#1E3A8A",
+     "azul-escuro": "#86A8FF",
+     "grafite-claro": "#27272A",
+     "grafite-escuro": "#E4E4E7",
+     "roxo-claro": "#5B2A9E",
+     "roxo-escuro": "#C6ABFF"
+    },
+    "usage": "Ação principal, item ativo do menu, seleção; fundo de botão primário."
+   },
+   {
+    "name": "primary-hover",
+    "value": {
+     "azul-claro": "#1A3278",
+     "azul-escuro": "#A3BEFF",
+     "grafite-claro": "#3F3F46",
+     "grafite-escuro": "#FFFFFF",
+     "roxo-claro": "#4E2389",
+     "roxo-escuro": "#D6C2FF"
+    },
+    "usage": "Hover e pressionado da ação principal."
+   },
+   {
+    "name": "primary-soft",
+    "value": {
+     "azul-claro": "#E2E9F8",
+     "azul-escuro": "#1A2B52",
+     "grafite-claro": "#ECECEF",
+     "grafite-escuro": "#2B2B30",
+     "roxo-claro": "#ECE4FA",
+     "roxo-escuro": "#2E2156"
+    },
+    "usage": "Fundo de item selecionado, chip ativo, destaque suave."
+   },
+   {
+    "name": "on-primary",
+    "value": {
+     "azul-claro": "#FFFFFF",
+     "azul-escuro": "#0A1324",
+     "grafite-claro": "#FFFFFF",
+     "grafite-escuro": "#18181B",
+     "roxo-claro": "#FFFFFF",
+     "roxo-escuro": "#120C21"
+    },
+    "usage": "Texto e ícone sobre primary, primary-hover e o gradiente."
+   },
+   {
+    "name": "on-grad",
+    "value": {
+     "azul-claro": "#FFFFFF",
+     "azul-escuro": "#FFFFFF",
+     "grafite-claro": "#FFFFFF",
+     "grafite-escuro": "#FFFFFF",
+     "roxo-claro": "#FFFFFF",
+     "roxo-escuro": "#FFFFFF"
+    },
+    "usage": "Texto e ícone sobre o gradiente de marca (branco em todos os temas)."
+   },
+   {
+    "name": "primary-text",
+    "value": {
+     "azul-claro": "#1E3A8A",
+     "azul-escuro": "#9DBAFF",
+     "grafite-claro": "#27272A",
+     "grafite-escuro": "#E4E4E7",
+     "roxo-claro": "#5B2A9E",
+     "roxo-escuro": "#CDB6FF"
+    },
+    "usage": "Links e texto de destaque na cor da marca sobre as surfaces e primary-soft."
+   },
+   {
+    "name": "grad-start",
+    "value": {
+     "azul-claro": "#1E3A8A",
+     "azul-escuro": "#203E9C",
+     "grafite-claro": "#202024",
+     "grafite-escuro": "#2E2E33",
+     "roxo-claro": "#4A1F8C",
+     "roxo-escuro": "#3F2380"
+    },
+    "usage": "Início do gradiente de marca (botão primário, faixa do cabeçalho, login, cover)."
+   },
+   {
+    "name": "grad-end",
+    "value": {
+     "azul-claro": "#3A63CF",
+     "azul-escuro": "#3558C0",
+     "grafite-claro": "#4D4D56",
+     "grafite-escuro": "#55555E",
+     "roxo-claro": "#7C4DD6",
+     "roxo-escuro": "#6A44BE"
+    },
+    "usage": "Fim do gradiente de marca."
+   },
+   {
+    "name": "glow",
+    "value": {
+     "azul-claro": "#3A63CF1F",
+     "azul-escuro": "#4A72DE33",
+     "grafite-claro": "#4D4D561A",
+     "grafite-escuro": "#A1A1AA1F",
+     "roxo-claro": "#7C4DD61F",
+     "roxo-escuro": "#9B7BE433"
+    },
+    "usage": "Brilho translúcido atrás de destaques (halo de cards em foco, topo do login)."
+   },
+   {
+    "name": "page-tint",
+    "value": {
+     "azul-claro": "#E2E8F2",
+     "azul-escuro": "#0D1A33",
+     "grafite-claro": "#EDEDF0",
+     "grafite-escuro": "#1A1A1D",
+     "roxo-claro": "#ECE5F7",
+     "roxo-escuro": "#1A1030"
+    },
+    "usage": "Fim do gradiente suave do fundo da página."
+   },
+   {
+    "name": "focus",
+    "value": {
+     "azul-claro": "#2F5BD3",
+     "azul-escuro": "#9DBAFF",
+     "grafite-claro": "#2563EB",
+     "grafite-escuro": "#93C5FD",
+     "roxo-claro": "#7C3AED",
+     "roxo-escuro": "#CDB6FF"
+    },
+    "usage": "Anel de foco de 2px (contraste ≥ 3:1 em todas as surfaces)."
+   },
+   {
+    "name": "overlay",
+    "value": {
+     "azul-claro": "#0A13248C",
+     "azul-escuro": "#000000A6",
+     "grafite-claro": "#18181B80",
+     "grafite-escuro": "#000000A6",
+     "roxo-claro": "#1B15308C",
+     "roxo-escuro": "#000000A6"
+    },
+    "usage": "Fundo escurecido atrás de modais e gavetas."
+   },
+   {
+    "name": "success",
+    "value": {
+     "azul-claro": "#166534",
+     "azul-escuro": "#5FD08D",
+     "grafite-claro": "#166534",
+     "grafite-escuro": "#5FD08D",
+     "roxo-claro": "#166534",
+     "roxo-escuro": "#5FD08D"
+    },
+    "usage": "Sucesso e confirmado; texto/ícone sobre surfaces e success-soft. Sempre com ícone ou palavra."
+   },
+   {
+    "name": "success-soft",
+    "value": {
+     "azul-claro": "#E5F3EA",
+     "azul-escuro": "#123122",
+     "grafite-claro": "#E5F3EA",
+     "grafite-escuro": "#123122",
+     "roxo-claro": "#E5F3EA",
+     "roxo-escuro": "#123122"
+    },
+    "usage": "Fundo de alerta, badge e célula de sucesso."
+   },
+   {
+    "name": "warning",
+    "value": {
+     "azul-claro": "#9A4A06",
+     "azul-escuro": "#F2B04A",
+     "grafite-claro": "#9A4A06",
+     "grafite-escuro": "#F2B04A",
+     "roxo-claro": "#9A4A06",
+     "roxo-escuro": "#F2B04A"
+    },
+    "usage": "Atenção, pendente; texto/ícone sobre surfaces e warning-soft."
+   },
+   {
+    "name": "warning-soft",
+    "value": {
+     "azul-claro": "#FBF0E1",
+     "azul-escuro": "#352509",
+     "grafite-claro": "#FBF0E1",
+     "grafite-escuro": "#352509",
+     "roxo-claro": "#FBF0E1",
+     "roxo-escuro": "#352509"
+    },
+    "usage": "Fundo de alerta e badge de atenção."
+   },
+   {
+    "name": "danger",
+    "value": {
+     "azul-claro": "#B4232A",
+     "azul-escuro": "#F48A8A",
+     "grafite-claro": "#B4232A",
+     "grafite-escuro": "#F48A8A",
+     "roxo-claro": "#B4232A",
+     "roxo-escuro": "#F48A8A"
+    },
+    "usage": "Erro, vencido, exclusão; texto/ícone sobre surfaces e danger-soft."
+   },
+   {
+    "name": "danger-soft",
+    "value": {
+     "azul-claro": "#FBE8E8",
+     "azul-escuro": "#3B1618",
+     "grafite-claro": "#FBE8E8",
+     "grafite-escuro": "#3B1618",
+     "roxo-claro": "#FBE8E8",
+     "roxo-escuro": "#3B1618"
+    },
+    "usage": "Fundo de alerta de erro e de campo inválido."
+   },
+   {
+    "name": "info",
+    "value": {
+     "azul-claro": "#1D4ED8",
+     "azul-escuro": "#7FB0FF",
+     "grafite-claro": "#1D4ED8",
+     "grafite-escuro": "#7FB0FF",
+     "roxo-claro": "#1D4ED8",
+     "roxo-escuro": "#7FB0FF"
+    },
+    "usage": "Informação neutra; texto/ícone sobre surfaces e info-soft."
+   },
+   {
+    "name": "info-soft",
+    "value": {
+     "azul-claro": "#E5EDFC",
+     "azul-escuro": "#132544",
+     "grafite-claro": "#E5EDFC",
+     "grafite-escuro": "#132544",
+     "roxo-claro": "#E5EDFC",
+     "roxo-escuro": "#132544"
+    },
+    "usage": "Fundo de alerta informativo."
+   },
+   {
+    "name": "day-teiji",
+    "value": {
+     "azul-claro": "#2F5BD3",
+     "azul-escuro": "#7FA2FF",
+     "grafite-claro": "#2F5BD3",
+     "grafite-escuro": "#7FA2FF",
+     "roxo-claro": "#2F5BD3",
+     "roxo-escuro": "#7FA2FF"
+    },
+    "usage": "Tipo do dia 定時 na grade 勤怠表, no app e nos PDFs."
+   },
+   {
+    "name": "day-hannichi",
+    "value": {
+     "azul-claro": "#0E7490",
+     "azul-escuro": "#56C6DF",
+     "grafite-claro": "#0E7490",
+     "grafite-escuro": "#56C6DF",
+     "roxo-claro": "#0E7490",
+     "roxo-escuro": "#56C6DF"
+    },
+    "usage": "Tipo do dia 半日."
+   },
+   {
+    "name": "day-yasumi",
+    "value": {
+     "azul-claro": "#6B7280",
+     "azul-escuro": "#9CA3AF",
+     "grafite-claro": "#6B7280",
+     "grafite-escuro": "#9CA3AF",
+     "roxo-claro": "#6B7280",
+     "roxo-escuro": "#9CA3AF"
+    },
+    "usage": "Tipo do dia 休."
+   },
+   {
+    "name": "day-kekkin",
+    "value": {
+     "azul-claro": "#B4232A",
+     "azul-escuro": "#F48A8A",
+     "grafite-claro": "#B4232A",
+     "grafite-escuro": "#F48A8A",
+     "roxo-claro": "#B4232A",
+     "roxo-escuro": "#F48A8A"
+    },
+    "usage": "Tipo do dia 欠勤."
+   },
+   {
+    "name": "day-chushi",
+    "value": {
+     "azul-claro": "#7C3AED",
+     "azul-escuro": "#C4A5FF",
+     "grafite-claro": "#7C3AED",
+     "grafite-escuro": "#C4A5FF",
+     "roxo-claro": "#7C3AED",
+     "roxo-escuro": "#C4A5FF"
+    },
+    "usage": "Tipo do dia 中止 (cliente cancelou)."
+   },
+   {
+    "name": "day-kyugyo",
+    "value": {
+     "azul-claro": "#44403C",
+     "azul-escuro": "#C2BBB4",
+     "grafite-claro": "#44403C",
+     "grafite-escuro": "#C2BBB4",
+     "roxo-claro": "#44403C",
+     "roxo-escuro": "#C2BBB4"
+    },
+    "usage": "Tipo do dia 休業 (empresa sem trabalho)."
+   },
+   {
+    "name": "day-yukyu",
+    "value": {
+     "azul-claro": "#166534",
+     "azul-escuro": "#5FD08D",
+     "grafite-claro": "#166534",
+     "grafite-escuro": "#5FD08D",
+     "roxo-claro": "#166534",
+     "roxo-escuro": "#5FD08D"
+    },
+    "usage": "Tipo do dia 有給."
+   },
+   {
+    "name": "day-pending",
+    "value": {
+     "azul-claro": "#B45309",
+     "azul-escuro": "#F2B04A",
+     "grafite-claro": "#B45309",
+     "grafite-escuro": "#F2B04A",
+     "roxo-claro": "#B45309",
+     "roxo-escuro": "#F2B04A"
+    },
+    "usage": "Estado Pendente (sem confirmação)."
+   },
+   {
+    "name": "day-zangyo",
+    "value": {
+     "azul-claro": "#C2410C",
+     "azul-escuro": "#FB9A5B",
+     "grafite-claro": "#C2410C",
+     "grafite-escuro": "#FB9A5B",
+     "roxo-claro": "#C2410C",
+     "roxo-escuro": "#FB9A5B"
+    },
+    "usage": "Marcador de 残業 dentro da célula (não é tipo do dia)."
+   }
+  ]
+ },
+ "type": {
+  "fonts": [],
+  "families": {
+   "sans": "\"IBM Plex Sans JP\", \"Hiragino Sans\", \"Noto Sans JP\", \"Yu Gothic UI\", system-ui, sans-serif",
+   "mono": "\"IBM Plex Mono\", ui-monospace, Consolas, monospace"
+  },
+  "groups": [
+   {
+    "name": "Títulos",
+    "family": "sans",
+    "styles": [
+     {
+      "name": "display",
+      "fontSize": "32px",
+      "lineHeight": "40px",
+      "fontWeight": 700,
+      "letterSpacing": "-0.01em",
+      "sample": "Bom dia, Mike",
+      "usage": "Saudação do dashboard, login, telas de boas-vindas."
+     },
+     {
+      "name": "h1",
+      "fontSize": "24px",
+      "lineHeight": "32px",
+      "fontWeight": 700,
+      "sample": "Escalações",
+      "usage": "Título da página."
+     },
+     {
+      "name": "h2",
+      "fontSize": "20px",
+      "lineHeight": "28px",
+      "fontWeight": 600,
+      "sample": "JERA姉ヶ崎火力発電所",
+      "usage": "Título de seção ou de card grande."
+     },
+     {
+      "name": "h3",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": 600,
+      "sample": "Equipe do 班長",
+      "usage": "Título de card, grupo de campos."
+     }
+    ]
+   },
+   {
+    "name": "Texto",
+    "family": "sans",
+    "styles": [
+     {
+      "name": "body-lg",
+      "fontSize": "16px",
+      "lineHeight": "24px",
+      "fontWeight": 400,
+      "sample": "Confirme o dia de hoje com um toque.",
+      "usage": "Texto do app do funcionário (celular)."
+     },
+     {
+      "name": "body",
+      "fontSize": "14px",
+      "lineHeight": "22px",
+      "fontWeight": 400,
+      "sample": "8 funcionários alocados de 01/11 a 30/11.",
+      "usage": "Texto padrão do painel admin."
+     },
+     {
+      "name": "small",
+      "fontSize": "13px",
+      "lineHeight": "20px",
+      "fontWeight": 400,
+      "sample": "Atualizado às 17:42",
+      "usage": "Metadados, células de tabela densa."
+     },
+     {
+      "name": "label",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "fontWeight": 600,
+      "letterSpacing": "0.04em",
+      "sample": "VALOR DIA",
+      "usage": "Rótulos de campo e cabeçalhos de tabela (maiúsculas em pt/es/en; japonês sem maiúsculas)."
+     },
+     {
+      "name": "caption",
+      "fontSize": "12px",
+      "lineHeight": "16px",
+      "fontWeight": 400,
+      "sample": "Fora do raio de 800 m",
+      "usage": "Ajuda de campo, legendas."
+     }
+    ]
+   },
+   {
+    "name": "Números",
+    "family": "mono",
+    "styles": [
+     {
+      "name": "num-lg",
+      "fontSize": "28px",
+      "lineHeight": "36px",
+      "fontWeight": 500,
+      "sample": "¥1,047,200",
+      "usage": "Valores de destaque em cards de indicador."
+     },
+     {
+      "name": "num",
+      "fontSize": "13px",
+      "lineHeight": "20px",
+      "fontWeight": 400,
+      "sample": "0508-2308 · 08:30",
+      "usage": "IDs, horários e valores em tabelas (tabular)."
+     }
+    ]
+   }
+  ]
+ },
+ "spacing": {
+  "note": "Base de 4 px. Componentes usam space-2 a space-6; seções usam space-8 a space-12.",
+  "tokens": [
+   {
+    "name": "space-1",
+    "value": "4px",
+    "usage": "Ícone e texto colados, chips internos."
+   },
+   {
+    "name": "space-2",
+    "value": "8px",
+    "usage": "Gap entre ícone e rótulo; entre chips."
+   },
+   {
+    "name": "space-3",
+    "value": "12px",
+    "usage": "Padding de campos e de linhas de lista."
+   },
+   {
+    "name": "space-4",
+    "value": "16px",
+    "usage": "Padding de card compacto; gutter do celular."
+   },
+   {
+    "name": "space-5",
+    "value": "20px",
+    "usage": "Padding de card padrão."
+   },
+   {
+    "name": "space-6",
+    "value": "24px",
+    "usage": "Gap entre cards; padding de modal; gutter do painel."
+   },
+   {
+    "name": "space-8",
+    "value": "32px",
+    "usage": "Gutter de página no desktop."
+   },
+   {
+    "name": "space-10",
+    "value": "40px",
+    "usage": "Separação entre seções."
+   },
+   {
+    "name": "space-12",
+    "value": "48px",
+    "usage": "Topo de páginas e estados vazios."
+   }
+  ]
+ },
+ "radius": {
+  "note": "Cantos arredondados e consistentes: controles 10 px, cards 16 px.",
+  "tokens": [
+   {
+    "name": "radius-xs",
+    "value": "6px",
+    "usage": "Badges quadrados, checkbox, células da grade."
+   },
+   {
+    "name": "radius-sm",
+    "value": "8px",
+    "usage": "Chips, itens de menu, tooltip."
+   },
+   {
+    "name": "radius-md",
+    "value": "10px",
+    "usage": "Botões, campos, selects."
+   },
+   {
+    "name": "radius-lg",
+    "value": "16px",
+    "usage": "Cards, popovers, menus suspensos."
+   },
+   {
+    "name": "radius-xl",
+    "value": "24px",
+    "usage": "Modais, gavetas, cards de destaque do app."
+   },
+   {
+    "name": "radius-full",
+    "value": "9999px",
+    "usage": "Pills, avatares, switch."
+   }
+  ]
+ },
+ "shadow": {
+  "note": "Sombras suaves; no escuro a profundidade vem mais da cor da surface que da sombra.",
+  "tokens": [
+   {
+    "name": "shadow-sm",
+    "value": {
+     "azul-claro": "0 1px 2px rgba(15,23,42,0.06)",
+     "azul-escuro": "0 1px 2px rgba(0,0,0,0.4)",
+     "grafite-claro": "0 1px 2px rgba(24,24,27,0.06)",
+     "grafite-escuro": "0 1px 2px rgba(0,0,0,0.45)",
+     "roxo-claro": "0 1px 2px rgba(27,21,48,0.06)",
+     "roxo-escuro": "0 1px 2px rgba(0,0,0,0.45)"
+    },
+    "usage": "Cards em repouso, campos."
+   },
+   {
+    "name": "shadow-md",
+    "value": {
+     "azul-claro": "0 4px 16px rgba(15,23,42,0.08)",
+     "azul-escuro": "0 6px 20px rgba(0,0,0,0.35)",
+     "grafite-claro": "0 4px 16px rgba(24,24,27,0.08)",
+     "grafite-escuro": "0 6px 20px rgba(0,0,0,0.4)",
+     "roxo-claro": "0 4px 16px rgba(27,21,48,0.08)",
+     "roxo-escuro": "0 6px 20px rgba(0,0,0,0.4)"
+    },
+    "usage": "Hover de card, menus suspensos, popovers."
+   },
+   {
+    "name": "shadow-lg",
+    "value": {
+     "azul-claro": "0 16px 48px rgba(15,23,42,0.18)",
+     "azul-escuro": "0 20px 56px rgba(0,0,0,0.55)",
+     "grafite-claro": "0 16px 48px rgba(24,24,27,0.18)",
+     "grafite-escuro": "0 20px 56px rgba(0,0,0,0.6)",
+     "roxo-claro": "0 16px 48px rgba(27,21,48,0.18)",
+     "roxo-escuro": "0 20px 56px rgba(0,0,0,0.6)"
+    },
+    "usage": "Modais, gavetas, toasts."
+   }
+  ]
+ },
+ "size": {
+  "note": "Alturas de controle e áreas de toque.",
+  "tokens": [
+   {
+    "name": "control-sm",
+    "value": "32px",
+    "usage": "Botões e campos em tabelas densas."
+   },
+   {
+    "name": "control-md",
+    "value": "40px",
+    "usage": "Botões e campos padrão do painel."
+   },
+   {
+    "name": "control-lg",
+    "value": "48px",
+    "usage": "Botões e campos do app do funcionário."
+   },
+   {
+    "name": "touch-min",
+    "value": "44px",
+    "usage": "Área mínima de toque no celular."
+   },
+   {
+    "name": "sidebar",
+    "value": "248px",
+    "usage": "Largura do menu lateral do painel."
+   },
+   {
+    "name": "tabbar",
+    "value": "64px",
+    "usage": "Altura da barra de abas do app (mais a área segura)."
+   }
+  ]
+ },
+ "zIndex": {
+  "tokens": [
+   {
+    "name": "z-sticky",
+    "value": "10",
+    "usage": "Cabeçalhos fixos."
+   },
+   {
+    "name": "z-dropdown",
+    "value": "30",
+    "usage": "Menus e popovers."
+   },
+   {
+    "name": "z-overlay",
+    "value": "40",
+    "usage": "Fundo de modal."
+   },
+   {
+    "name": "z-modal",
+    "value": "50",
+    "usage": "Modais e gavetas."
+   },
+   {
+    "name": "z-toast",
+    "value": "60",
+    "usage": "Toasts."
+   }
+  ]
+ }
+}
