@@ -49,12 +49,16 @@ jobs:
         uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Decisão do Mike (28/10/2026): instalar sempre a versão mais nova, sem período de espera
+      # (minimumReleaseAge no pnpm, cooldown no Dependabot). As duas regras do Semgrep sobre isso ficam desligadas.
       - name: Análise estática de segurança (Semgrep, regras OWASP)
         run: >
           docker run --rm -v "$PWD:/src" -w /src semgrep/semgrep
           semgrep scan --metrics=off --error
           --config p/owasp-top-ten --config p/typescript --config p/react --config p/nextjs
           --exclude docs --exclude pnpm-lock.yaml
+          --exclude-rule package_managers.pnpm.pnpm-missing-minimum-release-age.pnpm-minimum-release-age
+          --exclude-rule package_managers.dependabot.dependabot-missing-cooldown.dependabot-missing-cooldown
       - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
