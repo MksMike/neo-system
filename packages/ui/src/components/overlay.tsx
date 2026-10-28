@@ -122,8 +122,8 @@ export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
 
 export type DialogContentProps = ComponentProps<typeof DialogPrimitive.Content> & {
-  /** `dialog` is centered; `drawer` slides in from the right. */
-  layout?: 'dialog' | 'drawer';
+  /** `dialog` is centered; `drawer` slides in from the right; `drawer-start` from the left (menus). */
+  layout?: 'dialog' | 'drawer' | 'drawer-start';
   /** Accessible label of the close button (already translated). */
   closeLabel: string;
 };
@@ -145,6 +145,8 @@ export function DialogContent({
             'top-1/2 left-1/2 w-[min(480px,calc(100vw-32px))] -translate-x-1/2 -translate-y-1/2 animate-nx-enter rounded-xl',
           layout === 'drawer' &&
             'top-0 right-0 h-full w-[min(420px,100vw)] animate-nx-enter rounded-l-xl border-r-0',
+          layout === 'drawer-start' &&
+            'top-0 left-0 h-full w-[min(300px,85vw)] animate-nx-enter rounded-r-xl border-l-0 p-0',
           className,
         )}
         {...props}

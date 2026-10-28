@@ -32,7 +32,7 @@ test('a wrong password shows a generic message and stays on the login', async ({
 test('the Super Admin lands on /super and can sign out', async ({ page }) => {
   await signIn(page, 'admin@neo.local');
   await expect(page).toHaveURL(/\/super$/);
-  await expect(page.getByRole('heading', { name: 'Super Admin' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: 'Início' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Sair' }).click();
   await expect(page).toHaveURL(/\/login$/);

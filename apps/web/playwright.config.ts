@@ -13,6 +13,9 @@ export default defineConfig({
   forbidOnly: ci,
   retries: ci ? 1 : 0,
   reporter: ci ? [['github'], ['list']] : 'list',
+  // Development mode compiles each page on first visit; on a busy machine that passes 5 s.
+  expect: { timeout: 15_000 },
+  timeout: ci ? 30_000 : 60_000,
   use: {
     baseURL: `http://localhost:${String(port)}`,
     locale: 'pt-BR',

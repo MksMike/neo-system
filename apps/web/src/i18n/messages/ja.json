@@ -6,7 +6,8 @@
     "loading": "読み込み中",
     "cancel": "キャンセル",
     "save": "保存",
-    "undo": "元に戻す"
+    "undo": "元に戻す",
+    "skipToContent": "本文へスキップ"
   },
   "preferences": {
     "theme": "テーマ",
@@ -252,7 +253,58 @@
   },
   "super": {
     "title": "スーパー管理",
-    "description": "プラットフォームの管理画面です。メニューと各画面は次のタスク（SA-07）で追加されます。"
+    "nav": {
+      "label": "スーパー管理メニュー",
+      "open": "メニューを開く",
+      "home": "ホーム",
+      "companies": "会社",
+      "payments": "入金",
+      "modules": "モジュール・プラン",
+      "system": "システム",
+      "sections": {
+        "clients": "顧客",
+        "platform": "プラットフォーム"
+      }
+    },
+    "pages": {
+      "home": {
+        "title": "ホーム",
+        "description": "会社・請求・アラートの概要です。",
+        "emptyTitle": "指標はまもなく表示されます",
+        "emptyText": "状態別の会社数、今月の売上、支払期限、遅延は次のタスクで表示されます。"
+      },
+      "companies": {
+        "title": "会社",
+        "description": "顧客の会社と、契約・モジュール・状態。",
+        "new": "会社を登録",
+        "emptyTitle": "会社一覧は準備中です",
+        "emptyText": "検索・絞り込み・会社一覧は SA-08 で追加されます。"
+      },
+      "newCompany": {
+        "title": "会社を登録",
+        "description": "4ステップで登録：基本情報、モジュール、契約、オーナー。",
+        "emptyTitle": "登録ウィザードは準備中です",
+        "emptyText": "4ステップの登録は SA-08 で追加されます。"
+      },
+      "payments": {
+        "title": "入金",
+        "description": "未入金・一部入金・期限超過・入金済みの請求。",
+        "emptyTitle": "入金画面は準備中です",
+        "emptyText": "請求と入金登録は SA-10 で追加されます。"
+      },
+      "modules": {
+        "title": "モジュール・プラン",
+        "description": "モジュール一覧とプランのひな形。",
+        "emptyTitle": "モジュール・プランは準備中です",
+        "emptyText": "一覧とプランひな形の編集は次のタスクで追加されます。"
+      },
+      "system": {
+        "title": "システム",
+        "description": "システムの状態：ログ、ボトルネック、キュー、データベース、アラート。",
+        "emptyTitle": "システム状態の画面は準備中です",
+        "emptyText": "状態・ログ・キュー・データベースのタブは SA-12 で追加されます。"
+      }
+    }
   },
   "admin": {
     "title": "会社の管理画面",
