@@ -58,7 +58,7 @@ O código e o SaaS são do Mike; a Sugita financia o desenvolvimento e recebe c�
 | Item | Titular |
 | --- | --- |
 | Repositório no GitHub | Organização do Mike (ou da futura empresa do SaaS); Sugita com leitura |
-| Vercel, Supabase, serviços do sistema | Mike; a Sugita paga a mensalidade da instância dela, ou fica isenta por contrato |
+| Hostinger, Supabase, serviços do sistema | Mike; a Sugita paga a mensalidade da instância dela, ou fica isenta por contrato |
 | Domínio, site e e-mail da Sugita | Sugita (hospedagem japonesa com fatura em iene, ex.: Xserver) |
 | Dados da Sugita | Sugita |
 
@@ -137,13 +137,15 @@ flowchart TB
   A[Painel admin · web] --> N
   B[App do funcionário · PWA] --> N
   C[Super Admin] --> N
-  subgraph N[Next.js · Vercel Tóquio]
+  subgraph N[Next.js · Hostinger]
     N1[Telas e ações] --- N2[packages/calc] --- N3[packages/pdf]
+    N4[Rota da fila · cron Hostinger]
   end
   N --> S
+  A & B --> S4
   subgraph S[Supabase Tóquio]
     S1[Postgres + RLS] --- S2[Auth] --- S3[Storage privado]
-    S4[Realtime] --- S5[Edge Functions] --- S6[Cron e filas]
+    S4[Realtime] --- S6[pg_cron e fila job]
   end
   N & S --> E1[LINE] & E2[IA de visão] & E3[国税庁 API] & E4[Banco: CSV entra · 全銀 sai]
 ```
@@ -153,13 +155,13 @@ As regras de negócio rodam no servidor da aplicação; os cálculos de dinheiro
 | Parte | Escolha | Por quê |
 | --- | --- | --- |
 | Linguagem | TypeScript em todo o projeto | Um idioma do banco à tela; tipos gerados do esquema |
-| Aplicação | Next.js (App Router) na Vercel, região Tóquio | Admin, PWA e Super Admin no mesmo código |
+| Aplicação | Next.js (App Router) num Web App Node.js da Hostinger (ADR 0013) | Admin, PWA e Super Admin no mesmo código |
 | Interface | Tailwind + shadcn/ui + Lucide, next-intl | Design system consistente e multilíngue |
 | Banco | Supabase Postgres com RLS | Isolamento por empresa no banco; SQL padrão, sem lock-in |
 | Login | Supabase Auth; PIN do funcionário com limite de tentativas; LINE Login (fase 2) | Funcionários sem e-mail |
 | Arquivos | Supabase Storage privado, links assinados | Recibos, 在留カード, PDFs emitidos |
-| Tempo real | Supabase Realtime | Painel atualiza quando o 班長 confirma |
-| Jobs | Edge Functions + pg\_cron + filas | Lembretes, vencimentos, envio ao LINE, leitura de recibos |
+| Tempo real | Supabase Realtime, com o navegador conectado direto ao Supabase | Painel atualiza quando o 班長 confirma; a Hostinger não aceita WebSocket |
+| Jobs | Fila `job` no Postgres + pg\_cron + cron da Hostinger; outbox para efeitos externos (ADR 0014) | Lembretes, vencimentos, e-mails, PDFs em lote; processo sempre ligado numa VPS só na fase 2 |
 | Cálculos | `packages/calc` (funções puras) | Testável isoladamente com golden tests |
 | PDF | `packages/pdf` com @react-pdf/renderer e fonte Noto Sans JP | Sem servidor de navegador; mesmo componente gera prévia e arquivo |
 | Erros e logs | Sentry | Ver falhas do campo antes do cliente reclamar |
@@ -169,23 +171,23 @@ Cada linha desta tabela vira um ADR em `docs/decisoes/` na criação do reposit�
 
 ### Infraestrutura e hospedagem
 
-Sem servidor próprio: serviços gerenciados, com o dado sensível em Tóquio e o código portável para qualquer servidor.
+Serviços gerenciados, com o código portável para qualquer servidor. Atualizado em 28/10/2026 pelas ADRs 0013 (hospedagem), 0014 (fila e cron) e 0015 (segurança do MVP).
 
-| Fase | Banco | Aplicação | Custo mensal aproximado |
+| Fase | Banco | Aplicação | Dados |
 | --- | --- | --- | --- |
-| Desenvolvimento (M0–M4) | Supabase Free (2 projetos) | Vercel Hobby | \~¥0 + domínio |
-| Go-live da Sugita (M5) | Supabase Pro (backup diário, sem pausa) + staging no Free | Vercel Pro, ou Next.js numa hospedagem que rode Node | \~¥5,5–10 mil |
-| Vários clientes (M6+) | + PITR, instância maior | Vercel Pro | Cresce com o uso; coberto pelo preço por funcionário |
+| MVP | Supabase Free, Tóquio | Hostinger Business (Node.js) | Só fictícios ou anonimizados |
+| Dados reais (gatilho da ADR 0015) | Supabase Pro, Tóquio (backup diário, sem pausa) | Hostinger, reavaliada no gatilho | Nível completo de proteção de dados |
+| Fase 2 | + PITR, instância maior conforme o uso | + VPS pequena para processos sempre ligados (IMAP, LINE) | — |
 
-- **Planos gratuitos nunca em produção:** Supabase Free não tem backup automático e pausa após 1 semana sem uso; Vercel Hobby proíbe uso comercial.
+- **Planos gratuitos nunca com dados reais:** o Supabase Free não tem backup automático e pausa após 1 semana sem uso. No MVP, o backup externo e o cron da fila compensam isso.
 - **Backup externo diário desde o M0:** dump do banco para um storage separado (GitHub Actions), com teste de restauração mensal.
 - **Regra de portabilidade:** regras de negócio em Postgres padrão (SQL + RLS); login, arquivos e filas do Supabase atrás de uma camada própria no código; Next.js sem recursos exclusivos da Vercel. Migrar para VPS ou outra nuvem deve ser troca de implementação, não reescrita.
-- **VPS avaliada e adiada:** reduz custo, mas transfere ao Mike a operação de um servidor com dados de folha. Reavaliar quando a infraestrutura passar de \~10% da receita do SaaS.
-- **Hostinger:** roda Next.js nos planos Business e Cloud, mas não tem data center no Japão (mais próximos: Malásia e Indonésia). Só serve para a aplicação, com o banco no Supabase em Tóquio.
-- **Tarefas longas** (lotes de PDF, IA) rodam em fila no Supabase, nunca dentro da requisição.
-- **Três ambientes isolados**, segredos só em variáveis de ambiente, 2FA em todas as contas (GitHub, Vercel, Supabase, domínio).
+- **VPS só para processos sempre ligados:** entra na fase 2, para IMAP e LINE, consumindo a mesma fila. Hospedar tudo numa VPS continua adiado: transfere ao Mike a operação de um servidor com dados de folha.
+- **Hostinger:** roda o app Next.js; requisições são cortadas em 120 s, não há processo sempre ligado nem WebSocket de entrada, e o app dorme sem acesso (ADR 0013). O data center é o mais próximo do Japão disponível; o banco fica no Supabase em Tóquio.
+- **Tarefas longas** (lotes de PDF, IA, e-mails) rodam na fila `job`, nunca dentro da requisição, em partes de até ~90 s (ADR 0014).
+- **Ambientes isolados** (local e MVP; staging quando necessário), segredos só em variáveis de ambiente, 2FA em todas as contas (GitHub, Hostinger, Supabase, domínio).
 - **E-mail:** a caixa da empresa (e-mails "humanos") fica no provedor do domínio, via IMAP/SMTP; avisos automáticos saem por serviço transacional num subdomínio (ex.: `avisos.dominio`). SPF, DKIM e DMARC obrigatórios.
-- **個人情報保護法:** política de privacidade informa onde os dados ficam (Tóquio) e quais fornecedores os processam.
+- **個人情報保護法:** política de privacidade informa onde os dados ficam (Tóquio) e quais fornecedores os processam. No MVP, com dados fictícios, os requisitos completos ficam adiados até o gatilho da ADR 0015.
 
 ## Regras transversais
 

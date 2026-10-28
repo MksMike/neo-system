@@ -22,7 +22,9 @@ Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura)
 | Notificações na tela | Sonner | Com ação "Desfazer" |
 | Gráficos | Recharts (via componentes de gráfico do shadcn) | Cores dos tokens |
 | Idiomas | next-intl | Arquivos de mensagem por camada |
-| Banco, login, arquivos, jobs | Supabase (Postgres + RLS, Auth, Storage, Realtime, Edge Functions, pg_cron, filas) | Projeto na região de Tóquio |
+| Banco, login, arquivos, tempo real | Supabase (Postgres + RLS, Auth, Storage, Realtime, pg_cron) | Projeto na região de Tóquio; Free no MVP, Pro no gatilho de dados reais (ADRs 0013 e 0015) |
+| Aplicação (hospedagem) | Hostinger, Web App Node.js (plano Business) | Build `standalone`; requisição até 120 s, sem processo sempre ligado nem WebSocket de entrada (ADR 0013) |
+| Tarefas em segundo plano | Tabela `job` no Postgres + pg_cron + cron da Hostinger chamando `/api/jobs/run` | Outbox para efeitos externos; idempotente; Edge Functions não usadas no MVP (ADR 0014) |
 | Acesso a dados | supabase-js + @supabase/ssr, consultas tipadas | Atrás de `packages/db` (regra de portabilidade) |
 | Dinheiro | inteiros em iene + decimal.js para intermediários | Nunca `number` com fração |
 | PDF | @react-pdf/renderer + Noto Sans JP | `packages/pdf` |
@@ -59,7 +61,7 @@ NEO-SYSTEM/
 ├─ supabase/
 │  ├─ migrations/             SQL versionado
 │  ├─ seed.sql                dados de teste anônimos
-│  ├─ functions/              Edge Functions
+│  ├─ functions/              Edge Functions (não usadas no MVP; ADR 0014)
 │  └─ tests/                  pgTAP
 ├─ docs/                      âncora, camadas, decisões, telas, legado, manual
 └─ .github/                   CI e modelos de PR
@@ -82,5 +84,6 @@ NEO-SYSTEM/
 | Ambiente | Banco | App | Uso |
 |---|---|---|---|
 | Local | Supabase local (Docker) | `pnpm dev` | Desenvolvimento |
-| Staging | Projeto Supabase separado | Prévia da Vercel por PR | Testes, demo, operação paralela |
-| Produção | Supabase Pro em Tóquio | Vercel Pro (ou hospedagem Node) | Clientes; contratada no M5 |
+| MVP | Projeto Supabase Free em Tóquio | Web App Node.js na Hostinger | Demonstração e testes, só com dados fictícios (ADR 0015) |
+| Staging | Segundo projeto Supabase Free, quando necessário | Segundo app na Hostinger | Testar migrações antes do MVP |
+| Produção | Supabase Pro em Tóquio | Hostinger, reavaliada no gatilho | Dados reais; contratada no gatilho da ADR 0015 |

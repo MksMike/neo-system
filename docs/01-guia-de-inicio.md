@@ -34,9 +34,9 @@ gh repo create neo-system-jp/neo-system --private --source . --push
 
 ## 3. Contas de infraestrutura (gratuitas no desenvolvimento)
 
-- **Supabase:** crie dois projetos na região **Tokyo (ap-northeast-1)**: `neo-dev` e `neo-staging`. Guarde URL e chaves num gerenciador de senhas, nunca no repositório.
-- **Vercel:** conecte depois do M0, quando houver app para publicar (prévia por PR).
-- Planos pagos (Supabase Pro, Vercel Pro) só no M5.
+- **Supabase:** crie um projeto na região **Tokyo (ap-northeast-1)**: `neo-mvp` (o segundo projeto gratuito fica para staging, quando necessário). Guarde URL e chaves num gerenciador de senhas, nunca no repositório.
+- **Hostinger:** plano Business, Web App Node.js no data center mais próximo do Japão. Conecte o repositório do GitHub quando houver app para publicar e teste cedo o deploy do monorepo (ADR 0013).
+- Supabase Pro só no gatilho de dados reais (ADR 0015).
 
 ## 4. Marco M0 — tarefas para o Claude Code
 
