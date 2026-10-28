@@ -12,9 +12,20 @@
     "theme": "Tema",
     "mode": "Modo",
     "language": "Idioma",
-    "hues": { "azul": "Azul", "grafite": "Grafite", "roxo": "Roxo" },
-    "modes": { "claro": "Claro", "escuro": "Escuro", "sistema": "Sistema" },
-    "languages": { "ja": "日本語", "pt": "Português" }
+    "hues": {
+      "azul": "Azul",
+      "grafite": "Grafite",
+      "roxo": "Roxo"
+    },
+    "modes": {
+      "claro": "Claro",
+      "escuro": "Escuro",
+      "sistema": "Sistema"
+    },
+    "languages": {
+      "ja": "日本語",
+      "pt": "Português"
+    }
   },
   "home": {
     "title": "NEO-SYSTEM em construção",
@@ -180,6 +191,23 @@
     "max": "Valor acima do máximo.",
     "employeeLoginId": "ID com 8 dígitos.",
     "pin": "PIN com 4 dígitos.",
-    "pinTrivial": "PIN fácil demais. Evite números repetidos ou em sequência."
+    "pinTrivial": "PIN fácil demais. Evite números repetidos ou em sequência.",
+    "invalid": "Valor inválido."
+  },
+  "errors": {
+    "validation": "Confira os campos destacados.",
+    "conflict": "Este registro foi alterado por outra pessoa ou já existe. Recarregue e tente de novo.",
+    "not_found": "Não encontramos o que você procurava.",
+    "forbidden": "Você não tem permissão para esta ação.",
+    "company_read_only": "A empresa está em modo somente leitura. Nada pode ser criado ou alterado.",
+    "module_disabled": "Este módulo não está contratado.",
+    "rate_limited": "Muitas tentativas seguidas. Espere um pouco e tente de novo.",
+    "timeout": "O servidor demorou para responder. Tente de novo.",
+    "unavailable": "Sem conexão com o servidor. Confira a internet e tente de novo.",
+    "internal": "Algo deu errado do nosso lado. Já registramos o problema.",
+    "requestId": "Código para o suporte: {id}",
+    "retry": "Tentar de novo",
+    "pageTitle": "Esta página não carregou",
+    "pageText": "Algo deu errado ao abrir esta página. O resto do sistema continua funcionando."
   }
 }

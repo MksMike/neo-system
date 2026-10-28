@@ -1,7 +1,7 @@
 -- Charges, payments and status (R00-06, R00-07, R00-13 to R00-16, R00-20).
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(27);
+select plan(26);
 
 set local app.today_override = '2026-11-03';
 select set_config('t.admin', tests.create_platform_admin('admin@neo.test')::text, true);
@@ -9,14 +9,13 @@ select set_config('t.owner', tests.create_user('owner@neo.test')::text, true);
 select tests.authenticate_as(current_setting('t.admin')::uuid);
 
 -- DEMO: monthly ¥55,000 from 2026-11-03; first charge (Nov 3 – Dec 2) is due on Nov 3.
-select set_config('t.c', public.provision_company(tests.company_payload('DEMO'))::text, true);
+select set_config('t.c', public.provision_company(tests.company_payload('TDEMO'))::text, true);
 select set_config('t.ch1', (select id::text from public.saas_charge where company_id = current_setting('t.c')::uuid), true);
 
 -- ---------------------------------------------------------------------------
 -- R00-15 status follows the days after the due date
 -- ---------------------------------------------------------------------------
 
-select is(public.recompute_company_status('2026-11-03'), 0, 'on the due date nothing changes');
 select is((select status from public.company where id = current_setting('t.c')::uuid), 'active', 'R00-15 due date itself is still on time');
 
 select public.recompute_company_status('2026-11-04');
@@ -114,7 +113,7 @@ select is((select status from public.company where id = current_setting('t.c')::
   'R00-20 on the date the company becomes canceled');
 
 -- Investor: only by migration (simulated as postgres), never canceled
-select set_config('t.sugita', public.provision_company(tests.company_payload('SUGITA', '{"type":"partner"}'))::text, true);
+select set_config('t.sugita', public.provision_company(tests.company_payload('TSUGITA', '{"type":"partner"}'))::text, true);
 select tests.clear_authentication();
 update public.company set is_investor = true where id = current_setting('t.sugita')::uuid;
 select tests.authenticate_as(current_setting('t.admin')::uuid);

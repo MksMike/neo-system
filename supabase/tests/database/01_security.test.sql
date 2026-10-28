@@ -57,8 +57,8 @@ select set_config('t.worker_a', tests.create_user('worker-a@neo.test')::text, tr
 select set_config('t.stranger', tests.create_user('stranger@neo.test')::text, true);
 
 select tests.authenticate_as(current_setting('t.admin')::uuid);
-select set_config('t.a', public.provision_company(tests.company_payload('ALPHA', null, '{employees}'))::text, true);
-select set_config('t.b', public.provision_company(tests.company_payload('BRAVO', null, '{employees,organizations}'))::text, true);
+select set_config('t.a', public.provision_company(tests.company_payload('TALPHA', null, '{employees}'))::text, true);
+select set_config('t.b', public.provision_company(tests.company_payload('TBRAVO', null, '{employees,organizations}'))::text, true);
 
 select tests.clear_authentication();
 select tests.add_member(current_setting('t.owner_a')::uuid, current_setting('t.a')::uuid, 'owner');
@@ -89,7 +89,7 @@ select throws_ok(
   '42501', null, 'a regular user cannot update company directly'
 );
 select throws_ok(
-  $$ select public.provision_company(tests.company_payload('HACK')) $$,
+  $$ select public.provision_company(tests.company_payload('THACK')) $$,
   'P0001', 'forbidden', 'a regular user cannot provision a company'
 );
 select is(public.has_module(current_setting('t.a')::uuid, 'employees'), false,
@@ -111,7 +111,10 @@ select throws_ok(
 -- ---------------------------------------------------------------------------
 
 select tests.authenticate_as(current_setting('t.admin')::uuid);
-select is((select count(*)::int from public.company), 2, 'Super Admin with 2FA sees both companies');
+select is(
+  (select count(*)::int from public.company where id in (current_setting('t.a')::uuid, current_setting('t.b')::uuid)),
+  2, 'Super Admin with 2FA sees both companies'
+);
 select is(
   (select count(*)::int from public.membership where company_id = current_setting('t.a')::uuid),
   2, 'Super Admin sees the memberships of a company (Users tab)'
@@ -124,7 +127,7 @@ select is(
 select tests.authenticate_as(current_setting('t.owner_a')::uuid);
 select is(
   (public.my_company_access(current_setting('t.a')::uuid) ->> 'code'),
-  'ALPHA', 'the owner of A reads the access summary of A'
+  'TALPHA', 'the owner of A reads the access summary of A'
 );
 select throws_ok(
   $$ select public.my_company_access(current_setting('t.b')::uuid) $$,

@@ -14,11 +14,15 @@
     "test": "turbo run test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:start": "supabase start -x studio,imgproxy,inbucket,mailpit,edge-runtime,logflare,vector,supavisor",
+    "db:start": "supabase start -x studio,imgproxy,edge-runtime,logflare,vector,supavisor",
     "db:stop": "supabase stop",
     "db:reset": "supabase db reset --local",
     "db:lint": "supabase db lint --local --level warning --fail-on warning",
-    "db:test": "supabase test db --local"
+    "db:test": "supabase test db --local",
+    "db:types": "supabase gen types typescript --local --schema public > packages/db/src/database.types.ts && prettier --write packages/db/src/database.types.ts",
+    "env:local": "node scripts/env-local.mjs",
+    "jobs:run": "node scripts/run-jobs.mjs",
+    "jobs:watch": "node scripts/run-jobs.mjs --watch"
   },
   "prettier": "@neo/config/prettier",
   "devDependencies": {
