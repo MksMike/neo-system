@@ -281,7 +281,7 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 ### 00 · Plataforma
 
 - **Escopo:** cadastro de empresas, planos (Básico, Padrão, Completo), ajustes individuais, add-ons, cotas, assinatura, bloqueio, cobrança do SaaS, tabelas legais versionadas, painel Super Admin.
-- **Regras:** cobrança = base mensal (inclui N pessoas) + preço por funcionário ativo no mês (teve ao menos um registro; 下請 conta). Planos se diferenciam por funcionalidade. Admins (Proprietário + Gestor) por plano: Básico 2, Padrão 3, Completo ilimitado. Gateway de cobrança recorrente na fase 3. Limite atingido bloqueia só novos cadastros. Status: Teste → Ativo → Em atraso (tolerância) → Somente leitura → Bloqueado; Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
+- **Regras:** contrato por cliente, de três tipos (ADR 0018): mensal e anual, com valor fixo em iene e vencimento; Parceiro (vitalício), sem receita, para a Sugita e as parceiras indicadas por ela. Módulos opcionais marcados por cliente; planos Básico, Padrão e Completo são só modelos que pré-marcam módulos. Pagamento por 銀行振込 ou 現金, registrado manualmente; gateway na fase 3. Período de teste opcional. Status: Teste → Ativo → Em atraso (até 7 dias) → Somente leitura → Bloqueado (+15 dias); o contrato Parceiro nunca muda de status sozinho. O Super Admin pode suspender, reativar e cancelar qualquer empresa, com motivo e log. Cancelado guarda dados para exportação pelo prazo legal. Bloqueio nunca apaga dados e mantém o funcionário vendo os próprios holerites. Acesso de suporte só com permissão e log.
 - **Pronto quando:** uma empresa nova é criada, recebe plano e ajuste, e cada limite e funcionalidade é recusado pelo servidor quando fora do plano (teste automatizado por regra).
 
 ### 01 · Identidade e acesso
@@ -548,7 +548,8 @@ Nenhuma pendência abaixo bloqueia o M0; as de dados da Sugita precisam estar re
 
 ### Comercial
 
-- [ ] Preços (base, pessoas incluídas, preço por pessoa por plano, add-ons, implantação), cotas de IA e armazenamento, dias de tolerância, condições do plano fundador (antes do M6).
+- [x] Modelo de cobrança: valor fixo por contrato (mensal, anual ou Parceiro), tolerância de 7 + 15 dias, teste opcional (ADR 0018, 2026-10-28).
+- [ ] Valores de cada contrato, cotas de IA e armazenamento, limite de admins por contrato (antes do SaaS comercial).
 - [ ] Termos de uso e contrato do SaaS (antes do M6).
 
 ### Riscos
