@@ -4,8 +4,8 @@
 
 ## 1. Objetivo e escopo
 
-- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (telefone + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
-- **Regras:** cadastro do funcionário existe sem login; qualquer login (e-mail, telefone ou LINE) pode estar ligado a mais de uma empresa, e a pessoa escolhe a empresa depois de entrar; a sessão do funcionário expira após 7 dias sem uso. Permissão checada no servidor e no RLS, por participação (`membership`).
+- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (ID de 8 dígitos + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
+- **Regras:** cadastro do funcionário existe sem login; qualquer login (e-mail, ID ou LINE) pode estar ligado a mais de uma empresa, e a pessoa escolhe a empresa depois de entrar; a sessão do funcionário expira após 7 dias sem uso. Permissão checada no servidor e no RLS, por participação (`membership`).
 - **Pronto quando:** testes provam que nenhum papel lê ou altera fora do seu escopo, e que nenhuma empresa enxerga outra.
 
 ## 2. Decisões
@@ -13,7 +13,7 @@
 | Data | Decisão | ADR |
 | --- | --- | --- |
 | 2026-10-28 | Escopo inicial herdado do documento-âncora | — |
-| 2026-10-28 | Login do funcionário por telefone + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, expiração após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership`; 2FA exigido também no banco (`aal2`) | 0016 (substitui 0004) |
+| 2026-10-28 | Login do funcionário por ID de 8 dígitos + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, expiração após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership`; 2FA exigido também no banco (`aal2`) | 0016 (substitui 0004) |
 
 ## 3. Modelo de dados
 

@@ -160,7 +160,7 @@ Entrada no sistema. Rota base `/(auth)`.
 
 **Contém**
 
-- Telefone e PIN de 4 dígitos (ADR 0016)
+- ID de 8 dígitos (lembrado no aparelho ou lido por QR code) e PIN de 4 dígitos (ADR 0016)
 - Teclado numérico grande
 - Idioma
 

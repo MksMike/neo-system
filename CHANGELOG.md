@@ -13,10 +13,10 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0013: hospedagem do MVP na Hostinger (Node.js) com Supabase Free em Tóquio; substitui a ADR 0005. (2026-10-28)
 - ADR 0014: tarefas em segundo plano por fila no Postgres (`job`), pg_cron e cron da Hostinger, com outbox para efeitos externos. (2026-10-28)
 - ADR 0015: segurança do MVP com dados só fictícios e gatilho para o nível completo de proteção de dados antes do primeiro dado real. (2026-10-28)
-- ADR 0016: identidade e acesso. Funcionário entra com telefone + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, sessão expira após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership` com 2FA exigido também no banco. Substitui a ADR 0004. (2026-10-28)
+- ADR 0016: identidade e acesso. Funcionário entra com ID numérico de 8 dígitos + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, sessão expira após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership` com 2FA exigido também no banco. Substitui a ADR 0004. (2026-10-28)
 
 ### Alterado
 
 - ADR 0012 aceita: banco único com provisionamento transacional; convite do Proprietário pela fila; compromissos para o banco dedicado futuro (UUID, `company_id`, exportação por empresa). (2026-10-28)
 - Documento-âncora, `docs/02` e guia de início: Vercel trocada pela Hostinger; jobs pela fila `job` em vez de Edge Functions; tabela de fases por gatilho de dados reais. (2026-10-28)
-- Documento-âncora, camada 01 e inventário de telas: login do funcionário por telefone + PIN; ponto #8 das decisões marcado como resolvido. (2026-10-28)
+- Documento-âncora, camada 01 e inventário de telas: login do funcionário por ID de 8 dígitos + PIN; ponto #8 das decisões marcado como resolvido. (2026-10-28)
