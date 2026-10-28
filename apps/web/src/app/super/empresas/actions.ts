@@ -2,8 +2,11 @@
 
 import { ActionError, type Json } from '@neo/db';
 import { companyCode } from '@neo/validation';
+import { after } from 'next/server';
 import { z } from 'zod';
 import { defineAction } from '@/server/define-action';
+import { processQueue } from '@/server/jobs/process';
+import { logger } from '@/server/logger';
 import { getSession, userClient } from '@/server/session';
 import { provisionSchema } from './schema';
 
@@ -70,6 +73,19 @@ export const provisionCompany = defineAction({
     const { data: companyId, error } = await supabase.rpc('provision_company', { p: payload });
     if (error) throw error;
     ctx.log('APP.COMPANY.PROVISIONED', { companyId, contractType: ct.type });
+    // Send the owner invitation now instead of waiting for the cron (which stays as the retry).
+    after(async () => {
+      try {
+        await processQueue();
+      } catch (error) {
+        logger.log('APP.UNHANDLED.ERROR', {
+          route: 'action:company.provision',
+          data: { message: error instanceof Error ? error.message : String(error) },
+        });
+      } finally {
+        await logger.flush();
+      }
+    });
     return { companyId, code: c.code };
   },
 });

@@ -225,3 +225,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-29 | 0.7 | SA-07: layout de `/super` (menu agrupado em Clientes e Plataforma, cabeçalho com tema, idioma e sair, gaveta no celular) e páginas com título e estado vazio | SA-07 |
 | 2026-10-29 | 0.8 | SA-08: lista de empresas (`list_companies`) e assistente de cadastro; `provision_company` aceita o `id` da tela (repetição segura) | SA-08 |
 | 2026-10-29 | 0.9 | SA-09: página da empresa com abas; `set_company_modules` e `change_contract` com concorrência otimista; assistente sugere o dia 1º nos dias 29 a 31 | SA-09 |
+| 2026-10-29 | 0.10 | Convite do Proprietário enviado logo após o cadastro (fila processada no `after`); SA-10 a SA-12 pausadas | — |
