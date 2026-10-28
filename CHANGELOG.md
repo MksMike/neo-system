@@ -10,6 +10,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Página âncora da identidade visual (`docs/design-system.html`) e tokens (`docs/design-tokens.json`). (2026-10-28)
 - `COMECE-AQUI.md`: arquivo de partida com o Super Admin v1 (módulos, licença vitalícia/mensal/anual, status e bloqueio, pagamentos do SaaS), regras R00-01 a R00-11, modelo de dados, telas e 10 tarefas para o Claude Code. (2026-10-28)
 - ADR 0012: provisionamento de empresas em banco único com RLS; banco dedicado como plano pago. (2026-10-28)
+- CI no GitHub Actions (tarefa SA-02): em todo PR e push na `main`, formato, lint, tipos, testes e build; segurança com gitleaks (segredos), Semgrep (regras OWASP, TypeScript, React, Next.js) e `pnpm audit`. Dependabot semanal para npm e GitHub Actions, com PRs agrupados e sem período de espera (decisão: sempre a versão mais nova; as regras do Semgrep sobre espera ficam desligadas). Actions referenciadas por commit (SHA), atualizadas pelo Dependabot. Proteção da cadeia de dependências no pnpm: `trustPolicy: no-downgrade` (com exceção justificada para `semver@6.3.1`), `blockExoticSubdeps` e scripts de instalação negados explicitamente (`allowBuilds`). Os testes de banco (Supabase local e pgTAP) entram na SA-04. (2026-10-28)
 - ADR 0013: hospedagem do MVP na Hostinger (Node.js) com Supabase Free em Tóquio; substitui a ADR 0005. (2026-10-28)
 - ADR 0014: tarefas em segundo plano por fila no Postgres (`job`), pg_cron e cron da Hostinger, com outbox para efeitos externos. (2026-10-28)
 - ADR 0015: segurança do MVP com dados só fictícios e gatilho para o nível completo de proteção de dados antes do primeiro dado real. (2026-10-28)
@@ -27,6 +28,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 
 ### Alterado
 
+- `@neo/ui`: declara `@types/node`, que faltava no `package.json` e só passava localmente (encontrado pelo CI). (2026-10-28)
 - `docs/02`: as versões não são mais fixadas no `package.json`; ficam em faixas `^`. (2026-10-28)
 - ADR 0012 aceita: banco único com provisionamento transacional; convite do Proprietário pela fila; compromissos para o banco dedicado futuro (UUID, `company_id`, exportação por empresa). (2026-10-28)
 - Documento-âncora, `docs/02` e guia de início: Vercel trocada pela Hostinger; jobs pela fila `job` em vez de Edge Functions; tabela de fases por gatilho de dados reais. (2026-10-28)
