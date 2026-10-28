@@ -22,6 +22,8 @@ const config: NextConfig = {
   // In development Next.js prints every Server Function call with its arguments, which would put
   // passwords and personal data in the terminal (ADR 0022: no secrets in logs).
   logging: { serverFunctions: false },
+  // The dev badge would sit over the bottom of the side menu (left); production never shows it.
+  devIndicators: { position: 'bottom-right' },
   reactStrictMode: true,
   transpilePackages: ['@neo/ui', '@neo/validation'],
   headers() {

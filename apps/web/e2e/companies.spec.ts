@@ -11,10 +11,11 @@ import {
 
 test('lists the seed companies and searches by code', async ({ page }) => {
   await signInAsSuperAdmin(page);
-  await page.goto('/super/empresas');
+  // The local database keeps the companies of earlier runs: the seed ones may be on any page.
+  await page.goto('/super/empresas?q=DEMO');
   const table = page.getByRole('table', { name: 'Empresas' });
-  await expect(table.getByRole('cell', { name: 'SUGITA', exact: true })).toBeVisible();
   await expect(table.getByRole('cell', { name: 'DEMO', exact: true })).toBeVisible();
+  await expect(page.getByText(/^\d+–\d+ de \d+$/)).toBeVisible();
 
   await page.getByRole('searchbox', { name: 'Buscar' }).fill('sugita');
   await page.getByRole('button', { name: 'Filtrar' }).click();
@@ -73,7 +74,7 @@ test('creates a monthly company in 4 steps, with dependencies and the invitation
   await expect(page.getByText('￥48,000')).toBeVisible();
   await page.getByRole('button', { name: 'Criar empresa' }).click();
 
-  await expect(page).toHaveURL(new RegExp(`/super/empresas\\?criada=${code}$`));
+  await expect(page).toHaveURL(new RegExp(`/super/empresas\\?q=${code}&criada=${code}$`));
   await expect(page.getByText(`Empresa ${code} criada`)).toBeVisible();
   const row = page.getByRole('row').filter({ hasText: code });
   await expect(row).toContainText('Mensal');

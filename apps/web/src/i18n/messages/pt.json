@@ -593,8 +593,151 @@
     }
   },
   "admin": {
-    "title": "Painel da empresa",
-    "description": "As telas do painel da empresa entram nas próximas tarefas.",
+    "nav": {
+      "label": "Menu do painel",
+      "subtitle": "Painel da empresa",
+      "open": "Abrir menu",
+      "collapse": "Recolher menu",
+      "pin": "Manter menu aberto",
+      "dashboard": "Dashboard",
+      "employees": "Funcionários",
+      "clients": "Clientes",
+      "assignments": "Escalações",
+      "documents": "Documentos",
+      "cashflow": "Fluxo de caixa",
+      "ai": "Inteligência Artificial",
+      "settings": "Configurações"
+    },
+    "sections": {
+      "employees": "Cadastro, documentos, ficha técnica, contrato e holerites de cada funcionário.",
+      "clients": "Clientes, subcontratantes com a cor de cada um, documentos e contratos.",
+      "assignments": "Escalações, calendário por escalação, mês e semana, e o histórico das fechadas.",
+      "documents": "Pastas da empresa, do kintai, do seikyu, de contratos e de cada pessoa.",
+      "cashflow": "Faturas, despesas, adiantamentos, seguros sociais e relatórios.",
+      "ai": "Integração com a Inteligência Artificial do sistema.",
+      "settings": "Dados da empresa e configurações do sistema."
+    },
+    "screensOf": "Telas de {section}",
+    "milestones": {
+      "demo": "Em construção · demonstração",
+      "m1": "M1 · Cadastros e configurações",
+      "m2": "M2 · Escalação e apontamento",
+      "m3": "M3 · Fechamento e faturamento",
+      "m4": "M4 · Folha e pagamentos",
+      "phase2": "Fase 2"
+    },
+    "dashboard": {
+      "description": "Visão geral da empresa e atalhos para cada área do sistema.",
+      "sections": "Áreas do sistema"
+    },
+    "screens": {
+      "employees": {
+        "list": {
+          "title": "Lista",
+          "text": "Todos os funcionários, com busca e filtro por vínculo (社員, パート, 下請) e situação. Cada um abre a ficha técnica, o contrato e o histórico."
+        },
+        "new": {
+          "title": "Novo cadastro",
+          "text": "Cadastro do funcionário com os dados essenciais e a criação do acesso ao app: ID de 8 dígitos e PIN."
+        },
+        "documents": {
+          "title": "Documentos",
+          "text": "Cadastro de documentos e vínculo com cada funcionário: 在留カード, qualificações, 健康診断 e contratos, com alerta de vencimento."
+        },
+        "payslips": {
+          "title": "Holerites",
+          "text": "Os 給与明細 de cada mês, em PDF, com o histórico de cada funcionário."
+        }
+      },
+      "clients": {
+        "list": {
+          "title": "Lista",
+          "text": "Todos os clientes, com busca. Cada um abre os dados completos, os subcontratantes, os documentos, o histórico e os contratos."
+        },
+        "new": {
+          "title": "Novo cadastro",
+          "text": "Cadastro do cliente com os dados completos: endereço, telefone, representante, 締め e prazo de pagamento."
+        },
+        "subcontractors": {
+          "title": "Subcontratantes",
+          "text": "Cadastro dos subcontratantes e vínculo com os clientes. Cada um tem uma cor própria, usada para diferenciá-los no calendário e no 勤怠表."
+        },
+        "documents": {
+          "title": "Documentos",
+          "text": "Documentos, histórico e contratos de cada cliente."
+        },
+        "portal": {
+          "title": "Painel do Cliente",
+          "text": "Portal onde o cliente entra para receber o seikyu e o kintai."
+        }
+      },
+      "assignments": {
+        "calendar": {
+          "title": "Calendário",
+          "text": "Visão completa de cada escalação, do mês selecionado e da semana, com os funcionários de cada dia."
+        },
+        "new": {
+          "title": "Nova escalação",
+          "text": "Cria a escalação (cliente, subcontratante, local, período e horário) e seleciona os funcionários."
+        },
+        "history": {
+          "title": "Histórico",
+          "text": "Visão geral das escalações já fechadas, com acesso ao kintai e ao seikyu de cada uma."
+        }
+      },
+      "documents": {
+        "folders": {
+          "title": "Pastas",
+          "text": "Pastas da empresa (kintai, seikyu, empresa, contratos, outros), pessoais e de seguimento."
+        },
+        "excel": {
+          "title": "Excel",
+          "text": "Criar um documento Excel novo ou abrir um existente, sem sair do sistema."
+        },
+        "word": {
+          "title": "Word",
+          "text": "Criar um documento Word novo ou abrir um existente, sem sair do sistema."
+        }
+      },
+      "cashflow": {
+        "invoices": {
+          "title": "Faturas",
+          "text": "Faturas a receber, pendentes, enviadas e pagas."
+        },
+        "expenses": {
+          "title": "Despesas",
+          "text": "Nova despesa, categorias de despesas e despesas recorrentes."
+        },
+        "advances": {
+          "title": "Adiantamentos",
+          "text": "Novo adiantamento, visão geral dos adiantamentos e relatório."
+        },
+        "socialInsurance": {
+          "title": "Seguros sociais",
+          "text": "Cadastro e acompanhamento dos seguros sociais."
+        },
+        "reports": {
+          "title": "Relatórios",
+          "text": "Receitas recebidas, despesas e folha de pagamento."
+        }
+      },
+      "ai": {
+        "integration": {
+          "title": "Integração",
+          "text": "Assistente de Inteligência Artificial integrado às telas do sistema. A IA sugere; quem decide e envia é sempre uma pessoa."
+        }
+      },
+      "settings": {
+        "company": {
+          "title": "Dados da empresa",
+          "text": "Dados e marca da empresa: logo, 社印, endereço e número de registro."
+        },
+        "system": {
+          "title": "Sistema",
+          "text": "Configurações do sistema: 締め, jornada, adicionais, catálogos e modo de registro do ponto."
+        }
+      }
+    },
     "status": {
       "trial": "Teste",
       "active": "Ativa",

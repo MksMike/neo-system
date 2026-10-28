@@ -88,3 +88,12 @@ export async function invitationLink(to: string, timeoutMs = 45_000): Promise<st
   }
   throw new Error(`No invitation e-mail for ${to} within ${String(timeoutMs)} ms`);
 }
+
+/** Owner of the DEMO company (dev seed): lands on the office panel. */
+export async function signInAsDemoOwner(page: Page) {
+  await page.goto('/login');
+  await page.getByLabel('E-mail').fill('dono.demo@neo.local');
+  await page.getByLabel('Senha').fill('neo-local-2026');
+  await page.getByRole('button', { name: 'Entrar' }).click();
+  await expect(page).toHaveURL(/\/admin$/);
+}

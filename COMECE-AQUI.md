@@ -43,6 +43,19 @@ E-mails enviados localmente (como o convite) aparecem no Mailpit: http://127.0.0
 
 O Super Admin fica, por enquanto, com **cadastrar empresas e liberar o acesso do Proprietário** (SA-01 a SA-09, mais o convite enviado na hora). As tarefas SA-10 a SA-12 ficam **pausadas** e voltam depois do primeiro marco do sistema da empresa, que é o que o dono da Sugita precisa ver.
 
+## Demonstração: ciclo do dia a dia (ADR 0025)
+
+Uma fatia que funciona de ponta a ponta para mostrar ao dono da Sugita. Todas as regras transversais valem; só os campos são reduzidos. O menu segue o [mapa de funcionalidades](docs/mapa-de-funcionalidades.md).
+
+| # | Tarefa | Entrega | Camadas |
+| --- | --- | --- | --- |
+| D-01 ✅ | Menu do painel | `/admin` com o menu do mapa: recolhível em ícones (expande ao passar o mouse, lembra a escolha), gaveta pelo logo no celular com animação, todas as telas com título, abas e o marco em que chegam | 02 |
+| D-02 | Clientes, subs e locais | Lista e cadastro rápido de clientes; subcontratantes vinculados com cor e sigla; locais | 04 |
+| D-03 | Funcionários | Lista e cadastro básico; criação do acesso ao app (ID de 8 dígitos + PIN) | 05, 01 |
+| D-04 | Escalações | Nova escalação (cliente, sub, local, período, horário) com seleção de funcionários; calendário por escalação, mês e semana | 06 |
+| D-05 | App do funcionário | `/m`: login por ID + PIN e card "Hoje" (定時 ou exceção); a confirmação aparece no calendário do escritório | 07 |
+| D-06 | Dados e roteiro da demo | Dados fictícios realistas (seed) e roteiro da apresentação | — |
+
 ## Tarefas do Super Admin v1
 
 | # | Tarefa | Entrega | ADRs |
