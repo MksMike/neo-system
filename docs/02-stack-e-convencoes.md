@@ -1,6 +1,6 @@
 # Stack e convenções — NEO-SYSTEM
 
-Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura) e os ADRs 0001, 0006, 0007 e 0011. Versões exatas são fixadas no `package.json` no momento do scaffold (M0) e atualizadas por PR.
+Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura) e os ADRs 0001, 0006, 0007 e 0011. Nenhuma versão é fixada: o `package.json` declara cada dependência com a faixa `^` da versão atual (o `pnpm add` já grava assim), e o `pnpm-lock.yaml` registra o que foi instalado. Quando uma incompatibilidade obriga a ficar numa versão maior anterior, o motivo fica anotado na tabela abaixo.
 
 ## Stack
 
@@ -8,7 +8,7 @@ Versão 1.0 · 28/10/2026. Complementa o documento-âncora (seção Arquitetura)
 |---|---|---|
 | Runtime | Node.js LTS (22 ou superior) | No Windows, instalar por `fnm` ou instalador oficial |
 | Gerenciador e monorepo | pnpm + Turborepo | `pnpm` via `corepack enable` |
-| Linguagem | TypeScript em modo `strict` | Tipos do banco gerados pelo Supabase CLI |
+| Linguagem | TypeScript em modo `strict` | Tipos do banco gerados pelo Supabase CLI. Na faixa `^6` até o typescript-eslint aceitar a 7.x |
 | Aplicação | Next.js (App Router), React Server Components, Server Actions | Admin, app do funcionário (PWA) e Super Admin no mesmo app |
 | Estilo | Tailwind CSS v4 | Tokens do design system como variáveis CSS |
 | Componentes | shadcn/ui (Radix por baixo) | Copiados para `packages/ui`, adaptados aos tokens |

@@ -22,9 +22,11 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0022: observabilidade. Eventos com código `ÁREA.CATEGORIA.EVENTO` e severidade, catálogo em `packages/observability`, eventos por 30 dias e métricas por 1 ano no Postgres, painel `/super/sistema` (saúde, logs, gargalos, segurança, fila, banco), alertas só no painel e logs sem dados pessoais. (2026-10-28)
 - ADR 0023: segurança da aplicação. `anon` sem acesso, escrita só por funções SQL, `search_path` fixo, SQL dinâmico só com `format`, `server-only`, cabeçalhos de segurança; no CI, `supabase db lint`, teste de RLS e de permissões, Semgrep, gitleaks e `pnpm audit`; OWASP ZAP semanal; teste de invasão antes dos dados reais. (2026-10-28)
 - Especificação do Super Admin v1 na camada 00: modelo de dados, funções no banco, regras R00-01 a R00-20 (cobrança antecipada, pagamento menor quitado ou em aberto, sem limite de admins, sem PDF do SaaS na v1), telas, efeitos de cada status e permissões. (2026-10-28)
+- Monorepo pnpm + Turborepo (tarefa SA-01): `packages/config` (tsconfig strict com `noUncheckedIndexedAccess`, ESLint com tipos, Prettier), pacotes `ui`, `calc`, `pdf`, `db`, `ai`, `validation` e `observability` vazios, `apps/web` reservado para a SA-03. Scripts `dev`, `build`, `lint`, `typecheck`, `test` e `format` na raiz. Dependências em faixas `^`, sem versões fixas. (2026-10-28)
 
 ### Alterado
 
+- `docs/02`: as versões não são mais fixadas no `package.json`; ficam em faixas `^`. (2026-10-28)
 - ADR 0012 aceita: banco único com provisionamento transacional; convite do Proprietário pela fila; compromissos para o banco dedicado futuro (UUID, `company_id`, exportação por empresa). (2026-10-28)
 - Documento-âncora, `docs/02` e guia de início: Vercel trocada pela Hostinger; jobs pela fila `job` em vez de Edge Functions; tabela de fases por gatilho de dados reais. (2026-10-28)
 - Documento-âncora, camada 01 e inventário de telas: login do funcionário por ID de 8 dígitos + PIN; ponto #8 das decisões marcado como resolvido. (2026-10-28)

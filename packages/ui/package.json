@@ -1,0 +1,20 @@
+{
+  "name": "@neo/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@neo/config": "workspace:*",
+    "eslint": "^10.13.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5"
+  }
+}
