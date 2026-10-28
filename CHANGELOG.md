@@ -10,7 +10,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - Página âncora da identidade visual (`docs/design-system.html`) e tokens (`docs/design-tokens.json`). (2026-10-28)
 - `COMECE-AQUI.md`: arquivo de partida com o Super Admin v1 (módulos, licença vitalícia/mensal/anual, status e bloqueio, pagamentos do SaaS), regras R00-01 a R00-11, modelo de dados, telas e 10 tarefas para o Claude Code. (2026-10-28)
 - ADR 0012 (proposta): provisionamento de empresas em banco único com RLS; banco dedicado como plano pago. (2026-10-28)
-- Monorepo pnpm + Turborepo (tarefa 01): `packages/config` (tsconfig strict com `noUncheckedIndexedAccess`, ESLint com tipos, Prettier), pacotes `ui`, `calc`, `pdf`, `db` e `ai` vazios, `apps/web` reservado para a tarefa 02. Scripts `dev`, `build`, `lint`, `typecheck`, `test` e `format` na raiz. Dependências em faixas `^`, sem versões fixas. (2026-10-28)
+- Monorepo pnpm + Turborepo (tarefa 01): `packages/config` (tsconfig strict com `noUncheckedIndexedAccess`, ESLint com tipos, Prettier), pacotes `ui`, `calc`, `pdf`, `db`, `ai`, `validation` e `observability` vazios, `apps/web` reservado para a tarefa 02. Scripts `dev`, `build`, `lint`, `typecheck`, `test` e `format` na raiz. Dependências em faixas `^`, sem versões fixas. (2026-10-28)
 
 ### Alterado
 

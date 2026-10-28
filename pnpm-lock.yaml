@@ -251,6 +251,21 @@ importers:
         specifier: ^5.0.5
         version: 5.0.5(vite@8.3.5)
 
+  packages/observability:
+    devDependencies:
+      '@neo/config':
+        specifier: workspace:*
+        version: link:../config
+      eslint:
+        specifier: ^10.13.0
+        version: 10.13.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.5
+        version: 5.0.5(vite@8.3.5)
+
   packages/pdf:
     devDependencies:
       '@neo/config':
@@ -267,6 +282,21 @@ importers:
         version: 5.0.5(vite@8.3.5)
 
   packages/ui:
+    devDependencies:
+      '@neo/config':
+        specifier: workspace:*
+        version: link:../config
+      eslint:
+        specifier: ^10.13.0
+        version: 10.13.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.5
+        version: 5.0.5(vite@8.3.5)
+
+  packages/validation:
     devDependencies:
       '@neo/config':
         specifier: workspace:*
