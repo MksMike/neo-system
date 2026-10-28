@@ -29,7 +29,7 @@ gh repo create neo-system-jp/neo-system --private --source . --push
 ```
 
 3. Copie `docs/modelos/pull_request_template.md` para `.github/pull_request_template.md` (o GitHub usa esse caminho para o modelo de PR) e faça commit.
-4. Em Settings → Branches do repositório, proteja a `main` (exigir PR e CI verde).
+4. Em Settings → Branches do repositório, proteja a `main` (exigir PR e CI verde). Em repositório privado, isso exige GitHub Pro (ADR 0017).
 5. Ative 2FA na conta do GitHub.
 
 ## 3. Contas de infraestrutura (gratuitas no desenvolvimento)

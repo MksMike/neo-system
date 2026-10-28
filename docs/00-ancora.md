@@ -180,7 +180,7 @@ Serviços gerenciados, com o código portável para qualquer servidor. Atualizad
 | Fase 2 | + PITR, instância maior conforme o uso | + VPS pequena para processos sempre ligados (IMAP, LINE) | — |
 
 - **Planos gratuitos nunca com dados reais:** o Supabase Free não tem backup automático e pausa após 1 semana sem uso. No MVP, o backup externo e o cron da fila compensam isso.
-- **Backup externo diário desde o M0:** dump do banco para um storage separado (GitHub Actions), com teste de restauração mensal.
+- **Backup externo diário desde o M0:** dump do banco criptografado no Cloudflare R2 (GitHub Actions), com teste de restauração automático mensal (ADR 0017).
 - **Regra de portabilidade:** regras de negócio em Postgres padrão (SQL + RLS); login, arquivos e filas do Supabase atrás de uma camada própria no código; Next.js sem recursos exclusivos da Vercel. Migrar para VPS ou outra nuvem deve ser troca de implementação, não reescrita.
 - **VPS só para processos sempre ligados:** entra na fase 2, para IMAP e LINE, consumindo a mesma fila. Hospedar tudo numa VPS continua adiado: transfere ao Mike a operação de um servidor com dados de folha.
 - **Hostinger:** roda o app Next.js; requisições são cortadas em 120 s, não há processo sempre ligado nem WebSocket de entrada, e o app dorme sem acesso (ADR 0013). O data center é o mais próximo do Japão disponível; o banco fica no Supabase em Tóquio.
@@ -414,7 +414,7 @@ O desenvolvimento acontece por marcos pequenos, cada um demonstrável à Sugita,
 2. Branch a partir de `main`: `feat/10-folha-adiantamentos`, `fix/07-apontamento-corte`.
 3. Commits no padrão Conventional Commits com a camada no escopo: `feat(10): plano de parcelas do adiantamento`.
 4. Pull request com o modelo do repositório (checklist de documentação, testes e migração); revisão antes do merge, mesmo trabalhando sozinho (revisão própria + revisão por IA).
-5. CI obrigatório: tipagem, lint, testes unitários, testes de RLS, validação das migrações.
+5. CI obrigatório: tipagem, lint, testes unitários, testes de RLS, validação das migrações. Deploy pelo CI: migrações primeiro, depois o build publicado na branch `deploy` que a Hostinger observa (ADR 0017).
 6. Merge por squash em `main`; `main` sempre implantável em staging.
 7. Versão publicada a cada marco, com tag (`v0.3.0`) e entrada no CHANGELOG.
 

@@ -14,6 +14,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 - ADR 0014: tarefas em segundo plano por fila no Postgres (`job`), pg_cron e cron da Hostinger, com outbox para efeitos externos. (2026-10-28)
 - ADR 0015: segurança do MVP com dados só fictícios e gatilho para o nível completo de proteção de dados antes do primeiro dado real. (2026-10-28)
 - ADR 0016: identidade e acesso. Funcionário entra com ID numérico de 8 dígitos + PIN de 4 dígitos (senha derivada no servidor, bloqueio por tentativas, sessão expira após 7 dias sem uso); um login pode estar em várias empresas; RLS por `membership` com 2FA exigido também no banco. Substitui a ADR 0004. (2026-10-28)
+- ADR 0017: DevOps. CI em todo PR (lint, typecheck, test, testes de RLS com Supabase local, build); deploy pelo CI com migrações primeiro e build publicado na branch `deploy` da Hostinger; backup diário criptografado no Cloudflare R2 com teste de restauração mensal; Sentry, monitor de disponibilidade e Dependabot. Proteção da `main` pendente (exige GitHub Pro). (2026-10-28)
 
 ### Alterado
 
