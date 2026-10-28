@@ -73,9 +73,11 @@ pnpm test             # testes unitários (Vitest)
 pnpm test:e2e         # testes ponta a ponta (Playwright, a partir da tarefa SA-06)
 pnpm lint && pnpm typecheck
 pnpm format           # Prettier (format:check no CI)
-supabase start        # banco local (Docker, a partir da tarefa SA-04)
-supabase db reset     # recria o banco local com migrações e seeds
-supabase test db      # testes de RLS (pgTAP)
+pnpm db:start        # Supabase local no Docker (portas 55320–55329)
+pnpm db:reset        # recria o banco local com migrações e seeds
+pnpm db:lint         # linter do banco (falha em aviso)
+pnpm db:test         # testes pgTAP (isolamento, permissões, regras)
+pnpm db:stop         # para o Supabase local
 ```
 
 ## Definition of Done

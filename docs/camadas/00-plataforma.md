@@ -58,10 +58,10 @@ Convenções do documento 02: nomes em inglês, `snake_case` no singular. Toda t
 | --- | --- | --- |
 | `platform_admin` | `user_id`, `name`, `is_active` | Quem é Super Admin |
 | `company` | `code` (único), `legal_name`, `legal_name_kana`, `display_name`, `invoice_reg_no`, `postal_code`, `address`, `phone`, `email`, `status`, `status_locked`, `status_reason`, `is_investor`, `referred_by_company_id`, `canceled_on`, `timezone`, `default_locale` | `status_locked` = suspensão manual em vigor; `is_investor` só muda por migração (R00-13) |
-| `module` | `key` (pk), `name_ja`, `name_pt`, `kind` (`base`, `optional`, `addon`), `depends_on text[]`, `sort_order` | Catálogo, via seed |
+| `module` | `key` (pk), `name_ja`, `name_pt`, `kind` (`base`, `optional`, `addon`), `depends_on text[]` (todas), `depends_any text[]` (pelo menos uma, ex.: financeiro precisa de faturamento ou folha), `sort_order` | Catálogo, via seed |
 | `plan_template` | `key`, `name_ja`, `name_pt`, `module_keys text[]` | Básico, Padrão, Completo: só pré-marcam módulos |
-| `company_module` | `company_id`, `module_key`, `enabled`, `valid_from`, `valid_to`, `note` | Histórico por vigência (R00-05) |
-| `contract` | `company_id`, `type` (`monthly`, `annual`, `partner`), `price_yen`, `payment_method` (`transfer`, `cash`), `starts_on`, `billing_day`, `trial_ends_on`, `paid_until`, `grace_days` (7), `block_after_days` (15), `valid_from`, `valid_to`, `is_current`, `note` | Uma linha por versão do contrato |
+| `company_module` | `company_id`, `module_key`, `valid_from`, `valid_to`, `note` | Uma linha por período em que um módulo opcional está ligado; os base estão sempre ligados (R00-05) |
+| `contract` | `company_id`, `type` (`monthly`, `annual`, `partner`), `price_yen`, `payment_method` (`transfer`, `cash`), `starts_on`, `trial_ends_on`, `billing_start` (início do primeiro período pago, dia ≤ 28), `paid_until`, `grace_days` (7), `block_after_days` (15), `valid_from`, `valid_to`, `note` | Uma linha por versão; a atual é a sem `valid_to` |
 | `saas_charge` | `company_id`, `contract_id`, `period_start`, `period_end`, `due_on`, `amount_yen`, `paid_yen`, `fee_yen`, `status` (`open`, `partial`, `paid`, `canceled`) | Uma cobrança por período |
 | `saas_payment` | `company_id`, `charge_id`, `paid_on`, `amount_yen`, `method`, `reference`, `receipt_path`, `settlement` (`full`, `settle_with_fee`, `leave_open`), `note` | Comprovante opcional no Storage privado |
 | `company_status_event` | `company_id`, `from_status`, `to_status`, `reason`, `source` (`auto`, `manual`), `actor_id` | Toda mudança de status |
@@ -70,6 +70,7 @@ Convenções do documento 02: nomes em inglês, `snake_case` no singular. Toda t
 | `membership` | `user_id`, `company_id`, `role` (`owner`, `manager`, `coordinator`, `employee`), `status`, `valid_until` | Camada 01 (ADR 0016) |
 | `owner_invitation` | `company_id`, `email`, `name`, `status` (`pending`, `sent`, `accepted`, `failed`), `job_id` | Convite do Proprietário pela fila |
 | `job` | Ver ADR 0014 | Fila de tarefas |
+| `app.audit_log` | `actor_id`, `scope`, `table_name`, `record_id`, `company_id`, `action`, `old_row`, `new_row` | Gatilho em toda tabela: antes e depois de cada mudança (CLAUDE.md, regra 5). Schema privado, fora da API |
 | `system_event`, `metric_rollup` | Ver ADR 0022 | Observabilidade (só Super Admin) |
 | `login_throttle` | `key`, `failed_count`, `locked_until`, `window_start` | Bloqueio por tentativas (ADR 0016) |
 
@@ -131,8 +132,8 @@ Toda escrita passa por estas funções (ADR 0023). Cada uma confere `is_platform
 | R00-11 | Valores em iene inteiro; datas de vencimento e períodos como `date` em Asia/Tokyo. |
 | R00-12 | Tipos de contrato: `monthly` e `annual`, com valor fixo e cobrança; `partner` (vitalício), sem valor e sem cobrança, que nunca muda de status sozinho. O campo "indicada por" registra a empresa que trouxe uma parceira. |
 | R00-13 | Só a empresa investidora (Sugita) tem `is_investor = true`. Ela não pode ser cancelada (`cancel_company` recusa) e só pode ser suspensa por motivo técnico. A marca só muda por migração. |
-| R00-14 | Cobrança antecipada: o período é pago no início dele. Mensal: período de um mês a partir do `billing_day`; anual: um ano a partir da data de início. A cobrança é gerada 10 dias antes do início do período ✱, com vencimento no primeiro dia dele. |
-| R00-15 | Status automático (só `monthly` e `annual`, sem suspensão manual): em dia → `active`; 1 a 7 dias após `paid_until` → `past_due`; 8 a 22 dias → `read_only`; 23 dias ou mais → `blocked`. Os limites vêm de `grace_days` (7) e `block_after_days` (15) do contrato. |
+| R00-14 | Cobrança antecipada: o período é pago no início dele. Mensal: períodos de um mês a partir de `billing_start` (início, ou dia seguinte ao fim do teste; dia do mês ≤ 28 para todo mês ter a data); anual: períodos de um ano. A cobrança é gerada 10 dias antes do início do período ✱, com vencimento no primeiro dia dele. |
+| R00-15 | Status automático (só `monthly` e `annual`, sem suspensão manual): em dia → `active`; 1 a 7 dias depois do vencimento → `past_due`; 8 a 22 dias → `read_only`; 23 dias ou mais → `blocked`. Os dias contam a partir do vencimento (`paid_until` + 1): o próprio dia do vencimento ainda é em dia. Os limites vêm de `grace_days` (7) e `block_after_days` (15) do contrato. |
 | R00-16 | Pagamento menor que a cobrança: o Super Admin escolhe "quitar mesmo assim" (a diferença fica em `fee_yen`, como 振込手数料, e a cobrança vira `paid`) ou "deixar saldo em aberto" (a cobrança vira `partial` e `paid_until` não avança até completar). |
 | R00-17 | Período de teste opcional em contratos `monthly` e `annual`: até `trial_ends_on`, status `trial`, com tudo que os módulos permitem. A primeira cobrança é gerada para o período que começa no dia seguinte ao fim do teste. |
 | R00-18 | Formas de pagamento na v1: `transfer` (銀行振込) e `cash` (現金), registradas manualmente. |
@@ -191,6 +192,9 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 
 ## 8. Pendências
 
+- [ ] Planos-modelo (Básico, Padrão, Completo): os módulos de cada um foram uma sugestão inicial na migração; o Mike ajusta em `/super/modulos`.
+- [ ] Configurações padrão da empresa no provisionamento: entram quando a camada 03 existir. Os papéis padrão são valores fixos de `membership.role`, sem tabela.
+- [ ] Cadastro com início nos dias 29 a 31: recusado (`billing_day_over_28`); o assistente deve sugerir o dia 1 do mês seguinte.
 - [ ] ✱ R00-14: confirmar a antecedência de 10 dias para gerar a cobrança antes do período (proposta).
 - [ ] Acesso de suporte com permissão da empresa (R00-10): implementar antes do primeiro cliente pago.
 - [ ] Exportação de dados de empresa cancelada: na v1, feita pelo Super Admin a pedido; exportação pelo próprio cliente depois.
@@ -204,3 +208,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
 | 2026-10-28 | 0.2 | Provisionamento aceito e modelo comercial (ADRs 0012 e 0018) | #3 |
 | 2026-10-28 | 0.3 | Especificação do Super Admin v1: modelo de dados, funções, regras R00-01 a R00-20, telas, efeitos de cada status e permissões | #3 |
+| 2026-10-28 | 0.4 | SA-04: migrações, RLS, funções e 83 testes pgTAP. Modelo ajustado: `company_module` por períodos, `depends_any`, `billing_start` no lugar de `billing_day`, `app.audit_log`; R00-15 explicita que o dia do vencimento ainda é em dia | SA-04 |

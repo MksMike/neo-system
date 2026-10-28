@@ -13,12 +13,18 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "db:start": "supabase start -x studio,imgproxy,inbucket,mailpit,edge-runtime,logflare,vector,supavisor",
+    "db:stop": "supabase stop",
+    "db:reset": "supabase db reset --local",
+    "db:lint": "supabase db lint --local --level warning --fail-on warning",
+    "db:test": "supabase test db --local"
   },
   "prettier": "@neo/config/prettier",
   "devDependencies": {
     "@neo/config": "workspace:*",
     "prettier": "^3.9.10",
+    "supabase": "^2.122.0",
     "turbo": "^2.11.10",
     "typescript": "^6.0.3"
   }
