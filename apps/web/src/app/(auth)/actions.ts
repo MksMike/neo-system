@@ -25,7 +25,9 @@ export const signIn = defineAction({
         throw new ActionError('rate_limited', 'too_many_attempts');
       }
       // Anything else is our problem (Auth down, schema, network), never "wrong password".
-      throw new Error(`signInWithPassword: ${error.code ?? 'no_code'} ${String(error.status)} ${error.message}`);
+      throw new Error(
+        `signInWithPassword: ${error.code ?? 'no_code'} ${String(error.status)} ${error.message}`,
+      );
     }
 
     const session = await getSession();
