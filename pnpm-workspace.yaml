@@ -16,5 +16,7 @@ blockExoticSubdeps: true
 # @parcel/watcher and @swc/core come through next-intl and ship prebuilt binaries;
 # their scripts only compile from source as a fallback.
 allowBuilds:
+  # Supabase CLI: o script baixa o binário oficial do CLI (banco local, migrações, testes pgTAP).
+  supabase: true
   '@parcel/watcher': false
   '@swc/core': false
