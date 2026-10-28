@@ -69,6 +69,7 @@ Convenções do documento 02: nomes em inglês, `snake_case` no singular. Toda t
 | `user_profile` | `user_id`, `display_name`, `locale`, `login_kind` (`email`, `pin`), `employee_login_id` (8 dígitos, único, só para PIN) | Camada 01 (ADR 0016) |
 | `membership` | `user_id`, `company_id`, `role` (`owner`, `manager`, `coordinator`, `employee`), `status`, `valid_until` | Camada 01 (ADR 0016) |
 | `owner_invitation` | `company_id`, `email`, `name`, `status` (`pending`, `sent`, `accepted`, `failed`), `job_id` | Convite do Proprietário pela fila |
+| `platform_setting` | `key`, `value`, `description` | Configurações da plataforma. `require_mfa` liga o 2FA (ADR 0024); sem a linha, o 2FA é exigido |
 | `job` | Ver ADR 0014 | Fila de tarefas |
 | `app.audit_log` | `actor_id`, `scope`, `table_name`, `record_id`, `company_id`, `action`, `old_row`, `new_row` | Gatilho em toda tabela: antes e depois de cada mudança (CLAUDE.md, regra 5). Schema privado, fora da API |
 | `system_event` | `at`, `code` (`ÁREA.CATEGORIA.EVENTO`), `severity`, `request_id`, `route`, `company_id`, `user_id`, `duration_ms`, `data`, `seen_at` | Eventos (ADR 0022): particionada por mês, guardada 30 dias; `seen_at` marca alerta crítico como visto |
@@ -119,6 +120,8 @@ Toda escrita passa por estas funções (ADR 0023). Cada uma confere `is_platform
 | `retry_job(id)` | Super Admin reexecuta uma tarefa que falhou |
 | `ingest_observability(events, metrics)` | O logger do servidor grava eventos e métricas em lote. Só `service_role` |
 | `mark_events_seen(ids)` | Super Admin marca alertas críticos como vistos |
+| `accept_owner_invitation(invitation_id)` | O convidado aceita: só o e-mail convidado; cria perfil e participação de Proprietário (SA-06) |
+| `my_session()` | A pessoa logada: é Super Admin? Em quais empresas e com qual papel? Decide para onde ela vai depois do login |
 
 ## 4. Regras de negócio
 
@@ -215,3 +218,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-28 | 0.3 | Especificação do Super Admin v1: modelo de dados, funções, regras R00-01 a R00-20, telas, efeitos de cada status e permissões | #3 |
 | 2026-10-28 | 0.4 | SA-04: migrações, RLS, funções e 83 testes pgTAP. Modelo ajustado: `company_module` por períodos, `depends_any`, `billing_start` no lugar de `billing_day`, `app.audit_log`; R00-15 explicita que o dia do vencimento ainda é em dia | SA-04 |
 | 2026-10-29 | 0.5 | SA-05: funções da fila, tabelas de eventos e métricas, convite do Proprietário enviado pela fila (`/api/jobs/run`) | SA-05 |
+| 2026-10-29 | 0.6 | SA-06: `platform_setting` com `require_mfa`, aceite do convite e `my_session` | SA-06 |

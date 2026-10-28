@@ -1,6 +1,6 @@
 # ADR 0016 — Identidade: login, 2FA e acesso por empresa
 
-- **Status:** Aceita
+- **Status:** Aceita; a exigência de 2FA foi adiada no MVP pela ADR 0024
 - **Data:** 2026-10-28
 - **Decisores:** Mike
 - **Substitui:** ADR 0004

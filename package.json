@@ -22,7 +22,8 @@
     "db:types": "supabase gen types typescript --local --schema public > packages/db/src/database.types.ts && prettier --write packages/db/src/database.types.ts",
     "env:local": "node scripts/env-local.mjs",
     "jobs:run": "node scripts/run-jobs.mjs",
-    "jobs:watch": "node scripts/run-jobs.mjs --watch"
+    "jobs:watch": "node scripts/run-jobs.mjs --watch",
+    "test:e2e": "pnpm --filter @neo/web test:e2e"
   },
   "prettier": "@neo/config/prettier",
   "devDependencies": {

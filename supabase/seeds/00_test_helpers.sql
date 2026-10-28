@@ -41,15 +41,25 @@ as $$
   insert into public.membership (user_id, company_id, role, created_by) values (p_user_id, p_company_id, p_role, p_user_id);
 $$;
 
+-- E-mail of a user, readable whatever role the test is acting as (authenticated cannot read auth.users).
+create or replace function tests.user_email(p_user_id uuid) returns text
+language sql stable security definer set search_path = ''
+as $$ select u.email from auth.users u where u.id = p_user_id $$;
+
 -- Acts as a signed-in user. aal2 = signed in with the second factor (TOTP).
 create or replace function tests.authenticate_as(p_user_id uuid, p_aal text default 'aal2') returns void
 language plpgsql set search_path = ''
 as $$
+declare
+  user_email text := tests.user_email(p_user_id);
 begin
   perform set_config('role', 'authenticated', true);
   perform set_config(
     'request.jwt.claims',
-    json_build_object('sub', p_user_id, 'role', 'authenticated', 'aal', p_aal)::text,
+    json_build_object(
+      'sub', p_user_id, 'role', 'authenticated', 'aal', p_aal,
+      'email', user_email
+    )::text,
     true
   );
 end

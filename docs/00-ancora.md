@@ -216,7 +216,7 @@ Estas regras valem para todas as camadas; um módulo só é considerado pronto s
 | Coordenador | Cria escalações com os preços herdados do cliente (sem editá-los), equipes e confirmações; não vê valores |
 | Funcionário | Só os próprios dados no app; como 班長, registra pelos membros da equipe que o admin liberou |
 
-"Admin" = Proprietário + Gestor; é o que conta no limite de admins do plano. 2FA obrigatório para os dois.
+"Admin" = Proprietário + Gestor; é o que conta no limite de admins do plano. 2FA obrigatório para os dois (adiado no MVP pela ADR 0024; volta no gatilho de dados reais).
 
 ### Dinheiro e cálculos
 
@@ -289,7 +289,7 @@ Cada camada lista o escopo, as regras que não podem ser quebradas e o critério
 
 ### 01 · Identidade e acesso
 
-- **Escopo:** login de admins (e-mail + senha, 2FA obrigatório), login de funcionários (ID de 8 dígitos + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
+- **Escopo:** login de admins (e-mail + senha; 2FA adiado no MVP pela ADR 0024), login de funcionários (ID de 8 dígitos + PIN de 4 dígitos; LINE Login na fase 2), papéis, permissões por módulo, log de auditoria, log de acesso a dados sensíveis.
 - **Regras:** cadastro do funcionário existe sem login; qualquer login (e-mail, ID ou LINE) pode estar ligado a mais de uma empresa, e a pessoa escolhe a empresa depois de entrar; a sessão do funcionário expira após 7 dias sem uso. Permissão checada no servidor e no RLS, por participação (`membership`). Detalhes na ADR 0016.
 - **Pronto quando:** testes provam que nenhum papel lê ou altera fora do seu escopo, e que nenhuma empresa enxerga outra.
 

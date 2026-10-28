@@ -10,8 +10,10 @@ import {
   freeText,
   isTrivialPin,
   landlinePhone,
+  loginPassword,
   longText,
   mobilePhone,
+  newPassword,
   normalizeText,
   pin,
   postalCode,
@@ -144,5 +146,22 @@ describe('employee login ID and PIN (ADR 0016)', () => {
     expect(pin.safeParse('1234').success).toBe(false);
     expect(pin.parse('１３５７')).toBe('1357');
     expect(pin.safeParse('123').success).toBe(false);
+  });
+});
+
+describe('passwords (ADR 0024)', () => {
+  it('requires at least 10 characters for a new password', () => {
+    expect(newPassword.safeParse('123456789').success).toBe(false);
+    expect(newPassword.safeParse('1234567890').success).toBe(true);
+  });
+
+  it('refuses passwords longer than bcrypt reads (72 bytes)', () => {
+    expect(newPassword.safeParse('a'.repeat(73)).success).toBe(false);
+    expect(newPassword.safeParse('あ'.repeat(25)).success).toBe(false); // 75 bytes in UTF-8
+  });
+
+  it('login only checks presence', () => {
+    expect(loginPassword.safeParse('').success).toBe(false);
+    expect(loginPassword.safeParse('x').success).toBe(true);
   });
 });
