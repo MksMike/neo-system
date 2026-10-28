@@ -29,6 +29,7 @@ Fontes: [visão geral do Node.js](https://docs.hostinger.com/node.js/overview) e
 - **Tempo real:** o navegador conecta direto ao Supabase Realtime, sem passar pela Hostinger, que não aceita WebSocket de entrada.
 - **Tarefas em segundo plano:** fila no Postgres + cron (ADR 0014).
 - **Ambientes do MVP:** local (Supabase CLI no Docker) e um ambiente MVP (projeto Supabase + app na Hostinger). O segundo projeto gratuito do Supabase fica livre para staging quando for necessário.
+- **Domínio do MVP:** `neo-system.sugitakogyo.pro`, subdomínio do domínio da Sugita na Hostinger. Antes do SaaS comercial, o sistema passa para um domínio próprio, no nome do Mike: outras empresas não devem acessar um endereço com a marca de um cliente, e o DNS e o e-mail automático não devem depender do domínio da Sugita. O app não depende do endereço, então a troca é de configuração.
 
 ## Consequências
 

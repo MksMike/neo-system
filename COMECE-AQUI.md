@@ -11,6 +11,7 @@ A primeira entrega é o **Super Admin v1**, especificado em [`docs/camadas/00-pl
 - [x] Repositório privado no GitHub (`MksMike/neo-system`), plano gratuito (ADR 0017).
 - [ ] Projeto Supabase `neo-mvp` na região Tóquio (ADR 0013).
 - [ ] Hostinger plano Business, Web App Node.js no data center mais próximo do Japão (ADR 0013).
+- [ ] Subdomínio `neo-system.sugitakogyo.pro` apontando para o Web App (domínio próprio antes do SaaS comercial, ADR 0013).
 - [ ] Conta no Cloudflare R2 para os backups (ADR 0017).
 - [ ] 覚書 assinado (o código começou antes, por decisão do Mike; continua pendente).
 - [ ] Dados só fictícios até o gatilho da ADR 0015.
