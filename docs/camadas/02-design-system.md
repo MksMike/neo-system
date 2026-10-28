@@ -13,34 +13,50 @@
 | Data | Decisão | ADR |
 | --- | --- | --- |
 | 2026-10-28 | Escopo inicial herdado do documento-âncora | — |
+| 2026-10-28 | Tokens gerados de `docs/design-tokens.json` para `packages/ui/src/styles/tokens.css` por script; um teste falha se o arquivo divergir do JSON | 0010 |
+| 2026-10-28 | Tema por cookie (`neo-hue`, `neo-mode`) lido pelo servidor: o HTML já sai com o tema certo, sem script inline e sem piscar; o modo "sistema" é resolvido só por CSS (`prefers-color-scheme`) | 0010, 0023 |
+| 2026-10-28 | Idioma por cookie (`neo-locale`), sem prefixo na URL; sem cookie, vale o `Accept-Language`, e depois o japonês | — |
+| 2026-10-28 | Componentes no padrão shadcn/ui (Radix + cva + Tailwind v4), usando só os tokens; textos sempre recebidos por props (i18n no app) | 0019 |
+| 2026-10-28 | Máscaras de CEP, celular, fixo e ID do funcionário como componentes, usando as funções de `packages/validation` | 0019 |
 
 ## 3. Modelo de dados
 
-— (definido na implementação)
+— (camada sem tabelas)
 
 ## 4. Regras de negócio
 
-— (numerar a partir das regras do escopo acima ao implementar)
+| Regra | Texto |
+| --- | --- |
+| R02-01 | Nenhuma cor, raio, sombra ou tamanho fora dos tokens. Valor novo entra em `docs/design-tokens.json` e é gerado de novo (`pnpm --filter @neo/ui tokens`). |
+| R02-02 | Componentes de `packages/ui` não têm texto fixo: rótulos, mensagens e nomes acessíveis chegam por props, já traduzidos. |
+| R02-03 | Cor de status sempre acompanhada de texto ou ícone; células do 勤怠表 têm nome acessível com o tipo do dia. |
+| R02-04 | Todo controle tem foco visível (`--focus`), estados de hover, inválido, desabilitado e carregando, e respeita `prefers-reduced-motion`. |
+| R02-05 | Campos de CEP, telefone e ID usam os componentes com máscara; o servidor valida de novo com o mesmo esquema (ADR 0019). |
 
 ## 5. Telas e fluxos
 
-Ver `docs/telas/inventario-de-telas.md`.
+- **`/dev/ui`** (só em desenvolvimento; 404 em produção): catálogo com todos os componentes e estados, troca de tema (azul, grafite, roxo × claro, escuro, sistema) e de idioma (ja, pt).
+- **Componentes disponíveis:** Button (primary, solid, secondary, ghost, soft, danger; sm, md, lg; ícone; carregando), Field, Input, Textarea, NativeSelect, PostalCodeInput, MobilePhoneInput, LandlinePhoneInput, EmployeeIdInput, Checkbox, RadioGroup/Radio, Switch, Card, Stat, Badge, Chip, DayCell, Table, Alert, Toaster/toast, Tooltip, DropdownMenu, Dialog (centralizado e gaveta), Tabs (segmento e linha), SegmentedControl, Skeleton, EmptyState, Progress, Avatar, Spinner.
+- **Ainda não feitos** (entram quando a primeira tela precisar): calendário e seletor de data, busca ⌘K, paginação, stepper, upload, teclado do PIN, shell do admin e do app.
 
 ## 6. Permissões por papel
 
-| Ação | Proprietário | Gestor | Coordenador | Funcionário |
-| --- | --- | --- | --- | --- |
+— (camada sem permissões próprias)
 
 ## 7. Para o usuário
 
-—
+- **Tema:** escolha a cor (azul, grafite ou roxo) e o modo (claro, escuro ou igual ao sistema) no topo da tela. A escolha fica salva no navegador.
+- **Idioma:** japonês ou português no painel. A escolha fica salva.
+- **Campos com máscara:** digite só os números; o hífen entra sozinho. Números em largura total (０９０) também são aceitos.
 
 ## 8. Pendências
 
-—
+- [ ] Auditoria de contraste (WCAG AA) dos 6 temas, antes das telas do M1.
+- [ ] Componentes que faltam (seção 5), conforme as telas pedirem.
 
 ## 9. Histórico
 
 | Data | Versão | Mudança | PR |
 | --- | --- | --- | --- |
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
+| 2026-10-28 | 0.2 | SA-03: tokens gerados, tema e idioma por cookie, componentes, máscaras, `/dev/ui`; regras R02-01 a R02-05 | SA-03 |
