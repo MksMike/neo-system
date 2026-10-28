@@ -196,7 +196,13 @@
     "pinTrivial": "推測されやすいPINです。同じ数字や連続した数字は避けてください。",
     "invalid": "値が正しくありません。",
     "passwordTooShort": "10文字以上で入力してください。",
-    "passwordMismatch": "パスワードが一致しません。"
+    "passwordMismatch": "パスワードが一致しません。",
+    "companyCode": "英大文字と数字で3〜12文字（スペースなし）。",
+    "invoiceRegNo": "Tと13桁の数字（T1234567890123）。",
+    "kana": "カタカナで入力してください（英数字も可）。",
+    "date": "日付が正しくありません。",
+    "dateInPast": "今日より前の日付は指定できません。",
+    "billingDayOver28": "毎月同じ日にするため、有料期間の開始日は28日までにしてください。開始日か試用日数を調整してください。"
   },
   "errors": {
     "validation": "強調表示された項目を確認してください。",
@@ -277,14 +283,12 @@
         "title": "会社",
         "description": "顧客の会社と、契約・モジュール・状態。",
         "new": "会社を登録",
-        "emptyTitle": "会社一覧は準備中です",
-        "emptyText": "検索・絞り込み・会社一覧は SA-08 で追加されます。"
+        "emptyTitle": "登録された会社はありません",
+        "emptyText": "最初の顧客企業を登録してください。"
       },
       "newCompany": {
         "title": "会社を登録",
-        "description": "4ステップで登録：基本情報、モジュール、契約、オーナー。",
-        "emptyTitle": "登録ウィザードは準備中です",
-        "emptyText": "4ステップの登録は SA-08 で追加されます。"
+        "description": "4ステップで登録：基本情報、モジュール、契約、オーナー。"
       },
       "payments": {
         "title": "入金",
@@ -303,6 +307,145 @@
         "description": "システムの状態：ログ、ボトルネック、キュー、データベース、アラート。",
         "emptyTitle": "システム状態の画面は準備中です",
         "emptyText": "状態・ログ・キュー・データベースのタブは SA-12 で追加されます。"
+      }
+    },
+    "status": {
+      "trial": "試用中",
+      "active": "有効",
+      "past_due": "支払遅延",
+      "read_only": "閲覧のみ",
+      "blocked": "停止",
+      "canceled": "解約"
+    },
+    "contractType": {
+      "monthly": "月額",
+      "annual": "年額",
+      "partner": "パートナー（無期限）"
+    },
+    "paymentMethod": {
+      "transfer": "銀行振込",
+      "cash": "現金"
+    },
+    "companies": {
+      "created": "{code} を登録しました",
+      "createdText": "オーナーへの招待をキューに追加しました。まもなくメールで送信されます。",
+      "investor": "出資企業",
+      "lifetime": "無期限",
+      "noResults": "該当する会社がありません",
+      "noResultsText": "検索条件に一致する会社がありません。条件を変えてお試しください。",
+      "columns": {
+        "code": "コード",
+        "name": "会社",
+        "contract": "契約",
+        "modules": "モジュール",
+        "paidUntil": "支払済期間",
+        "status": "状態"
+      },
+      "filters": {
+        "label": "会社を検索",
+        "search": "検索",
+        "searchPlaceholder": "コードまたは会社名",
+        "all": "すべて",
+        "apply": "絞り込む",
+        "clear": "条件をクリア"
+      },
+      "pagination": {
+        "label": "ページ",
+        "range": "{total}件中 {first}–{last}件",
+        "previous": "前へ",
+        "next": "次へ"
+      }
+    },
+    "wizard": {
+      "progress": "登録の手順",
+      "stepTitle": "ステップ {n}/{total}：{name}",
+      "steps": {
+        "company": "会社情報",
+        "modules": "モジュール",
+        "contract": "契約",
+        "owner": "オーナーと確認"
+      },
+      "back": "戻る",
+      "next": "次へ",
+      "create": "会社を登録",
+      "creating": "登録中…",
+      "company": {
+        "legalName": "正式名称",
+        "legalNamePlaceholder": "株式会社〇〇",
+        "legalNameKana": "正式名称（カナ）",
+        "legalNameKanaHelp": "並び替えとコードの候補に使います。",
+        "displayName": "略称",
+        "displayNameHelp": "メニューや一覧に表示されます。空欄なら正式名称を使います。",
+        "code": "会社コード",
+        "codeHelp": "英大文字と数字で3〜12文字。名前から候補を表示します。登録後は変更できません。",
+        "useSuggestion": "候補 {code} を使う",
+        "invoiceRegNo": "適格請求書発行事業者登録番号",
+        "invoiceRegNoHelp": "任意。Tと13桁の数字。",
+        "referredBy": "紹介元",
+        "referredByHelp": "この会社を紹介した会社があれば選んでください。",
+        "referredByNone": "なし",
+        "postalCode": "郵便番号",
+        "phone": "電話番号",
+        "address": "住所",
+        "email": "会社のメールアドレス",
+        "emailHelp": "任意。連絡用で、ログインには使いません。"
+      },
+      "modules": {
+        "plan": "プランのひな形",
+        "custom": "カスタム",
+        "planHelp": "プランはモジュールを事前に選ぶだけです。下で調整できます。",
+        "kinds": {
+          "base": "常に含まれる",
+          "optional": "オプション",
+          "addon": "追加機能"
+        },
+        "always": "すべての契約に含まれます。",
+        "needs": "必要：{list}。",
+        "needsAny": "{list}が必要です。",
+        "requiredBy": "{list}に必要です。先にそちらをオフにしてください。",
+        "alsoEnabled": "{module}のため、{list}もオンにしました。",
+        "needsOneOf": "{module}には{list}が必要です。"
+      },
+      "contract": {
+        "type": "契約の種類",
+        "typeHelp": {
+          "monthly": "月額固定。各期間の初めに請求します。",
+          "annual": "年額固定。各期間の初めに請求します。",
+          "partner": "無期限・無料で請求なし。開発パートナー企業向け。"
+        },
+        "partnerTitle": "パートナー契約",
+        "partnerText": "請求は発生せず、遅延による状態の自動変更もありません。",
+        "price": "金額",
+        "priceHelp": {
+          "monthly": "月額（円）。",
+          "annual": "年額（円）。"
+        },
+        "paymentMethod": "支払方法",
+        "startsOn": "契約開始日",
+        "trialDays": "試用日数",
+        "trialDaysHelp": "任意。最大90日。最初の請求は試用期間後の期間分です。",
+        "days": "日",
+        "trialUntil": "{date}まで試用。",
+        "billingMonthly": "有料期間は{date}から。毎月{day}日が支払期日です。",
+        "billingAnnual": "有料期間は{date}から。毎年この日が支払期日です。"
+      },
+      "owner": {
+        "name": "オーナーの氏名",
+        "email": "オーナーのメールアドレス",
+        "emailHelp": "パスワード設定の招待メールをこのアドレスに送ります。"
+      },
+      "review": {
+        "title": "確認",
+        "edit": "編集",
+        "modules": "オプションモジュール（{count}）",
+        "baseOnly": "基本モジュールのみ。",
+        "trial": "{days}日",
+        "inviteTitle": "登録すると",
+        "inviteText": "会社・契約・モジュールはまとめて登録され、途中で失敗した場合は何も登録されません。オーナーへの招待はキューに入り、すぐにメールで送信されます。"
+      },
+      "errors": {
+        "codeTaken": "このコードは使用中です。別のコードを選んでください。",
+        "modules": "必要なモジュールが不足しています。"
       }
     }
   },

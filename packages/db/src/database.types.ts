@@ -1185,6 +1185,7 @@ export type Database = {
       generate_saas_charges: { Args: { p_today?: string }; Returns: number };
       has_module: { Args: { p_company_id: string; p_module_key: string }; Returns: boolean };
       ingest_observability: { Args: { p_events: Json; p_metrics: Json }; Returns: undefined };
+      list_companies: { Args: { p?: Json }; Returns: Json };
       mark_events_seen: { Args: { p_event_ids: string[] }; Returns: number };
       my_company_access: { Args: { p_company_id: string }; Returns: Json };
       my_session: { Args: Record<PropertyKey, never>; Returns: Json };

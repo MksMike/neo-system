@@ -105,7 +105,8 @@ Toda escrita passa por estas funções (ADR 0023). Cada uma confere `is_platform
 
 | Função | O que faz |
 | --- | --- |
-| `provision_company(data jsonb) → uuid` | Uma transação: empresa, contrato, módulos (com dependências), configurações padrão, papéis, convite do Proprietário na fila, log (R00-02) |
+| `provision_company(data jsonb) → uuid` | Uma transação: empresa, contrato, módulos (com dependências), configurações padrão, papéis, convite do Proprietário na fila, log (R00-02). Aceita o `id` gerado na tela: repetir o mesmo pedido devolve a empresa já criada (ADR 0020) |
+| `list_companies(p jsonb) → jsonb` | Lista de `/super/empresas`: busca por código ou nome (`%` e `_` tratados como texto), filtro por status e tipo de contrato, ordenação por código, nome, pago até ou status, páginas de até 100. Só Super Admin |
 | `set_company_modules(company_id, modules, valid_from)` | Liga e desliga módulos com vigência, aplicando R00-04 |
 | `change_contract(company_id, data, valid_from)` | Cria nova versão do contrato; a anterior fecha em `valid_from - 1` |
 | `register_saas_payment(charge_id, data)` | Grava o pagamento, aplica a escolha de quitação (R00-16), avança `paid_until` (R00-07) e reativa a empresa |
@@ -157,7 +158,7 @@ Todas em `/super`, com o design system (`docs/design-system.html`), textos por i
 | `/super/login` | Login | E-mail, senha e código 2FA; cadastro do 2FA no primeiro acesso |
 | `/super` | Início | Cards por status (teste, ativas, em atraso, somente leitura, bloqueadas, canceladas), receita recebida no mês (só contratos pagos), parceiros à parte, cobranças vencendo em 10 dias, atrasos, alertas críticos do sistema |
 | `/super/empresas` | Empresas | Tabela com busca, filtro por status e tipo de contrato, ordenação e paginação: código, nome, contrato, módulos (contagem), pago até, status. Ação: Nova empresa |
-| `/super/empresas/nova` | Nova empresa | Assistente em 4 passos: 1) dados e código (com sugestão), "indicada por"; 2) plano-modelo e ajuste de módulos, com dependências na hora; 3) contrato: tipo, valor, forma de pagamento, início, dia de cobrança, teste opcional; 4) Proprietário (nome e e-mail) e revisão. Botão "Criar empresa" |
+| `/super/empresas/nova` | Nova empresa | Assistente em 4 passos: 1) dados e código (sugerido a partir do nome em letras latinas ou do nome em katakana; conferido ao avançar), "indicada por"; 2) plano-modelo e ajuste de módulos, com dependências na hora (ligar liga as dependências e avisa; um módulo de que outro depende fica travado); 3) contrato: tipo, valor, forma de pagamento, início e teste opcional. O dia de cobrança é o dia do início do período pago (início ou dia seguinte ao teste) e precisa ser até 28; a tela mostra o resultado; 4) Proprietário (nome e e-mail) e revisão. Botão "Criar empresa"; depois volta à lista com aviso de sucesso |
 | `/super/empresas/[id]` | Empresa | Abas: Resumo · Módulos · Contrato e pagamentos · Usuários · Histórico. Ações: Registrar pagamento, Suspender/Reativar, Cancelar (oculto para investidora), Reenviar convite |
 | `/super/pagamentos` | Pagamentos | Cobranças em aberto, parciais, vencidas e pagas no período, com filtro. Ação: Registrar pagamento |
 | `/super/modulos` | Módulos e planos | Catálogo de módulos (só leitura) e planos-modelo (editáveis) |
@@ -220,3 +221,4 @@ Todas as telas e funções desta camada são exclusivas do Super Admin. Nas empr
 | 2026-10-29 | 0.5 | SA-05: funções da fila, tabelas de eventos e métricas, convite do Proprietário enviado pela fila (`/api/jobs/run`) | SA-05 |
 | 2026-10-29 | 0.6 | SA-06: `platform_setting` com `require_mfa`, aceite do convite e `my_session` | SA-06 |
 | 2026-10-29 | 0.7 | SA-07: layout de `/super` (menu agrupado em Clientes e Plataforma, cabeçalho com tema, idioma e sair, gaveta no celular) e páginas com título e estado vazio | SA-07 |
+| 2026-10-29 | 0.8 | SA-08: lista de empresas (`list_companies`) e assistente de cadastro; `provision_company` aceita o `id` da tela (repetição segura) | SA-08 |

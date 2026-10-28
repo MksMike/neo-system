@@ -112,3 +112,32 @@ export const pin = z
       .regex(/^\d{4}$/, 'validation.pin')
       .refine((p) => !isTrivialPin(p), 'validation.pinTrivial'),
   );
+
+/** Optional field: empty (after normalization) becomes `undefined`, anything else must pass `schema`. */
+export function optional<T extends z.ZodType<unknown, string>>(schema: T) {
+  return z
+    .string()
+    .transform((v) => normalizeText(v))
+    .pipe(z.union([z.literal('').transform(() => undefined), schema]));
+}
+
+/** Business date (CLAUDE.md, rule 7): `YYYY-MM-DD`, a real calendar day. */
+export const businessDate = z
+  .string()
+  .regex(/^\d{4}-\d{2}-\d{2}$/, 'validation.date')
+  .refine((v) => {
+    const d = new Date(`${v}T00:00:00Z`);
+    return !Number.isNaN(d.getTime()) && d.toISOString().startsWith(v);
+  }, 'validation.date');
+
+/** Adds days to a business date, in calendar days (no time zone involved). */
+export function addDays(date: string, days: number): string {
+  const d = new Date(`${date}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+/** Today in Asia/Tokyo as `YYYY-MM-DD` (business dates, CLAUDE.md rule 7). */
+export function todayInTokyo(now: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(now);
+}

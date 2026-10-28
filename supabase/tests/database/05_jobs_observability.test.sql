@@ -12,6 +12,10 @@ end $$;
 select set_config('t.admin', tests.create_platform_admin('admin@neo.test')::text, true);
 select set_config('t.user', tests.create_user('user@neo.test')::text, true);
 
+-- Jobs already in the local database (dev seed, end-to-end runs) wait until after the test,
+-- so the claims below see only the test jobs. The transaction is rolled back at the end.
+update public.job set run_after = now() + interval '1 day';
+
 -- Arrange: three due jobs, one in the future
 insert into public.job (id, type, payload, run_after, max_attempts) values
   ('00000000-0000-0000-0000-00000000000a', 'test.alpha', '{}', now() - interval '3 minutes', 2),

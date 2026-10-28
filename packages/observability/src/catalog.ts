@@ -26,6 +26,10 @@ export const EVENT_CATALOG = {
     description: 'Erro não tratado no servidor.',
     action: 'Abrir o evento, ver a mensagem e corrigir o código.',
   },
+  'APP.COMPANY.PROVISIONED': {
+    severity: 'info',
+    description: 'Empresa cadastrada pelo Super Admin; convite do Proprietário na fila.',
+  },
   'AUTH.LOGIN.SUCCEEDED': { severity: 'info', description: 'Login concluído.' },
   'AUTH.LOGIN.FAILED': { severity: 'warn', description: 'PIN ou senha errados.' },
   'AUTH.LOGIN.LOCKED': {
