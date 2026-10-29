@@ -54,3 +54,4 @@
 | 2026-10-29 | 0.3 | SA-06: login de Super Admin e admins, aceite do convite, escolha de empresa, proteção de /super e /admin, testes pgTAP e Playwright; 2FA adiado (ADR 0024) | SA-06 |
 | 2026-10-29 | 0.4 | Sair encerra só a sessão do aparelho atual (antes encerrava todas as sessões da pessoa) | SA-08 |
 | 2026-10-29 | 0.5 | Idioma preferido no perfil (`user_profile.locale`, função `set_my_locale`): escolhido no menu da conta, aplicado a cada login; vazio até a pessoa escolher (vale o idioma do navegador); `my_session` devolve nome e idioma | D-01 |
+| 2026-10-30 | 0.6 | Criação do login técnico do funcionário (ID + PIN, senha derivada por HMAC com `PIN_PEPPER`) e redefinição do PIN com fim das sessões; o login pelo app entra na D-05 | D-03 |

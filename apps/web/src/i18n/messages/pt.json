@@ -843,5 +843,60 @@
       "noClients": "Cadastre um cliente antes de vincular subcontratantes.",
       "linkedTo": "Clientes (sigla e cor)"
     }
+  },
+  "employees": {
+    "new": "Novo funcionário",
+    "create": "Cadastrar funcionário",
+    "edit": "Editar funcionário",
+    "saved": "Funcionário salvo.",
+    "data": "Dados do funcionário",
+    "choose": "Escolha",
+    "search": "Buscar funcionários",
+    "searchPlaceholder": "Nome ou kana",
+    "empty": "Nenhum funcionário cadastrado",
+    "emptyText": "Cadastre os funcionários e crie o acesso ao app de cada um (ID e PIN).",
+    "noResults": "Nenhum funcionário encontrado",
+    "noResultsText": "Nenhum funcionário corresponde à busca.",
+    "fields": {
+      "fullName": "Nome completo",
+      "nameKana": "Nome em katakana",
+      "employmentType": "Vínculo",
+      "nationality": "Nacionalidade",
+      "mobilePhone": "Celular",
+      "mobilePhoneHelp": "Só para contato. O login no app é pelo ID e PIN.",
+      "hireDate": "Data de entrada",
+      "status": "Situação",
+      "note": "Observação"
+    },
+    "types": {
+      "regular": "社員 (efetivo)",
+      "part_time": "パート (meio período)",
+      "subcontractor": "下請 (terceirizado)",
+      "freelancer": "業務委託 (autônomo)"
+    },
+    "status": {
+      "active": "Ativo",
+      "inactive": "Inativo"
+    },
+    "access": {
+      "title": "Acesso ao app",
+      "loginId": "ID de login",
+      "noneShort": "Sem acesso",
+      "none": "Ainda sem acesso. Ao criar, o sistema gera um ID de 8 dígitos e um PIN de 4 dígitos para entregar ao funcionário.",
+      "hasAccess": "O funcionário entra no app com este ID e o PIN que recebeu.",
+      "create": "Criar acesso ao app",
+      "reset": "Redefinir PIN",
+      "inactive": "Funcionário inativo: o acesso não pode ser criado nem redefinido.",
+      "resetTitle": "Redefinir o PIN de {name}?",
+      "resetText": "Um PIN novo é gerado e todas as sessões abertas no celular do funcionário são encerradas. O ID continua o mesmo.",
+      "resetConfirm": "Redefinir PIN",
+      "createdTitle": "Acesso criado",
+      "newPinTitle": "PIN redefinido",
+      "handOver": "Entregue estes dados a {name}. No app, ele digita o ID e o PIN.",
+      "onceTitle": "O PIN aparece só agora",
+      "onceText": "Anote ou imprima antes de fechar. Se for perdido, redefina o PIN.",
+      "print": "Imprimir",
+      "done": "Já entreguei"
+    }
   }
 }

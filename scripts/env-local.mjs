@@ -1,5 +1,5 @@
 // Writes apps/web/.env.local from the running local Supabase (`pnpm db:start` first).
-// Keeps an existing CRON_SECRET. The file is git-ignored; never commit real keys (CLAUDE.md, rule 10).
+// Keeps an existing CRON_SECRET and PIN_PEPPER. The file is git-ignored; never commit real keys (CLAUDE.md, rule 10).
 import { execSync } from 'node:child_process';
 import { randomBytes } from 'node:crypto';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -33,6 +33,8 @@ const values = {
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: status.PUBLISHABLE_KEY,
   SUPABASE_SECRET_KEY: status.SECRET_KEY,
   CRON_SECRET: previous.CRON_SECRET || randomBytes(32).toString('hex'),
+  // Changing it invalidates every employee PIN (ADR 0016): kept once generated.
+  PIN_PEPPER: previous.PIN_PEPPER || randomBytes(32).toString('hex'),
   APP_URL: previous.APP_URL || 'http://localhost:3000',
   LOG_INFO_SAMPLE_RATE: previous.LOG_INFO_SAMPLE_RATE || '1',
 };

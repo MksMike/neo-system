@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { signInAsDemoOwner } from './helpers';
 
 const SECTIONS = [
-  { name: 'Funcionários', path: '/admin/funcionarios', tab: 'Novo cadastro', tabPath: '/novo' },
+  { name: 'Funcionários', path: '/admin/funcionarios', tab: 'Holerites', tabPath: '/holerites' },
   { name: 'Clientes', path: '/admin/clientes', tab: 'Documentos', tabPath: '/documentos' },
   { name: 'Escalações', path: '/admin/escalacoes', tab: 'Nova escalação', tabPath: '/nova' },
   { name: 'Documentos', path: '/admin/documentos', tab: 'Excel', tabPath: '/excel' },

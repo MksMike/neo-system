@@ -345,6 +345,75 @@ export type Database = {
           },
         ];
       };
+      employee: {
+        Row: {
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          deleted_at: string | null;
+          employment_type: string;
+          full_name: string;
+          hire_date: string | null;
+          id: string;
+          mobile_phone: string | null;
+          name_kana: string | null;
+          nationality: string | null;
+          note: string | null;
+          status: string;
+          updated_at: string;
+          updated_by: string | null;
+          user_id: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          employment_type: string;
+          full_name: string;
+          hire_date?: string | null;
+          id?: string;
+          mobile_phone?: string | null;
+          name_kana?: string | null;
+          nationality?: string | null;
+          note?: string | null;
+          status?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          user_id?: string | null;
+          version?: number;
+        };
+        Update: {
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          employment_type?: string;
+          full_name?: string;
+          hire_date?: string | null;
+          id?: string;
+          mobile_phone?: string | null;
+          name_kana?: string | null;
+          nationality?: string | null;
+          note?: string | null;
+          status?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+          user_id?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'employee_company_id_fkey';
+            columns: ['company_id'];
+            isOneToOne: false;
+            referencedRelation: 'company';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       job: {
         Row: {
           attempts: number;
@@ -1353,6 +1422,10 @@ export type Database = {
     };
     Functions: {
       accept_owner_invitation: { Args: { p_invitation_id: string }; Returns: string };
+      begin_employee_access: {
+        Args: { p_company_id: string; p_employee_id: string };
+        Returns: Json;
+      };
       cancel_company: {
         Args: { p_company_id: string; p_effective_on?: string; p_reason: string };
         Returns: string;
@@ -1396,6 +1469,13 @@ export type Database = {
       };
       company_can_write: { Args: { p_company_id: string }; Returns: boolean };
       complete_job: { Args: { p_job_id: string }; Returns: undefined };
+      employee_login_ids: {
+        Args: { p_user_ids: string[] };
+        Returns: {
+          login_id: string;
+          user_id: string;
+        }[];
+      };
       fail_job: { Args: { p_error: string; p_job_id: string }; Returns: string };
       find_organizations: {
         Args: { p_company_id: string; p_limit?: number; p_name: string };
@@ -1404,6 +1484,16 @@ export type Database = {
           is_client: boolean;
           name: string;
         }[];
+      };
+      finish_employee_access: {
+        Args: {
+          p_company_id: string;
+          p_employee_id: string;
+          p_login_id: string;
+          p_reset?: boolean;
+          p_user_id: string;
+        };
+        Returns: undefined;
       };
       generate_saas_charges: { Args: { p_today?: string }; Returns: number };
       has_module: { Args: { p_company_id: string; p_module_key: string }; Returns: boolean };
@@ -1418,6 +1508,7 @@ export type Database = {
       recompute_company_status: { Args: { p_today?: string }; Returns: number };
       register_saas_payment: { Args: { p: Json; p_charge_id: string }; Returns: Json };
       retry_job: { Args: { p_job_id: string }; Returns: undefined };
+      save_employee: { Args: { p: Json }; Returns: Json };
       save_organization: { Args: { p: Json }; Returns: Json };
       save_site: { Args: { p: Json }; Returns: Json };
       set_company_modules: {
