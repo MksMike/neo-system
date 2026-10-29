@@ -843,5 +843,60 @@
       "noClients": "協力会社を紐付ける前に取引先を登録してください。",
       "linkedTo": "取引先（略称と色）"
     }
+  },
+  "employees": {
+    "new": "従業員を登録",
+    "create": "登録する",
+    "edit": "従業員を編集",
+    "saved": "従業員を保存しました。",
+    "data": "従業員情報",
+    "choose": "選択",
+    "search": "従業員を検索",
+    "searchPlaceholder": "氏名またはカナ",
+    "empty": "従業員が登録されていません",
+    "emptyText": "従業員を登録し、各自のアプリ用アクセス（IDとPIN）を作成しましょう。",
+    "noResults": "該当する従業員がいません",
+    "noResultsText": "検索条件に一致する従業員がいません。",
+    "fields": {
+      "fullName": "氏名",
+      "nameKana": "カナ",
+      "employmentType": "雇用形態",
+      "nationality": "国籍",
+      "mobilePhone": "携帯電話",
+      "mobilePhoneHelp": "連絡用のみ。アプリへのログインはIDとPINで行います。",
+      "hireDate": "入社日",
+      "status": "状況",
+      "note": "備考"
+    },
+    "types": {
+      "regular": "社員",
+      "part_time": "パート",
+      "subcontractor": "下請",
+      "freelancer": "業務委託"
+    },
+    "status": {
+      "active": "在籍",
+      "inactive": "退職・休止"
+    },
+    "access": {
+      "title": "アプリのアクセス",
+      "loginId": "ログインID",
+      "noneShort": "未作成",
+      "none": "まだアクセスがありません。作成すると、8桁のIDと4桁のPINを発行します。従業員に渡してください。",
+      "hasAccess": "従業員はこのIDと受け取ったPINでアプリにログインします。",
+      "create": "アプリのアクセスを作成",
+      "reset": "PINを再発行",
+      "inactive": "在籍していないため、アクセスの作成・再発行はできません。",
+      "resetTitle": "{name}のPINを再発行しますか？",
+      "resetText": "新しいPINを発行し、従業員のスマホで開いているセッションをすべて終了します。IDは変わりません。",
+      "resetConfirm": "PINを再発行",
+      "createdTitle": "アクセスを作成しました",
+      "newPinTitle": "PINを再発行しました",
+      "handOver": "この情報を{name}さんに渡してください。アプリでIDとPINを入力します。",
+      "onceTitle": "PINは今だけ表示されます",
+      "onceText": "閉じる前に控えるか印刷してください。紛失した場合はPINを再発行します。",
+      "print": "印刷",
+      "done": "渡しました"
+    }
   }
 }

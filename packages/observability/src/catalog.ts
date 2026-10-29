@@ -37,6 +37,14 @@ export const EVENT_CATALOG = {
     description: 'Login bloqueado por excesso de tentativas.',
     action: 'Se repetir para muitos IDs, pode ser ataque: ver a aba Segurança.',
   },
+  'AUTH.ACCESS.CREATED': {
+    severity: 'info',
+    description: 'Acesso ao app criado para um funcionário (ID + PIN).',
+  },
+  'AUTH.PIN.RESET': {
+    severity: 'info',
+    description: 'PIN de um funcionário redefinido; as sessões dele foram encerradas.',
+  },
   'AUTH.INVITE.EXISTING_USER': {
     severity: 'info',
     description: 'O e-mail convidado já tem login; a participação é ligada no aceite.',
