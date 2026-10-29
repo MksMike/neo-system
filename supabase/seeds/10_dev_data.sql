@@ -58,7 +58,7 @@ begin
     'company', jsonb_build_object('code', 'DEMO', 'legal_name', 'デモ株式会社', 'display_name', 'デモ'),
     -- starts on the 1st of next month: billing days must be 1–28 (R00-14)
     'contract', jsonb_build_object('type', 'monthly', 'price_yen', 55000, 'payment_method', 'transfer', 'starts_on', next_month),
-    'modules', jsonb_build_array('employees'),
+    'modules', jsonb_build_array('employees', 'organizations', 'scheduling', 'attendance'),
     'owner', jsonb_build_object('name', 'Dono Demo', 'email', 'dono.demo@neo.local')
   ));
 
