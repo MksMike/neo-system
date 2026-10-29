@@ -3,6 +3,77 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      client_chain: {
+        Row: {
+          abbreviation: string;
+          client_id: string;
+          color: string;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          deleted_at: string | null;
+          id: string;
+          organization_id: string;
+          position: number;
+          updated_at: string;
+          updated_by: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          abbreviation: string;
+          client_id: string;
+          color: string;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          id?: string;
+          organization_id: string;
+          position?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Update: {
+          abbreviation?: string;
+          client_id?: string;
+          color?: string;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          id?: string;
+          organization_id?: string;
+          position?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'client_chain_client_id_fkey';
+            columns: ['client_id'];
+            isOneToOne: false;
+            referencedRelation: 'organization';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'client_chain_company_id_fkey';
+            columns: ['company_id'];
+            isOneToOne: false;
+            referencedRelation: 'company';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'client_chain_organization_id_fkey';
+            columns: ['organization_id'];
+            isOneToOne: false;
+            referencedRelation: 'organization';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       company: {
         Row: {
           address: string | null;
@@ -514,6 +585,78 @@ export type Database = {
         };
         Relationships: [];
       };
+      organization: {
+        Row: {
+          address: string | null;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          deleted_at: string | null;
+          email: string | null;
+          id: string;
+          invoice_reg_no: string | null;
+          is_client: boolean;
+          name: string;
+          name_kana: string | null;
+          normalized_name: string;
+          note: string | null;
+          phone: string | null;
+          postal_code: string | null;
+          updated_at: string;
+          updated_by: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          address?: string | null;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          email?: string | null;
+          id?: string;
+          invoice_reg_no?: string | null;
+          is_client?: boolean;
+          name: string;
+          name_kana?: string | null;
+          normalized_name?: never;
+          note?: string | null;
+          phone?: string | null;
+          postal_code?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Update: {
+          address?: string | null;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          email?: string | null;
+          id?: string;
+          invoice_reg_no?: string | null;
+          is_client?: boolean;
+          name?: string;
+          name_kana?: string | null;
+          normalized_name?: never;
+          note?: string | null;
+          phone?: string | null;
+          postal_code?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'organization_company_id_fkey';
+            columns: ['company_id'];
+            isOneToOne: false;
+            referencedRelation: 'company';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       owner_invitation: {
         Row: {
           accepted_at: string | null;
@@ -876,6 +1019,73 @@ export type Database = {
           },
         ];
       };
+      site: {
+        Row: {
+          address: string | null;
+          client_id: string | null;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          deleted_at: string | null;
+          id: string;
+          name: string;
+          note: string | null;
+          postal_code: string | null;
+          radius_m: number;
+          updated_at: string;
+          updated_by: string | null;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          address?: string | null;
+          client_id?: string | null;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          id?: string;
+          name: string;
+          note?: string | null;
+          postal_code?: string | null;
+          radius_m?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Update: {
+          address?: string | null;
+          client_id?: string | null;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          deleted_at?: string | null;
+          id?: string;
+          name?: string;
+          note?: string | null;
+          postal_code?: string | null;
+          radius_m?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'site_client_id_fkey';
+            columns: ['client_id'];
+            isOneToOne: false;
+            referencedRelation: 'organization';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'site_company_id_fkey';
+            columns: ['company_id'];
+            isOneToOne: false;
+            referencedRelation: 'company';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       system_event: {
         Row: {
           at: string;
@@ -1187,9 +1397,18 @@ export type Database = {
       company_can_write: { Args: { p_company_id: string }; Returns: boolean };
       complete_job: { Args: { p_job_id: string }; Returns: undefined };
       fail_job: { Args: { p_error: string; p_job_id: string }; Returns: string };
+      find_organizations: {
+        Args: { p_company_id: string; p_limit?: number; p_name: string };
+        Returns: {
+          id: string;
+          is_client: boolean;
+          name: string;
+        }[];
+      };
       generate_saas_charges: { Args: { p_today?: string }; Returns: number };
       has_module: { Args: { p_company_id: string; p_module_key: string }; Returns: boolean };
       ingest_observability: { Args: { p_events: Json; p_metrics: Json }; Returns: undefined };
+      link_subcontractor: { Args: { p: Json }; Returns: Json };
       list_companies: { Args: { p?: Json }; Returns: Json };
       mark_events_seen: { Args: { p_event_ids: string[] }; Returns: number };
       my_company_access: { Args: { p_company_id: string }; Returns: Json };
@@ -1199,6 +1418,8 @@ export type Database = {
       recompute_company_status: { Args: { p_today?: string }; Returns: number };
       register_saas_payment: { Args: { p: Json; p_charge_id: string }; Returns: Json };
       retry_job: { Args: { p_job_id: string }; Returns: undefined };
+      save_organization: { Args: { p: Json }; Returns: Json };
+      save_site: { Args: { p: Json }; Returns: Json };
       set_company_modules: {
         Args: {
           p_company_id: string;
@@ -1210,6 +1431,7 @@ export type Database = {
       };
       set_my_locale: { Args: { p_locale: string }; Returns: undefined };
       suspend_company: { Args: { p_company_id: string; p_reason: string }; Returns: undefined };
+      update_chain: { Args: { p: Json }; Returns: Json };
     };
     Enums: {
       [_ in never]: never;

@@ -3,12 +3,7 @@ import { signInAsDemoOwner } from './helpers';
 
 const SECTIONS = [
   { name: 'Funcionários', path: '/admin/funcionarios', tab: 'Novo cadastro', tabPath: '/novo' },
-  {
-    name: 'Clientes',
-    path: '/admin/clientes',
-    tab: 'Subcontratantes',
-    tabPath: '/subcontratantes',
-  },
+  { name: 'Clientes', path: '/admin/clientes', tab: 'Documentos', tabPath: '/documentos' },
   { name: 'Escalações', path: '/admin/escalacoes', tab: 'Nova escalação', tabPath: '/nova' },
   { name: 'Documentos', path: '/admin/documentos', tab: 'Excel', tabPath: '/excel' },
   { name: 'Fluxo de caixa', path: '/admin/fluxo-de-caixa', tab: 'Despesas', tabPath: '/despesas' },
