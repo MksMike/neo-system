@@ -202,7 +202,10 @@
     "kana": "カタカナで入力してください（英数字も可）。",
     "date": "日付が正しくありません。",
     "dateInPast": "今日より前の日付は指定できません。",
-    "billingDayOver28": "毎月同じ日にするため、有料期間の開始日は28日までにしてください。開始日か試用日数を調整してください。"
+    "billingDayOver28": "毎月同じ日にするため、有料期間の開始日は28日までにしてください。開始日か試用日数を調整してください。",
+    "time": "時刻が正しくありません。",
+    "endBeforeStart": "終了日は開始日より前にできません。",
+    "periodTooLong": "期間は最長1年です。"
   },
   "errors": {
     "validation": "強調表示された項目を確認してください。",
@@ -897,6 +900,77 @@
       "onceText": "閉じる前に控えるか印刷してください。紛失した場合はPINを再発行します。",
       "print": "印刷",
       "done": "渡しました"
+    }
+  },
+  "assignments": {
+    "new": "新規配置",
+    "create": "保存して従業員を割り当てる",
+    "edit": "配置を編集",
+    "saved": "配置を保存しました。",
+    "data": "配置の情報",
+    "choose": "選択",
+    "none": "なし",
+    "noChain": "この取引先にはまだ協力会社がありません。",
+    "noSite": "この取引先にはまだ現場が登録されていません。",
+    "noClients": "先に取引先を登録してください",
+    "noClientsText": "配置は必ず取引先に紐付きます。",
+    "minutes": "分",
+    "minutesValue": "{count}分",
+    "overnight": "翌日に終了します（夜勤）。",
+    "plannedDays": "{count, plural, =0 {予定稼働日なし} other {予定稼働日 #日}}",
+    "plannedLabel": "稼働日",
+    "peopleCount": "{count, plural, =0 {未割り当て} other {#名}}",
+    "inRange": "期間内の配置",
+    "emptyRange": "この期間の配置はありません",
+    "emptyRangeText": "配置を作成して従業員を割り当てましょう。",
+    "grid": "配置表",
+    "errors": {
+      "membersOutside": "新しい期間の外に割り当てられた従業員がいます。先に割り当てを調整してください。"
+    },
+    "fields": {
+      "client": "取引先",
+      "chain": "協力会社",
+      "site": "現場",
+      "title": "タイトル",
+      "titleHelp": "任意。空欄なら取引先と現場名を使います。",
+      "startsOn": "開始日",
+      "endsOn": "終了日",
+      "startTime": "開始時刻",
+      "endTime": "終了時刻",
+      "break": "休憩",
+      "workDays": "稼働曜日",
+      "meetingPlace": "集合場所",
+      "meetingTime": "集合時間",
+      "note": "備考"
+    },
+    "members": {
+      "title": "{count, plural, =0 {従業員} other {従業員（#名）}}",
+      "add": "従業員を割り当てる",
+      "addHelp": "日付を空欄にすると期間全体に割り当てます。",
+      "employee": "従業員",
+      "chooseEmployee": "従業員を選択してください。",
+      "from": "開始",
+      "to": "終了",
+      "rangeHelp": "任意：期間の一部だけ。",
+      "confirm": "割り当てる",
+      "added": "従業員を割り当てました。",
+      "remove": "{name}を配置から外す",
+      "empty": "まだ誰も割り当てられていません。",
+      "tableLabel": "割り当てられた従業員",
+      "overlap": "この従業員は期間中のある日に同じ時間帯の別の配置があります。",
+      "duplicate": "この従業員はすでにこの配置にいます。",
+      "outside": "日付は配置の期間内にしてください。"
+    },
+    "calendar": {
+      "views": "カレンダーの表示",
+      "mes": "月",
+      "semana": "週",
+      "previous": "前の期間",
+      "next": "次の期間",
+      "today": "今日",
+      "off": "休",
+      "empty": "この期間に配置された従業員はいません。",
+      "caption": "{period}の従業員と日付"
     }
   }
 }
