@@ -202,7 +202,10 @@
     "kana": "Use katakana (letras e números também valem).",
     "date": "Data inválida.",
     "dateInPast": "A data não pode ser anterior a hoje.",
-    "billingDayOver28": "O período pago precisa começar até o dia 28, para todo mês ter a data. Ajuste o início ou os dias de teste."
+    "billingDayOver28": "O período pago precisa começar até o dia 28, para todo mês ter a data. Ajuste o início ou os dias de teste.",
+    "time": "Horário inválido.",
+    "endBeforeStart": "O fim não pode ser antes do início.",
+    "periodTooLong": "O período pode ter no máximo um ano."
   },
   "errors": {
     "validation": "Confira os campos destacados.",
@@ -897,6 +900,77 @@
       "onceText": "Anote ou imprima antes de fechar. Se for perdido, redefina o PIN.",
       "print": "Imprimir",
       "done": "Já entreguei"
+    }
+  },
+  "assignments": {
+    "new": "Nova escalação",
+    "create": "Salvar e alocar funcionários",
+    "edit": "Editar escalação",
+    "saved": "Escalação salva.",
+    "data": "Dados da escalação",
+    "choose": "Escolha",
+    "none": "Nenhum",
+    "noChain": "Este cliente ainda não tem subcontratante na cadeia.",
+    "noSite": "Este cliente ainda não tem local cadastrado.",
+    "noClients": "Cadastre um cliente primeiro",
+    "noClientsText": "A escalação é sempre de um cliente.",
+    "minutes": "min",
+    "minutesValue": "{count} min",
+    "overnight": "Termina no dia seguinte (夜勤).",
+    "plannedDays": "{count, plural, =0 {Nenhum dia útil previsto} one {# dia útil previsto} other {# dias úteis previstos}}",
+    "plannedLabel": "Dias úteis",
+    "peopleCount": "{count, plural, =0 {ninguém alocado} one {# pessoa} other {# pessoas}}",
+    "inRange": "Escalações no período",
+    "emptyRange": "Nenhuma escalação neste período",
+    "emptyRangeText": "Crie uma escalação e aloque os funcionários.",
+    "grid": "Grade da escalação",
+    "errors": {
+      "membersOutside": "Há funcionários alocados fora do novo período. Ajuste as alocações antes."
+    },
+    "fields": {
+      "client": "Cliente",
+      "chain": "Subcontratante",
+      "site": "Local",
+      "title": "Título",
+      "titleHelp": "Opcional. Vazio usa o cliente e o local.",
+      "startsOn": "Início",
+      "endsOn": "Fim",
+      "startTime": "Entrada",
+      "endTime": "Saída",
+      "break": "Intervalo",
+      "workDays": "Dias de trabalho",
+      "meetingPlace": "集合場所 (ponto de encontro)",
+      "meetingTime": "集合時間 (horário de encontro)",
+      "note": "Observação"
+    },
+    "members": {
+      "title": "{count, plural, =0 {Funcionários} other {Funcionários (#)}}",
+      "add": "Alocar funcionário",
+      "addHelp": "Sem datas, o funcionário fica no período inteiro.",
+      "employee": "Funcionário",
+      "chooseEmployee": "Escolha o funcionário.",
+      "from": "De",
+      "to": "Até",
+      "rangeHelp": "Opcional: só uma parte do período.",
+      "confirm": "Alocar",
+      "added": "Funcionário alocado.",
+      "remove": "Remover {name} da escalação",
+      "empty": "Ninguém alocado ainda.",
+      "tableLabel": "Funcionários alocados",
+      "overlap": "Este funcionário já tem outra escalação no mesmo horário em algum dia do período.",
+      "duplicate": "Este funcionário já está nesta escalação.",
+      "outside": "As datas precisam estar dentro do período da escalação."
+    },
+    "calendar": {
+      "views": "Visão do calendário",
+      "mes": "Mês",
+      "semana": "Semana",
+      "previous": "Período anterior",
+      "next": "Próximo período",
+      "today": "Hoje",
+      "off": "休",
+      "empty": "Nenhum funcionário escalado neste período.",
+      "caption": "Funcionários e dias de {period}"
     }
   }
 }
