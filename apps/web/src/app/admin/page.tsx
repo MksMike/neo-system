@@ -59,7 +59,7 @@ export default async function AdminDashboardPage() {
             <li key={key}>
               <Link
                 href={href}
-                className="flex h-full items-start gap-3 rounded-lg border border-line bg-surface-1 p-5 text-ink no-underline shadow-sm transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md focus-visible:outline-2 focus-visible:outline-focus"
+                className="mk-card relative flex h-full items-start gap-3 rounded-lg border border-line bg-surface-1 p-5 text-ink no-underline shadow-sm transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md focus-visible:outline-2 focus-visible:outline-focus"
               >
                 <span className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-primary-soft text-primary-text">
                   <Icon aria-hidden className="size-5" strokeWidth={1.75} />

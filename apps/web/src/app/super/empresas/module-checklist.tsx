@@ -65,7 +65,7 @@ export function ModuleChecklist({
       {(['base', 'optional', 'addon'] as const).map((kind) => (
         <fieldset
           key={kind}
-          className="m-0 flex flex-col gap-3 rounded-lg border border-line bg-surface-1 p-5"
+          className="mk-card relative m-0 flex flex-col gap-3 rounded-lg border border-line bg-surface-1 p-5"
         >
           <legend className="px-1 type-label text-ink-muted">{t(`kinds.${kind}`)}</legend>
           <div className="grid gap-3 md:grid-cols-2">

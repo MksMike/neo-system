@@ -12,7 +12,7 @@ NEO-SYSTEM é um SaaS multi-empresa para empresas de genba (manutenção e const
 2. `docs/decisoes/` — ADRs. Uma decisão só muda por um ADR novo que substitui o anterior.
 3. `docs/camadas/NN-*.md` — documento de cada camada: regras numeradas (`R07-03`), modelo de dados, telas, permissões.
 4. `docs/02-stack-e-convencoes.md` — stack, versões, estrutura de pastas, convenções de código.
-5. `docs/design-system.html` (abra no navegador) e `docs/design-tokens.json` — identidade visual. Toda tela segue os tokens e componentes deles; nada de cor, raio ou sombra fora dos tokens.
+5. Kit MK-UI em `UXUI/mk-ui` (ADR 0026), aplicado em `packages/ui/src/styles/mk-ui.css` — identidade visual. Toda tela segue os tokens e componentes deles; nada de cor, raio ou sombra fora dos tokens.
 6. `COMECE-AQUI.md` — ordem das tarefas atuais (Super Admin primeiro).
 
 ## Como trabalhar

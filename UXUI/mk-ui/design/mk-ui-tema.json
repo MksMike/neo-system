@@ -1,0 +1,74 @@
+{
+  "app": "MK-UI Lab",
+  "version": 6,
+  "dash": "classico",
+  "menu": "arvore",
+  "mmenu": "gaveta",
+  "mtab": true,
+  "style": "futurista",
+  "variant": "anim",
+  "font": "fp-jp",
+  "icon": {
+    "style": "padrao",
+    "cmode": {
+      "dark": "custom",
+      "light": "herdar"
+    },
+    "custom": {
+      "dark": "#c9c2ff",
+      "light": "#2d63d8"
+    }
+  },
+  "pal": {
+    "dark": 0,
+    "light": 0
+  },
+  "over": {
+    "glass|dark|0": {
+      "primary": "#192043",
+      "muted": "#ffffff",
+      "accent": "#261254",
+      "cardO": 65,
+      "cardBO": 50,
+      "sec": "#434f89",
+      "secO": 60,
+      "secBO": 0,
+      "bg": "#35657e"
+    },
+    "futurista|light|0": {
+      "secO": 0
+    }
+  },
+  "bg": {
+    "type": "estilo",
+    "angle": 135,
+    "pos": "50% 0%",
+    "blur": 60,
+    "float": true,
+    "vig": false,
+    "vigO": 90,
+    "size": [46, 38, 34],
+    "op": [100, 100, 100],
+    "cols": {
+      "dark": {
+        "c1": "",
+        "c2": "",
+        "c3": "",
+        "b": ["", "", ""]
+      },
+      "light": {
+        "c1": "",
+        "c2": "",
+        "c3": "",
+        "b": ["", "", ""]
+      }
+    }
+  },
+  "done": {
+    "dark": true,
+    "light": true
+  },
+  "mode": "light",
+  "project": "",
+  "notes": ""
+}

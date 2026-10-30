@@ -171,7 +171,7 @@ export default async function AssignmentsCalendarPage({
               <li key={a.id}>
                 <Link
                   href={`/admin/escalacoes/${a.id}`}
-                  className="flex h-full gap-3 rounded-lg border border-line bg-surface-1 p-4 text-ink no-underline shadow-sm transition-[box-shadow,border-color] duration-(--dur-base) hover:border-line-strong hover:shadow-md focus-visible:outline-2 focus-visible:outline-focus"
+                  className="mk-card relative flex h-full gap-3 rounded-lg border border-line bg-surface-1 p-4 text-ink no-underline shadow-sm transition-[box-shadow,border-color] duration-(--dur-base) hover:border-line-strong hover:shadow-md focus-visible:outline-2 focus-visible:outline-focus"
                 >
                   <span
                     aria-hidden

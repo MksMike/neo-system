@@ -1,0 +1,98 @@
+/* Projeto — gerado pelo MK-UI Lab. Estilo Futurista · Animado */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #e8f8ff;
+  --surface: #f1ffff;
+  --surface-2: #e1f1fb;
+  --border: #bfd1dc;
+  --border-strong: #6b7d88;
+  --fg: #11171a;
+  --muted: #526773;
+  --primary: #1e6fd9;
+  --primary-fg: #ffffff;
+  --accent: #2a86a8;
+  --accent-fg: #0d0d12;
+  --success: #12865a;
+  --warning: #a86400;
+  --danger: #c8243a;
+  --card-bg: color-mix(in srgb, #f1ffff 100%, transparent);
+  --card-border: color-mix(in srgb, #bfd1dc 100%, transparent);
+  --section-bg: color-mix(in srgb, #f1ffff 0%, transparent);
+  --section-border: color-mix(in srgb, #bfd1dc 100%, transparent);
+  --icon-color: #11171a;
+  --font-display: 'Noto Sans JP', system-ui, sans-serif;
+  --font-body: 'Noto Sans JP', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --radius: 14px;
+  --radius-sm: 999px;
+  --radius-in: 10px;
+  --bw: 1px;
+  --speed: 280ms;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --icon-stroke: 1.3px;
+  --shadow-card:
+    0 0 0 1px color-mix(in oklch, #1e6fd9 22%, transparent),
+    0 0 46px -22px color-mix(in oklch, #1e6fd9 70%, transparent);
+  color-scheme: light;
+}
+
+.dark {
+  --bg: #000713;
+  --surface: #000f1b;
+  --surface-2: #001926;
+  --border: #234152;
+  --border-strong: #5a7d91;
+  --fg: #e5f4fe;
+  --muted: #87b1cb;
+  --primary: #7cc7ff;
+  --primary-fg: #0d0d12;
+  --accent: #b4f0ff;
+  --accent-fg: #0d0d12;
+  --success: #3ccf8e;
+  --warning: #f2b33d;
+  --danger: #ff5d6c;
+  --card-bg: color-mix(in srgb, #000f1b 100%, transparent);
+  --card-border: color-mix(in srgb, #234152 100%, transparent);
+  --section-bg: color-mix(in srgb, #000f1b 100%, transparent);
+  --section-border: color-mix(in srgb, #234152 100%, transparent);
+  --icon-color: #c9c2ff;
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+.card {
+  background: var(--card-bg);
+  border: var(--bw) solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+.section {
+  background: var(--section-bg);
+  border-color: var(--section-border);
+}
+.icon {
+  color: var(--icon-color);
+  stroke-width: var(--icon-stroke);
+}
+.num {
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 1ms !important;
+  }
+}

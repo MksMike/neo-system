@@ -96,9 +96,8 @@ test('the account menu holds the theme and the logout', async ({ page }) => {
 
   await menu.getByRole('switch', { name: 'Modo escuro' }).click();
   await expect(page.locator('html')).toHaveAttribute('data-mode', /escuro|claro/);
-  await menu.getByRole('radio', { name: 'Roxo' }).click();
-  await expect(page.locator('html')).toHaveAttribute('data-hue', 'roxo');
-  await expect(menu.getByRole('radio', { name: 'Roxo' })).toHaveAttribute('aria-checked', 'true');
+  // MK-UI identity (ADR 0026): one palette, no hue picker.
+  await expect(menu.getByRole('radio')).toHaveCount(0);
 
   await menu.getByRole('link', { name: 'Gerenciar conta' }).click();
   await expect(page).toHaveURL(/\/admin\/conta$/);

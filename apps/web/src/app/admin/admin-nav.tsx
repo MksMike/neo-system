@@ -1,14 +1,18 @@
 'use client';
 
 import { cn, Dialog, DialogContent, DialogTitle, DialogTrigger } from '@neo/ui';
-import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Menu, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ADMIN_HOME, ADMIN_SECTIONS, isActiveHref, SIDEBAR_COOKIE } from './sections';
 
 const COLLAPSED_WIDTH = 'w-[68px]';
+
+const OPEN_MENU_EVENT = 'neo:open-menu';
+/** Phone tab bar: home, the main sections and Menu (MK-UI kit, "Menu no celular"). */
+const TAB_KEYS = ['dashboard', 'assignments', 'employees', 'clients'] as const;
 
 const ENTRIES = [ADMIN_HOME, ...ADMIN_SECTIONS];
 
@@ -160,6 +164,16 @@ export function AdminMobileMenu({ company }: { company: string }) {
   const close = () => {
     setOpen(false);
   };
+  // The "Menu" tab of the phone tab bar opens this same drawer.
+  useEffect(() => {
+    const openMenu = () => {
+      setOpen(true);
+    };
+    window.addEventListener(OPEN_MENU_EVENT, openMenu);
+    return () => {
+      window.removeEventListener(OPEN_MENU_EVENT, openMenu);
+    };
+  }, []);
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -188,5 +202,48 @@ export function AdminMobileMenu({ company }: { company: string }) {
         </nav>
       </DialogContent>
     </Dialog>
+  );
+}
+
+/** Phone tab bar fixed at the bottom (44 px targets, safe area): the main sections and Menu. */
+export function AdminTabBar() {
+  const t = useTranslations('admin.nav');
+  const pathname = usePathname();
+  return (
+    <nav
+      aria-label={t('tabs')}
+      className="fixed inset-x-0 bottom-0 z-(--z-sticky) flex border-t border-line bg-surface-1/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+    >
+      {TAB_KEYS.map((key) => {
+        const entry = ENTRIES.find((e) => e.key === key);
+        if (!entry) return null;
+        const Icon = entry.icon;
+        const active = isActiveHref(pathname, entry.href);
+        return (
+          <Link
+            key={key}
+            href={entry.href}
+            aria-current={active ? 'page' : undefined}
+            className={cn(
+              'flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 text-[11px] no-underline',
+              active ? 'text-primary-text' : 'text-ink-subtle',
+            )}
+          >
+            <Icon aria-hidden className="size-6" strokeWidth={1.3} />
+            {t(key)}
+          </Link>
+        );
+      })}
+      <button
+        type="button"
+        onClick={() => {
+          window.dispatchEvent(new Event(OPEN_MENU_EVENT));
+        }}
+        className="flex min-h-14 flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 border-0 bg-transparent text-[11px] text-ink-subtle"
+      >
+        <Menu aria-hidden className="size-6" strokeWidth={1.3} />
+        {t('menu')}
+      </button>
+    </nav>
   );
 }

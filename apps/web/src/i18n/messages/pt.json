@@ -608,7 +608,9 @@
       "documents": "Documentos",
       "cashflow": "Fluxo de caixa",
       "ai": "Inteligência Artificial",
-      "settings": "Configurações"
+      "settings": "Configurações",
+      "tabs": "Atalhos",
+      "menu": "Menu"
     },
     "sections": {
       "employees": "Cadastro, documentos, ficha técnica, contrato e holerites de cada funcionário.",

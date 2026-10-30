@@ -5,9 +5,9 @@ import { redirect } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { AccountMenu } from '@/components/account-menu';
 import { officeMemberships } from '@/lib/destination';
-import { HUE_COOKIE, MODE_COOKIE, parseHue, parseMode } from '@/lib/theme';
+import { MODE_COOKIE, parseMode } from '@/lib/theme';
 import { activeOfficeMembership, getSession } from '@/server/session';
-import { AdminMobileMenu, AdminSidebar } from './admin-nav';
+import { AdminMobileMenu, AdminSidebar, AdminTabBar } from './admin-nav';
 import { SIDEBAR_COOKIE } from './sections';
 
 /**
@@ -41,7 +41,6 @@ export default async function AdminLayout({ children }: { children: ReactNode })
               <AccountMenu
                 name={session.displayName ?? session.email.split('@')[0] ?? session.email}
                 email={session.email}
-                initialHue={parseHue(cookieStore.get(HUE_COOKIE)?.value)}
                 initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)}
                 manageHref="/admin/conta"
               />
@@ -50,12 +49,13 @@ export default async function AdminLayout({ children }: { children: ReactNode })
           <main
             id="conteudo"
             tabIndex={-1}
-            className="mx-auto w-full max-w-[1440px] flex-1 px-8 pt-2 pb-8 outline-none max-md:px-4"
+            className="mx-auto w-full max-w-[1440px] flex-1 px-8 pt-2 pb-8 outline-none max-md:px-4 max-md:pb-24"
           >
             {children}
           </main>
         </div>
       </div>
+      <AdminTabBar />
     </>
   );
 }

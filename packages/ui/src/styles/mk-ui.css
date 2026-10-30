@@ -1,0 +1,177 @@
+/* Identidade MK-UI (ADR 0026): paleta Órbita, estilo Futurista, Noto Sans JP.
+   Fonte: UXUI/mk-ui/design (especificação, seções 2 a 5). Mapeia os valores do kit para os nomes de
+   token que todos os componentes já usam; nenhuma cor fora do kit (as derivadas misturam tokens do kit).
+   Vale para qualquer data-hue: a identidade tem uma só paleta, em claro e escuro. */
+
+/* Claro (padrão) */
+:root,
+html[data-hue][data-mode='claro'],
+html[data-hue][data-mode='sistema'] {
+  --mk-bg: #e8f8ff;
+  --mk-surface: #f1ffff;
+  --mk-surface-2: #e1f1fb;
+  --mk-border: #bfd1dc;
+  --mk-border-strong: #6b7d88;
+  --mk-fg: #11171a;
+  --mk-muted: #526773;
+  --mk-primary: #1e6fd9;
+  --mk-primary-fg: #ffffff;
+  --mk-accent: #2a86a8;
+  --mk-success: #12865a;
+  --mk-warning: #a86400;
+  --mk-danger: #c8243a;
+  --mk-icon: #11171a;
+  color-scheme: light;
+}
+
+/* Escuro */
+html[data-hue][data-mode='escuro'] {
+  --mk-bg: #000713;
+  --mk-surface: #000f1b;
+  --mk-surface-2: #001926;
+  --mk-border: #234152;
+  --mk-border-strong: #5a7d91;
+  --mk-fg: #e5f4fe;
+  --mk-muted: #87b1cb;
+  --mk-primary: #7cc7ff;
+  --mk-primary-fg: #0d0d12;
+  --mk-accent: #b4f0ff;
+  --mk-success: #3ccf8e;
+  --mk-warning: #f2b33d;
+  --mk-danger: #ff5d6c;
+  --mk-icon: #c9c2ff;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-hue][data-mode='sistema'] {
+    --mk-bg: #000713;
+    --mk-surface: #000f1b;
+    --mk-surface-2: #001926;
+    --mk-border: #234152;
+    --mk-border-strong: #5a7d91;
+    --mk-fg: #e5f4fe;
+    --mk-muted: #87b1cb;
+    --mk-primary: #7cc7ff;
+    --mk-primary-fg: #0d0d12;
+    --mk-accent: #b4f0ff;
+    --mk-success: #3ccf8e;
+    --mk-warning: #f2b33d;
+    --mk-danger: #ff5d6c;
+    --mk-icon: #c9c2ff;
+    color-scheme: dark;
+  }
+}
+
+/* Tokens do design system a partir do kit (mesma especificidade dos seletores acima, depois deles) */
+:root,
+html[data-hue][data-mode] {
+  --surface-0: var(--mk-bg);
+  --surface-1: var(--mk-surface);
+  --surface-2: var(--mk-surface-2);
+  --surface-3: color-mix(in oklch, var(--mk-surface-2) 70%, var(--mk-border));
+  --line: var(--mk-border);
+  --line-strong: var(--mk-border-strong);
+  --ink: var(--mk-fg);
+  --ink-muted: var(--mk-muted);
+  --ink-subtle: var(--mk-muted);
+  --primary: var(--mk-primary);
+  --primary-hover: color-mix(in oklch, var(--mk-primary) 86%, var(--mk-fg));
+  --primary-soft: color-mix(in oklch, var(--mk-primary) 14%, var(--mk-surface));
+  --on-primary: var(--mk-primary-fg);
+  --on-grad: var(--mk-primary-fg);
+  --primary-text: var(--mk-primary);
+  --grad-start: var(--mk-primary);
+  --grad-end: var(--mk-accent);
+  --glow: color-mix(in oklch, var(--mk-primary) 22%, transparent);
+  --page-tint: var(--mk-bg);
+  --focus: var(--mk-primary);
+  --overlay: color-mix(in oklch, var(--mk-bg) 70%, transparent);
+  --success: var(--mk-success);
+  --success-soft: color-mix(in oklch, var(--mk-success) 12%, var(--mk-surface));
+  --warning: var(--mk-warning);
+  --warning-soft: color-mix(in oklch, var(--mk-warning) 12%, var(--mk-surface));
+  --danger: var(--mk-danger);
+  --danger-soft: color-mix(in oklch, var(--mk-danger) 12%, var(--mk-surface));
+  --info: var(--mk-primary);
+  --info-soft: color-mix(in oklch, var(--mk-primary) 12%, var(--mk-surface));
+  --mk-shadow-card:
+    0 0 0 1px color-mix(in oklch, var(--mk-primary) 22%, transparent),
+    0 0 46px -22px color-mix(in oklch, var(--mk-primary) 70%, transparent);
+  --nx-shadow-sm: var(--mk-shadow-card);
+  --nx-shadow-md: var(--mk-shadow-card);
+  --nx-shadow-lg: 0 24px 60px -20px color-mix(in oklch, var(--mk-primary) 45%, transparent);
+  --nx-font-sans: var(--font-noto-sans, 'Noto Sans JP'), 'Hiragino Sans', system-ui, sans-serif;
+  --nx-font-mono: var(--font-plex-mono, 'IBM Plex Mono'), ui-monospace, Consolas, monospace;
+  --dur-base: 280ms;
+}
+
+/* Fundo: brilho radial no topo + grade fina de linhas luminosas (textura do estilo) */
+html,
+body {
+  background-color: var(--surface-0);
+  background-image:
+    radial-gradient(
+      ellipse 80% 46% at 50% 0%,
+      color-mix(in oklch, var(--primary) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(color-mix(in oklch, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    38px 38px,
+    38px 38px;
+  background-attachment: fixed;
+}
+
+/* Cards: "Onda de cor" (ADR 0026). A borda de 1 px muda devagar entre a cor
+   principal e a de destaque do tema, com cor suave (30%). */
+@property --mk-wave {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+/* o elemento com .mk-card precisa de position (relative, sticky…) na própria classe */
+.mk-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  --mk-wave-a: color-mix(in oklch, var(--primary) 30%, transparent);
+  --mk-wave-b: color-mix(in oklch, var(--mk-accent) 30%, transparent);
+  background: conic-gradient(
+    from var(--mk-wave),
+    var(--mk-wave-a),
+    var(--mk-wave-b),
+    var(--mk-wave-a),
+    var(--mk-wave-b),
+    var(--mk-wave-a)
+  );
+  /* só o anel da borda aparece */
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  animation: mk-wave 12s linear infinite;
+}
+
+/* Título da tela: fonte de títulos do kit, caixa alta, espaçamento largo e negrito (pedido do Mike) */
+.type-h1 {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+@keyframes mk-wave {
+  to {
+    --mk-wave: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mk-card::after {
+    animation: none;
+  }
+}

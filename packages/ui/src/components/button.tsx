@@ -6,7 +6,7 @@ import { Spinner } from './spinner';
 
 export const buttonVariants = cva(
   [
-    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md border border-transparent',
+    'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-transparent',
     'font-semibold leading-none no-underline cursor-pointer select-none',
     'transition-[background-color,border-color,color,box-shadow,transform,filter] duration-(--dur-fast) ease-standard',
     'active:not-disabled:scale-[.98] disabled:cursor-default disabled:opacity-45 aria-disabled:opacity-45',
@@ -26,7 +26,7 @@ export const buttonVariants = cva(
       size: {
         sm: 'h-control-sm px-3 text-[13px]',
         md: 'h-control-md px-4 text-sm',
-        lg: 'h-control-lg px-5 text-base rounded-[12px]',
+        lg: 'h-control-lg px-5 text-base',
       },
       iconOnly: { true: 'px-0', false: '' },
       block: { true: 'w-full', false: '' },

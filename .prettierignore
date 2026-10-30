@@ -3,3 +3,4 @@ pnpm-lock.yaml
 docs/
 supabase/migrations/
 packages/ui/src/styles/tokens.css
+UXUI/

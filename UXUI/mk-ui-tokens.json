@@ -1,0 +1,222 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "project": "",
+    "style": "Futurista",
+    "variant": "Animado",
+    "paletteDark": "Órbita",
+    "paletteLight": "Órbita",
+    "generator": "MK-UI Lab"
+  },
+  "color": {
+    "light": {
+      "bg": {
+        "$type": "color",
+        "$value": "#e8f8ff"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "#f1ffff"
+      },
+      "surface-2": {
+        "$type": "color",
+        "$value": "#e1f1fb"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "#bfd1dc"
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "#6b7d88"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "#11171a"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "#526773"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#1e6fd9"
+      },
+      "primary-fg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#2a86a8"
+      },
+      "accent-fg": {
+        "$type": "color",
+        "$value": "#0d0d12"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#12865a"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#a86400"
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "#c8243a"
+      },
+      "icon": {
+        "$type": "color",
+        "$value": "#11171a"
+      }
+    },
+    "dark": {
+      "bg": {
+        "$type": "color",
+        "$value": "#000713"
+      },
+      "surface": {
+        "$type": "color",
+        "$value": "#000f1b"
+      },
+      "surface-2": {
+        "$type": "color",
+        "$value": "#001926"
+      },
+      "border": {
+        "$type": "color",
+        "$value": "#234152"
+      },
+      "border-strong": {
+        "$type": "color",
+        "$value": "#5a7d91"
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "#e5f4fe"
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "#87b1cb"
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#7cc7ff"
+      },
+      "primary-fg": {
+        "$type": "color",
+        "$value": "#0d0d12"
+      },
+      "accent": {
+        "$type": "color",
+        "$value": "#b4f0ff"
+      },
+      "accent-fg": {
+        "$type": "color",
+        "$value": "#0d0d12"
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#3ccf8e"
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#f2b33d"
+      },
+      "danger": {
+        "$type": "color",
+        "$value": "#ff5d6c"
+      },
+      "icon": {
+        "$type": "color",
+        "$value": "#c9c2ff"
+      }
+    }
+  },
+  "layer": {
+    "light": {
+      "card": {
+        "$value": "#f1ffff",
+        "opacity": 100
+      },
+      "cardBorder": {
+        "$value": "#bfd1dc",
+        "opacity": 100
+      },
+      "section": {
+        "$value": "#f1ffff",
+        "opacity": 0
+      },
+      "sectionBorder": {
+        "$value": "#bfd1dc",
+        "opacity": 100
+      }
+    },
+    "dark": {
+      "card": {
+        "$value": "#000f1b",
+        "opacity": 100
+      },
+      "cardBorder": {
+        "$value": "#234152",
+        "opacity": 100
+      },
+      "section": {
+        "$value": "#000f1b",
+        "opacity": 100
+      },
+      "sectionBorder": {
+        "$value": "#234152",
+        "opacity": 100
+      }
+    }
+  },
+  "font": {
+    "display": {
+      "$type": "fontFamily",
+      "$value": "Noto Sans JP"
+    },
+    "body": {
+      "$type": "fontFamily",
+      "$value": "Noto Sans JP"
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "IBM Plex Mono"
+    }
+  },
+  "radius": {
+    "card": {
+      "$type": "dimension",
+      "$value": "14px"
+    },
+    "control": {
+      "$type": "dimension",
+      "$value": "999px"
+    },
+    "field": {
+      "$type": "dimension",
+      "$value": "10px"
+    }
+  },
+  "motion": {
+    "duration": {
+      "$type": "duration",
+      "$value": "280ms"
+    },
+    "easing": {
+      "$type": "cubicBezier",
+      "$value": "cubic-bezier(.2,.7,.2,1)"
+    }
+  },
+  "icon": {
+    "stroke": {
+      "$type": "dimension",
+      "$value": "1.3px"
+    },
+    "style": {
+      "$value": "Padrão do estilo"
+    }
+  }
+}

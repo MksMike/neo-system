@@ -1,3 +1,5 @@
 /* Design system NEO-SYSTEM. O app importa depois de `@import "tailwindcss"`. */
 @import './tokens.css';
 @import './theme.css';
+/* Identidade MK-UI (ADR 0026): por último, sobrepõe os valores dos tokens. */
+@import './mk-ui.css';

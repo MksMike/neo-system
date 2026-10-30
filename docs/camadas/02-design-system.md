@@ -67,6 +67,7 @@
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
 | 2026-10-28 | 0.2 | SA-03: tokens gerados, tema e idioma por cookie, componentes, máscaras, `/dev/ui`; regras R02-01 a R02-05 | SA-03 |
 | 2026-10-29 | 0.3 | SA-07: componentes de layout (Sidebar, NavItem, PageHeader, SkipLink) e gaveta à esquerda | SA-07 |
+| 2026-10-30 | 0.4 | ADR 0026: identidade MK-UI (paleta única Órbita, sem matiz), barra inferior no celular, títulos em negrito | — |
 | 2026-10-29 | 0.4 | SA-08: Steps (progresso de assistente) | SA-08 |
 | 2026-10-29 | 0.5 | SA-09: TabNav (abas por link) | SA-09 |
 | 2026-10-29 | 0.6 | D-01: menu do painel recolhível e animações da gaveta | D-01 |
