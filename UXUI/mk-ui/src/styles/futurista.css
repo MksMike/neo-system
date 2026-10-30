@@ -1,0 +1,133 @@
+/* Futurista · Animado — assinatura do estilo (especificação, seções 2 e 5).
+   Só tokens do kit: nenhum valor de cor novo. Colchetes nos cantos dos cards, brilho radial no topo,
+   linhas luminosas; varredura e pulso dos colchetes no modo animado. */
+
+/* Fundo: brilho radial no topo + grade fina de linhas luminosas */
+.fx-bg {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(
+      ellipse 80% 46% at 50% 0%,
+      color-mix(in oklch, var(--primary) 22%, transparent),
+      transparent 70%
+    ),
+    linear-gradient(color-mix(in oklch, var(--primary) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklch, var(--primary) 7%, transparent) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    38px 38px,
+    38px 38px;
+  background-attachment: fixed;
+}
+
+/* Card com colchetes nos cantos */
+.fx-card {
+  position: relative;
+  background: var(--card-bg);
+  border: var(--bw) solid var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  isolation: isolate;
+}
+.fx-card::before,
+.fx-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: var(--primary);
+  border-style: solid;
+  pointer-events: none;
+  animation: fx-bracket 3.2s var(--ease) infinite;
+}
+.fx-card::before {
+  top: -1px;
+  left: -1px;
+  border-width: 2px 0 0 2px;
+  border-top-left-radius: var(--radius);
+}
+.fx-card::after {
+  right: -1px;
+  bottom: -1px;
+  border-width: 0 2px 2px 0;
+  border-bottom-right-radius: var(--radius);
+}
+
+/* Varredura: uma linha luminosa que desce pelo card */
+.fx-scan {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+.fx-scan::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40%;
+  top: -40%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in oklch, var(--primary) 10%, transparent),
+    transparent
+  );
+  animation: fx-sweep 6s linear infinite;
+}
+
+/* Linha luminosa (divisórias, borda inferior da barra superior) */
+.fx-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, var(--primary) 55%, transparent),
+    transparent
+  );
+  height: 1px;
+}
+
+/* Botão primário com brilho */
+.fx-glow {
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--primary) 40%, transparent),
+    0 0 22px -6px color-mix(in oklch, var(--primary) 80%, transparent);
+}
+
+/* Títulos: caixa alta e espaçamento largo (fonte de títulos do kit) */
+.fx-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+}
+
+/* Título da tela em negrito (pedido do Mike, 30/10/2026); títulos de card seguem em 400 */
+h1.fx-title {
+  font-weight: 700;
+}
+
+@keyframes fx-bracket {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+@keyframes fx-sweep {
+  to {
+    top: 140%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-card::before,
+  .fx-card::after,
+  .fx-scan::before {
+    animation: none;
+  }
+}

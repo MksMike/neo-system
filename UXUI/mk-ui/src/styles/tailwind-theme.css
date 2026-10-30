@@ -1,0 +1,33 @@
+/* Tailwind v4 — importe depois de globals.css */
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-fg);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-section: var(--section-bg);
+  --color-section-border: var(--section-border);
+  --color-icon: var(--icon-color);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-mono);
+  --radius-card: var(--radius);
+  --radius-control: var(--radius-sm);
+  --radius-field: var(--radius-in);
+  --default-transition-duration: var(--speed);
+  --default-transition-timing-function: var(--ease);
+}
