@@ -1,5 +1,5 @@
 import { Badge, Card, CardHeader, CardTitle } from '@neo/ui';
-import { formatMobilePhone } from '@neo/validation';
+import { formatMobilePhone, formatYen } from '@neo/validation';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
 import { getFormatter, getLocale, getTranslations } from 'next-intl/server';
@@ -77,6 +77,7 @@ export default async function EmployeePage({ params }: Props) {
                 nationality: e.nationality ?? '',
                 mobilePhone: e.mobile_phone ?? '',
                 hireDate: e.hire_date ?? '',
+                dayWage: e.day_wage === 0 ? '' : String(e.day_wage),
                 status: e.status as 'active' | 'inactive',
                 note: e.note ?? '',
               }}
@@ -101,6 +102,9 @@ export default async function EmployeePage({ params }: Props) {
               {e.mobile_phone ? (
                 <span className="type-num">{formatMobilePhone(e.mobile_phone)}</span>
               ) : null}
+            </Info>
+            <Info label={t('employees.fields.dayWage')}>
+              {e.day_wage > 0 ? <span className="type-num">{formatYen(e.day_wage)}</span> : null}
             </Info>
             <Info label={t('employees.fields.hireDate')}>
               {e.hire_date

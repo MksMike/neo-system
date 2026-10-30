@@ -15,6 +15,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { useAction } from '@/lib/use-action';
+import { YenInput } from '../escalacoes/yen-input';
 import { saveEmployee } from './actions';
 import { EMPLOYMENT_TYPES, employeeSchema, NATIONALITIES, type EmploymentType } from './schema';
 
@@ -25,6 +26,7 @@ export interface EmployeeValues {
   nationality: string;
   mobilePhone: string;
   hireDate: string;
+  dayWage: string;
   status: 'active' | 'inactive';
   note: string;
 }
@@ -36,6 +38,7 @@ const EMPTY: EmployeeValues = {
   nationality: '',
   mobilePhone: '',
   hireDate: '',
+  dayWage: '',
   status: 'active',
   note: '',
 };
@@ -77,6 +80,7 @@ export function EmployeeForm({
       version,
       ...values,
       employmentType: values.employmentType as EmploymentType,
+      dayWage: values.dayWage === '' ? 0 : Number(values.dayWage),
       status: existingId ? values.status : undefined,
     };
     const parsed = employeeSchema.safeParse(input);
@@ -177,6 +181,14 @@ export function EmployeeForm({
             value={values.mobilePhone}
             onChange={(e) => {
               set('mobilePhone', e.target.value);
+            }}
+          />
+        </Field>
+        <Field label={t('employees.fields.dayWage')} error={err('dayWage')}>
+          <YenInput
+            value={values.dayWage}
+            onValueChange={(v) => {
+              set('dayWage', v);
             }}
           />
         </Field>

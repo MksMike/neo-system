@@ -1,7 +1,7 @@
 -- Layer 05: employees and the app access by ID + PIN (D-03, ADR 0016).
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(22);
+select plan(24);
 
 create function pg_temp.as_service_role() returns void language plpgsql as $$
 begin
@@ -46,6 +46,12 @@ select is(
 select throws_ok(
   $$ select public.save_employee(current_setting('t.payload')::jsonb || '{"version":1}') $$,
   'P0001', 'conflict', 'editing with an old version is refused');
+select is(
+  (public.save_employee(current_setting('t.payload')::jsonb || '{"version":2,"day_wage":15000}') ->> 'day_wage')::int,
+  15000, 'the daily wage is saved in integer yen');
+select throws_ok(
+  $$ select public.save_employee(current_setting('t.payload')::jsonb || '{"version":3,"day_wage":-1}') $$,
+  '23514', null, 'a negative daily wage is refused');
 select throws_ok(
   format($$ select public.save_employee('{"id":"%s","company_id":"%s","full_name":"X","employment_type":"boss"}') $$,
     gen_random_uuid(), current_setting('t.a')),

@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { redirect } from 'next/navigation';
 import { destinationFor } from '@/lib/destination';
 import { getSession } from '@/server/session';
+import { DevLogins } from './dev-logins';
 import { LoginForm } from './login-form';
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,6 +36,7 @@ export default async function LoginPage({
       </div>
       {linkError ? <Alert variant="warning" title={t(`errors.${linkError}`)} /> : null}
       <LoginForm />
+      {process.env.NODE_ENV === 'development' ? <DevLogins /> : null}
     </Card>
   );
 }

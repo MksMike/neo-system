@@ -23,3 +23,5 @@ next-env.d.ts
 .playwright-mcp/
 test-results/
 playwright-report/
+# dados locais com nomes reais da equipe (ADR 0015): nunca entram no repositório
+supabase/seeds/90_local_people.sql

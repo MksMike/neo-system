@@ -18,7 +18,7 @@ import { requireOffice } from '@/server/office';
 import { screenMetadata } from '../screen-placeholder';
 import { SectionHeader } from '../section-header';
 import { listEmployees } from './data';
-import { formatLoginId } from './schema';
+import { formatLoginId, missingFields } from './schema';
 
 export const generateMetadata = () => screenMetadata('employees', 'list');
 
@@ -89,47 +89,77 @@ export default async function EmployeesPage({
               <TableHeaderCell>{t('employees.access.loginId')}</TableHeaderCell>
               <TableHeaderCell>{t('employees.fields.mobilePhone')}</TableHeaderCell>
               <TableHeaderCell>{t('employees.fields.status')}</TableHeaderCell>
+              <TableHeaderCell>{t('employees.registration')}</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {employees.map((e) => (
-              <TableRow key={e.id}>
-                <TableCell>
-                  <Link
-                    href={`/admin/funcionarios/${e.id}`}
-                    className="rounded-xs font-semibold text-primary-text hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+            {employees.map((e) => {
+              const missing = missingFields(e);
+              const tone =
+                e.status !== 'active' ? 'line-strong' : missing.length > 0 ? 'warning' : 'success';
+              return (
+                <TableRow key={e.id}>
+                  {/* Status bar on the left of the row (R05-07): green = complete, yellow = missing */}
+                  <TableCell
+                    className="border-l-[6px]"
+                    style={{ borderLeftColor: `var(--${tone})` }}
                   >
-                    {e.full_name}
-                  </Link>
-                  {e.name_kana ? (
-                    <span className="block text-xs text-ink-subtle">{e.name_kana}</span>
-                  ) : null}
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline">
-                    {t(`employees.types.${e.employment_type as 'regular'}`)}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  {e.nationality ? (countryName.of(e.nationality) ?? e.nationality) : '—'}
-                </TableCell>
-                <TableCell className="type-num whitespace-nowrap">
-                  {e.loginId ? (
-                    formatLoginId(e.loginId)
-                  ) : (
-                    <span className="text-ink-subtle">{t('employees.access.noneShort')}</span>
-                  )}
-                </TableCell>
-                <TableCell className="type-num whitespace-nowrap">
-                  {e.mobile_phone ? formatMobilePhone(e.mobile_phone) : '—'}
-                </TableCell>
-                <TableCell>
-                  <Badge variant={e.status === 'active' ? 'success' : 'neutral'} dot>
-                    {t(`employees.status.${e.status as 'active'}`)}
-                  </Badge>
-                </TableCell>
-              </TableRow>
-            ))}
+                    <Link
+                      href={`/admin/funcionarios/${e.id}`}
+                      className="rounded-xs font-semibold text-primary-text hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                    >
+                      {e.full_name}
+                    </Link>
+                    {e.name_kana ? (
+                      <span className="block text-xs text-ink-subtle">{e.name_kana}</span>
+                    ) : null}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant="outline">
+                      {t(`employees.types.${e.employment_type as 'regular'}`)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    {e.nationality ? (countryName.of(e.nationality) ?? e.nationality) : '—'}
+                  </TableCell>
+                  <TableCell className="type-num whitespace-nowrap">
+                    {e.loginId ? (
+                      formatLoginId(e.loginId)
+                    ) : (
+                      <span className="text-ink-subtle">{t('employees.access.noneShort')}</span>
+                    )}
+                  </TableCell>
+                  <TableCell className="type-num whitespace-nowrap">
+                    {e.mobile_phone ? formatMobilePhone(e.mobile_phone) : '—'}
+                  </TableCell>
+                  <TableCell>
+                    <Badge variant={e.status === 'active' ? 'success' : 'neutral'} dot>
+                      {t(`employees.status.${e.status as 'active'}`)}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    {missing.length > 0 ? (
+                      <Badge
+                        variant="warning"
+                        dot
+                        title={missing.map((f) => t(`employees.required.${f}`)).join(', ')}
+                      >
+                        {t('employees.missing', { count: missing.length })}
+                      </Badge>
+                    ) : (
+                      <Badge variant="success" dot>
+                        {t('employees.complete')}
+                      </Badge>
+                    )}
+                    {missing.length > 0 ? (
+                      <span className="sr-only">
+                        {missing.map((f) => t(`employees.required.${f}`)).join(', ')}
+                      </span>
+                    ) : null}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       )}

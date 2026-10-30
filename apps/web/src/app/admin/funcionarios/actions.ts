@@ -27,6 +27,7 @@ export const saveEmployee = defineAction({
         nationality: input.nationality || null,
         mobile_phone: input.mobilePhone ?? null,
         hire_date: input.hireDate || null,
+        day_wage: input.dayWage,
         status: input.status ?? null,
         note: input.note ?? null,
       },

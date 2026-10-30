@@ -20,7 +20,7 @@
 
 | Tabela | Campos | Observação |
 | --- | --- | --- |
-| `employee` | `user_id` (opcional), `full_name`, `name_kana`, `employment_type` (`regular` 社員, `part_time` パート, `subcontractor` 下請, `freelancer` 業務委託), `nationality` (ISO 3166-1, 2 letras), `mobile_phone`, `hire_date`, `status` (`active`, `inactive`), `note` | Com `company_id`, RLS, auditoria, `version` e exclusão lógica. O cadastro existe sem login; `user_id` é preenchido quando o acesso é criado (ADR 0016) |
+| `employee` | `user_id` (opcional), `full_name`, `name_kana`, `employment_type` (`regular` 社員, `part_time` パート, `subcontractor` 下請, `freelancer` 業務委託), `nationality` (ISO 3166-1, 2 letras), `mobile_phone`, `hire_date`, `day_wage` (diária em iene inteiro; valor por hora = diária ÷ 8, hora extra × 1,25), `status` (`active`, `inactive`), `note` | Com `company_id`, RLS, auditoria, `version` e exclusão lógica. O cadastro existe sem login; `user_id` é preenchido quando o acesso é criado (ADR 0016) |
 
 O login do app usa as tabelas da camada 01: `user_profile` (`login_kind = 'pin'`, `employee_login_id` de 8 dígitos, único no sistema) e `membership` (papel `employee`).
 
@@ -42,6 +42,7 @@ O login do app usa as tabelas da camada 01: `user_profile` (`login_kind = 'pin'`
 | R05-04 | Redefinir o PIN mantém o ID e encerra todas as sessões abertas daquele funcionário. |
 | R05-05 | Funcionário inativo não ganha acesso nem redefinição de PIN; o cadastro fica no histórico. |
 | R05-06 | O celular é só contato; o login nunca usa o telefone (ADR 0016). |
+| R05-07 | Situação do cadastro na lista: faixa à esquerda da linha e selo na coluna "Cadastro". Verde = completo; amarelo = falta algum campo (katakana, nacionalidade, celular, data de entrada, diária, acesso ao app), com a lista do que falta. Inativo = neutro. Os documentos (在留カード etc.) entram na lista no M1. |
 
 ## 5. Telas e fluxos
 
@@ -78,3 +79,4 @@ Referência completa: `docs/telas/inventario-de-telas.md`.
 | --- | --- | --- | --- |
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
 | 2026-10-30 | 0.2 | D-03: modelo, funções, regras R05-01 a R05-06, telas, permissões e acesso ao app por ID + PIN | D-03 |
+| 2026-10-31 | 0.3 | Diária do funcionário (`day_wage`) no cadastro e na página; R05-07 (situação do cadastro na lista) | feat/06-escalacao-v2 |

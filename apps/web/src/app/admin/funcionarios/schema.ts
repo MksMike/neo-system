@@ -1,4 +1,12 @@
-import { businessDate, freeText, kanaText, longText, mobilePhone, optional } from '@neo/validation';
+import {
+  businessDate,
+  freeText,
+  kanaText,
+  longText,
+  mobilePhone,
+  optional,
+  yen,
+} from '@neo/validation';
 import { z } from 'zod';
 
 /** 社員, パート, 下請, 業務委託 (docs/00-ancora.md, glossary "Vínculo"). */
@@ -34,6 +42,8 @@ export const employeeSchema = z.object({
   nationality: z.union([z.literal(''), z.string().regex(/^[A-Z]{2}$/)]),
   mobilePhone: optional(mobilePhone),
   hireDate: z.union([z.literal(''), businessDate]),
+  /** Daily wage (diária) in integer yen; 0 = not informed. */
+  dayWage: yen.max(1_000_000, 'validation.max'),
   status: z.enum(['active', 'inactive']).optional(),
   note: optional(longText({ max: 1000 })),
 });
@@ -42,4 +52,37 @@ export type EmployeeInput = z.input<typeof employeeSchema>;
 /** `4821-7305`: the ID shown in two blocks (ADR 0016). */
 export function formatLoginId(id: string): string {
   return id.length === 8 ? `${id.slice(0, 4)}-${id.slice(4)}` : id;
+}
+
+/**
+ * Fields the registration still lacks (R05-07). Empty = complete (green); otherwise attention
+ * (yellow). Documents (在留カード etc.) join this list in the M1.
+ */
+export const REQUIRED_FIELDS = [
+  'nameKana',
+  'nationality',
+  'mobilePhone',
+  'hireDate',
+  'dayWage',
+  'appAccess',
+] as const;
+export type RequiredField = (typeof REQUIRED_FIELDS)[number];
+
+export function missingFields(e: {
+  name_kana: string | null;
+  nationality: string | null;
+  mobile_phone: string | null;
+  hire_date: string | null;
+  day_wage: number;
+  loginId: string | null;
+}): RequiredField[] {
+  const filled: Record<RequiredField, boolean> = {
+    nameKana: Boolean(e.name_kana),
+    nationality: Boolean(e.nationality),
+    mobilePhone: Boolean(e.mobile_phone),
+    hireDate: Boolean(e.hire_date),
+    dayWage: e.day_wage > 0,
+    appAccess: Boolean(e.loginId),
+  };
+  return REQUIRED_FIELDS.filter((f) => !filled[f]);
 }
