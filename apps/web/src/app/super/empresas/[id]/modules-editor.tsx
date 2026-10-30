@@ -100,7 +100,7 @@ export function ModulesEditor({
         error={missingAny.length > 0 ? t('super.wizard.errors.modules') : undefined}
       />
 
-      <div className="sticky bottom-0 flex flex-wrap items-end gap-4 rounded-lg border border-line bg-surface-1 p-4 shadow-md">
+      <div className="mk-card sticky bottom-0 flex flex-wrap items-end gap-4 rounded-lg border border-line bg-surface-1 p-4 shadow-md">
         <div className="flex min-w-[240px] flex-1 flex-col gap-1 text-sm">
           {dirty ? (
             <>

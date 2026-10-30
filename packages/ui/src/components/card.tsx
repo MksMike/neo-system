@@ -3,7 +3,7 @@ import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 
 export const cardVariants = cva(
-  'mk-card flex min-w-0 flex-col gap-3 rounded-[14px] p-5 transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard',
+  'mk-card relative flex min-w-0 flex-col gap-3 rounded-[14px] p-5 transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard',
   {
     variants: {
       variant: {

@@ -11,7 +11,8 @@ O Mike decidiu trocar o visual do sistema inteiro e entregou o kit MK-UI em `UXU
 
 ## Decisão
 
-- **A fonte da identidade visual passa a ser o kit MK-UI**, no estilo "Futurista · Animado" com a paleta Órbita (claro e escuro), Noto Sans JP e IBM Plex Mono, cantoneiras nos cards, brilho e grade no fundo.
+- **A fonte da identidade visual passa a ser o kit MK-UI**, no estilo "Futurista · Animado" com a paleta Órbita (claro e escuro), Noto Sans JP e IBM Plex Mono, brilho e grade no fundo.
+- **Cards com "Onda de cor":** sem cantoneiras; a borda de 1 px muda devagar (12 s por volta) entre a cor principal e a de destaque do tema, em tom suave (30%). Escolhida entre os modelos de borda em 2026-10-30. Quem pede movimento reduzido no sistema vê a borda parada.
 - **Paleta única.** O seletor de matiz sai do menu da conta e do login, e fica só o modo claro, escuro ou do sistema.
 - **Implementação por remapeamento:** `packages/ui/src/styles/mk-ui.css` dá novos valores aos mesmos tokens semânticos (`--surface-*`, `--ink-*`, `--primary-*` …). As telas existentes mudam sem alterar componente por componente.
 - **Formas:** botões em pílula, cards com raio de 14 px e campos com raio de 10 px.
