@@ -13,6 +13,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@neo/calc": "workspace:*",
     "@neo/db": "workspace:*",
     "@neo/observability": "workspace:*",
     "@neo/ui": "workspace:*",

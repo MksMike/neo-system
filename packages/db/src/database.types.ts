@@ -11,17 +11,25 @@ export type Database = {
           company_id: string;
           created_at: string;
           created_by: string | null;
+          day_rate: number;
           deleted_at: string | null;
           end_time: string;
           ends_on: string;
+          extra_client_amount: number;
+          extra_client_taxable: boolean;
+          extra_description: string | null;
+          extra_employee_amount: number;
           id: string;
           meeting_place: string | null;
           meeting_time: string | null;
           note: string | null;
+          price_includes_tax: boolean;
           site_id: string | null;
           start_time: string;
           starts_on: string;
+          tax_rate: number;
           title: string | null;
+          title_show_on: string;
           updated_at: string;
           updated_by: string | null;
           version: number;
@@ -35,17 +43,25 @@ export type Database = {
           company_id: string;
           created_at?: string;
           created_by?: string | null;
+          day_rate?: number;
           deleted_at?: string | null;
           end_time: string;
           ends_on: string;
+          extra_client_amount?: number;
+          extra_client_taxable?: boolean;
+          extra_description?: string | null;
+          extra_employee_amount?: number;
           id?: string;
           meeting_place?: string | null;
           meeting_time?: string | null;
           note?: string | null;
+          price_includes_tax?: boolean;
           site_id?: string | null;
           start_time: string;
           starts_on: string;
+          tax_rate?: number;
           title?: string | null;
+          title_show_on?: string;
           updated_at?: string;
           updated_by?: string | null;
           version?: number;
@@ -58,17 +74,25 @@ export type Database = {
           company_id?: string;
           created_at?: string;
           created_by?: string | null;
+          day_rate?: number;
           deleted_at?: string | null;
           end_time?: string;
           ends_on?: string;
+          extra_client_amount?: number;
+          extra_client_taxable?: boolean;
+          extra_description?: string | null;
+          extra_employee_amount?: number;
           id?: string;
           meeting_place?: string | null;
           meeting_time?: string | null;
           note?: string | null;
+          price_includes_tax?: boolean;
           site_id?: string | null;
           start_time?: string;
           starts_on?: string;
+          tax_rate?: number;
           title?: string | null;
+          title_show_on?: string;
           updated_at?: string;
           updated_by?: string | null;
           version?: number;
@@ -98,6 +122,151 @@ export type Database = {
           },
           {
             foreignKeyName: 'assignment_site_id_fkey';
+            columns: ['site_id'];
+            isOneToOne: false;
+            referencedRelation: 'site';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      assignment_day: {
+        Row: {
+          assignment_id: string;
+          break_minutes: number;
+          chain_id: string | null;
+          client_extra_amount: number;
+          client_extra_description: string | null;
+          client_extra_taxable: boolean;
+          company_id: string;
+          created_at: string;
+          created_by: string | null;
+          day: string;
+          day_rate: number;
+          deleted_at: string | null;
+          employee_extra_amount: number;
+          employee_extra_description: string | null;
+          employee_id: string;
+          end_time: string;
+          fine_amount: number;
+          fine_description: string | null;
+          id: string;
+          meeting_place: string | null;
+          meeting_time: string | null;
+          note: string | null;
+          overtime_minutes: number;
+          period: string;
+          price_includes_tax: boolean;
+          site_id: string | null;
+          start_time: string;
+          status: string;
+          tax_rate: number;
+          updated_at: string;
+          updated_by: string | null;
+          version: number;
+          worked_minutes: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          assignment_id: string;
+          break_minutes?: number;
+          chain_id?: string | null;
+          client_extra_amount?: number;
+          client_extra_description?: string | null;
+          client_extra_taxable?: boolean;
+          company_id: string;
+          created_at?: string;
+          created_by?: string | null;
+          day: string;
+          day_rate?: number;
+          deleted_at?: string | null;
+          employee_extra_amount?: number;
+          employee_extra_description?: string | null;
+          employee_id: string;
+          end_time: string;
+          fine_amount?: number;
+          fine_description?: string | null;
+          id?: string;
+          meeting_place?: string | null;
+          meeting_time?: string | null;
+          note?: string | null;
+          overtime_minutes?: number;
+          period?: string;
+          price_includes_tax?: boolean;
+          site_id?: string | null;
+          start_time: string;
+          status?: string;
+          tax_rate?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+          worked_minutes?: number;
+        };
+        Update: {
+          assignment_id?: string;
+          break_minutes?: number;
+          chain_id?: string | null;
+          client_extra_amount?: number;
+          client_extra_description?: string | null;
+          client_extra_taxable?: boolean;
+          company_id?: string;
+          created_at?: string;
+          created_by?: string | null;
+          day?: string;
+          day_rate?: number;
+          deleted_at?: string | null;
+          employee_extra_amount?: number;
+          employee_extra_description?: string | null;
+          employee_id?: string;
+          end_time?: string;
+          fine_amount?: number;
+          fine_description?: string | null;
+          id?: string;
+          meeting_place?: string | null;
+          meeting_time?: string | null;
+          note?: string | null;
+          overtime_minutes?: number;
+          period?: string;
+          price_includes_tax?: boolean;
+          site_id?: string | null;
+          start_time?: string;
+          status?: string;
+          tax_rate?: number;
+          updated_at?: string;
+          updated_by?: string | null;
+          version?: number;
+          worked_minutes?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'assignment_day_assignment_id_fkey';
+            columns: ['assignment_id'];
+            isOneToOne: false;
+            referencedRelation: 'assignment';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'assignment_day_chain_id_fkey';
+            columns: ['chain_id'];
+            isOneToOne: false;
+            referencedRelation: 'client_chain';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'assignment_day_company_id_fkey';
+            columns: ['company_id'];
+            isOneToOne: false;
+            referencedRelation: 'company';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'assignment_day_employee_id_fkey';
+            columns: ['employee_id'];
+            isOneToOne: false;
+            referencedRelation: 'employee';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'assignment_day_site_id_fkey';
             columns: ['site_id'];
             isOneToOne: false;
             referencedRelation: 'site';
@@ -1592,28 +1761,10 @@ export type Database = {
     };
     Functions: {
       accept_owner_invitation: { Args: { p_invitation_id: string }; Returns: string };
-      add_assignment_member: { Args: { p: Json }; Returns: Json };
+      add_assignment_employee: { Args: { p: Json }; Returns: number };
       begin_employee_access: {
         Args: { p_company_id: string; p_employee_id: string };
         Returns: Json;
-      };
-      calendar_days: {
-        Args: { p_assignment_id?: string; p_company_id: string; p_from: string; p_to: string };
-        Returns: {
-          abbreviation: string;
-          assignment_id: string;
-          client_name: string;
-          color: string;
-          day: string;
-          employee_id: string;
-          employee_name: string;
-          end_time: string;
-          member_id: string;
-          off: boolean;
-          site_name: string;
-          start_time: string;
-          title: string;
-        }[];
       };
       cancel_company: {
         Args: { p_company_id: string; p_effective_on?: string; p_reason: string };
@@ -1658,6 +1809,10 @@ export type Database = {
       };
       company_can_write: { Args: { p_company_id: string }; Returns: boolean };
       complete_job: { Args: { p_job_id: string }; Returns: undefined };
+      delete_assignment: {
+        Args: { p_company_id: string; p_id: string; p_version: number };
+        Returns: undefined;
+      };
       employee_login_ids: {
         Args: { p_user_ids: string[] };
         Returns: {
@@ -1696,15 +1851,25 @@ export type Database = {
       reactivate_company: { Args: { p_company_id: string; p_reason: string }; Returns: string };
       recompute_company_status: { Args: { p_today?: string }; Returns: number };
       register_saas_payment: { Args: { p: Json; p_charge_id: string }; Returns: Json };
-      remove_assignment_member: {
-        Args: { p_company_id: string; p_member_id: string; p_version: number };
-        Returns: undefined;
+      remove_assignment_employee: {
+        Args: {
+          p_assignment_id: string;
+          p_company_id: string;
+          p_day_id?: string;
+          p_employee_id: string;
+        };
+        Returns: number;
       };
       retry_job: { Args: { p_job_id: string }; Returns: undefined };
       save_assignment: { Args: { p: Json }; Returns: Json };
+      save_assignment_day: { Args: { p: Json }; Returns: Json };
       save_employee: { Args: { p: Json }; Returns: Json };
       save_organization: { Args: { p: Json }; Returns: Json };
       save_site: { Args: { p: Json }; Returns: Json };
+      set_assignment_day_status: {
+        Args: { p_assignment_id: string; p_company_id: string; p_day: string; p_status: string };
+        Returns: number;
+      };
       set_company_modules: {
         Args: {
           p_company_id: string;

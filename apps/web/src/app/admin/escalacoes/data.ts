@@ -1,75 +1,113 @@
 import 'server-only';
 import type { Database } from '@neo/db';
 import { userClient } from '@/server/session';
+import type { DayStatus, Period } from './schema';
 
 export type AssignmentRow = Database['public']['Tables']['assignment']['Row'];
-type CalendarRow = Database['public']['Functions']['calendar_days']['Returns'][number];
-/** The generated type marks every column as present; the optional joins can bring nulls. */
-export type CalendarDay = Omit<CalendarRow, 'color' | 'abbreviation' | 'site_name' | 'title'> & {
-  color: string | null;
-  abbreviation: string | null;
-  site_name: string | null;
-  title: string | null;
-};
+type DayRow = Database['public']['Tables']['assignment_day']['Row'];
+
+export interface Chain {
+  id: string;
+  color: string;
+  abbreviation: string;
+  name: string;
+}
+
+export interface AssignmentSummary extends AssignmentRow {
+  clientName: string;
+  siteName: string | null;
+  chain: Chain | null;
+}
+
+/** One day of one employee, with the names the screen shows. */
+export interface BoardDay extends Omit<DayRow, 'status' | 'period'> {
+  status: DayStatus;
+  period: Period;
+  employeeName: string;
+  chain: Chain | null;
+  siteName: string | null;
+}
+
+export interface Board extends AssignmentSummary {
+  days: BoardDay[];
+}
 
 function check<T>(result: { data: T | null; error: Error | null }): T {
   if (result.error) throw result.error;
   return result.data as T;
 }
 
-/** Planned days of the company in a range (the database expands allocations into days). */
-export async function getCalendar(
-  companyId: string,
-  from: string,
-  to: string,
-  assignmentId?: string,
-): Promise<CalendarDay[]> {
-  const supabase = await userClient();
-  return check(
-    await supabase.rpc('calendar_days', {
-      p_company_id: companyId,
-      p_from: from,
-      p_to: to,
-      ...(assignmentId ? { p_assignment_id: assignmentId } : {}),
-    }),
-  );
+type ChainJoin = {
+  id: string;
+  color: string;
+  abbreviation: string;
+  organization: { name: string } | null;
+} | null;
+
+function toChain(chain: ChainJoin): Chain | null {
+  return chain
+    ? {
+        id: chain.id,
+        color: chain.color,
+        abbreviation: chain.abbreviation,
+        name: chain.organization?.name ?? '',
+      }
+    : null;
 }
 
-export interface AssignmentSummary extends AssignmentRow {
-  clientName: string;
-  siteName: string | null;
-  chain: { color: string; abbreviation: string; name: string } | null;
-  memberCount: number;
-}
-
-const SUMMARY_SELECT =
-  '*, client:client_id(name), site:site_id(name), chain:chain_id(color, abbreviation, organization:organization_id(name)), members:assignment_member(id, deleted_at)';
+const CHAIN_SELECT = 'id, color, abbreviation, organization:organization_id(name)';
+const SUMMARY_SELECT = `*, client:client_id(name), site:site_id(name), chain:chain_id(${CHAIN_SELECT})`;
 
 function toSummary(row: unknown): AssignmentSummary {
   const r = row as AssignmentRow & {
     client: { name: string } | null;
     site: { name: string } | null;
-    chain: { color: string; abbreviation: string; organization: { name: string } | null } | null;
-    members: { id: string; deleted_at: string | null }[];
+    chain: ChainJoin;
   };
-  const { client, site, chain, members, ...rest } = r;
+  const { client, site, chain, ...rest } = r;
   return {
     ...rest,
     clientName: client?.name ?? '',
     siteName: site?.name ?? null,
-    chain: chain
-      ? {
-          color: chain.color,
-          abbreviation: chain.abbreviation,
-          name: chain.organization?.name ?? '',
-        }
-      : null,
-    memberCount: members.filter((m) => m.deleted_at === null).length,
+    chain: toChain(chain),
   };
 }
 
-/** Assignments that touch a range, earliest first. */
-export async function listAssignments(companyId: string, from: string, to: string) {
+async function daysOf(companyId: string, assignmentIds: string[]): Promise<BoardDay[]> {
+  if (assignmentIds.length === 0) return [];
+  const supabase = await userClient();
+  const rows = check(
+    await supabase
+      .from('assignment_day')
+      .select(
+        `*, employee:employee_id(full_name), site:site_id(name), chain:chain_id(${CHAIN_SELECT})`,
+      )
+      .eq('company_id', companyId)
+      .in('assignment_id', assignmentIds)
+      .is('deleted_at', null)
+      .order('day')
+      .limit(5000),
+  );
+  return rows.map((row) => {
+    const r = row as unknown as DayRow & {
+      employee: { full_name: string } | null;
+      site: { name: string } | null;
+      chain: ChainJoin;
+    };
+    const { employee, site, chain, ...rest } = r;
+    return {
+      ...rest,
+      status: rest.status as DayStatus,
+      period: rest.period as Period,
+      employeeName: employee?.full_name ?? '',
+      siteName: site?.name ?? null,
+      chain: toChain(chain),
+    };
+  });
+}
+
+/** Assignments that touch a range (the month on screen), each with all of its days. */
+export async function listBoards(companyId: string, from: string, to: string): Promise<Board[]> {
   const supabase = await userClient();
   const rows = check(
     await supabase
@@ -81,14 +119,15 @@ export async function listAssignments(companyId: string, from: string, to: strin
       .gte('ends_on', from)
       .order('starts_on')
       .limit(100),
+  ).map(toSummary);
+  const days = await daysOf(
+    companyId,
+    rows.map((r) => r.id),
   );
-  return rows.map(toSummary);
+  return rows.map((a) => ({ ...a, days: days.filter((d) => d.assignment_id === a.id) }));
 }
 
-export async function getAssignment(
-  companyId: string,
-  id: string,
-): Promise<AssignmentSummary | null> {
+export async function getBoard(companyId: string, id: string): Promise<Board | null> {
   const supabase = await userClient();
   const { data, error } = await supabase
     .from('assignment')
@@ -98,34 +137,12 @@ export async function getAssignment(
     .is('deleted_at', null)
     .maybeSingle();
   if (error) throw error;
-  return data ? toSummary(data) : null;
+  if (!data) return null;
+  const summary = toSummary(data);
+  return { ...summary, days: await daysOf(companyId, [id]) };
 }
 
-export async function listMembers(companyId: string, assignmentId: string) {
-  const supabase = await userClient();
-  const rows = check(
-    await supabase
-      .from('assignment_member')
-      .select('id, version, starts_on, ends_on, employee:employee_id(id, full_name)')
-      .eq('company_id', companyId)
-      .eq('assignment_id', assignmentId)
-      .is('deleted_at', null)
-      .order('starts_on'),
-  );
-  return rows.map((r) => {
-    const employee = r.employee as { id: string; full_name: string } | null;
-    return {
-      id: r.id,
-      version: r.version,
-      startsOn: r.starts_on,
-      endsOn: r.ends_on,
-      employeeId: employee?.id ?? '',
-      name: employee?.full_name ?? '',
-    };
-  });
-}
-
-/** Clients with their chain and sites, for the assignment form. */
+/** Clients with their chain and sites, for the forms. */
 export async function formOptions(companyId: string) {
   const supabase = await userClient();
   const [clients, chains, sites] = await Promise.all([

@@ -6,6 +6,7 @@ Formato: [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/). Versões: 
 
 ### Adicionado
 
+- Escalações versão 2 (ADR 0027, camada 06): o dia de cada funcionário vira registro próprio (`assignment_day`) com situação, período (定時, 半日, 残業, 早出, 夜勤, por hora), horas extras, sub, local, valor, imposto, adicionais do cliente e do funcionário, multa e observação; escalação de um mês fechado com valor dia, imposto, 税込, título do trabalho (mostrar em 請求書, 勤怠表 ou ambos) e valor adicional por dia (ex.: 出張手当); calendário com um card por escalação que abre na grade de dias; detalhe do dia com edição completa, "adicionar só neste dia", "Todos 定時" e "Todos folga"; `taxOf`, `splitPrice` e `dayUnitsHundredths` em `packages/calc` com golden tests; 25 testes de banco, 14 unitários de cálculo e 2 ponta a ponta. Levantamento do fluxo do Bubble em `docs/camadas/06-rascunho-fluxo-completo.md`. (2026-10-31)
 - Nova identidade visual MK-UI (ADR 0026, camada 02): paleta Órbita clara e escura, Noto Sans JP, cards com borda em "Onda de cor" (a borda muda devagar entre a cor principal e a de destaque), botões em pílula, títulos em negrito e caixa alta, fundo com grade; seletor de matiz removido; barra inferior de navegação no celular do painel da empresa. (2026-10-30)
 - Fundação do projeto: documento-âncora, guia de início, stack e convenções, 17 documentos de camada, ADRs 0001 a 0011, CLAUDE.md, modelo de PR. (2026-10-28)
 - Página âncora da identidade visual (`docs/design-system.html`) e tokens (`docs/design-tokens.json`). (2026-10-28)

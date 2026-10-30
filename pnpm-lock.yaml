@@ -184,6 +184,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@neo/calc':
+        specifier: workspace:*
+        version: link:../../packages/calc
       '@neo/db':
         specifier: workspace:*
         version: link:../../packages/db

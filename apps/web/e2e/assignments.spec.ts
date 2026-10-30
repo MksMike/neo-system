@@ -53,7 +53,7 @@ async function arrange(page: Page, tag: string) {
 async function newAssignment(
   page: Page,
   tag: string,
-  opts: { start: string; end: string; startTime: string; endTime: string },
+  opts: { start: string; end: string; startTime: string; endTime: string; extra?: boolean },
 ) {
   await page.goto('/admin/escalacoes/nova');
   await page.waitForLoadState('networkidle');
@@ -66,22 +66,27 @@ async function newAssignment(
   await page.getByLabel(/^Fim/).fill(opts.end);
   await page.getByLabel(/^Entrada/).fill(opts.startTime);
   await page.getByLabel(/^Saída/).fill(opts.endTime);
-  await page.getByRole('button', { name: 'Salvar e alocar funcionários' }).click();
-  await expect(page.getByRole('heading', { level: 2, name: /^Funcionários/ })).toBeVisible();
+  await page.getByRole('textbox', { name: /^Valor dia/ }).fill('20000');
+  if (opts.extra) {
+    await page.getByRole('switch', { name: /valor adicional por dia/ }).click();
+    await page.getByRole('textbox', { name: /^Descrição do valor adicional/ }).fill('出張手当');
+    await page.getByRole('textbox', { name: /^Contratante/ }).fill('3000');
+    await page.getByRole('textbox', { name: /^Funcionário/ }).fill('2000');
+  }
+  await page.getByRole('button', { name: 'Salvar escalação' }).click();
+  await expect(page.getByRole('button', { name: 'Escalar funcionário' })).toBeVisible();
   await page.waitForLoadState('networkidle');
 }
 
-async function allocate(page: Page, name: string) {
-  await page.getByRole('button', { name: 'Alocar funcionário' }).click();
-  const dialog = page.getByRole('dialog', { name: 'Alocar funcionário' });
+async function putOnPeriod(page: Page, name: string) {
+  await page.getByRole('button', { name: 'Escalar funcionário' }).click();
+  const dialog = page.getByRole('dialog', { name: 'Escalar funcionário' });
   await dialog.getByRole('combobox', { name: /^Funcionário/ }).selectOption({ label: name });
-  await dialog.getByRole('button', { name: 'Alocar' }).click();
+  await dialog.getByRole('button', { name: 'Escalar' }).click();
   return dialog;
 }
 
-test('creates an assignment, allocates employees and shows them in the grid and the calendar', async ({
-  page,
-}) => {
+test('creates an assignment, puts employees on every day and edits one day', async ({ page }) => {
   test.slow();
   const tag = uniqueCode('');
   const start = nextMonday();
@@ -92,30 +97,38 @@ test('creates an assignment, allocates employees and shows them in the grid and 
     end: plus(start, 6),
     startTime: '08:00',
     endTime: '17:00',
+    extra: true,
   });
-  await expect(page.getByText('5 dias úteis previstos')).toBeVisible();
+  await expect(page.getByLabel('Escalação com valor adicional')).toBeVisible();
 
-  await expect(await allocate(page, `Silva ${tag}`)).toBeHidden();
-  await expect(await allocate(page, `Tanaka ${tag}`)).toBeHidden();
+  await expect(await putOnPeriod(page, `Silva ${tag}`)).toBeHidden();
+  await expect(await putOnPeriod(page, `Tanaka ${tag}`)).toBeHidden();
 
-  // The grid: Monday to Friday with the subcontractor abbreviation, the weekend as 休
-  const grid = page
-    .locator('table')
-    .filter({ hasText: `Silva ${tag}` })
-    .last();
-  const silva = grid.getByRole('row').filter({ hasText: `Silva ${tag}` });
-  await expect(silva.getByRole('link', { name: /YKH/ })).toHaveCount(5);
-  await expect(silva.getByText('休')).toHaveCount(2);
-  await shot(page, 'assignment-page');
+  // Seven day cards, each with both employees (weekends included, R06-07)
+  const days = page.getByRole('button', { name: /^Abrir o dia/ });
+  await expect(days).toHaveCount(7);
+  await expect(days.last()).toContainText(`Silva ${tag}`);
+  await expect(days.last()).toContainText('YKH');
+  await shot(page, 'assignment-board');
 
-  // The week calendar shows the employees with hours and site
-  await page.goto(`/admin/escalacoes?vista=semana&data=${start}`);
-  const week = page.getByRole('row').filter({ hasText: `Tanaka ${tag}` });
-  await expect(week.getByRole('link').first()).toContainText('08:00–17:00');
-  await expect(week.getByRole('link').first()).toContainText(`横浜工場${tag}`);
-  await shot(page, 'week-calendar');
-  await page.goto(`/admin/escalacoes?vista=mes&data=${start}`);
-  await expect(page.getByRole('row').filter({ hasText: `Silva ${tag}` })).toBeVisible();
+  // Day details: todos 定時, then overtime for one employee (R06-08)
+  await days.first().click();
+  const dialog = page.getByRole('dialog');
+  await dialog.getByRole('button', { name: 'Todos 定時' }).click();
+  await expect(dialog.getByText('定時').first()).toBeVisible();
+  await dialog.getByRole('button', { name: new RegExp(`Silva ${tag}`) }).click();
+  await dialog.getByRole('textbox', { name: /^Horas extras/ }).fill('1.5');
+  await dialog.getByRole('button', { name: 'Salvar' }).click();
+  await expect(
+    dialog.getByRole('button', { name: new RegExp(`Silva ${tag}.*残業`) }),
+  ).toBeVisible();
+  await shot(page, 'day-details');
+  await page.keyboard.press('Escape');
+  await expect(days.first()).toContainText('1.5');
+
+  // The month calendar lists the assignment
+  await page.goto(`/admin/escalacoes?data=${start}`);
+  await expect(page.getByRole('button', { name: new RegExp(`鹿島建設${tag}`) })).toBeVisible();
   await shot(page, 'month-calendar');
 });
 
@@ -126,9 +139,9 @@ test('refuses an employee in two assignments at the same hours (R06-02)', async 
   await signInAsDemoOwner(page);
   await arrange(page, tag);
   await newAssignment(page, tag, { start, end: start, startTime: '08:00', endTime: '17:00' });
-  await expect(await allocate(page, `Silva ${tag}`)).toBeHidden();
+  await expect(await putOnPeriod(page, `Silva ${tag}`)).toBeHidden();
 
   await newAssignment(page, tag, { start, end: start, startTime: '13:00', endTime: '18:00' });
-  const dialog = await allocate(page, `Silva ${tag}`);
+  const dialog = await putOnPeriod(page, `Silva ${tag}`);
   await expect(dialog.getByText(/já tem outra escalação no mesmo horário/)).toBeVisible();
 });

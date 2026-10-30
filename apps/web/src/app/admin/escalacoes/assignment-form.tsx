@@ -1,23 +1,26 @@
 'use client';
 
+import { splitPrice } from '@neo/calc';
 import {
   Alert,
   Button,
   CardInset,
-  Chip,
   Field,
   Input,
   NativeSelect,
+  Switch,
   Textarea,
   toast,
 } from '@neo/ui';
+import { formatYen } from '@neo/validation';
 import { Save } from 'lucide-react';
-import { useLocale, useTranslations } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useAction } from '@/lib/use-action';
 import { saveAssignment } from './actions';
-import { assignmentSchema, plannedDays, WEEKDAYS } from './schema';
+import { assignmentSchema, periodDays, TAX_RATES, TITLE_SHOW_ON } from './schema';
+import { YenInput } from './yen-input';
 
 export interface FormOptions {
   clients: { id: string; name: string }[];
@@ -29,21 +32,40 @@ export interface AssignmentValues {
   clientId: string;
   chainId: string;
   siteId: string;
+  hasTitle: boolean;
   title: string;
+  titleShowOn: (typeof TITLE_SHOW_ON)[number];
   startsOn: string;
   endsOn: string;
   startTime: string;
   endTime: string;
   breakMinutes: string;
-  workDays: number[];
   meetingPlace: string;
   meetingTime: string;
+  dayRate: string;
+  taxRate: string;
+  priceIncludesTax: boolean;
+  hasExtra: boolean;
+  extraDescription: string;
+  extraClientAmount: string;
+  extraEmployeeAmount: string;
+  extraClientTaxable: boolean;
   note: string;
 }
 
+/** First and last day of the month of `day`. */
+function monthOf(day: string): [string, string] {
+  const [y, m] = day.split('-').map(Number) as [number, number];
+  const last = new Date(Date.UTC(y, m, 0)).getUTCDate();
+  const mm = String(m).padStart(2, '0');
+  return [`${String(y)}-${mm}-01`, `${String(y)}-${mm}-${String(last).padStart(2, '0')}`];
+}
+
+const toInt = (v: string) => (v === '' ? 0 : Number(v));
+
 /**
- * Assignment (escalação): client, subcontractor of its chain, site, period, hours, break, work
- * days and meeting point (layer 06, demonstration fields). Prices come in the M2/M3.
+ * Assignment (escalação): one client and one closed month (R06-06), with the defaults every new
+ * day starts from: subcontractor, site, hours, meeting point, price, tax and the extra per day.
  */
 export function AssignmentForm({
   options,
@@ -61,26 +83,36 @@ export function AssignmentForm({
   onSaved?: () => void;
 }) {
   const t = useTranslations();
-  const locale = useLocale();
   const router = useRouter();
   const [id] = useState(() => existingId ?? crypto.randomUUID());
-  const [values, setValues] = useState<AssignmentValues>(
-    initial ?? {
+  const [values, setValues] = useState<AssignmentValues>(() => {
+    if (initial) return initial;
+    const [first, last] = monthOf(today);
+    return {
       clientId: '',
       chainId: '',
       siteId: '',
+      hasTitle: false,
       title: '',
-      startsOn: today,
-      endsOn: today,
+      titleShowOn: 'both',
+      startsOn: first,
+      endsOn: last,
       startTime: '08:00',
       endTime: '17:00',
       breakMinutes: '60',
-      workDays: [1, 2, 3, 4, 5],
       meetingPlace: '',
       meetingTime: '',
+      dayRate: '',
+      taxRate: '10',
+      priceIncludesTax: false,
+      hasExtra: false,
+      extraDescription: '',
+      extraClientAmount: '',
+      extraEmployeeAmount: '',
+      extraClientTaxable: false,
       note: '',
-    },
-  );
+    };
+  });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string>();
   const save = useAction(saveAssignment, { idempotent: !existingId, toastOnError: false });
@@ -91,16 +123,40 @@ export function AssignmentForm({
   const err = (field: string) => (errors[field] ? t(errors[field]) : undefined);
   const chains = options.chains.filter((c) => c.clientId === values.clientId);
   const sites = options.sites.filter((s) => s.clientId === null || s.clientId === values.clientId);
-  const weekdayName = useMemo(() => {
-    const format = new Intl.DateTimeFormat(locale, { weekday: 'short', timeZone: 'UTC' });
-    // 2024-01-01 was a Monday: ISO weekday n is 2024-01-0n.
-    return (iso: number) => format.format(new Date(`2024-01-0${String(iso)}T00:00:00Z`));
-  }, [locale]);
-  const days = plannedDays(values.startsOn, values.endsOn, values.workDays);
+  const dayCount = periodDays(values.startsOn, values.endsOn).length;
+  const price = splitPrice(toInt(values.dayRate), Number(values.taxRate), values.priceIncludesTax);
+  const extraTotal = splitPrice(
+    toInt(values.extraClientAmount),
+    values.extraClientTaxable ? Number(values.taxRate) : 0,
+    false,
+  ).total;
 
   async function submit() {
     setFormError(undefined);
-    const input = { id, version, ...values, breakMinutes: Number(values.breakMinutes) };
+    const input = {
+      id,
+      version,
+      clientId: values.clientId,
+      chainId: values.chainId,
+      siteId: values.siteId,
+      title: values.hasTitle ? values.title : '',
+      titleShowOn: values.titleShowOn,
+      startsOn: values.startsOn,
+      endsOn: values.endsOn,
+      startTime: values.startTime,
+      endTime: values.endTime,
+      breakMinutes: toInt(values.breakMinutes),
+      meetingPlace: values.meetingPlace,
+      meetingTime: values.meetingTime,
+      dayRate: toInt(values.dayRate),
+      taxRate: Number(values.taxRate),
+      priceIncludesTax: values.priceIncludesTax,
+      extraDescription: values.hasExtra ? values.extraDescription : '',
+      extraClientAmount: values.hasExtra ? toInt(values.extraClientAmount) : 0,
+      extraEmployeeAmount: values.hasExtra ? toInt(values.extraEmployeeAmount) : 0,
+      extraClientTaxable: values.hasExtra && values.extraClientTaxable,
+      note: values.note,
+    };
     const parsed = assignmentSchema.safeParse(input);
     if (!parsed.success) {
       const out: Record<string, string> = {};
@@ -111,21 +167,27 @@ export function AssignmentForm({
       setErrors(out);
       return;
     }
+    if (values.hasTitle && !parsed.data.title) {
+      setErrors({ title: 'validation.required' });
+      return;
+    }
+    if (values.hasExtra && !parsed.data.extraDescription) {
+      setErrors({ extraDescription: 'validation.required' });
+      return;
+    }
     setErrors({});
-    const result = await save.run(input);
+    const result = await save.run(input as Parameters<typeof save.run>[0]);
     if (result.ok) {
       toast.success(t('assignments.saved'));
-      if (onSaved) {
-        onSaved();
-        router.refresh();
-      } else {
-        router.push(`/admin/escalacoes/${result.data.id}`);
-      }
+      if (onSaved) onSaved();
+      else router.push(`/admin/escalacoes/${result.data.id}`);
+      router.refresh();
       return;
     }
     const known: Record<string, [string, string]> = {
       members_outside_period: ['endsOn', 'assignments.errors.membersOutside'],
       period_invalid: ['endsOn', 'validation.endBeforeStart'],
+      period_too_long: ['endsOn', 'validation.periodTooLong'],
     };
     const field = result.detail ? known[result.detail] : undefined;
     if (field) setErrors({ [field[0]]: field[1] });
@@ -198,20 +260,52 @@ export function AssignmentForm({
             ))}
           </NativeSelect>
         </Field>
-        <Field
-          label={t('assignments.fields.title')}
-          error={err('title')}
-          help={t('assignments.fields.titleHelp')}
-          className="md:col-span-3"
-        >
-          <Input
-            value={values.title}
-            onChange={(e) => {
-              set('title', e.target.value);
-            }}
-            maxLength={120}
-          />
-        </Field>
+      </div>
+
+      <CardInset className="flex flex-col gap-3">
+        <Switch
+          checked={values.hasTitle}
+          onCheckedChange={(on) => {
+            set('hasTitle', on);
+          }}
+          label={t('assignments.fields.hasTitle')}
+        />
+        {values.hasTitle ? (
+          <div className="grid gap-4 md:grid-cols-3">
+            <Field
+              label={t('assignments.fields.title')}
+              error={err('title')}
+              help={t('assignments.fields.titleHelp')}
+              className="md:col-span-2"
+              required
+            >
+              <Input
+                value={values.title}
+                onChange={(e) => {
+                  set('title', e.target.value);
+                }}
+                maxLength={120}
+              />
+            </Field>
+            <Field label={t('assignments.fields.titleShowOn')}>
+              <NativeSelect
+                value={values.titleShowOn}
+                onChange={(e) => {
+                  set('titleShowOn', e.target.value as AssignmentValues['titleShowOn']);
+                }}
+              >
+                {TITLE_SHOW_ON.map((o) => (
+                  <option key={o} value={o}>
+                    {t(`assignments.showOn.${o}`)}
+                  </option>
+                ))}
+              </NativeSelect>
+            </Field>
+          </div>
+        ) : null}
+      </CardInset>
+
+      <div className="grid gap-4 md:grid-cols-4">
         <Field label={t('assignments.fields.startsOn')} error={err('startsOn')} required>
           <Input
             type="date"
@@ -229,21 +323,6 @@ export function AssignmentForm({
             onChange={(e) => {
               set('endsOn', e.target.value);
             }}
-          />
-        </Field>
-        <Field label={t('assignments.fields.break')} error={err('breakMinutes')}>
-          <Input
-            type="number"
-            inputMode="numeric"
-            min={0}
-            max={480}
-            step={15}
-            value={values.breakMinutes}
-            onChange={(e) => {
-              set('breakMinutes', e.target.value.replace(/\D/g, '').slice(0, 3));
-            }}
-            suffix={t('assignments.minutes')}
-            className="type-num"
           />
         </Field>
         <Field label={t('assignments.fields.startTime')} error={err('startTime')} required>
@@ -273,40 +352,10 @@ export function AssignmentForm({
             }}
           />
         </Field>
-      </div>
-
-      <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
-        <legend className="mb-2 type-label text-ink-muted">
-          {t('assignments.fields.workDays')}
-          <span aria-hidden className="ml-0.5 text-danger">
-            *
-          </span>
-        </legend>
-        <div className="flex flex-wrap gap-2">
-          {WEEKDAYS.map((d) => (
-            <Chip
-              key={d}
-              pressed={values.workDays.includes(d)}
-              onPressedChange={(on) => {
-                set(
-                  'workDays',
-                  on
-                    ? [...values.workDays, d].sort((a, b) => a - b)
-                    : values.workDays.filter((x) => x !== d),
-                );
-              }}
-            >
-              {weekdayName(d)}
-            </Chip>
-          ))}
-        </div>
-        {err('workDays') ? <p className="m-0 text-xs text-danger">{err('workDays')}</p> : null}
-      </fieldset>
-
-      <div className="grid gap-4 md:grid-cols-3">
         <Field
           label={t('assignments.fields.meetingPlace')}
           error={err('meetingPlace')}
+          help={t('assignments.fields.meetingPlaceHelp')}
           className="md:col-span-2"
         >
           <Input
@@ -326,19 +375,139 @@ export function AssignmentForm({
             }}
           />
         </Field>
-        <Field label={t('assignments.fields.note')} error={err('note')} className="md:col-span-3">
-          <Textarea
-            value={values.note}
+        <Field label={t('assignments.fields.break')} error={err('breakMinutes')}>
+          <Input
+            type="number"
+            inputMode="numeric"
+            min={0}
+            max={480}
+            step={15}
+            value={values.breakMinutes}
             onChange={(e) => {
-              set('note', e.target.value);
+              set('breakMinutes', e.target.value.replace(/\D/g, '').slice(0, 3));
             }}
-            maxLength={1000}
-            rows={2}
+            suffix={t('assignments.minutes')}
+            className="type-num"
           />
         </Field>
       </div>
 
-      <CardInset className="text-sm">{t('assignments.plannedDays', { count: days })}</CardInset>
+      <p className="m-0 text-sm text-ink-muted">
+        {t('assignments.periodDays', { count: dayCount })}
+      </p>
+
+      <div className="grid gap-4 sm:grid-cols-3">
+        <Field label={t('assignments.fields.dayRate')} error={err('dayRate')} required>
+          <YenInput
+            value={values.dayRate}
+            onValueChange={(v) => {
+              set('dayRate', v);
+            }}
+          />
+        </Field>
+        <Field label={t('assignments.fields.taxRate')}>
+          <NativeSelect
+            value={values.taxRate}
+            onChange={(e) => {
+              set('taxRate', e.target.value);
+            }}
+          >
+            {TAX_RATES.map((r) => (
+              <option key={r} value={r}>
+                {r}%
+              </option>
+            ))}
+          </NativeSelect>
+        </Field>
+        <Field label={t('assignments.fields.total')}>
+          <Input readOnly value={formatYen(price.total)} className="type-num" tabIndex={-1} />
+        </Field>
+        <div className="sm:col-span-3">
+          <Switch
+            checked={values.priceIncludesTax}
+            onCheckedChange={(on) => {
+              set('priceIncludesTax', on);
+            }}
+            label={t('assignments.fields.priceIncludesTax')}
+          />
+        </div>
+      </div>
+
+      <CardInset className="flex flex-col gap-3">
+        <Switch
+          checked={values.hasExtra}
+          onCheckedChange={(on) => {
+            set('hasExtra', on);
+          }}
+          label={t('assignments.fields.hasExtra')}
+        />
+        {values.hasExtra ? (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field
+              label={t('assignments.fields.extraDescription')}
+              error={err('extraDescription')}
+              className="sm:col-span-2"
+              required
+            >
+              <Input
+                value={values.extraDescription}
+                onChange={(e) => {
+                  set('extraDescription', e.target.value);
+                }}
+                maxLength={60}
+                placeholder="出張手当"
+              />
+            </Field>
+            <Field
+              label={t('assignments.fields.extraClient')}
+              help={t('assignments.perDay')}
+              error={err('extraClientAmount')}
+            >
+              <YenInput
+                value={values.extraClientAmount}
+                onValueChange={(v) => {
+                  set('extraClientAmount', v);
+                }}
+              />
+            </Field>
+            <Field
+              label={t('assignments.fields.extraEmployee')}
+              help={t('assignments.perDay')}
+              error={err('extraEmployeeAmount')}
+            >
+              <YenInput
+                value={values.extraEmployeeAmount}
+                onValueChange={(v) => {
+                  set('extraEmployeeAmount', v);
+                }}
+              />
+            </Field>
+            <div className="flex flex-wrap items-center justify-between gap-3 sm:col-span-2">
+              <Switch
+                checked={values.extraClientTaxable}
+                onCheckedChange={(on) => {
+                  set('extraClientTaxable', on);
+                }}
+                label={t('assignments.fields.extraClientTaxable')}
+              />
+              <span className="type-num text-sm text-ink-muted">
+                {t('assignments.extraTotal', { value: formatYen(extraTotal) })}
+              </span>
+            </div>
+          </div>
+        ) : null}
+      </CardInset>
+
+      <Field label={t('assignments.fields.note')} error={err('note')}>
+        <Textarea
+          value={values.note}
+          onChange={(e) => {
+            set('note', e.target.value);
+          }}
+          maxLength={1000}
+          rows={2}
+        />
+      </Field>
 
       <div className="flex justify-end gap-2 border-t border-line pt-4">
         <Button type="submit" variant="primary" loading={save.pending}>
