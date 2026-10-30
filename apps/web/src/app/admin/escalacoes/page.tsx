@@ -7,6 +7,7 @@ import { requireOffice } from '@/server/office';
 import { screenMetadata } from '../screen-placeholder';
 import { SectionHeader } from '../section-header';
 import { AssignmentBoard } from './assignment-board';
+import { BulkEditor } from './bulk-editor';
 import { activeEmployees, formOptions, listBoards } from './data';
 
 export const generateMetadata = () => screenMetadata('assignments', 'calendar');
@@ -122,6 +123,11 @@ export default async function AssignmentsCalendarPage({
           ))}
         </div>
       )}
+
+      {/* Panel 2 (R06-11): bulk editing of a period, below the list of assignments */}
+      {boards.length > 0 ? (
+        <BulkEditor boards={boards} employees={employees} options={options} />
+      ) : null}
     </div>
   );
 }

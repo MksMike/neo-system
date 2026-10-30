@@ -35,6 +35,8 @@ Toda tabela tem `company_id`, RLS, auditoria, `version` e exclusão lógica. Esc
 - `save_assignment_day(p)`: edita tudo de um dia com `version`.
 - `set_assignment_day_status(empresa, escalação, dia, teiji | off)`: "Todos 定時" e "Todos folga".
 - `remove_assignment_employee(empresa, escalação, funcionário, dia?)`: tira de um dia ou da escalação inteira (lógico).
+- `bulk_update_assignment_days(p)`: Painel 2; aplica as chaves presentes em `set` aos dias selecionados (`[{id, version}]`, até 2000), conferindo a versão de cada um e a R06-02.
+- `remove_assignment_days(p)`: Painel 2; remove os dias selecionados (lógico), com `version`.
 
 Cálculos em `packages/calc`: `taxOf` e `splitPrice` (imposto arredondado para baixo; 税込 separado do preço) e `dayUnitsHundredths` (定日: 半日 = 0,5; por hora = horas ÷ 8; demais = 1).
 
@@ -54,10 +56,13 @@ Escrita: Proprietário, Gestor e Coordenador, com o módulo `scheduling` ligado 
 | R06-08 | Tudo do dia de um funcionário pode ser alterado (situação, período, horas, horas extras, sub, local, valor, imposto, encontro, adicionais, multa, observação) sem afetar os outros dias. Editar a escalação muda só os padrões dos dias novos. |
 | R06-09 | Cores do funcionário no dia: 定時 (com ★), 残業 (com ⏱ e as horas), 半日, folga (休) e não registrado. A cor sempre vem com ícone ou texto. |
 | R06-10 | A multa é descontada só do funcionário e nunca aparece no 請求書. O valor adicional do funcionário e o do contratante são independentes; o do contratante pode ou não ter imposto. |
+| R06-11 | Painel 2 (edição por período): escolhida a escalação, seleciona-se um período e os funcionários, e uma única alteração vale para todos os dias selecionados: situação e horas extras, subcontratante e local, valor dia, imposto, 税込, adicionais, adicionar funcionário no período ou remover os dias. A tela envia a `version` de cada dia; se algum mudou, nada é aplicado. Um dia só selecionado abre o mesmo detalhe do dia do Painel 1. |
 
 ## 5. Telas e fluxos
 
 - `/admin/escalacoes`: mês (anterior, próximo, hoje), **Nova escalação** e **Finalizar** (desligado até a camada 09). Cada escalação ativa no mês é um card que abre: ícone em destaque quando há adicional, cliente, subs, título e período; aberto, mostra o resumo por funcionário (★ 定日, folgas, horas extras), os valores, **Editar escalação**, **Escalar funcionário** (período inteiro), excluir e a grade com um card por dia.
+- **Painel 1** é o card da escalação acima, igual ao fluxo do Bubble; não muda sem pedido do Mike.
+- **Painel 2: Edição por período** (abaixo das escalações, R06-11): grade funcionários × dias da escalação escolhida (como o 勤怠表); clique no dia (Shift+clique estende), datas De/Até, caixas dos funcionários ou clique na célula; ações Situação, Subcontratante e local, Valores e Funcionários; "Abrir dia" com um dia só.
 - **Detalhe do dia** (clicar num dia): funcionários do dia com sub » local e situação; cada um abre o editor completo (R06-08), com **Tirar deste dia** e **Tirar da escalação**; **Adicionar funcionário só neste dia**, **Todos 定時** e **Todos folga**.
 - `/admin/escalacoes/nova`: cliente, sub, local, **título do trabalho** (interruptor; texto e "mostrar em" 請求書, 勤怠表 ou ambos), período (sugere o mês atual), entrada e saída, encontro, intervalo, valor dia, imposto, 税込, total por dia e **valor adicional por dia** (interruptor; descrição, contratante, funcionário, imposto do contratante). Ao salvar, abre a escalação.
 - `/admin/escalacoes/[id]`: o mesmo card, já aberto.
@@ -97,3 +102,4 @@ Referência completa: `docs/telas/inventario-de-telas.md`.
 | 2026-10-28 | 0.1 | Documento criado a partir do documento-âncora | — |
 | 2026-10-30 | 0.2 | D-04: modelo, funções, regras R06-01 a R06-05, telas (calendário mês/semana, nova escalação, página com grade) e permissões | D-04 |
 | 2026-10-31 | 0.3 | Versão 2 (ADR 0027): dia do funcionário como registro próprio, valores e adicionais, mês fechado, card da escalação com grade e detalhe do dia; R06-01 e R06-05 substituídas, R06-06 a R06-10 novas | feat/06-escalacao-v2 |
+| 2026-10-31 | 0.4 | Painel 2, edição por período (R06-11), com `bulk_update_assignment_days` e `remove_assignment_days`; moldura de situação no card da escalação | feat/06-escalacao-v2 |

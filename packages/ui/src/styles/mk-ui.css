@@ -157,6 +157,43 @@ body {
   animation: mk-wave 12s linear infinite;
 }
 
+/* Moldura de situação (pedido do Mike, a partir dos cards do Bubble): cantos arredondados, laterais
+   mais grossas e uma "alça" de três pontos no meio de cada lateral. Só em cards cuja cor informa a
+   situação: verde = tudo certo, amarelo = atenção (falta algo), vermelho = algo errado, azul =
+   informação. A cor vem de --frame; sem ela, a moldura é neutra. */
+.mk-frame {
+  position: relative;
+  border: 1px solid var(--frame, var(--line-strong));
+  border-inline-width: 6px;
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--frame, var(--line-strong)) 18%, transparent),
+    var(--nx-shadow-sm);
+}
+
+.mk-frame::before,
+.mk-frame::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 4px;
+  height: 16px;
+  translate: 0 -50%;
+  pointer-events: none;
+  /* três pontos de 4px, um a cada 6px */
+  background: radial-gradient(circle, var(--surface-1) 1.4px, transparent 1.8px) center top / 4px
+    6px repeat-y;
+  opacity: 0.85;
+}
+
+/* centrados na lateral de 6px */
+.mk-frame::before {
+  left: -5px;
+}
+
+.mk-frame::after {
+  right: -5px;
+}
+
 /* Título da tela: fonte de títulos do kit, caixa alta, espaçamento largo e negrito (pedido do Mike) */
 .type-h1 {
   text-transform: uppercase;

@@ -3,15 +3,27 @@ import type { ComponentProps, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 
 export const cardVariants = cva(
-  'mk-card relative flex min-w-0 flex-col gap-3 rounded-[14px] p-5 transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard',
+  'relative flex min-w-0 flex-col gap-3 rounded-[14px] p-5 transition-[box-shadow,border-color,transform] duration-(--dur-base) ease-standard',
   {
     variants: {
       variant: {
-        default: 'border border-line bg-surface-1 shadow-sm',
+        default: 'mk-card border border-line bg-surface-1 shadow-sm',
         interactive:
-          'cursor-pointer border border-line bg-surface-1 shadow-sm hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md',
+          'mk-card cursor-pointer border border-line bg-surface-1 shadow-sm hover:-translate-y-0.5 hover:border-line-strong hover:shadow-md',
         feature:
-          'border-0 bg-grad-brand text-on-grad shadow-[0_0_0_6px_var(--glow),var(--nx-shadow-md)]',
+          'mk-card border-0 bg-grad-brand text-on-grad shadow-[0_0_0_6px_var(--glow),var(--nx-shadow-md)]',
+        /**
+         * Status frame: thicker sides with a three-dot grip. Only for cards whose color tells the
+         * status (`tone`): success = all right, warning = attention, danger = something wrong.
+         */
+        frame: 'mk-frame bg-surface-1',
+      },
+      tone: {
+        success: '[--frame:var(--success)]',
+        warning: '[--frame:var(--warning)]',
+        danger: '[--frame:var(--danger)]',
+        info: '[--frame:var(--info)]',
+        neutral: '',
       },
     },
     defaultVariants: { variant: 'default' },
@@ -21,9 +33,10 @@ export const cardVariants = cva(
 export function Card({
   className,
   variant,
+  tone,
   ...props
 }: ComponentProps<'div'> & VariantProps<typeof cardVariants>) {
-  return <div className={cn(cardVariants({ variant }), className)} {...props} />;
+  return <div className={cn(cardVariants({ variant, tone }), className)} {...props} />;
 }
 
 export function CardHeader({ className, ...props }: ComponentProps<'div'>) {

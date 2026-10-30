@@ -145,3 +145,33 @@ test('refuses an employee in two assignments at the same hours (R06-02)', async 
   const dialog = await putOnPeriod(page, `Silva ${tag}`);
   await expect(dialog.getByText(/já tem outra escalação no mesmo horário/)).toBeVisible();
 });
+
+test('panel 2 changes the price of a selected period (R06-11)', async ({ page }) => {
+  test.slow();
+  const tag = uniqueCode('');
+  const start = nextMonday();
+  await signInAsDemoOwner(page);
+  await arrange(page, tag);
+  await newAssignment(page, tag, {
+    start,
+    end: plus(start, 6),
+    startTime: '08:00',
+    endTime: '17:00',
+  });
+  await expect(await putOnPeriod(page, `Silva ${tag}`)).toBeHidden();
+
+  await page.goto(`/admin/escalacoes?data=${start}`);
+  await page.waitForLoadState('networkidle');
+  const select = page.getByRole('combobox', { name: 'Escalação' });
+  const value = await select.locator('option', { hasText: `鹿島建設${tag}` }).getAttribute('value');
+  await select.selectOption(value ?? '');
+  await page.getByLabel(/^De/).fill(plus(start, 1));
+  await page.getByLabel(/^Até/).fill(plus(start, 3));
+  await page.getByRole('checkbox', { name: `Silva ${tag}` }).click();
+  await expect(page.getByText('3 dias selecionados (1 funcionários × 3 dias)')).toBeVisible();
+  await page.getByRole('radio', { name: 'Valores' }).click();
+  await page.getByRole('textbox', { name: /^Valor dia/ }).fill('25000');
+  await page.getByRole('button', { name: 'Aplicar aos dias selecionados' }).click();
+  await expect(page.getByText('3 dias alterados.')).toBeVisible();
+  await shot(page, 'bulk-editor');
+});

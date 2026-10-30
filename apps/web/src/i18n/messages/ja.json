@@ -258,6 +258,16 @@
       "weak_password": "パスワードが弱すぎます。より長く、推測されにくいものにしてください。",
       "invitation_already_accepted": "この招待はすでに承認されています。メールアドレスとパスワードでログインしてください。",
       "invitation_not_found": "招待が見つかりません。招待を再送してもらってください。"
+    },
+    "dev": {
+      "title": "開発用：ローカルアカウント",
+      "demo": "DEMO オーナー",
+      "sugita": "SUGITA オーナー",
+      "admin": "スーパー管理者",
+      "password": "パスワード（共通）",
+      "copyEmail": "{email}をコピー",
+      "copyPassword": "パスワードをコピー",
+      "copied": "コピーしました。"
     }
   },
   "super": {
@@ -871,7 +881,8 @@
       "mobilePhoneHelp": "連絡用のみ。アプリへのログインはIDとPINで行います。",
       "hireDate": "入社日",
       "status": "状況",
-      "note": "備考"
+      "note": "備考",
+      "dayWage": "日給"
     },
     "types": {
       "regular": "社員",
@@ -902,6 +913,17 @@
       "onceText": "閉じる前に控えるか印刷してください。紛失した場合はPINを再発行します。",
       "print": "印刷",
       "done": "渡しました"
+    },
+    "registration": "登録状況",
+    "missing": "未入力 {count}項目",
+    "complete": "完了",
+    "required": {
+      "nameKana": "フリガナ",
+      "nationality": "国籍",
+      "mobilePhone": "携帯電話",
+      "hireDate": "入社日",
+      "dayWage": "日給",
+      "appAccess": "アプリのアクセス"
     }
   },
   "assignments": {
@@ -988,7 +1010,8 @@
       "overtime": "残業時間",
       "hours": "時間",
       "extraValues": "取引先 {client}・従業員 {employee}／日",
-      "openDay": "{day}を開く"
+      "openDay": "{day}を開く",
+      "unregistered": "未登録 {count}日"
     },
     "status": {
       "teiji": "定時",
@@ -1033,6 +1056,45 @@
       "removeDay": "この日から外す",
       "removeAll": "配置から外す"
     },
-    "yen": "円"
+    "yen": "円",
+    "bulk": {
+      "title": "期間で一括編集",
+      "help": "日付をクリック（Shift+クリックで期間を延長）し、従業員を選んでから変更を適用します。",
+      "assignment": "配置",
+      "from": "開始",
+      "to": "終了",
+      "selectAll": "すべて選択",
+      "clear": "選択を解除",
+      "gridCaption": "配置の従業員と日付",
+      "pickDay": "{day}を選択",
+      "notScheduled": "未配置",
+      "selection": "{count, plural, =0 {選択内に配置日なし} other {#日を選択}}（{people}名 × {days}日）",
+      "nothing": "期間と従業員を選択してください。",
+      "openDay": "日を開く",
+      "action": "変更内容",
+      "actions": {
+        "status": "状況",
+        "chain": "協力会社・現場",
+        "values": "金額",
+        "people": "従業員"
+      },
+      "apply": "選択した日に適用",
+      "applied": "{count}日を変更しました。",
+      "selectFirst": "配置日を1日以上選択してください。",
+      "conflict": "編集中に一部の日が変更されました。何も適用していません。画面を更新したので確認してもう一度適用してください。",
+      "keep": "変更しない",
+      "blankKeeps": "空欄なら各日の金額を保ちます。",
+      "yes": "はい",
+      "no": "いいえ",
+      "extraBlankRemoves": "内容が空欄なら選択日の追加金額を削除します。",
+      "addToPeriod": "期間に従業員を追加",
+      "addHelp": "選択期間の全日に配置します。",
+      "pickPeriod": "先に期間を選択してください。",
+      "added": "{count, plural, =0 {すでに全日に配置済みです。} other {#日追加しました。}}",
+      "removeSelected": "選択した{count}日を削除",
+      "removeTitle": "日を削除",
+      "removeConfirm": "{count}日を配置から削除します。",
+      "removed": "{count}日削除しました。"
+    }
   }
 }

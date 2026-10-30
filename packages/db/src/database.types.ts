@@ -689,6 +689,7 @@ export type Database = {
           company_id: string;
           created_at: string;
           created_by: string | null;
+          day_wage: number;
           deleted_at: string | null;
           employment_type: string;
           full_name: string;
@@ -709,6 +710,7 @@ export type Database = {
           company_id: string;
           created_at?: string;
           created_by?: string | null;
+          day_wage?: number;
           deleted_at?: string | null;
           employment_type: string;
           full_name: string;
@@ -728,6 +730,7 @@ export type Database = {
           company_id?: string;
           created_at?: string;
           created_by?: string | null;
+          day_wage?: number;
           deleted_at?: string | null;
           employment_type?: string;
           full_name?: string;
@@ -1766,6 +1769,7 @@ export type Database = {
         Args: { p_company_id: string; p_employee_id: string };
         Returns: Json;
       };
+      bulk_update_assignment_days: { Args: { p: Json }; Returns: number };
       cancel_company: {
         Args: { p_company_id: string; p_effective_on?: string; p_reason: string };
         Returns: string;
@@ -1851,6 +1855,7 @@ export type Database = {
       reactivate_company: { Args: { p_company_id: string; p_reason: string }; Returns: string };
       recompute_company_status: { Args: { p_today?: string }; Returns: number };
       register_saas_payment: { Args: { p: Json; p_charge_id: string }; Returns: Json };
+      remove_assignment_days: { Args: { p: Json }; Returns: number };
       remove_assignment_employee: {
         Args: {
           p_assignment_id: string;

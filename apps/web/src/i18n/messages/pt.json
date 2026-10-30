@@ -258,6 +258,16 @@
       "weak_password": "Senha fraca demais. Use uma senha mais longa e menos óbvia.",
       "invitation_already_accepted": "Este convite já foi aceito. Entre com seu e-mail e senha.",
       "invitation_not_found": "Convite não encontrado. Peça um novo convite."
+    },
+    "dev": {
+      "title": "Desenvolvimento: contas locais",
+      "demo": "Dono DEMO",
+      "sugita": "Dono SUGITA",
+      "admin": "Super Admin",
+      "password": "Senha (todas)",
+      "copyEmail": "Copiar {email}",
+      "copyPassword": "Copiar a senha",
+      "copied": "Copiado."
     }
   },
   "super": {
@@ -871,7 +881,8 @@
       "mobilePhoneHelp": "Só para contato. O login no app é pelo ID e PIN.",
       "hireDate": "Data de entrada",
       "status": "Situação",
-      "note": "Observação"
+      "note": "Observação",
+      "dayWage": "Diária (valor por dia)"
     },
     "types": {
       "regular": "社員 (efetivo)",
@@ -902,6 +913,17 @@
       "onceText": "Anote ou imprima antes de fechar. Se for perdido, redefina o PIN.",
       "print": "Imprimir",
       "done": "Já entreguei"
+    },
+    "registration": "Cadastro",
+    "missing": "{count, plural, one {Falta # campo} other {Faltam # campos}}",
+    "complete": "Completo",
+    "required": {
+      "nameKana": "Nome em katakana",
+      "nationality": "Nacionalidade",
+      "mobilePhone": "Celular",
+      "hireDate": "Data de entrada",
+      "dayWage": "Diária",
+      "appAccess": "Acesso ao app"
     }
   },
   "assignments": {
@@ -988,7 +1010,8 @@
       "overtime": "Horas extras",
       "hours": "Horário",
       "extraValues": "contratante {client} · funcionário {employee} por dia",
-      "openDay": "Abrir o dia {day}"
+      "openDay": "Abrir o dia {day}",
+      "unregistered": "{count, plural, one {# dia sem registro} other {# dias sem registro}}"
     },
     "status": {
       "teiji": "定時",
@@ -1033,6 +1056,45 @@
       "removeDay": "Tirar deste dia",
       "removeAll": "Tirar da escalação"
     },
-    "yen": "円"
+    "yen": "円",
+    "bulk": {
+      "title": "Edição por período",
+      "help": "Clique no dia (Shift+clique estende o período) e marque os funcionários; depois escolha a alteração e aplique.",
+      "assignment": "Escalação",
+      "from": "De",
+      "to": "Até",
+      "selectAll": "Selecionar tudo",
+      "clear": "Limpar seleção",
+      "gridCaption": "Funcionários e dias da escalação",
+      "pickDay": "Selecionar o dia {day}",
+      "notScheduled": "não escalado",
+      "selection": "{count, plural, =0 {Nenhum dia escalado na seleção} one {# dia selecionado} other {# dias selecionados}} ({people} funcionários × {days} dias)",
+      "nothing": "Selecione um período e os funcionários.",
+      "openDay": "Abrir dia",
+      "action": "Alteração",
+      "actions": {
+        "status": "Situação",
+        "chain": "Subcontratante e local",
+        "values": "Valores",
+        "people": "Funcionários"
+      },
+      "apply": "Aplicar aos dias selecionados",
+      "applied": "{count, plural, one {# dia alterado.} other {# dias alterados.}}",
+      "selectFirst": "Selecione pelo menos um dia escalado.",
+      "conflict": "Alguns dias mudaram enquanto você editava. Nada foi aplicado; a tela foi atualizada, confira e aplique de novo.",
+      "keep": "Manter como está",
+      "blankKeeps": "Vazio mantém o valor de cada dia.",
+      "yes": "Sim",
+      "no": "Não",
+      "extraBlankRemoves": "Descrição vazia remove o adicional dos dias selecionados.",
+      "addToPeriod": "Adicionar funcionário no período",
+      "addHelp": "Entra em todos os dias do período selecionado.",
+      "pickPeriod": "Selecione o período primeiro.",
+      "added": "{count, plural, =0 {O funcionário já estava em todos os dias.} one {# dia adicionado.} other {# dias adicionados.}}",
+      "removeSelected": "Remover os {count} dias selecionados",
+      "removeTitle": "Remover dias",
+      "removeConfirm": "{count, plural, one {# dia será removido da escalação.} other {# dias serão removidos da escalação.}}",
+      "removed": "{count, plural, one {# dia removido.} other {# dias removidos.}}"
+    }
   }
 }

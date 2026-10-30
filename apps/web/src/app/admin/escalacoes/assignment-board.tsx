@@ -53,7 +53,8 @@ function useDayFormats() {
     return {
       monthDay: (d: string) => md.format(at(d)),
       weekday: (d: string) => wd.format(at(d)),
-      range: (a: string, b: string) => md.formatRange(at(a), at(b)),
+      // Not formatRange: Node and the browser put different spaces around the dash (hydration).
+      range: (a: string, b: string) => `${md.format(at(a))} – ${md.format(at(b))}`,
     };
   }, [locale]);
 }
@@ -113,11 +114,16 @@ export function AssignmentBoard({
     ).values(),
   ];
   const hasExtra = board.extra_description !== null;
+  // Status frame: yellow while a past day is still not registered, green otherwise.
+  const unregistered = board.days.filter((d) => d.day < today && d.status === 'pending').length;
 
   return (
     <article
       id={`a-${board.id}`}
-      className="mk-card rounded-lg border border-line bg-surface-1 shadow-sm"
+      className={cn(
+        'mk-frame rounded-lg bg-surface-1',
+        unregistered > 0 ? '[--frame:var(--warning)]' : '[--frame:var(--success)]',
+      )}
     >
       <button
         type="button"
@@ -146,6 +152,11 @@ export function AssignmentBoard({
           ))}
           {board.title ? (
             <span className="truncate text-sm text-ink-muted">{board.title}</span>
+          ) : null}
+          {unregistered > 0 ? (
+            <Badge variant="warning" dot>
+              {t('assignments.board.unregistered', { count: unregistered })}
+            </Badge>
           ) : null}
         </span>
         <span className="type-num inline-flex items-center gap-1.5 text-sm text-ink-muted">

@@ -104,6 +104,25 @@ export const daySchema = z
   });
 export type DayInput = z.input<typeof daySchema>;
 
+/** Panel 2: what a bulk edit changes; absent keys stay as they are (R06-11). */
+export const bulkSetSchema = z
+  .object({
+    status: z.enum(['pending', 'work', 'off']).optional(),
+    period: z.enum(PERIODS).optional(),
+    overtimeMinutes: minutes.optional(),
+    chainId: z.union([z.literal(''), z.uuid()]).optional(),
+    siteId: z.union([z.literal(''), z.uuid()]).optional(),
+    dayRate: dayRate.optional(),
+    taxRate: taxRate.optional(),
+    priceIncludesTax: z.boolean().optional(),
+    clientExtra: z
+      .object({ description: optional(freeText({ max: 60 })), amount, taxable: z.boolean() })
+      .optional(),
+    employeeExtra: z.object({ description: optional(freeText({ max: 60 })), amount }).optional(),
+  })
+  .refine((v) => Object.keys(v).length > 0, 'validation.required');
+export type BulkSet = z.input<typeof bulkSetSchema>;
+
 /** Days of a period, inclusive. */
 export function periodDays(startsOn: string, endsOn: string): string[] {
   const days: string[] = [];

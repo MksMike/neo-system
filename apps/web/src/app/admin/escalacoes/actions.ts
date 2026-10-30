@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { defineAction } from '@/server/define-action';
 import { officeForAction } from '@/server/office';
 import { userClient } from '@/server/session';
-import { addEmployeeSchema, assignmentSchema, daySchema } from './schema';
+import { addEmployeeSchema, assignmentSchema, bulkSetSchema, daySchema } from './schema';
 
 /** Creates (id from the screen, safe to retry) or edits (with `version`) an assignment. */
 export const saveAssignment = defineAction({
@@ -165,5 +165,69 @@ export const removeEmployee = defineAction({
     });
     if (error) throw error;
     return { employeeId };
+  },
+});
+
+const selection = z
+  .array(z.object({ id: z.uuid(), version: z.number().int().min(1) }))
+  .min(1)
+  .max(2000);
+
+/** Panel 2: applies the same change to every selected day (R06-11); old versions abort it all. */
+export const bulkUpdateDays = defineAction({
+  name: 'assignment.bulk_update',
+  schema: z.object({ assignmentId: z.uuid(), days: selection, set: bulkSetSchema }),
+  handler: async ({ assignmentId, days, set }) => {
+    const office = await officeForAction();
+    const supabase = await userClient();
+    const { data, error } = await supabase.rpc('bulk_update_assignment_days', {
+      p: {
+        company_id: office.companyId,
+        assignment_id: assignmentId,
+        days,
+        set: {
+          ...(set.status ? { status: set.status } : {}),
+          ...(set.period ? { period: set.period } : {}),
+          ...(set.overtimeMinutes !== undefined ? { overtime_minutes: set.overtimeMinutes } : {}),
+          ...(set.chainId !== undefined ? { chain_id: set.chainId || null } : {}),
+          ...(set.siteId !== undefined ? { site_id: set.siteId || null } : {}),
+          ...(set.dayRate !== undefined ? { day_rate: set.dayRate } : {}),
+          ...(set.taxRate !== undefined ? { tax_rate: set.taxRate } : {}),
+          ...(set.priceIncludesTax !== undefined
+            ? { price_includes_tax: set.priceIncludesTax }
+            : {}),
+          ...(set.clientExtra
+            ? {
+                client_extra_description: set.clientExtra.description ?? null,
+                client_extra_amount: set.clientExtra.amount,
+                client_extra_taxable: set.clientExtra.taxable,
+              }
+            : {}),
+          ...(set.employeeExtra
+            ? {
+                employee_extra_description: set.employeeExtra.description ?? null,
+                employee_extra_amount: set.employeeExtra.amount,
+              }
+            : {}),
+        },
+      },
+    });
+    if (error) throw error;
+    return { changed: data };
+  },
+});
+
+/** Panel 2: removes the selected days (logical deletion). */
+export const removeDays = defineAction({
+  name: 'assignment.remove_days',
+  schema: z.object({ assignmentId: z.uuid(), days: selection }),
+  handler: async ({ assignmentId, days }) => {
+    const office = await officeForAction();
+    const supabase = await userClient();
+    const { data, error } = await supabase.rpc('remove_assignment_days', {
+      p: { company_id: office.companyId, assignment_id: assignmentId, days },
+    });
+    if (error) throw error;
+    return { removed: data };
   },
 });
