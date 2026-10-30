@@ -18,14 +18,8 @@ import { useState, useSyncExternalStore, useTransition } from 'react';
 import { signOut } from '@/app/(auth)/actions';
 import { saveMyLocale } from '@/i18n/actions';
 import { isLocale, LOCALES } from '@/i18n/config';
-import { HUE_COOKIE, HUES, MODE_COOKIE, type Hue, type Mode } from '@/lib/theme';
+import { MODE_COOKIE, type Mode } from '@/lib/theme';
 import { useAction } from '@/lib/use-action';
-
-const SWATCHES: Record<Hue, string> = {
-  azul: 'linear-gradient(135deg, #1E3A8A, #3A63CF)',
-  grafite: 'linear-gradient(135deg, #202024, #4D4D56)',
-  roxo: 'linear-gradient(135deg, #4A1F8C, #7C4DD6)',
-};
 
 const DARK_QUERY = '(prefers-color-scheme: dark)';
 
@@ -70,13 +64,11 @@ function Avatar({ size = 'md' }: { size?: 'md' | 'lg' }) {
 export function AccountMenu({
   name,
   email,
-  initialHue,
   initialMode,
   manageHref,
 }: {
   name: string;
   email: string;
-  initialHue: Hue;
   initialMode: Mode;
   manageHref?: string;
 }) {
@@ -84,7 +76,6 @@ export function AccountMenu({
   const locale = useLocale();
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [hue, setHue] = useState(initialHue);
   // null = "system": follows the device until the person picks light or dark here.
   const [chosenDark, setChosenDark] = useState<boolean | null>(
     initialMode === 'sistema' ? null : initialMode === 'escuro',
@@ -99,12 +90,6 @@ export function AccountMenu({
     setChosenDark(nextDark);
     document.documentElement.setAttribute('data-mode', mode);
     saveThemeCookie(MODE_COOKIE, mode);
-  }
-
-  function chooseHue(next: Hue) {
-    setHue(next);
-    document.documentElement.setAttribute('data-hue', next);
-    saveThemeCookie(HUE_COOKIE, next);
   }
 
   function chooseLocale(next: string) {
@@ -161,23 +146,6 @@ export function AccountMenu({
               aria-label={t('account.darkMode')}
             />
             <Moon aria-hidden className="size-4" strokeWidth={1.75} />
-          </span>
-          <span role="radiogroup" aria-label={t('preferences.theme')} className="flex gap-2">
-            {HUES.map((h) => (
-              <button
-                key={h}
-                type="button"
-                role="radio"
-                aria-checked={hue === h}
-                aria-label={t(`preferences.hues.${h}`)}
-                title={t(`preferences.hues.${h}`)}
-                onClick={() => {
-                  chooseHue(h);
-                }}
-                style={{ background: SWATCHES[h] }}
-                className="size-6 cursor-pointer rounded-full border-2 border-surface-1 p-0 shadow-[0_0_0_1px_var(--line)] transition-shadow duration-(--dur-fast) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus aria-checked:shadow-[0_0_0_2px_var(--focus)]"
-              />
-            ))}
           </span>
         </div>
 

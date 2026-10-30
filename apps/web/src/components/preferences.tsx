@@ -6,46 +6,19 @@ import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { setLocale } from '@/i18n/actions';
 import { isLocale, LOCALES } from '@/i18n/config';
-import {
-  HUE_COOKIE,
-  HUES,
-  MODE_COOKIE,
-  MODES,
-  parseHue,
-  parseMode,
-  type Hue,
-  type Mode,
-} from '@/lib/theme';
-
-const SWATCHES: Record<Hue, string> = {
-  azul: 'linear-gradient(135deg, #1E3A8A, #3A63CF)',
-  grafite: 'linear-gradient(135deg, #202024, #4D4D56)',
-  roxo: 'linear-gradient(135deg, #4A1F8C, #7C4DD6)',
-};
+import { MODE_COOKIE, MODES, parseMode, type Mode } from '@/lib/theme';
 
 function saveThemeCookie(name: string, value: string) {
   document.cookie = `${name}=${value}; path=/; max-age=31536000; samesite=lax`;
 }
 
-/** Theme hue × mode. Applies at once on <html> and saves cookies for the next server render. */
-export function ThemeSwitcher({ initialHue, initialMode }: { initialHue: Hue; initialMode: Mode }) {
+/** Light/dark mode (MK-UI identity has one palette, ADR 0026). Applies at once on <html> and saves cookies for the next server render. */
+export function ThemeSwitcher({ initialMode }: { initialMode: Mode }) {
   const t = useTranslations('preferences');
-  const [hue, setHue] = useState(initialHue);
   const [mode, setMode] = useState(initialMode);
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <SegmentedControl
-        label={t('theme')}
-        value={hue}
-        options={HUES.map((h) => ({ value: h, label: t(`hues.${h}`), swatch: SWATCHES[h] }))}
-        onValueChange={(v) => {
-          const next = parseHue(v);
-          setHue(next);
-          document.documentElement.dataset.hue = next;
-          saveThemeCookie(HUE_COOKIE, next);
-        }}
-      />
       <SegmentedControl
         label={t('mode')}
         value={mode}

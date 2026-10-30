@@ -2,17 +2,18 @@ import { Toaster, TooltipProvider } from '@neo/ui';
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getTranslations } from 'next-intl/server';
-import { IBM_Plex_Mono, IBM_Plex_Sans_JP } from 'next/font/google';
+import { IBM_Plex_Mono, Noto_Sans_JP } from 'next/font/google';
 import { cookies } from 'next/headers';
 import type { ReactNode } from 'react';
 import { HUE_COOKIE, MODE_COOKIE, parseHue, parseMode } from '@/lib/theme';
 import './globals.css';
 
-const plexSans = IBM_Plex_Sans_JP({
+// Identidade MK-UI (ADR 0026): Noto Sans JP cobre kanji, hiragana e katakana com o mesmo desenho.
+const notoSans = Noto_Sans_JP({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   preload: false,
-  variable: '--font-plex-sans',
+  variable: '--font-noto-sans',
 });
 
 const plexMono = IBM_Plex_Mono({
@@ -40,7 +41,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       lang={locale}
       data-hue={hue}
       data-mode={mode}
-      className={`${plexSans.variable} ${plexMono.variable}`}
+      className={`${notoSans.variable} ${plexMono.variable}`}
     >
       <body>
         <NextIntlClientProvider>

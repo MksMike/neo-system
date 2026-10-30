@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import { AccountMenu } from '@/components/account-menu';
-import { HUE_COOKIE, MODE_COOKIE, parseHue, parseMode } from '@/lib/theme';
+import { MODE_COOKIE, parseMode } from '@/lib/theme';
 import { getSession } from '@/server/session';
 import { MobileMenu } from './mobile-menu';
 import { SuperNav } from './super-nav';
@@ -37,7 +37,6 @@ export default async function SuperLayout({ children }: { children: ReactNode })
               <AccountMenu
                 name={session.displayName ?? session.email.split('@')[0] ?? session.email}
                 email={session.email}
-                initialHue={parseHue(cookieStore.get(HUE_COOKIE)?.value)}
                 initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)}
               />
             </div>

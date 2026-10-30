@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
-import { HUE_COOKIE, MODE_COOKIE, parseHue, parseMode } from '@/lib/theme';
+import { MODE_COOKIE, parseMode } from '@/lib/theme';
 import { LocaleSwitcher, ThemeSwitcher } from './preferences';
 
 /** Top bar with brand, theme and language (design system page header). */
@@ -21,10 +21,7 @@ export async function TopBar() {
         </span>
       </Link>
       <div className="ml-auto flex flex-wrap items-center gap-2">
-        <ThemeSwitcher
-          initialHue={parseHue(cookieStore.get(HUE_COOKIE)?.value)}
-          initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)}
-        />
+        <ThemeSwitcher initialMode={parseMode(cookieStore.get(MODE_COOKIE)?.value)} />
         <LocaleSwitcher />
       </div>
     </header>
